@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resources :years, controller: "core_induction_programme/years", only: %i[show edit update] do
       resources :modules, controller: "core_induction_programme/modules", only: %i[show edit update] do
         resources :lessons, controller: "core_induction_programme/lessons", only: %i[show edit update] do
-          resources :progresses, controller: "core_induction_programme/progresses", only: %i[update]
+          resource :progress, controller: "core_induction_programme/progress", only: %i[update]
         end
       end
     end
