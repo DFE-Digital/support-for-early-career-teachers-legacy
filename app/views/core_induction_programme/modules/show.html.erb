@@ -1,3 +1,6 @@
+<%= govuk_breadcrumbs breadcrumbs: [
+  ["Home", @current_user ? dashboard_path : cip_path],
+  [@course_module.course_year.title, cip_year_path(@course_module.course_year)]] %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if policy(@course_module).edit? %>

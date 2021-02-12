@@ -1,3 +1,7 @@
+<%= govuk_breadcrumbs breadcrumbs: [
+  ["Home", @current_user ? dashboard_path : cip_path],
+  [@course_lesson.course_module.course_year.title, cip_year_path(@course_lesson.course_module.course_year)],
+  [@course_lesson.course_module.title, cip_year_module_path(@course_lesson.course_module.course_year, @course_lesson.course_module)]] %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">Content change preview</h1>
