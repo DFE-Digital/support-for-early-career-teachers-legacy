@@ -13,7 +13,7 @@ class CoreInductionProgramme::ProgressController < ApplicationController
     authorize progress
     if @current_user.early_career_teacher?
       if params[:progress].include?("complete")
-        progress.update!(progress: "complete")
+        progress.complete!
       end
     end
     redirect_to cip_year_module_url(id: @course_lesson.course_module.id)

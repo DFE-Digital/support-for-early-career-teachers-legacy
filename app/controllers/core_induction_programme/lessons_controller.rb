@@ -12,7 +12,7 @@ class CoreInductionProgramme::LessonsController < ApplicationController
   def show
     if @current_user&.early_career_teacher?
       progress = CourseLessonProgress.find_or_create_by!(early_career_teacher_profile: @current_user.early_career_teacher_profile, course_lesson: @course_lesson)
-      progress.update!(progress: "in_progress") if progress.progress == "not_started"
+      progress.in_progress! if progress.not_started?
     end
   end
 
