@@ -7,7 +7,7 @@ FactoryBot.define do
 
     trait :with_lesson_part do
       after(:create) do |lesson|
-        lesson.course_lesson_parts = [CourseLessonPart.create!(course_lesson: lesson, content: "Content", title: "Title")]
+        lesson.course_lesson_parts = [CourseLessonPart.create!(course_lesson: lesson, content: "No content", title: "Title")]
       end
     end
   end
