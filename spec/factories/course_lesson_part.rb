@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :course_lesson_part do
     title { "Test Course lesson part" }
     content { "No content" }
-    course_lesson { FactoryBot.create(:course_lesson) }
+    course_lesson
   end
 end
