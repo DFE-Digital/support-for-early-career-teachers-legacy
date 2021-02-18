@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CourseModule < ApplicationRecord
+  attr_accessor :progress
+
   belongs_to :course_year
   has_many :course_lessons, dependent: :delete_all
 
@@ -26,5 +28,17 @@ class CourseModule < ApplicationRecord
       lesson.progress = user_progresses.find { |progress| progress.course_lesson == lesson }&.progress || "not_started"
       lesson
     end
+  end
+
+  def user_progress(user)
+    lessons = lessons_with_progress(user)
+    if lessons.all? { |lesson| lesson.progress == "not_started" }
+      return "not_started"
+    end
+    if lessons.all? { |lesson| lesson.progress == "complete" }
+      return "complete"
+    end
+
+    "in_progress"
   end
 end

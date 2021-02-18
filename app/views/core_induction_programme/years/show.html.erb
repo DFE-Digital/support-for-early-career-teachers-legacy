@@ -12,9 +12,26 @@
       </p>
     <% end.empty? %>
     <p>No course modules were found!</p>
-    <% end %>
-    <div class="gem-c-govspeak govuk-govspeak ">
-      <%= @course_year.content_to_html.html_safe %>
-    </div>
+  <% end %>
+  <div class="gem-c-govspeak govuk-govspeak ">
+    <%= @course_year.content_to_html.html_safe %>
   </div>
+  <ol class="app-task-list">
+    <li>
+      <p><strong>Topic materials</strong></p>
+      <ul class="app-task-list__items">
+        <% if @course_modules_with_progress.each do |course_module| %>
+          <li class="app-task-list__item">
+            <span>
+              <%= govuk_link_to course_module.title %>
+            </span>
+            <%= render ProgressLabelComponent.new progress: course_module.progress %>
+          </li>
+        <% end.empty? %>
+        <p>No course modules were found!</p>
+      <% end %>
+    </ul>
+  </li>
+</ol>
+</div>
 </div>
