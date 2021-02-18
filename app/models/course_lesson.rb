@@ -9,6 +9,8 @@ class CourseLesson < ApplicationRecord
   has_one :next_lesson, class_name: "CourseLesson", foreign_key: :previous_lesson_id
   belongs_to :previous_lesson, class_name: "CourseLesson", inverse_of: :next_lesson, optional: true
 
+  has_many :course_lesson_parts
+
   validates :title, presence: { message: "Enter a title" }
   validates :content, presence: { message: "Enter content" }
 

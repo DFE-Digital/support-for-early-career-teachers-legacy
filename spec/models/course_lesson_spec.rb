@@ -17,6 +17,7 @@ RSpec.describe CourseLesson, type: :model do
     it { is_expected.to belong_to(:course_module) }
     it { is_expected.to have_one(:next_lesson) }
     it { is_expected.to belong_to(:previous_lesson).optional }
+    it { is_expected.to have_many(:course_lesson_parts) }
   end
 
   describe "validations" do
