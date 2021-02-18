@@ -12,11 +12,6 @@ class CourseLesson < ApplicationRecord
   has_many :course_lesson_parts
 
   validates :title, presence: { message: "Enter a title" }
-  validates :content, presence: { message: "Enter content" }
 
   attr_accessor :progress
-
-  def content_to_html
-    Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
-  end
 end
