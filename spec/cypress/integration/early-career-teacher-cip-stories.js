@@ -1,4 +1,4 @@
-describe("Admin user interaction with Core Induction Programme", () => {
+describe("ECT user interaction with Core Induction Programme", () => {
   beforeEach(() => {
     cy.login("early_career_teacher");
   });
