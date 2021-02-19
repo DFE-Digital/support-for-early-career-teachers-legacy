@@ -31,7 +31,7 @@ Cypress.Commands.add("appFixtures", (options) => {
 });
 // CypressOnRails: end
 
-afterEach(() => {
+beforeEach(() => {
   cy.app("clean");
 });
 
