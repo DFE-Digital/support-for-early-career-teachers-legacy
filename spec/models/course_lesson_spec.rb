@@ -22,5 +22,6 @@ RSpec.describe CourseLesson, type: :model do
   describe "validations" do
     subject { FactoryBot.create(:course_lesson) }
     it { is_expected.to validate_presence_of(:title).with_message("Enter a title") }
+    it { is_expected.to validate_length_of(:title).is_at_most(255) }
   end
 end

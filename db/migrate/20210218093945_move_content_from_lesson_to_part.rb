@@ -9,7 +9,7 @@ class MoveContentFromLessonToPart < ActiveRecord::Migration[6.1]
 
   def down
     CourseLesson.all.each do |lesson|
-      contents = lesson.course_lesson_parts.map(&:content)
+      contents = lesson.course_lesson_parts_in_order.map(&:content)
       lesson.update!(content: contents.join("\n\n"))
     end
     CourseLessonPart.delete_all

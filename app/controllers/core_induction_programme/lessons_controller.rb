@@ -15,7 +15,7 @@ class CoreInductionProgramme::LessonsController < ApplicationController
       progress.in_progress! if progress.not_started?
     end
     if @course_lesson.course_lesson_parts.first
-      redirect_to cip_year_module_lesson_part_path(lesson_id: @course_lesson.id, id: @course_lesson.course_lesson_parts[0])
+      redirect_to cip_year_module_lesson_part_path(lesson_id: @course_lesson.id, id: @course_lesson.course_lesson_parts_in_order[0])
     end
   end
 

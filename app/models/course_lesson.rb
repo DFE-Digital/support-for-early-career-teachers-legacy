@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CourseLesson < ApplicationRecord
+  include OrderHelper
+
   belongs_to :course_module
 
   # We use previous_lesson_id to store the connections between lessons
@@ -11,7 +13,12 @@ class CourseLesson < ApplicationRecord
 
   has_many :course_lesson_parts
 
-  validates :title, presence: { message: "Enter a title" }
+  validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
 
   attr_accessor :progress
+
+  def course_lesson_parts_in_order
+    preloaded_parts = course_lesson_parts.includes(:previous_lesson_part, :next_lesson_part)
+    elements_in_order(elements: preloaded_parts, previous_method_name: :previous_lesson_part)
+  end
 end

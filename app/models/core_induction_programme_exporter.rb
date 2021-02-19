@@ -18,7 +18,7 @@ class CoreInductionProgrammeExporter
       append: true,
     )
 
-    modules = years.map { |course_year| course_year.course_modules.order(:created_at) }.flatten
+    modules = years.map(&:course_modules_in_order).flatten
     SeedDump.dump(
       modules,
       file: "db/seeds/cip_seed_dump.rb",
@@ -27,7 +27,7 @@ class CoreInductionProgrammeExporter
       append: true,
     )
 
-    lessons = modules.map { |course_module| course_module.course_lessons.order(:created_at) }.flatten
+    lessons = modules.map(&:course_lessons_in_order).flatten
     SeedDump.dump(
       lessons,
       file: "db/seeds/cip_seed_dump.rb",
@@ -36,7 +36,7 @@ class CoreInductionProgrammeExporter
       append: true,
     )
 
-    parts = lessons.map { |course_lesson| course_lesson.course_lesson_parts.order(:created_at) }.flatten
+    parts = lessons.map(&:course_lesson_parts_in_order).flatten
     SeedDump.dump(
       parts,
       file: "db/seeds/cip_seed_dump.rb",
