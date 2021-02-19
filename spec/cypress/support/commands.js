@@ -39,3 +39,20 @@ Cypress.Commands.add("logout", () => {
 
   cy.location("pathname").should("eq", "/");
 });
+
+Cypress.Commands.add("visitYear", () => {
+  cy.visit("/core-induction-programme");
+  cy.get('[href*="/core-induction-programme/years"]')
+    .contains("Test Course year")
+    .click();
+});
+
+Cypress.Commands.add("visitModule", () => {
+  cy.visitYear();
+  cy.get('[href*="/modules/"]').contains("Test Course module").click();
+});
+
+Cypress.Commands.add("visitLesson", () => {
+  cy.visitModule();
+  cy.get('[href*="/lessons/"]').contains("Test Course lesson").click();
+});
