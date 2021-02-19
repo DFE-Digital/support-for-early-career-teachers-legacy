@@ -4,7 +4,6 @@ describe("Admin user interaction with Core Induction Programme", () => {
   });
 
   it("should show a download export button", () => {
-    cy.login("admin");
     cy.visit("/core-induction-programme");
     cy.get("a.govuk-button").contains("Download export").should("exist");
   });
