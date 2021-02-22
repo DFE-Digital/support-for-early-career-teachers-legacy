@@ -2,22 +2,29 @@
 
 class CourseYear < ApplicationRecord
   include CourseYearHelper
+  include OrderHelper
 
   belongs_to :core_induction_programme, optional: true
   has_many :course_modules, dependent: :delete_all
 
-  validates :title, presence: { message: "Enter a title" }
-  validates :content, presence: { message: "Enter content" }
+  validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
+  validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
 
   def content_to_html
     Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
   end
 
   def modules_with_progress(user)
+    modules_in_order = course_modules_in_order
     ect_profile = user&.early_career_teacher_profile
-    return course_modules unless ect_profile
+    return modules_in_order unless ect_profile
 
     set_user_course_module_progresses(get_user_lessons_and_progresses(ect_profile))
+  end
+
+  def course_modules_in_order
+    preloaded_modules = course_modules.includes(:previous_module, :next_module)
+    elements_in_order(elements: preloaded_modules, previous_method_name: :previous_module)
   end
 
 private
