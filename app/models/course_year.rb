@@ -14,17 +14,17 @@ class CourseYear < ApplicationRecord
     Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
   end
 
+  def course_modules_in_order
+    preloaded_modules = course_modules.includes(:previous_module, :next_module)
+    elements_in_order(elements: preloaded_modules, previous_method_name: :previous_module)
+  end
+
   def modules_with_progress(user)
     modules_in_order = course_modules_in_order
     ect_profile = user&.early_career_teacher_profile
     return modules_in_order unless ect_profile
 
     set_user_course_module_progresses(get_user_lessons_and_progresses(ect_profile))
-  end
-
-  def course_modules_in_order
-    preloaded_modules = course_modules.includes(:previous_module, :next_module)
-    elements_in_order(elements: preloaded_modules, previous_method_name: :previous_module)
   end
 
 private
