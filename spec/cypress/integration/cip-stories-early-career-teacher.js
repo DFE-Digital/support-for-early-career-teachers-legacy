@@ -9,47 +9,61 @@ describe("ECT user interaction with Core Induction Programme", () => {
   });
 
   it("should not allow to edit year title", () => {
-    cy.appFactories([["create", "course_year"]]);
+    cy.appFactories([["create", "course_year"]]).as("courseYear");
 
-    cy.visitYear();
-    cy.contains("a.govuk-button", "Edit year content").should("not.exist");
+    cy.get("@courseYear").then(([year]) => {
+      cy.visitYear(year);
+      cy.contains("a.govuk-button", "Edit year content").should("not.exist");
+    });
   });
 
   it("should not allow to edit module title", () => {
-    cy.appFactories([["create", "course_module"]]);
+    cy.appFactories([["create", "course_module"]]).as("courseModule");
 
-    cy.visitModule();
-    cy.contains("a.govuk-button", "Edit module content").should("not.exist");
+    cy.get("@courseModule").then(([module]) => {
+      cy.visitModule(module);
+      cy.contains("a.govuk-button", "Edit module content").should("not.exist");
+    });
   });
 
   it("should not allow to edit lesson title", () => {
-    cy.appFactories([["create", "course_lesson"]]);
+    cy.appFactories([["create", "course_lesson"]]).as("courseLesson");
 
-    cy.visitLesson();
-    cy.contains("a.govuk-button", "Edit lesson").should("not.exist");
+    cy.get("@courseLesson").then(([lesson]) => {
+      cy.visitLesson(lesson);
+      cy.contains("a.govuk-button", "Edit lesson").should("not.exist");
+    });
   });
 
   it("should not allow to edit lesson part title", () => {
-    cy.appFactories([["create", "course_lesson", "with_lesson_part"]]);
+    cy.appFactories([["create", "course_lesson", "with_lesson_part"]]).as(
+      "courseLesson"
+    );
 
-    cy.visitLesson();
-    cy.get("h2").should("contain", "Title");
-    cy.contains("a.govuk-button", "Edit lesson content").should("not.exist");
+    cy.get("@courseLesson").then(([lesson]) => {
+      cy.visitLesson(lesson);
+      cy.get("h2").should("contain", "Title");
+      cy.contains("a.govuk-button", "Edit lesson content").should("not.exist");
+    });
   });
 
   it("should display lesson progress", () => {
-    cy.appFactories([["create", "course_lesson", "with_lesson_part"]]);
+    cy.appFactories([["create", "course_lesson", "with_lesson_part"]]).as(
+      "courseLesson"
+    );
 
-    cy.visitModule();
-    cy.contains("strong.govuk-tag", "not started");
+    cy.get("@courseLesson").then(([lesson]) => {
+      cy.visitModuleOfLesson(lesson);
+      cy.contains("strong.govuk-tag", "not started");
 
-    cy.visitLesson();
-    cy.visitModule();
-    cy.contains("strong.govuk-tag", "in progress");
+      cy.visitLesson(lesson);
+      cy.visitModuleOfLesson(lesson);
+      cy.contains("strong.govuk-tag", "in progress");
 
-    cy.visitLesson();
-    cy.get('[type="checkbox"]').check();
-    cy.get("form").submit();
-    cy.contains("strong.govuk-tag", "complete");
+      cy.visitLesson(lesson);
+      cy.get('[type="checkbox"]').check();
+      cy.get("form").submit();
+      cy.contains("strong.govuk-tag", "complete");
+    });
   });
 });

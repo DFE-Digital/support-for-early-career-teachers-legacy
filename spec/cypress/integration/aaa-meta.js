@@ -24,18 +24,16 @@ describe("Meta test helper tests", () => {
 
     cy.login();
 
-    cy.visitYear();
-
-    cy.visitModule();
     cy.get("@courseLesson").then(([lesson]) => {
+      cy.visitModuleOfLesson(lesson);
       cy.url().should("contain", `/modules/${lesson.course_module_id}`);
     });
 
-    cy.visitLesson();
     cy.get("@courseLesson").then(([lesson]) => {
+      cy.visitLesson(lesson);
       cy.url().should("contain", `/lessons/${lesson.id}`);
+      cy.get(".govuk-govspeak").should("contain", "No content");
     });
-    cy.get(".govuk-govspeak").should("contain", "No content");
   });
 
   it("should have a cleanable database", () => {
