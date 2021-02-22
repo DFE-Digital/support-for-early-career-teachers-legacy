@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CourseYear < ApplicationRecord
-  include CourseYearHelper
+  include CourseLessonProgressHelper
   include OrderHelper
 
   belongs_to :core_induction_programme, optional: true
@@ -24,14 +24,17 @@ class CourseYear < ApplicationRecord
     ect_profile = user&.early_career_teacher_profile
     return modules_in_order unless ect_profile
 
-    set_user_course_module_progresses(get_user_lessons_and_progresses(ect_profile))
+    course_lessons = CourseLesson.where(course_module: modules_in_order)
+    lessons_with_progresses = get_user_lessons_and_progresses(ect_profile, course_lessons)
+
+    compute_user_course_module_progress(lessons_with_progresses, modules_in_order)
   end
 
 private
 
-  def set_user_course_module_progresses(course_lessons)
-    course_modules.map do |course_module|
-      lessons = course_lessons.filter { |lesson| lesson.course_module_id == course_module.id }
+  def compute_user_course_module_progress(lessons_with_progresses, modules_in_order)
+    modules_in_order.map do |course_module|
+      lessons = lessons_with_progresses.filter { |lesson| lesson.course_module_id == course_module.id }
       course_module.progress = course_module_progress_status(lessons)
       course_module
     end

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class CourseModule < ApplicationRecord
-  attr_accessor :progress
   include OrderHelper
-  include CourseYearHelper
+  include CourseLessonProgressHelper
+  attr_accessor :progress
 
   belongs_to :course_year
   has_many :course_lessons, dependent: :delete_all

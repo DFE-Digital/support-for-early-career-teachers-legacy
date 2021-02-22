@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-module CourseYearHelper
-  def get_user_lessons_and_progresses(ect_profile, course_lessons = nil)
-    course_lessons ||= CourseLesson.where(course_module: course_modules)
-
+module CourseLessonProgressHelper
+  def get_user_lessons_and_progresses(ect_profile, course_lessons)
     user_progresses = CourseLessonProgress.where(early_career_teacher_profile: ect_profile, course_lesson: course_lessons).includes(:course_lesson)
 
     course_lessons.map do |lesson|
