@@ -24,25 +24,17 @@ describe("Meta test helper tests", () => {
 
     cy.login();
 
-    cy.visit("/core-induction-programme");
+    cy.visitYear();
 
-    cy.get('[href*="/core-induction-programme/years"]')
-      .contains("Test Course year")
-      .click();
-
-    cy.get('[href*="/modules/"]').contains("Test Course module").click();
-
+    cy.visitModule();
     cy.get("@courseLesson").then(([lesson]) => {
       cy.url().should("contain", `/modules/${lesson.course_module_id}`);
     });
 
-    cy.get('[href*="/lessons/"]').contains("Test Course lesson").click();
-
+    cy.visitLesson();
     cy.get("@courseLesson").then(([lesson]) => {
       cy.url().should("contain", `/lessons/${lesson.id}`);
     });
-
-    cy.get("h1").should("contain", "Test Course lesson");
     cy.get(".govuk-govspeak").should("contain", "No content");
   });
 

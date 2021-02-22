@@ -45,14 +45,17 @@ Cypress.Commands.add("visitYear", () => {
   cy.get('[href*="/core-induction-programme/years"]')
     .contains("Test Course year")
     .click();
+  cy.get("h1").should("contain", "Test Course year");
 });
 
 Cypress.Commands.add("visitModule", () => {
   cy.visitYear();
   cy.get('[href*="/modules/"]').contains("Test Course module").click();
+  cy.get("h1").should("contain", "Test Course module");
 });
 
 Cypress.Commands.add("visitLesson", () => {
   cy.visitModule();
   cy.get('[href*="/lessons/"]').contains("Test Course lesson").click();
+  cy.get("h1").should("contain", "Test Course lesson");
 });

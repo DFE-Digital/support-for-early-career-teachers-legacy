@@ -5,28 +5,25 @@ describe("Admin user interaction with Core Induction Programme", () => {
 
   it("should show a download export button", () => {
     cy.visit("/core-induction-programme");
-    cy.get("a.govuk-button").contains("Download export").should("exist");
+    cy.get("a.govuk-button").contains("Download export");
   });
 
   it("should allow to edit year title", () => {
     cy.appFactories([["create", "course_year"]]);
 
     cy.visitYear();
-    cy.get("h1").should("contain", "Test Course year");
-    cy.get("a.govuk-button").contains("Edit year content").should("exist");
     cy.get("a.govuk-button").contains("Edit year content").click();
 
     cy.get("h1").should("contain", "Content change preview");
     cy.get("input[name='title']").type("New title");
-    cy.get("input").contains("See preview").click();
+    cy.contains("See preview").click();
 
     cy.get("h1").should("contain", "Content change preview");
     cy.visitYear();
-    cy.get("h1").should("contain", "Test Course year");
 
     cy.get("a.govuk-button").contains("Edit year content").click();
     cy.get("input[name='title']").type("New title");
-    cy.get("input").contains("Save changes").click();
+    cy.contains("Save changes").click();
 
     cy.get("h1").should("contain", "New title");
   });
@@ -35,21 +32,18 @@ describe("Admin user interaction with Core Induction Programme", () => {
     cy.appFactories([["create", "course_module"]]);
 
     cy.visitModule();
-    cy.get("h1").should("contain", "Test Course module");
-    cy.get("a.govuk-button").contains("Edit module content").should("exist");
     cy.get("a.govuk-button").contains("Edit module content").click();
 
     cy.get("h1").should("contain", "Content change preview");
     cy.get("input[name='title']").type("New title");
-    cy.get("input").contains("See preview").click();
+    cy.contains("See preview").click();
 
     cy.get("h1").should("contain", "Content change preview");
     cy.visitModule();
-    cy.get("h1").should("contain", "Test Course module");
 
     cy.get("a.govuk-button").contains("Edit module content").click();
     cy.get("input[name='title']").type("New title");
-    cy.get("input").contains("Save changes").click();
+    cy.contains("Save changes").click();
 
     cy.get("h1").should("contain", "New title");
   });
@@ -58,13 +52,11 @@ describe("Admin user interaction with Core Induction Programme", () => {
     cy.appFactories([["create", "course_lesson"]]);
 
     cy.visitLesson();
-    cy.get("h1").should("contain", "Test Course lesson");
-    cy.get("a.govuk-button").contains("Edit lesson").should("exist");
     cy.get("a.govuk-button").contains("Edit lesson").click();
 
     cy.get("h1").should("contain", "Edit lesson");
     cy.get("input[name='title']").type("New title");
-    cy.get("input").contains("Save changes").click();
+    cy.contains("Save changes").click();
 
     cy.get("h1").should("contain", "New title");
   });
@@ -74,12 +66,11 @@ describe("Admin user interaction with Core Induction Programme", () => {
 
     cy.visitLesson();
     cy.get("h2").should("contain", "Title");
-    cy.get("a.govuk-button").contains("Edit lesson content").should("exist");
     cy.get("a.govuk-button").contains("Edit lesson content").click();
 
     cy.get("h1").should("contain", "Content change preview");
     cy.get("input[name='title']").type("New title");
-    cy.get("input").contains("See preview").click();
+    cy.contains("See preview").click();
 
     cy.get("h1").should("contain", "Content change preview");
     cy.visitLesson();
@@ -87,7 +78,7 @@ describe("Admin user interaction with Core Induction Programme", () => {
 
     cy.get("a.govuk-button").contains("Edit lesson content").click();
     cy.get("input[name='title']").type("New title");
-    cy.get("input").contains("Save changes").click();
+    cy.contains("Save changes").click();
 
     cy.get("h2").should("contain", "New title");
   });

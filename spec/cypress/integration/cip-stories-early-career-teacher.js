@@ -12,7 +12,6 @@ describe("ECT user interaction with Core Induction Programme", () => {
     cy.appFactories([["create", "course_year"]]);
 
     cy.visitYear();
-    cy.get("h1").should("contain", "Test Course year");
     cy.contains("a.govuk-button", "Edit year content").should("not.exist");
   });
 
@@ -20,7 +19,6 @@ describe("ECT user interaction with Core Induction Programme", () => {
     cy.appFactories([["create", "course_module"]]);
 
     cy.visitModule();
-    cy.get("h1").should("contain", "Test Course module");
     cy.contains("a.govuk-button", "Edit module content").should("not.exist");
   });
 
@@ -28,7 +26,6 @@ describe("ECT user interaction with Core Induction Programme", () => {
     cy.appFactories([["create", "course_lesson"]]);
 
     cy.visitLesson();
-    cy.get("h1").should("contain", "Test Course lesson");
     cy.contains("a.govuk-button", "Edit lesson").should("not.exist");
   });
 
@@ -44,15 +41,15 @@ describe("ECT user interaction with Core Induction Programme", () => {
     cy.appFactories([["create", "course_lesson", "with_lesson_part"]]);
 
     cy.visitModule();
-    cy.contains("strong.govuk-tag", "not started").should("exist");
+    cy.contains("strong.govuk-tag", "not started");
 
     cy.visitLesson();
     cy.visitModule();
-    cy.contains("strong.govuk-tag", "in progress").should("exist");
+    cy.contains("strong.govuk-tag", "in progress");
 
     cy.visitLesson();
     cy.get('[type="checkbox"]').check();
     cy.get("form").submit();
-    cy.contains("strong.govuk-tag", "complete").should("exist");
+    cy.contains("strong.govuk-tag", "complete");
   });
 });
