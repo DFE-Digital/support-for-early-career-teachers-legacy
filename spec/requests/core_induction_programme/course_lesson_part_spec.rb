@@ -61,13 +61,37 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
     end
 
     describe "POST /core-induction-programme/years/:years_id/modules/:module_id/lessons/:lesson_id/parts/:part_id/split" do
+      it "renders a preview of changes to lesson part" do
+        post "#{course_lesson_part_url}/split", params: {
+          commit: "See preview",
+          split_lesson_part_form: {
+            title: "Updated title one",
+            content: "Updated content",
+            new_title: "Title two",
+            new_content: "Content two",
+          },
+        }
+        expect(response).to render_template(:show_split)
+        expect(response.body).to include("Updated title one")
+        expect(response.body).to include("Updated content")
+        expect(response.body).to include("Title two")
+        expect(response.body).to include("Content two")
+
+        expect(CourseLessonPart.count).to eq(1)
+        course_lesson_part.reload
+        expect(course_lesson_part.content).not_to include("Extra content")
+      end
+
       it "splits the lesson part and redirects to show" do
-        post "#{course_lesson_part_url}/split", params: { split_lesson_part_form: {
-          title: "Updated title one",
-          content: "Updated content",
-          new_title: "Title two",
-          new_content: "Content two",
-        } }
+        post "#{course_lesson_part_url}/split", params: {
+          commit: "Save changes",
+          split_lesson_part_form: {
+            title: "Updated title one",
+            content: "Updated content",
+            new_title: "Title two",
+            new_content: "Content two",
+          },
+        }
         expect(response).to redirect_to(course_lesson_part_url)
 
         expect(CourseLessonPart.count).to eq(2)
@@ -76,6 +100,25 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
         expect(course_lesson_part.content).to eq "Updated content"
         expect(course_lesson_part.next_lesson_part.title).to eq "Title two"
         expect(course_lesson_part.next_lesson_part.content).to eq "Content two"
+
+        post "#{course_lesson_part_url}/split", params: {
+          commit: "Save changes",
+          split_lesson_part_form: {
+            title: "Updated title one again",
+            content: "Updated content again",
+            new_title: "Title one point five",
+            new_content: "Content one point five",
+          },
+        }
+
+        expect(CourseLessonPart.count).to eq(3)
+        course_lesson_part.reload
+        expect(course_lesson_part.title).to eq "Updated title one again"
+        expect(course_lesson_part.content).to eq "Updated content again"
+        expect(course_lesson_part.next_lesson_part.title).to eq "Title one point five"
+        expect(course_lesson_part.next_lesson_part.content).to eq "Content one point five"
+        expect(course_lesson_part.next_lesson_part.next_lesson_part.title).to eq "Title two"
+        expect(course_lesson_part.next_lesson_part.next_lesson_part.content).to eq "Content two"
       end
     end
   end

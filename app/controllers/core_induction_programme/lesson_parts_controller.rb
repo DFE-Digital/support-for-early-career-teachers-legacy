@@ -29,7 +29,7 @@ class CoreInductionProgramme::LessonPartsController < ApplicationController
 
   def split
     @split_lesson_part_form = SplitLessonPartForm.new(lesson_split_params)
-    if @split_lesson_part_form.valid?
+    if @split_lesson_part_form.valid? && params[:commit] == "Save changes"
       ActiveRecord::Base.transaction do
         @new_course_lesson_part = CourseLessonPart.create!(
           title: @split_lesson_part_form.new_title,

@@ -1,5 +1,19 @@
 <%= govuk_breadcrumbs breadcrumbs: course_lesson_breadcrumbs(@current_user, @course_lesson_part.course_lesson) %>
-<h1 class="govuk-heading-l">Content change preview</h1>
+<h1 class="govuk-heading-l">Split lesson part</h1>
+<ul>
+  <li>
+    The part on the left hand side is the one you are splitting (current).
+  </li>
+  <li>
+    The part on the right is the new part.
+  </li>
+  <li>
+    If current part is not last, the new part will be inserted between the current part and the next part.
+  </li>
+  <li>
+    If the current part is last, the new part will become last.
+  </li>
+</ul>
 
 <div style="width: 90vw; margin-left: calc(480px - 45vw)">
   <%= form_with model: @split_lesson_part_form, url: cip_year_module_lesson_part_split_path, method: :post do |f| %>
@@ -7,12 +21,12 @@
 
       <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half">
-        <%= f.govuk_text_field :title, label: { text: "Part one title" } %>
-        <%= f.govuk_text_area :content, label: { text: "Part one content" }, rows: 10 %>
+        <%= f.govuk_text_field :title, label: { text: "Current part title" } %>
+        <%= f.govuk_text_area :content, label: { text: "Current part content" }, rows: 10 %>
       </div>
       <div class="govuk-grid-column-one-half">
-      <%= f.govuk_text_field :new_title, label: { text: "Part two title" } %>
-        <%= f.govuk_text_area :new_content, label: { text: "Part two content" }, rows: 10 %>
+      <%= f.govuk_text_field :new_title, label: { text: "New part title" } %>
+        <%= f.govuk_text_area :new_content, label: { text: "New part content" }, rows: 10 %>
       </div>
     </div>
     <%= f.govuk_submit "See preview" %>
