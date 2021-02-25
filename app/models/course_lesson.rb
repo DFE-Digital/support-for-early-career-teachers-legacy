@@ -14,7 +14,7 @@ class CourseLesson < ApplicationRecord
   has_many :course_lesson_parts
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
-  validates :completion_time_in_minutes, numericality: { greater_than_or_equal_to: 1, allow_nil: true, message: "Enter a number greater than 0" }
+  validates :completion_time_in_minutes, numericality: { greater_than: 0, allow_nil: true, message: "Enter a number greater than 0" }
 
   attr_accessor :progress
 
@@ -23,7 +23,7 @@ class CourseLesson < ApplicationRecord
     elements_in_order(elements: preloaded_parts, previous_method_name: :previous_lesson_part)
   end
 
-  def convert_minutes_to_words(minutes_in_time)
+  def completion_time_in_words(minutes_in_time)
     number_of_hours = minutes_in_time / 60
     number_of_minutes = minutes_in_time % 60
 
