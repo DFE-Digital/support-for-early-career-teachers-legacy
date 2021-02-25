@@ -24,8 +24,7 @@ class CoreInductionProgramme::LessonsController < ApplicationController
   def update
     @course_lesson.assign_attributes(course_lesson_params)
 
-    if @course_lesson.valid?
-      @course_lesson.update!(course_lesson_params)
+    if @course_lesson.update(course_lesson_params)
       flash[:success] = "Your changes have been saved"
       redirect_to cip_year_module_lesson_url
     else
