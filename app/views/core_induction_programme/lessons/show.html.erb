@@ -5,6 +5,10 @@
       <%= link_to "Edit lesson", edit_cip_year_module_lesson_path(id: @course_lesson.id), class: "govuk-button" %>
     <% end %>
     <h1 class="govuk-heading-xl"> <%= @course_lesson.title %></h1>
+    <% if @course_lesson.completion_time_in_minutes %>
+    <h1 class="govuk-heading-m">Duration: <%= @course_lesson.convert_minutes_to_words(
+                                       @course_lesson.completion_time_in_minutes) %></h1>
+      <% end %>
     <p>This lesson has no content!</p>
   </div>
 </div>

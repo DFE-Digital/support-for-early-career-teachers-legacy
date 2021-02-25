@@ -8,10 +8,14 @@
     <% if policy(@course_lesson_part).edit? %>
       <%= link_to "Edit lesson content", edit_cip_year_module_lesson_part_path(@course_lesson_part), class: "govuk-button" %>
     <% end %>
-
     <h1 class="govuk-heading-xl"> <%= @course_lesson_part.course_lesson.title %></h1>
     <h2 class="govuk-heading-l"> <%= @course_lesson_part.title %></h2>
-
+    <% if @course_lesson_part.course_lesson.completion_time_in_minutes %>
+    <h2 class="govuk-caption-m">
+      Duration: <%= @course_lesson_part.course_lesson.convert_minutes_to_words(
+                      @course_lesson_part.course_lesson.completion_time_in_minutes) %>
+    </h2>
+     <% end %>
     <div class="gem-c-govspeak govuk-govspeak ">
       <%= @course_lesson_part.content_to_html.html_safe %>
     </div>
