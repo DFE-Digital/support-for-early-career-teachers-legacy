@@ -22,9 +22,15 @@ class CoreInductionProgramme::LessonsController < ApplicationController
   def edit; end
 
   def update
-    @course_lesson.save!
-    flash[:success] = "Your changes have been saved"
-    redirect_to cip_year_module_lesson_url
+    @course_lesson.assign_attributes(course_lesson_params)
+
+    if @course_lesson.valid?
+      @course_lesson.update!(course_lesson_params)
+      flash[:success] = "Your changes have been saved"
+      redirect_to cip_year_module_lesson_url
+    else
+      render action: "edit"
+    end
   end
 
 private
@@ -32,10 +38,9 @@ private
   def load_course_lesson
     @course_lesson = CourseLesson.find(params[:id])
     authorize @course_lesson
-    @course_lesson.assign_attributes(course_lesson_params)
   end
 
   def course_lesson_params
-    params.permit(:title)
+    params.require(:course_lesson).permit(:title, :completion_time_in_minutes)
   end
 end
