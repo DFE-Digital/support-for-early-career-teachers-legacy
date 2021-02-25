@@ -23,17 +23,17 @@ class CourseLesson < ApplicationRecord
     elements_in_order(elements: preloaded_parts, previous_method_name: :previous_lesson_part)
   end
 
-  def completion_time_in_words(minutes_in_time)
-    number_of_hours = minutes_in_time / 60
-    number_of_minutes = minutes_in_time % 60
+  def duration_in_minutes_in_words
+    number_of_hours = completion_time_in_minutes / 60
+    number_of_minutes = completion_time_in_minutes % 60
 
-    hour = "hour".pluralize(number_of_hours)
-    minute = "minute".pluralize(number_of_minutes)
+    hour_string = "hour".pluralize(number_of_hours)
+    minute_string = "minute".pluralize(number_of_minutes)
 
     if number_of_hours.positive?
-      "#{number_of_hours} #{hour} #{number_of_minutes} #{minute}"
+      "#{number_of_hours} #{hour_string} #{number_of_minutes} #{minute_string}"
     else
-      "#{number_of_minutes} #{minute}"
+      "#{number_of_minutes} #{minute_string}"
     end
   end
 end
