@@ -6,9 +6,10 @@
     <% end %>
     <h1 class="govuk-heading-xl"> <%= @course_lesson.title %></h1>
     <% if @course_lesson.completion_time_in_minutes %>
-    <h1 class="govuk-heading-m">Duration: <%= @course_lesson.convert_minutes_to_words(
-                                       @course_lesson.completion_time_in_minutes) %></h1>
-      <% end %>
+      <h2 class="govuk-heading-m duration">
+        Duration: <%= @course_lesson.completion_time_in_words(@course_lesson.completion_time_in_minutes) %>
+      </h2>
+    <% end %>
     <p>This lesson has no content!</p>
   </div>
 </div>
