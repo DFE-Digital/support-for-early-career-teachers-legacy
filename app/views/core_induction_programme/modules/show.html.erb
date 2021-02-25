@@ -17,7 +17,7 @@
               <div>
                 <%= govuk_link_to lesson.title, cip_year_module_lesson_path(@course_module.course_year, @course_module, lesson) %>
                 <% if lesson.completion_time_in_minutes %>
-                  <p>Duration: <%= lesson.completion_time_in_words(lesson.completion_time_in_minutes) %></p>
+                  <p>Duration: <%= lesson.duration_in_minutes_in_words %></p>
                 <% end %>
               </div>
               <%= render ProgressLabelComponent.new progress: lesson.progress %>
