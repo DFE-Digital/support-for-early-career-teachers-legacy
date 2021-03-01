@@ -1,6 +1,7 @@
 <%= govuk_breadcrumbs breadcrumbs: course_lesson_breadcrumbs(@current_user, @course_lesson_part.course_lesson) %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+
     <% if policy(@course_lesson_part.course_lesson).edit? %>
       <%= link_to "Edit lesson", edit_cip_year_module_lesson_path(id: @course_lesson_part.course_lesson.id), class: "govuk-button" %>
     <% end %>
@@ -10,17 +11,19 @@
     <% if policy(@course_lesson_part).show_split? %>
       <%= link_to "Split lesson content", cip_year_module_lesson_part_split_path(part_id: @course_lesson_part.id), class: "govuk-button" %>
     <% end %>
+
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4"> <%= @course_lesson_part.course_lesson.title %></h1>
     <% if @course_lesson_part.course_lesson.completion_time_in_minutes %>
       <h2 class="govuk-caption-m govuk-!-margin-bottom-8">
         Duration: <%= @course_lesson_part.course_lesson.duration_in_minutes_in_words %>
       </h2>
     <% end %>
-    <h1 class="govuk-heading-xl"> <%= @course_lesson_part.course_lesson.title %></h1>
+
     <h2 class="govuk-heading-l"> <%= @course_lesson_part.title %></h2>
     <div class="gem-c-govspeak govuk-govspeak">
       <%= @course_lesson_part.content_to_html.html_safe %>
     </div>
+
     <% if policy(@course_lesson_part.course_lesson).set_progress? %>
       <%= form_with url: cip_year_module_lesson_progress_path(lesson_id: @course_lesson_part.course_lesson.id), method: :put do |f| %>
         <%= f.govuk_collection_radio_buttons(
