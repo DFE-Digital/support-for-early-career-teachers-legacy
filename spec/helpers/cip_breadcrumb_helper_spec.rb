@@ -35,5 +35,23 @@ describe CipBreadcrumbHelper do
 
       expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], course_year_crumb, course_module_crumb, course_lesson_crumb])
     end
+
+    it "returns a string for the end crumb when rendered the action_name is show" do
+      allow(helper).to receive(:action_name) { "show" }
+
+      course_year_breadcrumb = helper.course_year_breadcrumbs(user, course_year)
+      course_year_crumb = [["Home", "/dashboard"], "Test Course year"]
+
+      expect(course_year_breadcrumb).to eql(course_year_crumb)
+    end
+
+    it "returns the title and url for the end crumb when the action_name is edit" do
+      allow(helper).to receive(:action_name) { "edit" }
+
+      course_year_breadcrumb = helper.course_year_breadcrumbs(user, course_year)
+      course_year_crumb = [["Home", "/dashboard"], [course_year.title, "/core-induction-programme/years/#{course_year.id}"]]
+
+      expect(course_year_breadcrumb).to eql(course_year_crumb)
+    end
   end
 end
