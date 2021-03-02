@@ -37,7 +37,6 @@ describe("Accessibility", () => {
 
     cy.get('[action="/users/sign_in_with_token"] [name="commit"]').click();
     cy.get("@userData").then((user) => {
-      // Update user as previous step caused login token to change
       cy.get("h1").should("contain", `Hi ${user.full_name}`);
     });
 
