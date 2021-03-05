@@ -170,19 +170,19 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
     end
 
     describe "GET /core-induction-programme/years/:years_id/modules/:module_id/lessons/:lesson_id/parts/:part_id/edit" do
-      it "redirects to the sign in page" do
+      it "raises an authorization error" do
         expect { get "#{course_lesson_part_url}/edit" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
     describe "GET /core-induction-programme/years/:years_id/modules/:module_id/lessons/:lesson_id/parts/:part_id/split" do
-      it "redirects to the sign in page" do
+      it "raises an authorization error" do
         expect { get "#{course_lesson_part_url}/split" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
     describe "POST /core-induction-programme/years/:years_id/modules/:module_id/lessons/:lesson_id/parts/:part_id/split" do
-      it "redirects to the sign in page" do
+      it "raises an authorization error" do
         expect { post "#{course_lesson_part_url}/split" }.to raise_error Pundit::NotAuthorizedError
       end
     end
