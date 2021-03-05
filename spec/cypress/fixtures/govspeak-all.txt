@@ -152,7 +152,7 @@ $PriorityList:3
 
 {button}[Continue](https://gov.uk/random){/button}
 
-### Accordion
+### Accordion component
 
 $Accordion
 $Heading
