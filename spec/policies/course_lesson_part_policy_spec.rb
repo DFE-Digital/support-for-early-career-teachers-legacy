@@ -12,6 +12,8 @@ RSpec.describe CourseLessonPartPolicy, type: :policy do
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to permit_action(:show_split) }
     it { is_expected.to permit_action(:split) }
+    it { is_expected.to permit_action(:show_delete) }
+    it { is_expected.to permit_action(:destroy) }
   end
 
   context "trying to edit as user" do
@@ -20,6 +22,8 @@ RSpec.describe CourseLessonPartPolicy, type: :policy do
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action(:show_split) }
     it { is_expected.to forbid_action(:split) }
+    it { is_expected.to forbid_action(:show_delete) }
+    it { is_expected.to forbid_action(:destroy) }
   end
 
   context "trying to edit as ECT" do
@@ -28,6 +32,8 @@ RSpec.describe CourseLessonPartPolicy, type: :policy do
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action(:show_split) }
     it { is_expected.to forbid_action(:split) }
+    it { is_expected.to forbid_action(:show_delete) }
+    it { is_expected.to forbid_action(:destroy) }
   end
 
   context "being a visitor" do
@@ -36,5 +42,7 @@ RSpec.describe CourseLessonPartPolicy, type: :policy do
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action(:show_split) }
     it { is_expected.to forbid_action(:split) }
+    it { is_expected.to forbid_action(:show_delete) }
+    it { is_expected.to forbid_action(:destroy) }
   end
 end
