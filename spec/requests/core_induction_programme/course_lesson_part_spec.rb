@@ -68,7 +68,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
 
         course_lesson_url = "/core-induction-programme/years/#{course_year.id}/modules/#{course_module.id}/lessons/#{course_lesson.id}"
 
-        expect(CourseLessonPart.count).to eq(0)
+        expect(CourseLessonPart.count).to eq(1)
         expect(response).to redirect_to(course_lesson_url)
       end
     end
