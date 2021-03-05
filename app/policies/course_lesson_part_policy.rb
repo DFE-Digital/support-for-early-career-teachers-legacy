@@ -25,4 +25,12 @@ class CourseLessonPartPolicy < ApplicationPolicy
   def split?
     update?
   end
+
+  def show_delete?
+    update?
+  end
+
+  def destroy?
+    update?
+  end
 end
