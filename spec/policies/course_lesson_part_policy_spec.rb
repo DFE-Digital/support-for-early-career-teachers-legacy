@@ -12,17 +12,24 @@ RSpec.describe CourseLessonPartPolicy, type: :policy do
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to permit_action(:show_split) }
     it { is_expected.to permit_action(:split) }
-    it { is_expected.to forbid_action(:show_delete) }
-    it { is_expected.to forbid_action(:destroy) }
 
-    it "permits the show_delete action for admin when there is > 1 course lesson part" do
-      FactoryBot.create(:course_lesson_part, course_lesson: course_lesson_part.course_lesson)
-      is_expected.to permit_action(:show_delete)
+    describe "when there is > 1 course lesson part" do
+      before :each do
+        FactoryBot.create(:course_lesson_part, course_lesson: course_lesson_part.course_lesson)
+      end
+
+      it "permits the show_delete" do
+        is_expected.to permit_action(:show_delete)
+      end
+
+      it "permits the destroy action" do
+        is_expected.to permit_action(:destroy)
+      end
     end
 
-    it "permits the destroy action for admin when there is > 1 course lesson part" do
-      FactoryBot.create(:course_lesson_part, course_lesson: course_lesson_part.course_lesson)
-      is_expected.to permit_action(:destroy)
+    describe "when there is 1 course lesson part" do
+      it { is_expected.to forbid_action(:show_delete) }
+      it { is_expected.to forbid_action(:destroy) }
     end
   end
 
