@@ -27,10 +27,10 @@ class CourseLessonPartPolicy < ApplicationPolicy
   end
 
   def show_delete?
-    update?
+    destroy?
   end
 
   def destroy?
-    update?
+    update? && @record.course_lesson.course_lesson_parts.length > 1
   end
 end

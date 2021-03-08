@@ -71,6 +71,10 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
         expect(CourseLessonPart.count).to eq(1)
         expect(response).to redirect_to(course_lesson_url)
       end
+
+      it "raises an authorization error when there is 1 course lesson part" do
+        expect { delete course_lesson_part_url, params: { id: course_lesson.course_lesson_parts[0].id } }.to raise_error Pundit::NotAuthorizedError
+      end
     end
 
     describe "GET /core-induction-programme/years/:years_id/modules/:module_id/lessons/:lesson_id/parts/:part_id/split" do
@@ -143,9 +147,14 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
     end
 
     describe "GET /core-induction-programme/years/:years_id/modules/:module_id/lessons/:lesson_id/parts/:part_id/show_delete" do
-      it "renders the cip lesson part show_delete page" do
+      it "renders the cip lesson part show_delete page when there is > 1 course lesson part" do
+        FactoryBot.create(:course_lesson_part, course_lesson: course_lesson)
         get "#{course_lesson_part_url}/show_delete"
         expect(response).to render_template(:show_delete)
+      end
+
+      it "raises an authorization error when there is 1 course lesson part" do
+        expect { get "#{course_lesson_part_url}/show_delete" }.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
