@@ -6,7 +6,7 @@ RSpec.describe "Cookies API", type: :request do
   describe "PUT /cookies" do
     it "handles analytics cookie acceptance" do
       headers = { "ACCEPT" => "application/json", "CONTENT_TYPE" => "application/json" }
-      put "/cookies", params: '{"cookies_form":{"analytics_consent":"on"}}', headers: headers
+      put "/cookies", params: { "cookies_form": { "analytics_consent": "on" } }.to_json, headers: headers
 
       expected = { status: "ok", message: "You've accepted analytics cookies." }.to_json
       expect(response.content_type).to include("application/json")
@@ -16,7 +16,7 @@ RSpec.describe "Cookies API", type: :request do
 
     it "handles analytics cookie rejection" do
       headers = { "ACCEPT" => "application/json", "CONTENT_TYPE" => "application/json" }
-      put "/cookies", params: '{"cookies_form":{"analytics_consent":"off"}}', headers: headers
+      put "/cookies", params: { "cookies_form": { "analytics_consent": "off" } }.to_json, headers: headers
 
       expected = { status: "ok", message: "You've rejected analytics cookies." }.to_json
       expect(response.content_type).to include("application/json")
