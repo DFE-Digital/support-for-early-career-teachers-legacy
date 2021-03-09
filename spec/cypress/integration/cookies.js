@@ -28,8 +28,8 @@ describe("Cookie consent", () => {
     );
   });
 
-  it.skip("should be settable through a cookie banner without js", () => {
-    cy.visit("/");
+  it("should be settable through a cookie banner without js", () => {
+    cy.visit("/?nojs=nojs");
 
     cy.get(".js-cookie-form").contains("Accept").click();
 

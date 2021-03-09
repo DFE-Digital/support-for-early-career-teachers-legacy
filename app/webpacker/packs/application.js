@@ -1,3 +1,7 @@
+document.body.className = document.body.className
+  ? `${document.body.className} js-enabled`
+  : "js-enabled";
+
 /* eslint-disable import/first */
 require.context("govuk-frontend/govuk/assets");
 
