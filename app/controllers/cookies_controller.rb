@@ -8,7 +8,7 @@ class CookiesController < ApplicationController
   def update
     analytics_consent = params[:cookies_form][:analytics_consent]
     if %w[on off].include?(analytics_consent)
-      cookies[:cookie_consent_1] = { value: analytics_consent, expires: 1.year }
+      cookies[:cookie_consent_1] = { value: analytics_consent, expires: 1.year.from_now }
     end
 
     respond_to do |format|

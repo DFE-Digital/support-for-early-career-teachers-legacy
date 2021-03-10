@@ -23,13 +23,12 @@ if (cookieBannerEl) {
         const messageEl = cookieBannerEl.querySelector(".js-cookie-message");
         messageEl.textContent = message;
 
-        Array.from(cookieBannerEl.children).forEach((childEl) => {
-          if (childEl.hasAttribute("hidden")) {
-            childEl.removeAttribute("hidden");
-          } else {
-            childEl.setAttribute("hidden", "");
-          }
-        });
+        cookieBannerEl
+          .querySelector(".js-cookie-banner__form")
+          .setAttribute("hidden", "");
+        cookieBannerEl
+          .querySelector(".js-cookie-banner__success")
+          .removeAttribute("hidden");
       });
 
     e.preventDefault();
