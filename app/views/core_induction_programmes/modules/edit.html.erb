@@ -6,11 +6,7 @@
       <%= f.govuk_text_field :title, label: { text: "Module title" } %>
       <%= f.govuk_collection_radio_buttons(
             :term,
-            [
-              OpenStruct.new(id: "autumn", name: "Autumn"),
-              OpenStruct.new(id: "winter", name: "Winter"),
-              OpenStruct.new(id: "spring", name: "Spring"),
-            ],
+            CourseModule.term_options,
             :id,
             :name,
             legend: {text: "Module term", class: "govuk-label"}) %>
