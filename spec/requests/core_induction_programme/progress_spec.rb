@@ -18,7 +18,7 @@ RSpec.describe "Core Induction Programme Progress", type: :request do
       sign_in user
     end
 
-    describe "PUT /core-induction-programme/years/:years/modules/:modules/lessons/:lessons/progress" do
+    describe "PUT /years/:years/modules/:modules/lessons/:lessons/progress" do
       it "updates the progress of an ECT" do
         put progress_url, params: { progress: "complete" }
         expect(progress).to eq("complete")

@@ -26,7 +26,8 @@
     <p>Although structured differently, each programme contains approximately the same amount of self-study material in terms of hours covered.</p>
     <p>Schools can use or draw upon any of four core induction programmes published here in whichever way is most beneficial to them and their early career teachers.</p>
     <p>You can read more about these suppliers on their own websites or in the course descriptions below.</p>
-    <h2 class="govuk-heading-l">Years</h2>
+
+    <h2 class="govuk-heading-l">Courses</h2>
     <% if @core_induction_programmes.any? %>
       <% @core_induction_programmes.each do |core_induction_programme| %>
         <p><%= govuk_link_to core_induction_programme.name, cip_path(id: core_induction_programme.id) %></p>

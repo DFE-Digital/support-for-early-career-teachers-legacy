@@ -4,7 +4,7 @@ describe("Admin user interaction with Core Induction Programme", () => {
   });
 
   it("should show a download export button", () => {
-    cy.visit("/core-induction-programme");
+    cy.visit("/core-induction-programmes");
     cy.get("a.govuk-button").contains("Download export");
   });
 
@@ -16,7 +16,7 @@ describe("Admin user interaction with Core Induction Programme", () => {
       cy.get("a.govuk-button").contains("Edit year content").click();
 
       cy.get("h1").should("contain", "Content change preview");
-      cy.get("input[name='title']").type("New title");
+      cy.get("input[name='course_module[title]']").type("New title");
       cy.contains("See preview").click();
 
       cy.get("h1").should("contain", "Content change preview");
