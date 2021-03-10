@@ -16,7 +16,7 @@ describe("Admin user interaction with Core Induction Programme", () => {
       cy.get("a.govuk-button").contains("Edit year content").click();
 
       cy.get("h1").should("contain", "Content change preview");
-      cy.get("input[name='course_module[title]']").type("New title");
+      cy.get("input[name='title']").type("New title");
       cy.contains("See preview").click();
 
       cy.get("h1").should("contain", "Content change preview");
@@ -38,14 +38,14 @@ describe("Admin user interaction with Core Induction Programme", () => {
       cy.get("a.govuk-button").contains("Edit module content").click();
 
       cy.get("h1").should("contain", "Content change preview");
-      cy.get("input[name='title']").type("New title");
+      cy.get("input[name='course_module[title]']").type("New title");
       cy.contains("See preview").click();
 
       cy.get("h1").should("contain", "Content change preview");
       cy.visitModule(module);
 
       cy.get("a.govuk-button").contains("Edit module content").click();
-      cy.get("input[name='title']").type("New title");
+      cy.get("input[name='course_module[title]']").type("New title");
       cy.contains("Save changes").click();
 
       cy.get("h1").should("contain", "New title");
