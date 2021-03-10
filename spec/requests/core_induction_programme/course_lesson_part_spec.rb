@@ -7,7 +7,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
   let(:course_lesson) { course_lesson_part.course_lesson }
   let(:course_module) { course_lesson.course_module }
   let(:course_year) { course_module.course_year }
-  let(:course_lesson_part_url) { "/core-induction-programme/years/#{course_year.id}/modules/#{course_module.id}/lessons/#{course_lesson.id}/parts/#{course_lesson_part.id}" }
+  let(:course_lesson_part_url) { "/years/#{course_year.id}/modules/#{course_module.id}/lessons/#{course_lesson.id}/parts/#{course_lesson_part.id}" }
 
   describe "when an admin user is logged in" do
     before do
@@ -66,7 +66,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
         }
         delete course_lesson_part_url, params: { id: course_lesson.course_lesson_parts[1].id }
 
-        course_lesson_url = "/core-induction-programme/years/#{course_year.id}/modules/#{course_module.id}/lessons/#{course_lesson.id}"
+        course_lesson_url = "/years/#{course_year.id}/modules/#{course_module.id}/lessons/#{course_lesson.id}"
 
         expect(CourseLessonPart.count).to eq(1)
         expect(response).to redirect_to(course_lesson_url)

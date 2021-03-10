@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Core Induction Programme Module", type: :request do
   let(:course_module) { FactoryBot.create(:course_module) }
-  let(:course_module_url) { "/core-induction-programme/years/#{course_module.course_year.id}/modules/#{course_module.id}" }
+  let(:course_module_url) { "/years/#{course_module.course_year.id}/modules/#{course_module.id}" }
 
   describe "when an admin user is logged in" do
     before do
@@ -28,7 +28,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
     describe "PUT /core-induction-programme/years/:years_id/modules/module_id" do
       it "renders a preview of changes to module" do
-        put course_module_url, params: { commit: "See preview", content: "Extra content" }
+        put course_module_url, params: { commit: "See preview", course_module: { content: "Extra content" } }
         expect(response).to render_template(:edit)
         expect(response.body).to include("Extra content")
         course_module.reload
@@ -36,14 +36,14 @@ RSpec.describe "Core Induction Programme Module", type: :request do
       end
 
       it "redirects to the module page when saving content" do
-        put course_module_url, params: { commit: "Save changes", content: "Adding new content" }
+        put course_module_url, params: { commit: "Save changes", course_module: { content: "Adding new content" } }
         expect(response).to redirect_to(course_module_url)
         get course_module_url
         expect(response.body).to include("Adding new content")
       end
 
       it "redirects to the module page when saving title" do
-        put course_module_url, params: { commit: "Save changes", title: "New title" }
+        put course_module_url, params: { commit: "Save changes", course_module: { title: "New title" } }
         expect(response).to redirect_to(course_module_url)
         get course_module_url
         expect(response.body).to include("New title")
@@ -88,7 +88,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
     describe "PUT /core-induction-programme/years/:years_id/modules/module_id" do
       it "redirects to the sign in page" do
-        put course_module_url, params: { commit: "Save changes", content: course_module.content }
+        put course_module_url, params: { commit: "Save changes", course_module: { content: course_module.content } }
         expect(response).to redirect_to("/users/sign_in")
       end
     end

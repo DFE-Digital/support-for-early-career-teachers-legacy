@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Core Induction Programme Lesson", type: :request do
   let(:course_lesson) { FactoryBot.create(:course_lesson) }
-  let(:course_lesson_url) { "/core-induction-programme/years/#{course_lesson.course_module.course_year.id}/modules/#{course_lesson.course_module.id}/lessons/#{course_lesson.id}" }
+  let(:course_lesson_url) { "/years/#{course_lesson.course_module.course_year.id}/modules/#{course_lesson.course_module.id}/lessons/#{course_lesson.id}" }
 
   describe "when an admin user is logged in" do
     before do

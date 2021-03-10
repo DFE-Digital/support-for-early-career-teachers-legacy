@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Core Induction Programme Year", type: :request do
   let(:course_year) { FactoryBot.create(:course_year) }
-  let(:course_year_url) { "/core-induction-programme/years/#{course_year.id}" }
+  let(:course_year_url) { "/years/#{course_year.id}" }
 
   describe "when an admin user is logged in" do
     before do
