@@ -23,12 +23,12 @@ class CourseYear < ApplicationRecord
     modules_with_progress(user, course_modules.autumn)
   end
 
-  def winter_modules_with_progress(user)
-    modules_with_progress(user, course_modules.winter)
-  end
-
   def spring_modules_with_progress(user)
     modules_with_progress(user, course_modules.spring)
+  end
+
+  def summer_modules_with_progress(user)
+    modules_with_progress(user, course_modules.summer)
   end
 
   def modules_with_progress(user, modules_to_order = course_modules)

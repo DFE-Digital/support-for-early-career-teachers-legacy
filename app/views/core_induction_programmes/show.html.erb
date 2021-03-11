@@ -14,12 +14,11 @@
         <h3 class="govuk-heading-l">Autumn term</h3>
         <%= render "module_list", locals = { course_modules: course_year.autumn_modules_with_progress(@current_user) } %>
 
-        <h3 class="govuk-heading-l">Winter term</h3>
-        <%= render "module_list", locals = { course_modules: course_year.winter_modules_with_progress(@current_user) } %>
-
         <h3 class="govuk-heading-l">Spring term</h3>
         <%= render "module_list", locals = { course_modules: course_year.spring_modules_with_progress(@current_user) } %>
 
+        <h3 class="govuk-heading-l">Summer term</h3>
+        <%= render "module_list", locals = { course_modules: course_year.summer_modules_with_progress(@current_user) } %>
       <% end %>
     <% else %>
       <p>No course years were found!</p>

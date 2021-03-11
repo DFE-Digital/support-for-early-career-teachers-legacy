@@ -20,8 +20,8 @@ class CourseModule < ApplicationRecord
   def self.terms
     {
       autumn: "autumn",
-      winter: "winter",
       spring: "spring",
+      summer: "summer",
     }
   end
 

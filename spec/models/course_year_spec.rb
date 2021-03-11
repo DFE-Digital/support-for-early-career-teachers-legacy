@@ -31,7 +31,7 @@ RSpec.describe CourseYear, type: :model do
       @teacher = FactoryBot.create(:user, :early_career_teacher)
 
       @course_year = FactoryBot.create(:course_year)
-      @course_module_one = FactoryBot.create(:course_module, title: "One", course_year: @course_year, term: "winter")
+      @course_module_one = FactoryBot.create(:course_module, title: "One", course_year: @course_year, term: "summer")
       @course_lesson_one = FactoryBot.create(:course_lesson, course_module: @course_module_one)
       @course_lesson_two = FactoryBot.create(:course_lesson, course_module: @course_module_one)
 
