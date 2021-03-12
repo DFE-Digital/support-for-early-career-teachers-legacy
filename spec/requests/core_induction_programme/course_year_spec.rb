@@ -30,15 +30,15 @@ RSpec.describe "Core Induction Programme Year", type: :request do
 
       it "redirects to the year page and updates content when saving changes" do
         put course_year_url, params: { commit: "Save changes", content: "Adding new content" }
-        expect(response).to redirect_to(course_year_url)
-        get course_year_url
+        expect(response).to redirect_to(cip_url(course_year.core_induction_programme))
+        get cip_url(course_year.core_induction_programme)
         expect(response.body).to include("Adding new content")
       end
 
       it "redirects to the year page when saving title" do
         put course_year_url, params: { commit: "Save changes", title: "New title" }
-        expect(response).to redirect_to(course_year_url)
-        get course_year_url
+        expect(response).to redirect_to(cip_url(course_year.core_induction_programme))
+        get cip_url(course_year.core_induction_programme)
         expect(response.body).to include("New title")
       end
     end
@@ -58,13 +58,6 @@ RSpec.describe "Core Induction Programme Year", type: :request do
   end
 
   describe "when a non-user is accessing the year page" do
-    describe "GET /years/years_id" do
-      it "renders the cip year page" do
-        get course_year_url
-        expect(response).to render_template(:show)
-      end
-    end
-
     describe "GET /years/years_id/edit" do
       it "redirects to the sign in page" do
         get "#{course_year_url}/edit"
