@@ -12,13 +12,6 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       sign_in admin_user
     end
 
-    describe "GET /core-induction-programe/years/years_id" do
-      it "renders the cip year page" do
-        get course_year_url
-        expect(response).to render_template(:show)
-      end
-    end
-
     describe "GET /years/years_id/edit" do
       it "render the cip years edit page" do
         get "#{course_year_url}/edit"
@@ -55,13 +48,6 @@ RSpec.describe "Core Induction Programme Year", type: :request do
     before do
       user = create(:user)
       sign_in user
-    end
-
-    describe "GET /years/years_id" do
-      it "renders the cip year page" do
-        get course_year_url
-        expect(response).to render_template(:show)
-      end
     end
 
     describe "GET /years/years_id/edit" do
