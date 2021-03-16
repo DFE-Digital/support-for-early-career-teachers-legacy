@@ -76,20 +76,19 @@ describe("Accessibility", () => {
 
     cy.checkA11y();
   });
-  // this test should only be ran locally due to the length of time taken to complete.
-  // to include it add '--env tags=checkCourseLessonsAccessibility'
-  // to the yarn cypress:open cmd
-  if (Cypress.env('tags')?.includes('checkCourseLessonsAccessibility')) {
-    it('Visit all course lessons to check for accessibility', () => {
-      cy.app('load_seed')
-      cy.appEval(
-        `CourseLesson.all`
-      ).then((courseLessons) => {
+
+  // THIS TEST SHOULD ONLY BE RAN LOCALLY DUE TO THE LENGTH OF TIME TAKEN TO COMPLETE
+  // TO INCLUDE IT ADD '--env tags=checkCourseLessonsAccessibility'
+  // TO THE YARN CYPRESS:OPEN CMD
+  if (Cypress.env("tags")?.includes("checkCourseLessonsAccessibility")) {
+    it("Visit all course lessons to check for accessibility", () => {
+      cy.app("load_seed");
+      cy.appEval(`CourseLesson.all`).then((courseLessons) => {
         cy.wrap(courseLessons).each((courseLesson) => {
-          cy.visitLesson(courseLesson)
-          cy.checkA11y()
-        })
+          cy.visitLesson(courseLesson);
+          cy.checkA11y();
+        });
       });
-    })
+    });
   }
-})
+});
