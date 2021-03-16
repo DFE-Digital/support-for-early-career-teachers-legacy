@@ -4,7 +4,7 @@ describe("ECT user interaction with Core Induction Programme", () => {
   });
 
   it("should not show a download export button", () => {
-    cy.visit("/core-induction-programme");
+    cy.visit("/core-induction-programmes");
     cy.contains("a.govuk-button", "Download export").should("not.exist");
   });
 
@@ -12,7 +12,9 @@ describe("ECT user interaction with Core Induction Programme", () => {
     cy.appFactories([["create", "course_year"]]).as("courseYear");
 
     cy.get("@courseYear").then(([year]) => {
-      cy.visitYear(year);
+      cy.visit(
+        `/core-induction-programmes/${year.core_induction_programme_id}`
+      );
       cy.contains("a.govuk-button", "Edit year content").should("not.exist");
     });
   });
