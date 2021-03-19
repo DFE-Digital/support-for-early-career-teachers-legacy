@@ -12,6 +12,26 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       sign_in admin_user
     end
 
+    describe "GET /years/new" do
+      it "renders the cip new years page" do
+        get "/years/new"
+        expect(response).to render_template(:new)
+      end
+    end
+
+    describe "POST /years" do
+      it "creates a new year, redirecting to the CIP homepage" do
+        expect(create_course_year).to redirect_to("/core-induction-programmes")
+      end
+
+      it "creates a new year that renders on the course year show page" do
+        create_course_year
+        get cip_url(course_year.core_induction_programme[:id])
+        expect(response.body).to include("Additional year title")
+        expect(response.body).to include("Additional year content")
+      end
+    end
+
     describe "GET /years/years_id/edit" do
       it "render the cip years edit page" do
         get "#{course_year_url}/edit"
@@ -50,6 +70,18 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       sign_in user
     end
 
+    describe "GET /years/new" do
+      it "raises an error when trying to create a new year page" do
+        expect { get "/years/new" }.to raise_error Pundit::NotAuthorizedError
+      end
+    end
+
+    describe "POST /years" do
+      it "raises an error when trying to post a new year" do
+        expect { create_course_year }.to raise_error Pundit::NotAuthorizedError
+      end
+    end
+
     describe "GET /years/years_id/edit" do
       it "raises an error when trying to access edit page" do
         expect { get "#{course_year_url}/edit" }.to raise_error Pundit::NotAuthorizedError
@@ -58,6 +90,19 @@ RSpec.describe "Core Induction Programme Year", type: :request do
   end
 
   describe "when a non-user is accessing the year page" do
+    describe "GET /years/new" do
+      it "raises an error when trying to create a new year page" do
+        get "/years/new"
+        expect(response).to redirect_to("/users/sign_in")
+      end
+    end
+
+    describe "POST /years" do
+      it "raises an error when trying to post a new year" do
+        expect(create_course_year).to redirect_to("/users/sign_in")
+      end
+    end
+
     describe "GET /years/years_id/edit" do
       it "redirects to the sign in page" do
         get "#{course_year_url}/edit"
@@ -72,4 +117,12 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
     end
   end
+end
+
+private
+
+def create_course_year
+  post "/years", params: { course_year: { title: "Additional year title",
+                                          content: "Additional year content",
+                                          core_induction_programme_id: course_year.core_induction_programme[:id] } }
 end
