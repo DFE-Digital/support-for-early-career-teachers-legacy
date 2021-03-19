@@ -4,11 +4,12 @@ class CourseYear < ApplicationRecord
   include CourseLessonProgressHelper
   include OrderHelper
 
-  belongs_to :core_induction_programme, optional: true
+  belongs_to :core_induction_programme
   has_many :course_modules, dependent: :delete_all
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
+  validates :core_induction_programme_id, presence: { message: "Select a provider" }
 
   def content_to_html
     Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
