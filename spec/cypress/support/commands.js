@@ -14,6 +14,10 @@ Cypress.Commands.add("logout", () => {
   cy.location("pathname").should("eq", "/");
 });
 
+Cypress.Commands.add("clickCommitButton", () => {
+  cy.get("[name=commit]").click();
+});
+
 Cypress.Commands.add("visitModule", (courseModule) => {
   cy.visit(`/years/${courseModule.course_year_id}/modules/${courseModule.id}`);
   cy.get("h1").should("contain", courseModule.title);
