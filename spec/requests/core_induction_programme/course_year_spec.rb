@@ -34,14 +34,14 @@ RSpec.describe "Core Induction Programme Year", type: :request do
 
     describe "GET /years/years_id/edit" do
       it "render the cip years edit page" do
-        get "#{course_year_url}/edit"
+        get "#{course_year_url}/edit", params: { course_year: { id: course_year.id } }
         expect(response).to render_template(:edit)
       end
     end
 
     describe "PUT /years/years_id" do
       it "renders a preview of changes to a year" do
-        put course_year_url, params: { commit: "See preview", content: "Extra content" }
+        put course_year_url, params: { commit: "See preview", course_year: { content: "Extra content" } }
         expect(response).to render_template(:edit)
         expect(response.body).to include("Extra content")
         course_year.reload
@@ -49,14 +49,14 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
 
       it "redirects to the year page and updates content when saving changes" do
-        put course_year_url, params: { commit: "Save changes", content: "Adding new content" }
+        put course_year_url, params: { commit: "Save changes", course_year: { content: "Adding new content" } }
         expect(response).to redirect_to(cip_url(course_year.core_induction_programme))
         get cip_url(course_year.core_induction_programme)
         expect(response.body).to include("Adding new content")
       end
 
       it "redirects to the year page when saving title" do
-        put course_year_url, params: { commit: "Save changes", title: "New title" }
+        put course_year_url, params: { commit: "Save changes", course_year: { title: "New title" } }
         expect(response).to redirect_to(cip_url(course_year.core_induction_programme))
         get cip_url(course_year.core_induction_programme)
         expect(response.body).to include("New title")
@@ -124,5 +124,5 @@ private
 def create_course_year
   post "/years", params: { course_year: { title: "Additional year title",
                                           content: "Additional year content",
-                                          core_induction_programme_id: course_year.core_induction_programme[:id] } }
+                                          core_induction_programme: course_year.core_induction_programme[:id] } }
 end
