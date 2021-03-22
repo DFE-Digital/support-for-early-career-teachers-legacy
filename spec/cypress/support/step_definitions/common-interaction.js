@@ -3,13 +3,6 @@ import { When, Then } from "cypress-cucumber-preprocessor/steps";
 const elements = {
   "cookie consent": '[name="cookies_form[analytics_consent]"]',
   "cookie banner": ".js-cookie-banner",
-  "create admin button": "[data-test=create-admin-button]",
-  main: "main",
-  name: "input[name*=full_name]",
-  email: "input[name*=email]",
-  "notification banner": "[data-test=notification-banner]",
-  "edit admin link": "[data-test=edit-admin-link]",
-  "delete button": "[data-test=delete-button]",
 };
 
 const get = (element) => cy.get(elements[element] || element);
