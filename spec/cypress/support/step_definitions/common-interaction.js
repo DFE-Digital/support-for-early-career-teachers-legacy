@@ -31,7 +31,7 @@ When("I click on {string} containing {string}", (element, containing) => {
 });
 
 When("I click the submit button", () => {
-  cy.clickCommitButton();
+  cy.get("[name=commit]").click();
 });
 
 Then("{string} radios should be unchecked", (element) => {
