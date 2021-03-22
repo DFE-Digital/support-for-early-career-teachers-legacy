@@ -122,7 +122,9 @@ end
 private
 
 def create_course_year
-  post "/years", params: { course_year: { title: "Additional year title",
-                                          content: "Additional year content",
-                                          core_induction_programme: course_year.core_induction_programme[:id] } }
+  post "/years", params: { course_year: {
+    title: "Additional year title",
+    content: "Additional year content",
+    core_induction_programme: course_year.core_induction_programme[:id],
+  } }
 end
