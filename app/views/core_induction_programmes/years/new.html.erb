@@ -4,7 +4,7 @@
     <%= form_with model: @course_year, url: years_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_collection_radio_buttons(
-            :core_induction_programme_id, @core_induction_programmes, :id, :name,
+            :core_induction_programme, @core_induction_programmes, :id, :name,
           legend: { text: "Which provider would you like to create an additional year for?" , class: "govuk-heading-m" }
           ) %>
       <%= f.govuk_text_field :title, label: { text: 'Course year title' } %>
