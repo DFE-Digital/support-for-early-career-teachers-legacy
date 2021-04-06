@@ -8,7 +8,6 @@ RSpec.describe CourseYear, type: :model do
       CourseYear.create(
         title: "Test Course year",
         content: "No content",
-        is_year_one: false,
         core_induction_programme: FactoryBot.create(:core_induction_programme),
       )
     }.to change { CourseYear.count }.by(1)
