@@ -19,7 +19,7 @@ class CoreInductionProgrammes::YearsController < ApplicationController
     authorize CourseYear
     @course_year = CourseYear.new(
       course_year_params.merge(
-        is_year_one: false, core_induction_programme: find_core_induction_programme,
+        core_induction_programme: find_core_induction_programme,
       ),
     )
 
