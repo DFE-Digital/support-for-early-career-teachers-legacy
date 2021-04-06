@@ -1,36 +1,15 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-6">
   <div class="govuk-grid-column-full">
-    <div class="blue-header govuk-!-padding-left-3 govuk-!-padding-right-3 govuk-!-padding-top-6 govuk-!-padding-bottom-9 govuk-!-margin-bottom-6">
-      <h1 class="govuk-heading-xl govuk-!-margin-bottom-1 blue-header__title">Welcome Joe</h1>
+    <div class="blue-header">
+      <h1 class="govuk-heading-xl blue-header__title">Welcome Joe</h1>
       <a href="#" class="blue-header__text">Change username</a>
     </div>
 
-    <!--
-    <h2 class="govuk-heading-l">Modules progress overview</h2>
-
-    <div class="govuk-grid-row govuk-!-margin-bottom-6">
-      <div class="govuk-grid-column-one-third-from-desktop">
-        <div style="background-color:#F3F2F1; padding: 10px;">
-          <h1 class="govuk-heading-xl govuk-!-margin-bottom-1">1</h1>
-          <p class="govuk-!-margin-bottom-1">Session done</p>
-        </div>
-      </div>
-      <div class="govuk-grid-column-one-third-from-desktop">
-        <div style="background-color:#F3F2F1; padding: 10px;">
-          <h1 class="govuk-heading-xl govuk-!-margin-bottom-1">0</h1>
-          <p class="govuk-!-margin-bottom-1">Modules completed</p>
-        </div>
-      </div>
-      <div class="govuk-grid-column-one-third-from-desktop">
-        <div style="background-color:#F3F2F1; padding: 10px;">
-          <h1 class="govuk-heading-xl govuk-!-margin-bottom-1">8</h1>
-          <p class="govuk-!-margin-bottom-1">Modules to complete</p>
-        </div>
-      </div>
-    </div>
-    -->
-
-    <%= govuk_link_to "Go to your module materials", cip_index_path, button: true %>
+    <% if current_user.early_career_teacher? %>
+      <%= govuk_link_to "Go to your module materials",
+        cip_path(current_user.early_career_teacher_profile.core_induction_programme),
+        button: true %>
+    <% end %>
 
     <h2 class="govuk-heading-l govuk-!-margin-top-4">Related content</h2>
 
