@@ -13,7 +13,7 @@ class SetFirstAndSecondCourseYearsForCoreInductionProgramme < ActiveRecord::Migr
 
   def down
     CoreInductionProgramme.all.each do |cip|
-      course_year = CourseYear.find(cip[:course_year_one_id])
+      course_year = CourseYear.where(cip[:course_year_one_id]).or(CourseYear.where(cip[:course_year_two_id])).first
       if cip[:course_year_one_id].nil?
         course_year.update!(is_year_one: false)
       else
