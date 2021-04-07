@@ -16,7 +16,7 @@ class CoreInductionProgrammes::ProgressController < ApplicationController
         progress.update!(progress: params[:progress])
       end
     end
-    redirect_to year_module_url(id: @course_lesson.course_module.id)
+    redirect_to module_path(@course_lesson.course_module)
   end
 
 private

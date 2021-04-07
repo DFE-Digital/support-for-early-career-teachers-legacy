@@ -17,7 +17,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
     if params[:commit] == "Save changes"
       @course_lesson_part.save!
       flash[:success] = "Your changes have been saved"
-      redirect_to year_module_lesson_part_url
+      redirect_to part_path
     else
       render action: "edit"
     end
@@ -40,7 +40,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
         )
         @course_lesson_part.update!(title: @split_lesson_part_form.title, content: @split_lesson_part_form.content)
       end
-      redirect_to year_module_lesson_part_url(id: params[:part_id])
+      redirect_to part_path(id: params[:part_id])
     else
       render action: "show_split"
     end
@@ -54,7 +54,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
     @course_lesson_part = CourseLessonPart.find(params[:id])
     lesson = @course_lesson_part.course_lesson
     @course_lesson_part.destroy!
-    redirect_to year_module_lesson_path(id: lesson.id)
+    redirect_to lesson_path(lesson)
   end
 
 private
