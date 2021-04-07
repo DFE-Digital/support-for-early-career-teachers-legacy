@@ -4,7 +4,7 @@ describe("Accessibility", () => {
     cy.checkA11y();
   });
 
-  it.only("Login should be accessible", () => {
+  it("Login should be accessible", () => {
     cy.visit("/users/sign_in");
     cy.checkA11y();
 
