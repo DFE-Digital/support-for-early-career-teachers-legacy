@@ -36,17 +36,16 @@ Rails.application.routes.draw do
   end
   get "download-export", to: "core_induction_programmes#download_export", as: :download_export
 
-  resources :years, controller: "core_induction_programmes/years", only: %i[new create edit update] do
-    resources :modules, controller: "core_induction_programmes/modules", only: %i[show edit update] do
-      resources :lessons, controller: "core_induction_programmes/lessons", only: %i[show edit update] do
-        resources :parts, controller: "core_induction_programmes/lesson_parts", only: %i[show edit update destroy] do
-          get "split", to: "core_induction_programmes/lesson_parts#show_split", as: "split"
-          post "split", to: "core_induction_programmes/lesson_parts#split"
-          get "show_delete", to: "core_induction_programmes/lesson_parts#show_delete"
-        end
-        resource :progress, controller: "core_induction_programmes/progress", only: %i[update]
-      end
-    end
+  resources :years, controller: "core_induction_programmes/years", only: %i[new create edit update]
+  resources :modules, controller: "core_induction_programmes/modules", only: %i[show edit update]
+  resources :lessons, controller: "core_induction_programmes/lessons", only: %i[show edit update] do
+    resource :progress, controller: "core_induction_programmes/progress", only: %i[update]
+  end
+
+  resources :parts, controller: "core_induction_programmes/lesson_parts", only: %i[show edit update destroy] do
+    get "split", to: "core_induction_programmes/lesson_parts#show_split", as: "split"
+    post "split", to: "core_induction_programmes/lesson_parts#split"
+    get "show_delete", to: "core_induction_programmes/lesson_parts#show_delete"
   end
 
   root to: "core_induction_programmes#index"
