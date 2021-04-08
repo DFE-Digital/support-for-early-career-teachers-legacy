@@ -22,7 +22,7 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
         part_one = CourseLessonPart.create!(course_lesson: course_lesson, content: "Content One", title: "Title One")
         CourseLessonPart.create!(course_lesson: course_lesson, content: "Content Two", title: "Title Two")
         get course_lesson_url
-        expect(response).to redirect_to("/parts/#{part_one.id}")
+        expect(response).to redirect_to("/lesson_parts/#{part_one.id}")
       end
 
       it "does not track progress" do

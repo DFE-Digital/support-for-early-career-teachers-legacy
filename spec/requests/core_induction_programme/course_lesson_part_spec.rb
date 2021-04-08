@@ -7,7 +7,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
   let(:course_lesson) { course_lesson_part.course_lesson }
   let(:course_module) { course_lesson.course_module }
   let(:course_year) { course_module.course_year }
-  let(:course_lesson_part_url) { "/parts/#{course_lesson_part.id}" }
+  let(:course_lesson_part_url) { "/lesson_parts/#{course_lesson_part.id}" }
 
   describe "when an admin user is logged in" do
     before do
@@ -22,14 +22,14 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
       end
     end
 
-    describe "GET /parts/:id/edit" do
+    describe "GET /lesson_parts/:id/edit" do
       it "renders the cip lesson part edit page" do
         get "#{course_lesson_part_url}/edit"
         expect(response).to render_template(:edit)
       end
     end
 
-    describe "PUT /parts/:id" do
+    describe "PUT /lesson_parts/:id" do
       it "renders a preview of changes to lesson part" do
         put course_lesson_part_url, params: { commit: "See preview", content: "Extra content" }
         expect(response).to render_template(:edit)
@@ -53,7 +53,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
       end
     end
 
-    describe "DELETE /parts/:id" do
+    describe "DELETE /lesson_parts/:id" do
       it "deletes a course lesson part and redirects to a course lesson" do
         post "#{course_lesson_part_url}/split", params: {
           commit: "Save changes",
@@ -77,14 +77,14 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
       end
     end
 
-    describe "GET /parts/:id/split" do
+    describe "GET /lesson_parts/:id/split" do
       it "renders the cip lesson part split page" do
         get "#{course_lesson_part_url}/split"
         expect(response).to render_template(:show_split)
       end
     end
 
-    describe "POST /parts/:id/split" do
+    describe "POST /lesson_parts/:id/split" do
       it "renders a preview of changes to lesson part" do
         post "#{course_lesson_part_url}/split", params: {
           commit: "See preview",
@@ -146,7 +146,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
       end
     end
 
-    describe "GET /parts/:id/show_delete" do
+    describe "GET /lesson_parts/:id/show_delete" do
       it "renders the cip lesson part show_delete page when there is > 1 course lesson part" do
         FactoryBot.create(:course_lesson_part, course_lesson: course_lesson)
         get "#{course_lesson_part_url}/show_delete"
@@ -165,38 +165,38 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
       sign_in user
     end
 
-    describe "GET /parts/:id" do
+    describe "GET /lesson_parts/:id" do
       it "renders the cip lesson part page" do
         get course_lesson_part_url
         expect(response).to render_template(:show)
       end
     end
 
-    describe "DELETE /parts/:id" do
+    describe "DELETE /lesson_parts/:id" do
       it "raises an authorization error" do
         expect { delete course_lesson_part_url }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
-    describe "GET /parts/:id/edit" do
+    describe "GET /lesson_parts/:id/edit" do
       it "raises an authorization error" do
         expect { get "#{course_lesson_part_url}/edit" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
-    describe "GET /parts/:id/split" do
+    describe "GET /lesson_parts/:id/split" do
       it "raises an authorization error" do
         expect { get "#{course_lesson_part_url}/split" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
-    describe "POST /parts/:id/split" do
+    describe "POST /lesson_parts/:id/split" do
       it "raises an authorization error" do
         expect { post "#{course_lesson_part_url}/split" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
-    describe "GET /parts/:id/show_delete" do
+    describe "GET /lesson_parts/:id/show_delete" do
       it "raises an authorization error" do
         expect { get "#{course_lesson_part_url}/show_delete" }.to raise_error Pundit::NotAuthorizedError
       end
@@ -204,49 +204,49 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
   end
 
   describe "when a non-user is accessing the lesson part page" do
-    describe "GET /parts/:id" do
+    describe "GET /lesson_parts/:id" do
       it "renders the cip lesson part page" do
         get course_lesson_part_url
         expect(response).to render_template(:show)
       end
     end
 
-    describe "GET /parts/:id/edit" do
+    describe "GET /lesson_parts/:id/edit" do
       it "redirects to the sign in page" do
         get "#{course_lesson_part_url}/edit"
         expect(response).to redirect_to("/users/sign_in")
       end
     end
 
-    describe "PUT /parts/:id" do
+    describe "PUT /lesson_parts/:id" do
       it "redirects to the sign in page" do
         put course_lesson_part_url, params: { commit: "Save changes", content: course_lesson_part.content }
         expect(response).to redirect_to("/users/sign_in")
       end
     end
 
-    describe "GET /parts/:id/split" do
+    describe "GET /lesson_parts/:id/split" do
       it "redirects to the sign in page" do
         get "#{course_lesson_part_url}/split"
         expect(response).to redirect_to("/users/sign_in")
       end
     end
 
-    describe "POST /parts/:id/split" do
+    describe "POST /lesson_parts/:id/split" do
       it "redirects to the sign in page" do
         post "#{course_lesson_part_url}/split"
         expect(response).to redirect_to("/users/sign_in")
       end
     end
 
-    describe "GET /parts/:id/show_delete" do
+    describe "GET /lesson_parts/:id/show_delete" do
       it "redirects to the sign in page" do
         get "#{course_lesson_part_url}/show_delete"
         expect(response).to redirect_to("/users/sign_in")
       end
     end
 
-    describe "DELETE /parts/:id" do
+    describe "DELETE /lesson_parts/:id" do
       it "redirects to the sign page" do
         delete course_lesson_part_url
         expect(response).to redirect_to("/users/sign_in")

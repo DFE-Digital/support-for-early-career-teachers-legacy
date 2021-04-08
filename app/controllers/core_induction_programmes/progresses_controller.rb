@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::ProgressController < ApplicationController
+class CoreInductionProgrammes::ProgressesController < ApplicationController
   include Pundit
   include GovspeakHelper
 
