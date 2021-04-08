@@ -42,7 +42,7 @@ describe("Meta test helper tests", () => {
     cy.appFactories([
       ["create", "core_induction_programme"],
       ["create", "core_induction_programme"],
-      ["create", "core_induction_programme"]
+      ["create", "core_induction_programme"],
     ]);
 
     cy.visit("/core-induction-programmes");

@@ -9,14 +9,13 @@ describe("Admin user interaction with Core Induction Programme", () => {
   });
 
   it("should allow to edit year title", () => {
-      cy.appFactories([["create", "course_year"]]).as("courseYear");
-      cy.get("@courseYear").then(([year]) => {
-
-        cy.appFactories([["create", "core_induction_programme", { course_year_one_id: year.id }]]).as("coreInductionProgramme");
-        cy.get("@coreInductionProgramme").then(([coreInductionProgramme]) =>  {
-        cy.visit(
-          `/core-induction-programmes/${coreInductionProgramme.id}`
-        );
+    cy.appFactories([["create", "course_year"]]).as("courseYear");
+    cy.get("@courseYear").then(([year]) => {
+      cy.appFactories([
+        ["create", "core_induction_programme", { course_year_one_id: year.id }],
+      ]).as("coreInductionProgramme");
+      cy.get("@coreInductionProgramme").then(([coreInductionProgramme]) => {
+        cy.visit(`/core-induction-programmes/${coreInductionProgramme.id}`);
         cy.get("a.govuk-button").contains("Edit year content").click();
 
         cy.get("h1").should("contain", "Content change preview");
@@ -24,9 +23,7 @@ describe("Admin user interaction with Core Induction Programme", () => {
         cy.contains("See preview").click();
 
         cy.get("h1").should("contain", "Content change preview");
-        cy.visit(
-          `/core-induction-programmes/${coreInductionProgramme.id}`
-        );
+        cy.visit(`/core-induction-programmes/${coreInductionProgramme.id}`);
 
         cy.get("a.govuk-button").contains("Edit year content").click();
         cy.get("input[name='course_year[title]']").type("New title");
@@ -34,7 +31,7 @@ describe("Admin user interaction with Core Induction Programme", () => {
 
         cy.get("h2").should("contain", "New title");
       });
-    })
+    });
   });
 
   it("should allow to edit module title", () => {
