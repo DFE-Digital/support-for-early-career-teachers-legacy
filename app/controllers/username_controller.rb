@@ -10,7 +10,7 @@ class UsernameController < ApplicationController
     redirect_to dashboard_path
   end
 
-  private
+private
 
   def user_params
     params.require(:user).permit(:username)
