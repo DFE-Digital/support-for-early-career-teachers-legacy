@@ -31,7 +31,7 @@
   "scripts": {
     "test": "jest --passWithNoTests",
     "cypress:open": "cypress open --project ./spec",
-    "cypress:run": "cypress run --project ./spec --config video=false,screenshotOnRunFailure=false",
+    "cypress:run": "cypress run --project ./spec",
     "lint": "eslint --max-warnings 0 '{app,spec}/**/*.js' && prettier --check '{app,spec}/**/*.js'"
   },
   "jest": {
