@@ -43,6 +43,11 @@ RSpec.describe "Core Induction Programme", type: :request do
         get "/core-induction-programmes/#{core_induction_programme.id}"
         expect(response).to render_template(:show)
       end
+
+      it "raises an error when an ECT tries to access a cip they are not enrolled on" do
+        second_core_induction_programme = create(:core_induction_programme)
+        expect { get "/core-induction-programmes/#{second_core_induction_programme.id}" }.to raise_error Pundit::NotAuthorizedError
+      end
     end
   end
 

@@ -15,12 +15,12 @@ RSpec.describe CoreInductionProgrammePolicy, type: :policy do
   context "accessing cip views as an early career teacher" do
     let(:user) { create(:user, :early_career_teacher, { core_induction_programme: core_induction_programme }) }
     it { is_expected.to permit_action(:show) }
-    it { is_expected.not_to permit_action(:index) }
+    it { is_expected.to forbid_action(:index) }
   end
 
   context "being a visitor" do
     let(:user) { nil }
-    it { is_expected.not_to permit_action(:show) }
-    it { is_expected.not_to permit_action(:index) }
+    it { is_expected.to forbid_action(:show) }
+    it { is_expected.to forbid_action(:index) }
   end
 end

@@ -6,10 +6,10 @@ class Users::SessionsController < Devise::SessionsController
 
   TEST_USERS = %w[
     admin@example.com
-    early-career-teacher-1@example.com
-    early-career-teacher-2@example.com
-    early-career-teacher-3@example.com
-    early-career-teacher-4@example.com
+    ambition-institute-early-career-teacher@example.com
+    education-development-trust-early-career-teacher@example.com
+    teach-first-early-career-teacher@example.com
+    ucl-early-career-teacher@example.com
     mentor@example.com
   ].freeze
 
@@ -61,9 +61,5 @@ private
     user = User.find_by_email(email)
     sign_in(user, scope: :user)
     redirect_to dashboard_url
-  end
-
-  def after_sign_out_path_for(_resource_or_scope)
-    new_user_session_url
   end
 end
