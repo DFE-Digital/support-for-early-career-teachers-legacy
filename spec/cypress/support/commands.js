@@ -11,7 +11,7 @@ Cypress.Commands.add("login", (...traits) => {
 Cypress.Commands.add("logout", () => {
   cy.get("#navigation").contains("Sign out").click();
 
-  cy.location("pathname").should("eq", "/");
+  cy.location("pathname").should("eq", "/signed_out");
 });
 
 Cypress.Commands.add("visitModule", (courseModule) => {
@@ -22,6 +22,11 @@ Cypress.Commands.add("visitModule", (courseModule) => {
 Cypress.Commands.add("visitLesson", (courseLesson) => {
   cy.visit(`/lessons/${courseLesson.id}`);
   cy.get("h1").should("contain", courseLesson.title);
+});
+
+Cypress.Commands.add("visitLessonPart", (lessonPart) => {
+  cy.visit(`/lesson_parts/${lessonPart.id}`);
+  cy.get("h2").should("contain", lessonPart.title);
 });
 
 Cypress.Commands.add("visitModuleOfLesson", (courseLesson) => {

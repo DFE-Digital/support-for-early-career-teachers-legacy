@@ -12,11 +12,13 @@ const elements = {
   "name input": '[name*="name"]',
   "title input": '[name*="title"]',
   "content input": '[name*="content"]',
+  "email input": '[name*="email"]',
   "time input": '[name*="time"]',
   "govspeak content": ".govuk-govspeak",
   "tag component": ".govuk-tag",
   "service name in navigation": ".govuk-header__link--service-name",
   "service navigation item": ".govuk-header__navigation-item",
+  "error summary": ".govuk-error-summary",
 };
 
 const get = (element) => cy.get(elements[element] || element);
