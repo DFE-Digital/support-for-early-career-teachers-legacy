@@ -16,6 +16,7 @@ const pagePaths = {
   "core induction programme lesson": "/lessons/:id",
   "core induction programme lesson edit": "/lessons/:id/edit",
   "core induction programme lesson part": "/lesson_parts/:id",
+  "training and support": "/training-and-support",
 };
 
 Given("I am on {string} page", (page) => {

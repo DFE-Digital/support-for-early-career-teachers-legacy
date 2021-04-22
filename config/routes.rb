@@ -44,4 +44,6 @@ Rails.application.routes.draw do
     end
   end
   root to: "start#index"
+
+  get "training-and-support" => "training_and_support#show"
 end
