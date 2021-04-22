@@ -14,7 +14,7 @@ RSpec.describe "Mentor materials", type: :request do
 
   describe "show" do
     it "renders the core_induction_programme show page" do
-      get "/mentor-materials#{mentor_material.id}"
+      get "/mentor-materials/#{mentor_material.id}"
       expect(response).to render_template(:show)
     end
   end
