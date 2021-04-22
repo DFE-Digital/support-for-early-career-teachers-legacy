@@ -7,6 +7,7 @@ class CourseYear < ApplicationRecord
   has_one :core_induction_programme_one, class_name: "CoreInductionProgramme", foreign_key: :course_year_one_id
   has_one :core_induction_programme_two, class_name: "CoreInductionProgramme", foreign_key: :course_year_two_id
   has_many :course_modules, dependent: :delete_all
+  has_many :mentor_materials
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
