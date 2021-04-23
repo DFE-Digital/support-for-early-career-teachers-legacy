@@ -120,15 +120,3 @@ Then("{string} label should be unchecked", (text) => {
       cy.get(`#${inputId}`).should("not.be.checked");
     });
 });
-
-Then("the page should be accessible", () => {
-  cy.checkA11y();
-});
-
-Then("percy should be sent snapshot", () => {
-  cy.percySnapshot();
-});
-
-Then("percy should be sent snapshot called {string}", (name) => {
-  cy.percySnapshot(name);
-});

@@ -55,3 +55,16 @@ Given("I am logged in as {string}", (traits) => login(traits));
 Given("I am logged in as {string} with {}", (traits, args) =>
   login(traits, args)
 );
+
+Given("I am logged in as existing user with {}", (argsStr) => {
+  const args = parseArgs(argsStr);
+
+  const argsStrRails = Object.entries(args)
+    .map(([key, value]) => `${key}: "${value}"`)
+    .join(", ");
+
+  cy.appEval(`User.find_by(${argsStrRails})`).then((user) => {
+    cy.visit("/users/sign_in");
+    cy.get("[name*=email]").type(`${user.email}{enter}`);
+  });
+});
