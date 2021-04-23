@@ -1,9 +1,9 @@
 <% if @provider.name == "Ambition Institute" %>
-  <h1 class="govuk-heading-l">Guidance for Ambition Institute</h1>
+  <%= render "guidance_ambition_institite" %>
 <% elsif @provider.name == "Education Development Trust" %>
-  <h1 class="govuk-heading-l">Guidance for Education Development Trust</h1>
+  <%= render "guidance_education_development_trust" %>
 <% elsif @provider.name == "Teach First" %>
-  <h1 class="govuk-heading-l">Guidance for Teach First</h1>
+  <%= render "guidance_teach_first" %>
 <% elsif @provider.name == "UCL" %>
-  <h1 class="govuk-heading-l">Guidance for UCL</h1>
+  <%= render "guidance_ucl" %>
 <% end %>
