@@ -1,0 +1,9 @@
+<% if @provider.name == "Ambition Institute" %>
+  <%= render "guidance_ambition_institite" %>
+<% elsif @provider.name == "Education Development Trust" %>
+  <%= render "guidance_education_development_trust" %>
+<% elsif @provider.name == "Teach First" %>
+  <%= render "guidance_teach_first" %>
+<% elsif @provider.name == "UCL" %>
+  <%= render "guidance_ucl" %>
+<% end %>
