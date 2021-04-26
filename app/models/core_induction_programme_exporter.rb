@@ -44,5 +44,13 @@ class CoreInductionProgrammeExporter
       import: true,
       append: true,
     )
+
+    SeedDump.dump(
+      MentorMaterial,
+      file: "db/seeds/cip_seed_dump.rb",
+      exclude: %i[created_at updated_at],
+      import: true,
+      append: true,
+    )
   end
 end

@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       post "split", to: "lesson_parts#split"
       get "show_delete", to: "lesson_parts#show_delete"
     end
+
+    resources :mentor_materials, path: "mentor-materials", only: %i[show index]
   end
   root to: "start#index"
 

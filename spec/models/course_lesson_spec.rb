@@ -14,6 +14,7 @@ RSpec.describe CourseLesson, type: :model do
   end
 
   describe "associations" do
+    it { is_expected.to have_many(:mentor_materials) }
     it { is_expected.to belong_to(:course_module) }
     it { is_expected.to have_one(:next_lesson) }
     it { is_expected.to belong_to(:previous_lesson).optional }

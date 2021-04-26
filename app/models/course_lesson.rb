@@ -13,6 +13,7 @@ class CourseLesson < ApplicationRecord
   belongs_to :previous_lesson, class_name: "CourseLesson", inverse_of: :next_lesson, optional: true
 
   has_many :course_lesson_parts
+  has_many :mentor_materials
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :completion_time_in_minutes, numericality: { greater_than: 0, allow_nil: true, message: "Enter a number greater than 0" }

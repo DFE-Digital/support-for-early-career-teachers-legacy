@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_094945) do
+ActiveRecord::Schema.define(version: 2021_04_22_094735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -130,6 +130,21 @@ ActiveRecord::Schema.define(version: 2021_04_15_094945) do
     t.index ["user_id"], name: "index_induction_coordinator_profiles_on_user_id"
   end
 
+  create_table "mentor_materials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "core_induction_programme_id"
+    t.uuid "course_year_id"
+    t.uuid "course_module_id"
+    t.uuid "course_lesson_id"
+    t.index ["core_induction_programme_id"], name: "index_mentor_materials_on_core_induction_programme_id"
+    t.index ["course_lesson_id"], name: "index_mentor_materials_on_course_lesson_id"
+    t.index ["course_module_id"], name: "index_mentor_materials_on_course_module_id"
+    t.index ["course_year_id"], name: "index_mentor_materials_on_course_year_id"
+  end
+
   create_table "mentor_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -168,5 +183,9 @@ ActiveRecord::Schema.define(version: 2021_04_15_094945) do
   add_foreign_key "early_career_teacher_profiles", "mentor_profiles"
   add_foreign_key "early_career_teacher_profiles", "users"
   add_foreign_key "induction_coordinator_profiles", "users"
+  add_foreign_key "mentor_materials", "core_induction_programmes"
+  add_foreign_key "mentor_materials", "course_lessons"
+  add_foreign_key "mentor_materials", "course_modules"
+  add_foreign_key "mentor_materials", "course_years"
   add_foreign_key "mentor_profiles", "users"
 end
