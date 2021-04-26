@@ -136,3 +136,8 @@ The app should be available at https://govuk-rails-boilerplate.london.cloudapps.
 1. Add an option `on_duplicate_key_ignore` to CIPs, think carefully which ones from seed dump are needed.
 1. Commit, push, run seeding job from above in the deployed app.
 
+### Register and Partner
+We will be using R&P's api to fetch users into our system. In order to set it up locally, you will need to run the R&P
+on a different port (say, 3001), and you need to include the local url in your `.env` file.
+
+Currently that API doesn't exist yet.
