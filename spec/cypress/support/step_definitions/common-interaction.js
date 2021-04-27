@@ -14,9 +14,10 @@ const elements = {
   "content input": '[name*="content"]',
   "email input": '[name*="email"]',
   "time input": '[name*="time"]',
+  "username input": '[name*="username"]',
   "govspeak content": ".govuk-govspeak",
   "tag component": ".govuk-tag",
-  "service name in navigation": ".govuk-header__link--service-name",
+  "service name in navigation": '[data-test="service-name"]',
   "service navigation item": ".govuk-header__navigation-item",
   "error summary": ".govuk-error-summary",
 };

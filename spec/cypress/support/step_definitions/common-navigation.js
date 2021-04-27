@@ -6,6 +6,7 @@ const pagePaths = {
   cookie: "/cookies",
   start: "/",
   dashboard: "/dashboard",
+  "create username": "/username/new",
   "edit username": "/username/edit",
   "sign in": "/users/sign_in",
   "core induction programme index": "/core-induction-programmes",

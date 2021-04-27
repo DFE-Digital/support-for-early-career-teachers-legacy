@@ -44,9 +44,10 @@
 
         <div class="govuk-header__content">
           <%= govuk_link_to(
-            "Support for early career teachers",
+            service_name_for(current_user),
             user_signed_in? && current_user.account_created ? dashboard_path : "/",
-            class: "govuk-header__link govuk-header__link--service-name") %>
+            class: "govuk-header__link govuk-header__link--service-name",
+            "data-test": "service-name") %>
 
           <button type="button" role="button" data-module="govuk-button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
 
