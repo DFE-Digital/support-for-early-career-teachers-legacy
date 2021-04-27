@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-load Rails.root.join("db/seeds.rb")
+load Rails.root.join("db/seeds.rb").to_s
