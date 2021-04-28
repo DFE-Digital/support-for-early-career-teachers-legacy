@@ -37,36 +37,35 @@ unless Rails.env.production?
   end
 end
 
-  #  To do - add all cip mentor materials. The below method should work for all others,
-  # provided material file names are the same as lesson names in the app.
-  #
-  # cips = %w[Ambition-Institute]
-  #
-  # cips.each do |cip|
-  #   cip_programme = CoreInductionProgramme.find_by(name: cip_name)
-  #
-  # Dir[Rails.root.join("db/seeds/#{cip}")].each do |folder|
-  #   Dir.foreach("#{folder}") do |sub_folder|
-  #     next if sub_folder == '.' or sub_folder == '..' or sub_folder == ".DS_Store"
-  #     Dir.foreach("#{folder}/#{sub_folder}") do |file|
-  #       next if file === '.' or file === '..'
-  #       file_content = File.read("#{folder}/#{sub_folder}/#{file}")
-  #       file_name = file.gsub(".mdx", "")
-  #       year = cip_programme.course_years.first
-  #       course_module = CourseModule.find_by(title: sub_folder)
-  #       course_lesson = CourseLesson.find_by(title: file_name, course_module: course_module)
-  #
-  #       if cip === "Education-Development-Trust"
-  #         file_name = file_name.match(/Block(.*)+/)[0]
-  #         end
-  #       MentorMaterial.create!(title: file_name, content: file_content,
-  #                              core_induction_programme: cip_programme,
-  #                              course_year: year,
-  #                              course_module: course_module,
-  #                              course_lesson: course_lesson
-  #       )
-  #     end
-  #    end
-  #   end
-  #  end
-
+#  To do - add all cip mentor materials. The below method should work for all others,
+# provided material file names are the same as lesson names in the app.
+#
+# cips = %w[Ambition-Institute]
+#
+# cips.each do |cip|
+#   cip_programme = CoreInductionProgramme.find_by(name: cip_name)
+#
+# Dir[Rails.root.join("db/seeds/#{cip}")].each do |folder|
+#   Dir.foreach("#{folder}") do |sub_folder|
+#     next if sub_folder == '.' or sub_folder == '..' or sub_folder == ".DS_Store"
+#     Dir.foreach("#{folder}/#{sub_folder}") do |file|
+#       next if file === '.' or file === '..'
+#       file_content = File.read("#{folder}/#{sub_folder}/#{file}")
+#       file_name = file.gsub(".mdx", "")
+#       year = cip_programme.course_years.first
+#       course_module = CourseModule.find_by(title: sub_folder)
+#       course_lesson = CourseLesson.find_by(title: file_name, course_module: course_module)
+#
+#       if cip === "Education-Development-Trust"
+#         file_name = file_name.match(/Block(.*)+/)[0]
+#         end
+#       MentorMaterial.create!(title: file_name, content: file_content,
+#                              core_induction_programme: cip_programme,
+#                              course_year: year,
+#                              course_module: course_module,
+#                              course_lesson: course_lesson
+#       )
+#     end
+#    end
+#   end
+#  end
