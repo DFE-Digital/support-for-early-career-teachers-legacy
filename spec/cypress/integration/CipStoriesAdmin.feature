@@ -39,8 +39,8 @@ Feature: Admin user interaction with Core Induction Programme
 
     When I clear "title input"
     And I type "New module title" into "title input"
-    And I clear "content input"
-    And I type "New test module content" into "content input"
+    And I clear "ect summary input"
+    And I type "New test module content" into "ect summary input"
     And I click on "button" containing "See preview"
     Then "page heading" should contain "preview"
     And "govspeak content" should contain "New test module content"

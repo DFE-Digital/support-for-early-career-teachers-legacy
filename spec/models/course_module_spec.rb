@@ -7,7 +7,7 @@ RSpec.describe CourseModule, type: :model do
     expect {
       CourseModule.create(
         title: "Test Course module",
-        content: "No content",
+        ect_summary: "No content",
         course_year: FactoryBot.create(:course_year),
       )
     }.to change { CourseModule.count }.by(1)
@@ -25,8 +25,8 @@ RSpec.describe CourseModule, type: :model do
     subject { FactoryBot.create(:course_module) }
     it { is_expected.to validate_presence_of(:title).with_message("Enter a title") }
     it { is_expected.to validate_length_of(:title).is_at_most(255) }
-    it { is_expected.to validate_presence_of(:content).with_message("Enter content") }
-    it { is_expected.to validate_length_of(:content).is_at_most(100_000) }
+    it { is_expected.to validate_presence_of(:ect_summary).with_message("Enter ECT summary") }
+    it { is_expected.to validate_length_of(:ect_summary).is_at_most(100_000) }
   end
 
   describe "course_lessons" do

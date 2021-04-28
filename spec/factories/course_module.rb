@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :course_module do
     title { "Test Course module" }
-    content { "No content" }
+    ect_summary { "No content" }
     course_year { FactoryBot.create(:course_year) }
 
     trait :with_previous do

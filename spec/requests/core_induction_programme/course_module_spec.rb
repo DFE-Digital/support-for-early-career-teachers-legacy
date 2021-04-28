@@ -69,15 +69,15 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
     describe "PUT /modules/:id" do
       it "renders a preview of changes to module" do
-        put course_module_path, params: { commit: "See preview", course_module: { content: "Extra content" } }
+        put course_module_path, params: { commit: "See preview", course_module: { ect_summary: "Extra content" } }
         expect(response).to render_template(:edit)
         expect(response.body).to include("Extra content")
         course_module.reload
-        expect(course_module.content).not_to include("Extra content")
+        expect(course_module.ect_summary).not_to include("Extra content")
       end
 
       it "redirects to the module page when saving content" do
-        put course_module_path, params: { commit: "Save changes", course_module: { content: "Adding new content" } }
+        put course_module_path, params: { commit: "Save changes", course_module: { ect_summary: "Adding new content" } }
         expect(response).to redirect_to(course_module_path)
         get course_module_path
         expect(response.body).to include("Adding new content")
@@ -164,7 +164,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
     describe "PUT /modules/:id" do
       it "redirects to the sign in page" do
-        put course_module_path, params: { commit: "Save changes", course_module: { content: course_module.content } }
+        put course_module_path, params: { commit: "Save changes", course_module: { ect_summary: course_module.ect_summary } }
         expect(response).to redirect_to("/users/sign_in")
       end
     end
@@ -190,7 +190,7 @@ def create_course_module(course_module_id)
        params: { course_module: {
          course_year_id: course_module.course_year[:id],
          title: "Additional module title",
-         content: "Additional module content",
+         ect_summary: "Additional module content",
          term: "spring",
          previous_module_id: course_module_id,
        } }
