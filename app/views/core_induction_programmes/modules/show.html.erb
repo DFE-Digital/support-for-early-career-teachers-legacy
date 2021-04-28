@@ -5,9 +5,29 @@
       <%= govuk_link_to "Edit module content", edit_module_path(@course_module), button: true%>
     <% end %>
     <h1 class="govuk-heading-l"> <%= @course_module.title %></h1>
-    <div class="gem-c-govspeak govuk-govspeak ">
-      <%= @course_module.content_to_html.html_safe %>
-    </div>
+
+    <% if current_user&.early_career_teacher? %>
+      <div class="gem-c-govspeak govuk-govspeak ">
+        <%= @course_module.ect_summary_to_html.html_safe %>
+      </div>
+    <% end %>
+    <% if current_user&.mentor? %>
+      <div class="gem-c-govspeak govuk-govspeak ">
+        <%= @course_module.mentor_summary_to_html.html_safe %>
+      </div>
+    <% end %>
+
+    <% if current_user&.admin? %>
+      <h2 class="govuk-heading-l">ECT summary:</h2>
+      <div class="gem-c-govspeak govuk-govspeak ">
+        <%= @course_module.ect_summary_to_html.html_safe %>
+      </div>
+      <h2 class="govuk-heading-l">Mentor summary:</h2>
+      <div class="gem-c-govspeak govuk-govspeak ">
+        <%= @course_module.mentor_summary_to_html.html_safe %>
+      </div>
+    <% end %>
+
     <ol class="app-task-list">
       <li>
         <p><strong>Topic materials</strong></p>

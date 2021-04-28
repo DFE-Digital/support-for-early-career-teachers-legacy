@@ -1,7 +1,7 @@
 <%= govuk_breadcrumbs breadcrumbs: course_lesson_breadcrumbs(current_user, @course_lesson_part.course_lesson) %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h2>Confirm you would like to remove <i><%= @course_lesson_part.title %></i> from <%= @course_lesson_part.course_lesson.title %>.</h2>
+    <h2 class="govuk-heading-l">Confirm you would like to remove <i><%= @course_lesson_part.title %></i> from <%= @course_lesson_part.course_lesson.title %>.</h2>
     <div class="govuk-warning-text">
       <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
       <div class="govuk-warning-text__text">This lesson part can not be retrieved once it has been deleted.</div>
