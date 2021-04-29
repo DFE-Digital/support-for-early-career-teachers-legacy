@@ -40,4 +40,12 @@ class CourseLesson < ApplicationRecord
       "#{number_of_minutes} #{minute_string}"
     end
   end
+
+  def mentor_summary_to_html
+    Govspeak::Document.new(mentor_summary, options: { allow_extra_quotes: true }).to_html
+  end
+
+  def ect_summary_to_html
+    Govspeak::Document.new(ect_summary, options: { allow_extra_quotes: true }).to_html
+  end
 end

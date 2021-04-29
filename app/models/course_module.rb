@@ -16,7 +16,7 @@ class CourseModule < ApplicationRecord
   belongs_to :previous_module, class_name: "CourseModule", inverse_of: :next_module, optional: true
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
-  validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
+  validates :ect_summary, presence: { message: "Enter ECT summary" }, length: { maximum: 100_000 }
   validate :check_previous_module_id
 
   def self.terms
@@ -33,8 +33,12 @@ class CourseModule < ApplicationRecord
 
   enum term: terms
 
-  def content_to_html
-    Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
+  def mentor_summary_to_html
+    Govspeak::Document.new(mentor_summary, options: { allow_extra_quotes: true }).to_html
+  end
+
+  def ect_summary_to_html
+    Govspeak::Document.new(ect_summary, options: { allow_extra_quotes: true }).to_html
   end
 
   def course_lessons_in_order

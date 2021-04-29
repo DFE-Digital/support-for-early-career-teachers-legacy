@@ -22,7 +22,11 @@
       :name,
       legend: { text: "Module term", class: "govuk-label"}) %>
 <%= f.govuk_text_area(
-      :content,
-      label: { text: 'Course module content' },
+      :ect_summary,
+      label: { text: 'ECT summary' },
+      rows: 10) %>
+<%= f.govuk_text_area(
+      :mentor_summary,
+      label: { text: 'Mentor summary' },
       rows: 10) %>
 <%= f.govuk_submit "Save changes" %>

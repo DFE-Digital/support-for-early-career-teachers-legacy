@@ -12,6 +12,7 @@ const elements = {
   "name input": '[name*="name"]',
   "title input": '[name*="title"]',
   "content input": '[name*="content"]',
+  "ect summary input": '[name*="ect_summary"]',
   "email input": '[name*="email"]',
   "time input": '[name*="time"]',
   "govspeak content": ".govuk-govspeak",

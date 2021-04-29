@@ -17,6 +17,14 @@
             label: { text: "Time in minutes"},
             width: 4, hint: { text: " For example, 90"},
             value: @course_lesson.completion_time_in_minutes) %>
+      <%= f.govuk_text_area(
+            :ect_summary,
+            label: { text: 'ECT summary' },
+            rows: 10) %>
+      <%= f.govuk_text_area(
+            :mentor_summary,
+            label: { text: 'Mentor summary' },
+            rows: 10) %>
       <%= f.govuk_submit "Save changes" %>
     <% end %>
   </div>

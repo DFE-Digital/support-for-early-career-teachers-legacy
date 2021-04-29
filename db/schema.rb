@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_094735) do
+ActiveRecord::Schema.define(version: 2021_04_28_090431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 2021_04_22_094735) do
     t.uuid "course_module_id", null: false
     t.integer "version", default: 1, null: false
     t.integer "completion_time_in_minutes"
+    t.text "ect_summary"
+    t.text "mentor_summary"
     t.index ["course_module_id"], name: "index_course_lessons_on_course_module_id"
     t.index ["previous_lesson_id"], name: "index_course_lessons_on_previous_lesson_id"
   end
@@ -77,11 +79,12 @@ ActiveRecord::Schema.define(version: 2021_04_22_094735) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title", null: false
-    t.text "content", null: false
+    t.text "ect_summary", null: false
     t.uuid "previous_module_id"
     t.uuid "course_year_id", null: false
     t.integer "version", default: 1, null: false
     t.string "term", default: "spring"
+    t.text "mentor_summary"
     t.index ["course_year_id"], name: "index_course_modules_on_course_year_id"
     t.index ["previous_module_id"], name: "index_course_modules_on_previous_module_id"
   end

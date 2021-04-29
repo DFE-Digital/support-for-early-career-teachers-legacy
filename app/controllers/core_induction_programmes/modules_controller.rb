@@ -67,7 +67,7 @@ private
   def course_module_params
     params
         .require(:course_module)
-        .permit(:content, :title, :term, :course_year_id, :previous_module_id)
+        .permit(:ect_summary, :mentor_summary, :title, :term, :course_year_id, :previous_module_id)
   end
 
   def find_next_module

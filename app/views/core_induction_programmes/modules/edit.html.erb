@@ -6,8 +6,14 @@
       <%= render "course_module_fields", locals = { f:f } %>
       <%= f.govuk_submit "See preview" %>
     <% end %>
+    <h2 class="govuk-heading-l">ECT summary:</h2>
     <div class="gem-c-govspeak govuk-govspeak ">
-      <%= @course_module.content_to_html.html_safe %>
+      <%= @course_module.ect_summary_to_html.html_safe %>
+    </div>
+
+    <h2 class="govuk-heading-l">Mentor summary:</h2>
+    <div class="gem-c-govspeak govuk-govspeak ">
+      <%= @course_module.mentor_summary_to_html.html_safe %>
     </div>
   </div>
 </div>
