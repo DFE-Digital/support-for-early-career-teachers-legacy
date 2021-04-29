@@ -1,13 +1,22 @@
 Feature: Changing username
-  Users should be able to set a preferred name
+  Users should be able to set and change their preferred name
 
-  Background:
+  Scenario: Should be prompted to set username on first login
+    Given user was created as "early_career_teacher" with email "ect@example.com" and full_name "Demo User" and account_created "false"
+    And I am on "sign in" page
+    When I type "ect@example.com" into "email input"
+    And I click the submit button
+    Then I should be on "create username" page
+
+    When I type "Demo Username" into "username input"
+    And I click the submit button
+    Then "page heading" should contain "Welcome Demo Username"
+
+  Scenario: Should be able to change username
     Given I am logged in as "early_career_teacher" with full_name "Charles Darwin"
     Then I should be on "dashboard" page
     And the page should be accessible
-
-  Scenario: Should be able to change username
-    Then "page body" should contain "Charles Darwin"
+    And "page body" should contain "Charles Darwin"
 
     When I click on "edit username link"
     Then I should be on "edit username" page
