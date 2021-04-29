@@ -44,7 +44,7 @@
 
         <div class="govuk-header__content">
           <%= govuk_link_to(
-            service_name_for(current_user),
+            "Support for early career teachers",
             user_signed_in? && current_user.account_created ? dashboard_path : "/",
             class: "govuk-header__link govuk-header__link--service-name",
             "data-test": "service-name") %>
