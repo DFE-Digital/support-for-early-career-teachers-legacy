@@ -1,7 +1,22 @@
 Feature: Login
   All users should be able to login in
 
-  Scenario: Failed login
+  Scenario: Failed login: blank email
+    Given I am on "sign in" page
+    When I click the submit button
+    Then "error summary" should contain "Enter an email address"
+    And the page should be accessible
+    And percy should be sent snapshot
+
+  Scenario: Failed login: invalid email
+    Given I am on "sign in" page
+    When I type "invalid" into "email input"
+    And I click the submit button
+    Then "error summary" should contain "Enter an email address in the correct format, like name@school.org"
+    And the page should be accessible
+    And percy should be sent snapshot
+
+  Scenario: Failed login: unknown email
     Given I am on "sign in" page
     When I type "nope@example.com" into "email input"
     And I click the submit button
