@@ -1,50 +1,33 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-  SIGN_IN_EMAIL_TEMPLATE = "7ab8db5b-9842-4bc3-8dbb-f590a3198d9e"
-  EMAIL_CONFIRMATION_TEMPLATE = "50059d26-c65d-4e88-831a-8bfb9f4116cd"
-  PRIMARY_CONTACT_TEMPLATE = "a7cc4d19-c0cb-4187-a71b-1b1ea029924f"
+  MENTOR_WELCOME_TEMPLATE = "c0dc7dae-76e3-4346-8c2b-0d38aaf94a54"
+  ECT_WELCOME_TEMPLATE = "652fea63-1344-4608-a957-6046dc27120b"
 
-  def sign_in_email(user, url)
+  def mentor_welcome_email(user)
+    sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain)
     template_mail(
-      SIGN_IN_EMAIL_TEMPLATE,
+      MENTOR_WELCOME_TEMPLATE,
       to: user.email,
       rails_mailer: mailer_name,
       rails_mail_template: action_name,
       personalisation: {
         full_name: user.full_name,
-        sign_in_url: url,
+        sign_in_url: sign_in_url,
       },
     )
   end
 
-  def confirmation_instructions(user, token, _options = {})
-    confirmation_url = Rails.application.routes.url_helpers.user_confirmation_url(
-      confirmation_token: token,
-      host: Rails.application.config.domain,
-    )
-
+  def ect_welcome_email(user)
+    sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain)
     template_mail(
-      EMAIL_CONFIRMATION_TEMPLATE,
+      ECT_WELCOME_TEMPLATE,
       to: user.email,
       rails_mailer: mailer_name,
       rails_mail_template: action_name,
       personalisation: {
         full_name: user.full_name,
-        confirmation_url: confirmation_url,
-      },
-    )
-  end
-
-  def primary_contact_notification(coordinator, school)
-    template_mail(
-      PRIMARY_CONTACT_TEMPLATE,
-      to: school.primary_contact_email,
-      rails_mailer: mailer_name,
-      rails_mail_template: action_name,
-      personalisation: {
-        coordinator_full_name: coordinator.full_name,
-        coordinator_email_address: coordinator.email,
+        sign_in_url: sign_in_url,
       },
     )
   end
