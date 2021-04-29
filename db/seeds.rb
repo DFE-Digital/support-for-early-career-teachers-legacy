@@ -2,6 +2,6 @@
 
 # store all seeds inside the folder db/seeds
 
-Dir[Rails.root.join("db/seeds/cip_seed.rb")].each { |seed| load seed }
+load Rails.root.join("db/seeds/cip_seed.rb").to_s
 
-Dir[Rails.root.join("db/seeds/dummy_structures.rb")].each { |seed| load seed }
+load Rails.root.join("db/seeds/dummy_structures.rb").to_s
