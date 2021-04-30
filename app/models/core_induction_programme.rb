@@ -11,4 +11,12 @@ class CoreInductionProgramme < ApplicationRecord
   def course_years
     [course_year_one, course_year_two].filter(&:present?)
   end
+
+  def course_modules
+    CourseModule.where(course_year: course_years)
+  end
+
+  def course_lessons
+    CourseLesson.where(course_module: course_modules)
+  end
 end

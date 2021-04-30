@@ -33,8 +33,7 @@ private
   def load_mentor_material
     @mentor_material = MentorMaterial.find(params[:id])
     @core_induction_programmes = CoreInductionProgramme.all
-    # To do - remove or edit based on changes to models. @course_lessons is in the materials field view also.
-    # @course_lessons = CourseLesson.where(course_year: @mentor_material.core_induction_programme.course_years)
+    @course_lessons = @mentor_material.core_induction_programme&.course_lessons
     authorize @mentor_material
   end
 
