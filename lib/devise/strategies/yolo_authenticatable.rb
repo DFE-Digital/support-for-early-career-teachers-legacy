@@ -21,7 +21,7 @@ module Devise
             return
           end
 
-          unless email.match(/.@./)
+          unless email.match(Devise.email_regexp)
             user = User.new
             user.errors.add :email, "Enter an email address in the correct format, like name@school.org"
             success! user
