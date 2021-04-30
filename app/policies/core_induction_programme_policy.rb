@@ -11,16 +11,18 @@ class CoreInductionProgrammePolicy < ApplicationPolicy
   end
 
   def show?
-    ect_has_access_to_cip?
+    has_access_to_cip_as_ect?(@user) || has_access_to_cip_as_mentor?(@user) || admin_only
   end
 end
 
 private
 
-def ect_has_access_to_cip?
-  if @user&.core_induction_programme == @record
-    true
-  else
-    admin_only
+def has_access_to_cip_as_ect?(user)
+  user&.core_induction_programme == @record
+end
+
+def has_access_to_cip_as_mentor?(user)
+  user&.mentor_profile&.early_career_teachers&.one? do |ect|
+    has_access_to_cip_as_ect? ect
   end
 end
