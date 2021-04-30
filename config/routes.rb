@@ -43,7 +43,7 @@ Rails.application.routes.draw do
       get "show_delete", to: "lesson_parts#show_delete"
     end
 
-    resources :mentor_materials, path: "mentor-materials", only: %i[show index]
+    resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update]
   end
   root to: "start#index"
 
