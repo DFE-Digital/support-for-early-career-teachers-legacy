@@ -8,7 +8,7 @@ const elements = {
   "page heading": "h1",
   link: "a",
   button: "button,input[type=submit],input[type=button]",
-  "edit username link": '[data-test="edit-username"]',
+  "edit name link": '[data-test="edit-name"]',
   "name input": '[name*="name"]',
   "title input": '[name*="title"]',
   "content input": '[name*="content"]',

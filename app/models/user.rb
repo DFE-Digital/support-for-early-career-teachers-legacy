@@ -36,7 +36,7 @@ class User < ApplicationRecord
     core_induction_programme&.course_years || []
   end
 
-  def preferred_name
-    username&.presence || full_name
+  def name
+    preferred_name&.presence || full_name
   end
 end
