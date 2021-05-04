@@ -15,7 +15,7 @@
       <ul class="govuk-list">
         <% current_user.mentor_profile.early_career_teachers.each do |ect| %>
           <li>
-            <%= govuk_link_to "Go to #{ect.preferred_name}'s materials",
+            <%= govuk_link_to "Go to #{ect.name}'s materials",
               cip_path(ect.early_career_teacher_profile.core_induction_programme) %>
           </li>
         <% end %>
