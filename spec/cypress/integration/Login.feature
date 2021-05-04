@@ -29,9 +29,6 @@ Feature: Login
     And I am on "sign in" page
     When I type "ect@example.com" into "email input"
     And I click the submit button
-    Then I should be on "create username" page
-
-    When I click the submit button
     Then "page heading" should contain "Welcome Demo User"
 
   Scenario: Mentor login
@@ -39,8 +36,5 @@ Feature: Login
     And I am on "sign in" page
     When I type "mentor@example.com" into "email input"
     And I click the submit button
-    Then I should be on "create username" page
-
-    When I click the submit button
     Then "page heading" should contain "Welcome Demo Mentor User"
 
