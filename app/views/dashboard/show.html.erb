@@ -1,14 +1,25 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-6">
   <div class="govuk-grid-column-full">
     <div class="blue-header">
-      <h1 class="govuk-heading-xl blue-header__title">Welcome <%= current_user.preferred_name %></h1>
-      <%= govuk_link_to "Edit username", edit_username_path, class: "blue-header__text", "data-test": "edit-username" %>
+      <h1 class="govuk-heading-xl blue-header__title">Welcome <%= current_user.name %></h1>
+      <%= govuk_link_to "Edit name", edit_preferred_name_path, class: "blue-header__text", "data-test": "edit-name" %>
     </div>
 
     <% if current_user.early_career_teacher? %>
       <%= govuk_link_to "Go to your module materials",
         cip_path(current_user.early_career_teacher_profile.core_induction_programme),
         button: true %>
+    <% end %>
+
+    <% if current_user.mentor? %>
+      <ul class="govuk-list">
+        <% current_user.mentor_profile.early_career_teachers.each do |ect| %>
+          <li>
+            <%= govuk_link_to "Go to #{ect.name}'s materials",
+              cip_path(ect.early_career_teacher_profile.core_induction_programme) %>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
 
     <h2 class="govuk-heading-l govuk-!-margin-top-4">Related content</h2>

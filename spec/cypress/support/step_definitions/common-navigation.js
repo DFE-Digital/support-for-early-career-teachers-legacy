@@ -6,7 +6,7 @@ const pagePaths = {
   cookie: "/cookies",
   start: "/",
   dashboard: "/dashboard",
-  "edit username": "/username/edit",
+  "edit preferred name": "/preferred-name/edit",
   "sign in": "/users/sign_in",
   "core induction programme index": "/core-induction-programmes",
   "core induction programme year": "/core-induction-programmes/:id",
@@ -16,6 +16,8 @@ const pagePaths = {
   "core induction programme lesson": "/lessons/:id",
   "core induction programme lesson edit": "/lessons/:id/edit",
   "core induction programme lesson part": "/lesson_parts/:id",
+  "core induction programme mentor material": "/mentor-materials/:id",
+  "core induction programme mentor material edit": "/mentor-materials/:id/edit",
   "training and support": "/training-and-support",
 };
 

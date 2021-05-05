@@ -25,13 +25,7 @@ RSpec.describe "Users::Sessions", type: :request do
 
   describe "POST /users/sign_in" do
     context "when email matches a user" do
-      it "redirects to new username path when user has not created account" do
-        new_user = create(:user, account_created: false)
-        post "/users/sign_in", params: { user: { email: new_user.email } }
-        expect(response).to redirect_to(new_username_path)
-      end
-
-      it "redirects to dashboard when user has created account" do
+      it "redirects to dashboard" do
         post "/users/sign_in", params: { user: { email: user.email } }
         expect(response).to redirect_to(dashboard_path)
       end

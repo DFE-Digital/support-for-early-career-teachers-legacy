@@ -7,7 +7,6 @@ Feature: Training and Support page
 
   Scenario: Guidance for Ambition Institute
     Given I am logged in as existing user with email "ambition-institute-early-career-teacher@example.com"
-    When I click the submit button
     And I click on "link" containing "Guidance about training and support during your induction"
     Then I should be on "training and support" page
     And "page body" should contain "Ambition Institute"
@@ -16,7 +15,6 @@ Feature: Training and Support page
 
   Scenario: Guidance for Education Development Trust
     Given I am logged in as existing user with email "education-development-trust-early-career-teacher@example.com"
-    When I click the submit button
     When I click on "link" containing "Guidance about training and support during your induction"
     Then I should be on "training and support" page
     And "page body" should contain "Education Development Trust"
@@ -25,7 +23,6 @@ Feature: Training and Support page
 
   Scenario: Guidance for Teach First
     Given I am logged in as existing user with email "teach-first-early-career-teacher@example.com"
-    When I click the submit button
     When I click on "link" containing "Guidance about training and support during your induction"
     Then I should be on "training and support" page
     And "page body" should contain "Teach First"
@@ -34,7 +31,6 @@ Feature: Training and Support page
 
   Scenario: Guidance for UCL
     Given I am logged in as existing user with email "ucl-early-career-teacher@example.com"
-    When I click the submit button
     When I click on "link" containing "Guidance about training and support during your induction"
     Then I should be on "training and support" page
     And "page body" should contain "UCL"
