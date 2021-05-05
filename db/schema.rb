@@ -155,6 +155,19 @@ ActiveRecord::Schema.define(version: 2021_05_04_100552) do
     t.index ["user_id"], name: "index_mentor_profiles_on_user_id"
   end
 
+  create_table "tracked_emails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "type"
+    t.string "sent_to"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "notify_id"
+    t.string "notify_status"
+    t.datetime "sent_at"
+    t.datetime "delivered_at"
+    t.uuid "user_id", null: false
+    t.index ["user_id"], name: "index_tracked_emails_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "full_name", null: false
     t.string "email", default: "", null: false
@@ -191,4 +204,5 @@ ActiveRecord::Schema.define(version: 2021_05_04_100552) do
   add_foreign_key "mentor_materials", "course_modules"
   add_foreign_key "mentor_materials", "course_years"
   add_foreign_key "mentor_profiles", "users"
+  add_foreign_key "tracked_emails", "users"
 end
