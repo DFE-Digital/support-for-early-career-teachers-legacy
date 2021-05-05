@@ -15,7 +15,7 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
         early_career_teacher_profile: current_user.early_career_teacher_profile,
         course_lesson: @course_lesson,
       )
-      progress.in_progress! if progress.not_started?
+      progress.in_progress! if progress.to_do?
     end
     if @course_lesson.course_lesson_parts.first
       redirect_to lesson_part_path(@course_lesson.course_lesson_parts_in_order[0])

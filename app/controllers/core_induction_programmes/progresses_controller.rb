@@ -12,7 +12,7 @@ class CoreInductionProgrammes::ProgressesController < ApplicationController
     progress = CourseLessonProgress.find_or_create_by!(early_career_teacher_profile: current_user.early_career_teacher_profile, course_lesson: @course_lesson)
     authorize progress
     if current_user.early_career_teacher?
-      unless params[:progress].include?("not_started")
+      unless params[:progress].include?("to_do")
         progress.update!(progress: params[:progress])
       end
     end
