@@ -42,6 +42,7 @@ locals {
   app_env_domain  = {
     "DOMAIN" = "ecf-engage-and-learn-${var.environment}.london.cloudapps.digital"
     "GIAS_API_ROOT" = "https://ea-edubase-api-prod.azurewebsites.net"
+    "REGISTER_AND_PARTNER_URL" = ""
     "GOVUK_APP_DOMAIN" = "ecf-engage-and-learn-${var.environment}.london.cloudapps.digital"
     "GOVUK_WEBSITE_ROOT" = "ecf-engage-and-learn-${var.environment}.london.cloudapps.digital"
   }

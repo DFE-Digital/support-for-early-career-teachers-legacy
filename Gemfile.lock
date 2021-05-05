@@ -163,6 +163,10 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
+    json_api_client (0.9.6)
+      activesupport
+      addressable (~> 2.2)
+      faraday (>= 0.8.0)
     jwt (2.2.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -429,6 +433,7 @@ DEPENDENCIES
   govuk-components (>= 1.0.2)
   govuk_design_system_formbuilder (~> 2.1, >= 2.1.5)
   httpclient
+  json_api_client
   kaminari (>= 1.2.1)
   listen (>= 3.0.5, < 3.4)
   mail-notify (>= 1.0.3)
