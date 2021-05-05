@@ -58,7 +58,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
   end
 
   def update_progress
-    redirect_to :show and return unless current_user.early_career_teacher?
+    redirect_to :show and return unless current_user&.early_career_teacher?
 
     @course_lesson_part = CourseLessonPart.find(params[:lesson_part_id])
     authorize @course_lesson_part.course_lesson
@@ -76,13 +76,13 @@ private
     @course_lesson_part = CourseLessonPart.find(params[:id] || params[:lesson_part_id])
     authorize @course_lesson_part
     @course_lesson_part.assign_attributes(course_lesson_part_params)
-    if current_user.early_career_teacher?
+    if current_user&.early_career_teacher?
       load_progress
     end
   end
 
   def load_progress
-    @lesson_progress = CourseLessonProgress.find_by(
+    @lesson_progress = CourseLessonProgress.find_or_create_by!(
       early_career_teacher_profile: current_user.early_career_teacher_profile,
       course_lesson: @course_lesson_part.course_lesson,
     )
