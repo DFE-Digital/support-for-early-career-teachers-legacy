@@ -13,11 +13,9 @@ private
     when "to_do"
       "govuk-tag--grey"
     when "in_progress"
-      "govuk-tag--blue"
-    when "discussion_needed"
-      "govuk-tag--orange"
+      "govuk-tag--yellow"
     else
-      ""
+      "govuk-tag--green"
     end
   end
 end
