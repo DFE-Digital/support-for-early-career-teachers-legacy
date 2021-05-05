@@ -2,7 +2,7 @@
 
 module RegisterAndPartnerApi
   class Resource < JsonApiClient::Resource
-    self.site = ENV.fetch("REGISTER_AND_PARTNER_URL")
+    self.site = ENV.fetch("REGISTER_AND_PARTNER_URL") + "/api/v1"
     self.connection_options = { headers: { user_agent: "Engage and Learn" } }
   end
 end

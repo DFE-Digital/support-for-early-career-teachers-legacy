@@ -5,13 +5,7 @@ module RegisterAndPartnerApi
     def self.perform
       # TODO: Add the last time we synced users, to avoid getting too many of them back
       begin
-        (1..).each do |page|
-          sync_users(
-            RegisterAndPartnerApi::User
-                .paginate(page: page, per_page: 500)
-                .all,
-          )
-        end
+        sync_users(RegisterAndPartnerApi::User.all)
       rescue JsonApiClient::Errors::ClientError
         # This is how the API responds when we run out of pages :/
       end
