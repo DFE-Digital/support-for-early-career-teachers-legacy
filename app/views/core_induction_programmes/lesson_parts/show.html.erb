@@ -23,9 +23,9 @@
     <% end %>
 
     <p class="govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-2">Contents</p>
-    <ul class="govuk-list">
+    <ul class="govuk-list govuk-list--bullet">
       <% @course_lesson_part.course_lesson.course_lesson_parts_in_order.each do |part| %>
-        <li class="govuk-list--bullet">
+        <li>
           <% if part == @course_lesson_part %>
             <span><%= part.title %></span>
           <% else %>
