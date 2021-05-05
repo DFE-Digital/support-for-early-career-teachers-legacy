@@ -4,9 +4,10 @@ class CourseLessonProgress < ApplicationRecord
   enum progress: {
     to_do: "to_do",
     in_progress: "in_progress",
-    discussion_needed: "discussion_needed",
     complete: "complete",
   }
+
+  validates :progress, presence: { message: "Select if you have finished the session" }
 
   belongs_to :course_lesson
   belongs_to :early_career_teacher_profile

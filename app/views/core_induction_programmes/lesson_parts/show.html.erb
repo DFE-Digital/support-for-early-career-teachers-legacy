@@ -1,6 +1,6 @@
 <%= govuk_breadcrumbs breadcrumbs: course_lesson_breadcrumbs(current_user, @course_lesson_part.course_lesson) %>
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-two-thirds">
 
     <% if policy(@course_lesson_part.course_lesson).edit? %>
       <%= govuk_link_to "Edit lesson", edit_lesson_path(@course_lesson_part.course_lesson), button: true %>
@@ -15,46 +15,23 @@
       <%= govuk_link_to "Delete lesson part", lesson_part_show_delete_path(lesson_part_id: @course_lesson_part.id), button: true, class: "govuk-button--secondary"  %>
     <% end %>
 
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4"> <%= @course_lesson_part.course_lesson.title %></h1>
-    <% if @course_lesson_part.course_lesson.completion_time_in_minutes %>
-      <h2 class="govuk-caption-m govuk-!-margin-bottom-8">
-        Duration: <%= @course_lesson_part.course_lesson.duration_in_minutes_in_words %>
-      </h2>
-    <% end %>
+    <% if policy(@course_lesson_part.course_lesson).update_progress? && @course_lesson_part.next_lesson_part.nil? %>
+      <%= form_with model: @lesson_progress, url: lesson_part_update_progress_path(lesson_part_id: @course_lesson_part.id), method: :put do |f| %>
+        <%= f.govuk_error_summary %>
 
-    <p class="govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-2">Contents</p>
-    <ul class="govuk-list">
-      <% @course_lesson_part.course_lesson.course_lesson_parts_in_order.each do |part| %>
-        <li class="govuk-list--bullet">
-          <% if part == @course_lesson_part %>
-            <span><%= part.title %></span>
-          <% else %>
-            <%= govuk_link_to part.title, lesson_part_path(part) %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+        <%= render "core_induction_programmes/lesson_parts/lesson_part_content" %>
 
-    <h2 class="govuk-heading-l"> <%= @course_lesson_part.title %></h2>
-    <div class="gem-c-govspeak govuk-govspeak">
-      <%= @course_lesson_part.content_to_html.html_safe %>
-    </div>
+        <%= f.govuk_radio_buttons_fieldset(:progress, legend: { text: "Have you finished and understood the session?" }) do %>
+          <%= f.govuk_radio_button :progress, :complete, label: { text: "I feel confident that I’ve read and understood this session" } %>
+          <%= f.govuk_radio_button :progress, :in_progress, label: { text: "I would like more time on this session and will either revisit or pick up with my mentor" } %>
+          <%= f.govuk_radio_divider %>
+          <%= f.govuk_radio_button :progress, :to_do, label: { text: "I am just browsing and have yet to properly look at this session" } %>
+        <% end %>
 
-    <% if policy(@course_lesson_part.course_lesson).set_progress? && @course_lesson_part.next_lesson_part.nil? %>
-      <%= form_with url: lesson_progress_path(lesson_id: @course_lesson_part.course_lesson.id), method: :put do |f| %>
-        <%= f.govuk_collection_radio_buttons(
-              :progress,
-              [
-                OpenStruct.new(id: :complete, name: "I feel confident that I’ve read and understood this session"),
-                OpenStruct.new(id: :in_progress, name: "I would like more time on this session and will revisit"),
-                OpenStruct.new(id: :discussion_needed, name: "There are sections that I don’t understand and would like to discuss with my mentor"),
-              ],
-              :id,
-              :name,
-              legend: {text: "That's the end of this session"}) %>
-        <p class="govuk-body">Once you click End Session your reflections will be able to view via the self study dashboard. Your mentor will also be able to access these ahead of your weekly meetings also.</p>
         <%= f.govuk_submit "End session" %>
       <% end %>
+    <% else %>
+      <%= render "core_induction_programmes/lesson_parts/lesson_part_content" %>
     <% end %>
 
     <nav class="step-by-step-navigation" role="navigation" aria-label="Lesson Part Navigation">
