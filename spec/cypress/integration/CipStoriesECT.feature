@@ -22,21 +22,19 @@ Feature: ECT user interaction with Core Induction Programme
   Scenario: Displaying lesson progress
     When I click on "link" containing "Test Course module"
     Then "tag component" should contain "to do"
+    And percy should be sent snapshot
 
     When I click on "link" containing "Test Course lesson"
     And I click on "I would like more time on this session and will either revisit or pick up with my mentor" label
     And I click the submit button
     Then "tag component" should contain "in progress"
-    And percy should be sent snapshot
 
     When I click on "link" containing "Test Course lesson"
     And I click on "I am just browsing and have yet to properly look at this session" label
     And I click the submit button
     Then "tag component" should contain "to do"
-    And percy should be sent snapshot
 
     When I click on "link" containing "Test Course lesson"
     And I click on "I feel confident that I’ve read and understood this session" label
     And I click the submit button
     Then "tag component" should contain "complete"
-    And percy should be sent snapshot
