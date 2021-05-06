@@ -9,18 +9,20 @@
 $govuk-font-url-function: frontend-font-url;
 $govuk-image-url-function: frontend-image-url;
 
+@import "~accessible-autocomplete";
 @import "~govuk-frontend/govuk/all";
-@import "dashboard";
-@import "school_search";
-@import "registration";
+
 @import "app_task_list";
+@import "dashboard";
+@import "govspeak";
 @import "pagination";
 @import "page-tabs";
+@import "registration";
+@import "school_search";
 @import "step_by_step_navigation";
-@import "~accessible-autocomplete";
-@import "govspeak";
+@import "subnav";
 
 .outside-content-wrapper {
   width: 90%;
-  margin:auto;
+  margin: auto;
 }

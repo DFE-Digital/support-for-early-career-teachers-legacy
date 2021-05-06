@@ -9,6 +9,11 @@ class CoreInductionProgrammes::YearsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_course_year, except: %i[new create]
 
+  def show
+    @cip = @course_year.core_induction_programme
+    # render json: @course_year.autumn_modules_with_progress(current_user)[0].course_lessons
+  end
+
   def new
     authorize CourseYear
     @core_induction_programmes = CoreInductionProgramme.all

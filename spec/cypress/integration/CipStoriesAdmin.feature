@@ -5,9 +5,10 @@ Feature: Admin user interaction with Core Induction Programme
   Background:
     Given I am logged in as "admin"
 
+    @focus
   Scenario: Can edit years
     Given core_induction_programme was created as "with_course_year" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme year" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 
     When I click on "link" containing "Edit year content"
     Then I should be on "core induction programme year edit" page

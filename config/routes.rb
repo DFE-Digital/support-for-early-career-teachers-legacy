@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get "download-export", to: "core_induction_programmes#download_export", as: :download_export
 
   scope path: "/", module: :core_induction_programmes do
-    resources :years, only: %i[new create edit update]
+    resources :years, only: %i[show new create edit update]
 
     resources :modules, only: %i[show edit update]
     resources :lessons, only: %i[show edit update] do

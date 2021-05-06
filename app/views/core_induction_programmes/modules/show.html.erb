@@ -18,36 +18,38 @@
     <% end %>
 
     <% if current_user&.admin? %>
-      <h2 class="govuk-heading-l">ECT summary:</h2>
-      <div class="gem-c-govspeak govuk-govspeak ">
-        <%= @course_module.ect_summary_to_html.html_safe %>
-      </div>
-      <h2 class="govuk-heading-l">Mentor summary:</h2>
-      <div class="gem-c-govspeak govuk-govspeak ">
-        <%= @course_module.mentor_summary_to_html.html_safe %>
-      </div>
+      <% if @course_module.ect_summary %>
+        <h2 class="govuk-heading-m">ECT summary:</h2>
+        <div class="gem-c-govspeak govuk-govspeak ">
+          <%= @course_module.ect_summary_to_html.html_safe %>
+        </div>
+      <% end %>
+      <% if @course_module.mentor_summary %>
+        <h2 class="govuk-heading-m">Mentor summary:</h2>
+        <div class="gem-c-govspeak govuk-govspeak ">
+          <%= @course_module.mentor_summary_to_html.html_safe %>
+        </div>
+      <% end %>
     <% end %>
 
-    <ol class="app-task-list">
-      <li>
-        <p><strong>Topic materials</strong></p>
-        <ul class="app-task-list__items">
-          <% if @course_lessons_with_progress.each do |lesson| %>
-            <li class="app-task-list__item">
-              <div>
-                <%= govuk_link_to lesson.title, lesson_path(lesson) %>
-                <% if lesson.completion_time_in_minutes %>
-                  <p>Duration: <%= lesson.duration_in_minutes_in_words %></p>
-                <% end %>
-              </div>
-              <%= render ProgressLabelComponent.new progress: lesson.progress %>
-            </li>
-          <% end.empty? %>
-          <li>No course lessons were found!</li>
-          <% end %>
-        </ul>
-      </li>
-    </ol>
+    <ul class="app-task-list__items">
+      <% if @course_lessons_with_progress.each do |lesson| %>
+        <li class="app-task-list__item">
+          <h2 class="govuk-heading-m"><%= lesson.title %></h2>
+          <p class="govuk-body"><%= lesson.ect_summary %></p>
+
+          <div class="app-task-list__section">
+            <%= govuk_link_to "Work through the self-study material#{
+                lesson.completion_time_in_minutes ? " (#{lesson.completion_time_in_minutes} minutes)" : ""
+              }", lesson_path(lesson) %>
+            <%= render ProgressLabelComponent.new progress: lesson.progress %>
+          </div>
+        </li>
+      <% end.empty? %>
+        <li>No course lessons were found!</li>
+      <% end %>
+    </ul>
+
     <nav class="step-by-step-navigation" role="navigation" aria-label="Lesson Part Navigation">
       <ul class="step-by-step-navigation__list">
         <% if @course_module.previous_module %>
