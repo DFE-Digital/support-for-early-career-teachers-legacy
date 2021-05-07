@@ -64,9 +64,9 @@ RSpec.describe CourseYear, type: :model do
       end
     end
 
-    it "returns a progress of not_started when all lessons in that module are not_started" do
+    it "returns a progress of to_do when all lessons in that module are to_do" do
       module_progress = @course_year.modules_with_progress(@teacher).first
-      expect(module_progress.progress).to eql("not_started")
+      expect(module_progress.progress).to eql("to_do")
     end
 
     it "returns a progress of in_progress when one lesson in that module is in_progress" do

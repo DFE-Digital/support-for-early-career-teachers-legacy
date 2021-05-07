@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_100552) do
+ActiveRecord::Schema.define(version: 2021_05_05_141307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -51,11 +51,11 @@ ActiveRecord::Schema.define(version: 2021_05_04_100552) do
   end
 
   create_table "course_lesson_progresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "progress", default: "not_started"
     t.uuid "early_career_teacher_profile_id", null: false
     t.uuid "course_lesson_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "progress", default: "to_do"
     t.index ["course_lesson_id", "early_career_teacher_profile_id"], name: "idx_cl_progresses_on_cl_id_and_ect_profile_id", unique: true
     t.index ["course_lesson_id"], name: "idx_course_lesson_progresses_on_course_lesson_id"
     t.index ["early_career_teacher_profile_id"], name: "idx_course_lesson_progresses_on_ect_profile_id"

@@ -1,0 +1,24 @@
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-4"> <%= @course_lesson_part.course_lesson.title %></h1>
+<% if @course_lesson_part.course_lesson.completion_time_in_minutes %>
+  <h2 class="govuk-caption-m govuk-!-margin-bottom-8">
+    Duration: <%= @course_lesson_part.course_lesson.duration_in_minutes_in_words %>
+  </h2>
+<% end %>
+
+<p class="govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-2">Contents</p>
+<ul class="govuk-list govuk-list--bullet">
+  <% @course_lesson_part.course_lesson.course_lesson_parts_in_order.each do |part| %>
+    <li>
+      <% if part == @course_lesson_part %>
+        <span><%= part.title %></span>
+      <% else %>
+        <%= govuk_link_to part.title, lesson_part_path(part) %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<h2 class="govuk-heading-l"> <%= @course_lesson_part.title %></h2>
+<div class="gem-c-govspeak govuk-govspeak">
+  <%= @course_lesson_part.content_to_html.html_safe %>
+</div>

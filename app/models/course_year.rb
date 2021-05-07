@@ -59,8 +59,8 @@ private
   end
 
   def course_module_progress_status(lessons)
-    if lessons.all? { |lesson| lesson.progress == "not_started" }
-      "not_started"
+    if lessons.all? { |lesson| lesson.progress == "to_do" }
+      "to_do"
     elsif lessons.all? { |lesson| lesson.progress == "complete" }
       "complete"
     else

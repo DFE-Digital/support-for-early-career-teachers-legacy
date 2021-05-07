@@ -33,14 +33,13 @@ Rails.application.routes.draw do
     resources :years, only: %i[new create edit update]
 
     resources :modules, only: %i[show edit update]
-    resources :lessons, only: %i[show edit update] do
-      resource :progress, only: %i[update]
-    end
+    resources :lessons, only: %i[show edit update]
 
     resources :lesson_parts, only: %i[show edit update destroy] do
       get "split", to: "lesson_parts#show_split", as: "split"
       post "split", to: "lesson_parts#split"
       get "show_delete", to: "lesson_parts#show_delete"
+      put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
     end
 
     resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update]

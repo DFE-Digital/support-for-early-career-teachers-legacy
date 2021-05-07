@@ -7,7 +7,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
 
   after_action :verify_authorized
   before_action :authenticate_user!, except: :show
-  before_action :load_course_lesson_part
+  before_action :load_course_lesson_part, except: :update_progress
 
   def show; end
 
@@ -57,12 +57,36 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
     redirect_to lesson_path(lesson)
   end
 
+  def update_progress
+    redirect_to :show and return unless current_user&.early_career_teacher?
+
+    @course_lesson_part = CourseLessonPart.find(params[:lesson_part_id])
+    authorize @course_lesson_part.course_lesson
+    load_progress
+    if @lesson_progress.update(lesson_progress_params)
+      redirect_to module_path(@course_lesson_part.course_lesson.course_module)
+    else
+      render :show
+    end
+  end
+
 private
 
   def load_course_lesson_part
     @course_lesson_part = CourseLessonPart.find(params[:id] || params[:lesson_part_id])
     authorize @course_lesson_part
     @course_lesson_part.assign_attributes(course_lesson_part_params)
+    if current_user&.early_career_teacher?
+      load_progress
+    end
+  end
+
+  def load_progress
+    @lesson_progress = CourseLessonProgress.find_or_create_by!(
+      early_career_teacher_profile: current_user.early_career_teacher_profile,
+      course_lesson: @course_lesson_part.course_lesson,
+    )
+    @lesson_progress.progress = nil
   end
 
   def course_lesson_part_params
@@ -71,5 +95,9 @@ private
 
   def lesson_split_params
     params.require(:split_lesson_part_form).permit(:title, :content, :new_title, :new_content)
+  end
+
+  def lesson_progress_params
+    params.fetch(:course_lesson_progress, {}).permit(:progress)
   end
 end

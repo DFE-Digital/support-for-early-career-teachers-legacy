@@ -132,11 +132,6 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
     end
 
     describe "GET /lessons/:id" do
-      it "sets progress to 'in progress' when lesson is not started by the user" do
-        get course_lesson_path
-        expect(progress).to eq("in_progress")
-      end
-
       it "leaves progress unchanged when lesson is completed" do
         CourseLessonProgress.create!(
           course_lesson: course_lesson,
