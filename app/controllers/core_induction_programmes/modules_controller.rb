@@ -23,7 +23,7 @@ class CoreInductionProgrammes::ModulesController < ApplicationController
     if @course_module.valid?
       @course_module.save!
       next_module&.update!(previous_module: @course_module)
-      redirect_to cip_index_path
+      redirect_to module_path(@course_module)
     else
       render action: "new"
     end

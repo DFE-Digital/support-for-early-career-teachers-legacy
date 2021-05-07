@@ -11,7 +11,6 @@ class CoreInductionProgrammes::YearsController < ApplicationController
 
   def show
     @cip = @course_year.core_induction_programme
-    # render json: @course_year.autumn_modules_with_progress(current_user)[0].course_lessons
   end
 
   def new
@@ -26,7 +25,7 @@ class CoreInductionProgrammes::YearsController < ApplicationController
 
     if @course_year.valid?
       @course_year.save!
-      redirect_to cip_index_path
+      redirect_to year_path(@course_year)
     else
       @core_induction_programmes = CoreInductionProgramme.all
       render action: "new"
@@ -39,7 +38,7 @@ class CoreInductionProgrammes::YearsController < ApplicationController
     if params[:commit] == "Save changes"
       @course_year.save!
       flash[:success] = "Your changes have been saved"
-      redirect_to cip_path(@course_year.core_induction_programme)
+      redirect_to year_path(@course_year)
     else
       render action: "edit"
     end

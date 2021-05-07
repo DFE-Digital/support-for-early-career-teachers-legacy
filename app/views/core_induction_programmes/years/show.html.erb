@@ -2,7 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-xl">Your module materials</h2>
+    <h1 class="govuk-heading-xl">Your module materials</h1>
 
     <%= render SubnavComponent.new do |component| %>
       <%= component.nav_item(path: year_path(@cip.course_year_one_id)) do %>
@@ -28,13 +28,13 @@
       <%= @course_year.content_to_html.html_safe %>
     </div>
 
-    <h3 class="govuk-heading-l">Autumn term</h3>
+    <h2 class="govuk-heading-l">Autumn term</h2>
     <%= render "module_list", locals = { course_modules: @course_year.autumn_modules_with_progress(current_user) } %>
 
-    <h3 class="govuk-heading-l">Spring term</h3>
+    <h2 class="govuk-heading-l">Spring term</h2>
     <%= render "module_list", locals = { course_modules: @course_year.spring_modules_with_progress(current_user) } %>
 
-    <h3 class="govuk-heading-l">Summer term</h3>
+    <h2 class="govuk-heading-l">Summer term</h2>
     <%= render "module_list", locals = { course_modules: @course_year.summer_modules_with_progress(current_user) } %>
 
   </div>

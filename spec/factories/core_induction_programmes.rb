@@ -6,6 +6,7 @@ FactoryBot.define do
 
     trait :with_course_year do
       course_year_one_id { FactoryBot.create(:course_year).id }
+      course_year_two_id { FactoryBot.create(:course_year).id }
     end
   end
 end

@@ -3,13 +3,20 @@
 require "rails_helper"
 
 RSpec.describe "Core Induction Programme Year", type: :request do
-  let(:course_year) { FactoryBot.create(:course_year) }
+  let(:course_year) { FactoryBot.create(:course_year, :with_cip) }
   let(:course_year_path) { "/years/#{course_year.id}" }
 
   describe "when an admin user is logged in" do
     before do
       admin_user = create(:user, :admin)
       sign_in admin_user
+    end
+
+    describe "GET /years/:id" do
+      it "renders the years show page" do
+        get course_year_path
+        expect(response).to render_template(:show)
+      end
     end
 
     describe "GET /years/new" do
@@ -20,8 +27,9 @@ RSpec.describe "Core Induction Programme Year", type: :request do
     end
 
     describe "POST /years" do
-      it "creates a new year, redirecting to the CIP homepage" do
-        expect(create_course_year).to redirect_to("/core-induction-programmes")
+      it "creates a new year, redirecting to the year" do
+        create_course_year
+        expect(response.location).to match("/years/[a-f0-9-]+$")
       end
     end
 
@@ -44,17 +52,9 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       it "redirects to the year page and updates content when saving changes" do
         create_cip
         put course_year_path, params: { commit: "Save changes", course_year: { content: "Adding new content" } }
-        expect(response).to redirect_to(cip_path(course_year.core_induction_programme))
-        get cip_path(course_year.core_induction_programme)
+        expect(response).to redirect_to(year_path(course_year))
+        get year_path(course_year)
         expect(response.body).to include("Adding new content")
-      end
-
-      it "redirects to the year page when saving title" do
-        create_cip
-        put course_year_path, params: { commit: "Save changes", course_year: { title: "New title" } }
-        expect(response).to redirect_to(cip_path(course_year.core_induction_programme))
-        get cip_path(course_year.core_induction_programme)
-        expect(response.body).to include("New title")
       end
     end
   end
@@ -84,7 +84,22 @@ RSpec.describe "Core Induction Programme Year", type: :request do
     end
   end
 
-  describe "when a non-user is accessing the year page" do
+  describe "when an early career teacher is logged in" do
+    before do
+      ect_cip = create(:core_induction_programme, course_year_one_id: course_year.id)
+      early_career_teacher = create(:user, :early_career_teacher, { core_induction_programme: ect_cip })
+      sign_in early_career_teacher
+    end
+
+    describe "GET /years/:id" do
+      it "renders the years show page" do
+        get "/years/#{course_year.id}"
+        expect(response).to render_template(:show)
+      end
+    end
+  end
+
+  describe "when a visitor is accessing the year page" do
     describe "GET /years/new" do
       it "raises an error when trying to create a new year page" do
         get "/years/new"
