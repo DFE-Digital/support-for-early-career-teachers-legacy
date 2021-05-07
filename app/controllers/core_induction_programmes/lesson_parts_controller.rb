@@ -98,8 +98,6 @@ private
   end
 
   def lesson_progress_params
-    return {} unless params.key?(:course_lesson_progress)
-
-    params.require(:course_lesson_progress).permit(:progress)
+    params.fetch(:course_lesson_progress, {}).permit(:progress)
   end
 end
