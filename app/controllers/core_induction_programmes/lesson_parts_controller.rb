@@ -86,6 +86,7 @@ private
       early_career_teacher_profile: current_user.early_career_teacher_profile,
       course_lesson: @course_lesson_part.course_lesson,
     )
+    @lesson_progress.progress = nil
   end
 
   def course_lesson_part_params
