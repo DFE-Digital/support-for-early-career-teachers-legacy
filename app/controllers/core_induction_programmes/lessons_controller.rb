@@ -7,7 +7,7 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
 
   after_action :verify_authorized
   before_action :authenticate_user!, except: :show
-  before_action :load_course_lesson
+  before_action :load_course_lesson, only: %i[show edit update]
 
   def show
     if current_user&.early_career_teacher?
@@ -30,6 +30,27 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
       redirect_to lesson_path
     else
       render action: "edit"
+    end
+  end
+
+  def new
+    @cip = CoreInductionProgramme.find(params[:cip_id])
+    @course_lesson = CourseLesson.new
+    @course_modules = @cip.course_modules
+    authorize @course_lesson
+  end
+
+  def create
+    @cip = CoreInductionProgramme.find(params[:cip_id])
+    @course_lesson = CourseLesson.new(course_lesson_params)
+    @course_modules = @cip.course_modules
+    authorize @course_lesson
+
+    if @course_lesson.save
+      flash[:success] = "Your lesson has been created"
+      redirect_to lesson_path(@course_lesson)
+    else
+      render :new
     end
   end
 

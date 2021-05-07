@@ -23,13 +23,14 @@ module CipBreadcrumbHelper
   end
 
   def course_lesson_breadcrumbs(user, course_lesson)
-    lesson_crumb = course_lesson_crumb(course_lesson)
-    [
-      home_crumb(user),
-      programme_crumb(course_lesson.course_module.course_year.core_induction_programme),
-      course_module_crumb(course_lesson.course_module),
-      end_crumb(lesson_crumb),
-    ]
+    array = []
+
+    array << home_crumb(user)
+    array << programme_crumb(course_lesson.course_module.course_year.core_induction_programme) if course_lesson.course_module
+    array << course_module_crumb(course_lesson.course_module) if course_lesson.course_module
+    array << end_crumb(course_lesson_crumb(course_lesson))
+
+    array
   end
 
 private
@@ -41,7 +42,8 @@ private
   def programme_crumb(programme)
     if programme.present?
       [programme.name, cip_path(programme)]
-    else ["no programme"]
+    else
+      ["no programme"]
     end
   end
 
@@ -50,7 +52,11 @@ private
   end
 
   def course_lesson_crumb(course_lesson)
-    [course_lesson.title, lesson_path(course_lesson)]
+    if course_lesson.persisted?
+      [course_lesson.title, lesson_path(course_lesson)]
+    else
+      ["Create lesson"]
+    end
   end
 
   def end_crumb(crumb)
