@@ -32,6 +32,7 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
   def new
     authorize MentorMaterial
     @mentor_material = MentorMaterial.new
+    @course_lessons = CourseLesson.all
   end
 
   def create
