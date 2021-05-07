@@ -1,6 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h2 class="govuk-heading-l">Mentor materials</h2>
+    <h1 class="govuk-heading-l">Mentor materials</h1>
+
+    <% if current_user&.admin? %>
+      <%= govuk_link_to "Create Mentor Material", new_mentor_material_path, button: true %>
+    <% end %>
+
     <% if @mentor_materials.any? %>
       <% @mentor_materials.each do |mentor_material| %>
         <p><%= govuk_link_to mentor_material.title, mentor_material_path(mentor_material) %></p>

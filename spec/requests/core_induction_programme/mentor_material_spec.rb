@@ -28,7 +28,7 @@ RSpec.describe "Mentor materials", type: :request do
 
     describe "PUT /mentor-materials/:id" do
       it "redirects to the mentor materials" do
-        put mentor_material_path, params: { commit: "Save changes", mentor_material: { title: "New title" } }
+        put mentor_material_path, params: { commit: "Save", mentor_material: { title: "New title" } }
         expect(response).to redirect_to(mentor_material_path)
         get mentor_material_path
         expect(response.body).to include("New title")
@@ -39,6 +39,21 @@ RSpec.describe "Mentor materials", type: :request do
       it "renders the mentor materials edit page" do
         get "#{mentor_material_path}/edit", params: { mentor_material: { id: mentor_material.id } }
         expect(response).to render_template(:edit)
+      end
+    end
+
+    describe "GET /mentor-materials/new" do
+      it "renders new template" do
+        get "/mentor-materials/new"
+        expect(response).to render_template(:new)
+      end
+    end
+
+    describe "POST /mentor-materials" do
+      it "creates a mentor material" do
+        expect {
+          post mentor_materials_path, params: { mentor_material: { title: "New title", content: "new content" } }
+        }.to(change { MentorMaterial.count }.by(1))
       end
     end
   end
@@ -71,7 +86,7 @@ RSpec.describe "Mentor materials", type: :request do
 
     describe "PUT /mentor-materials/:id" do
       it "redirects to the sign in page" do
-        expect { put mentor_material_path, params: { commit: "Save changes", content: mentor_material.content } }.to raise_error Pundit::NotAuthorizedError
+        expect { put mentor_material_path, params: { commit: "Save", content: mentor_material.content } }.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
@@ -93,7 +108,7 @@ RSpec.describe "Mentor materials", type: :request do
 
     describe "PUT /mentor-materials/:id" do
       it "redirects to the sign in page" do
-        put mentor_material_path, params: { commit: "Save changes", content: mentor_material.content }
+        put mentor_material_path, params: { commit: "Save", content: mentor_material.content }
         expect(response).to redirect_to("/users/sign_in")
       end
     end
