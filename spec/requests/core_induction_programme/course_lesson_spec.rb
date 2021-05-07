@@ -100,7 +100,7 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
         expect(response).to redirect_to(lesson_path(CourseLesson.last))
       end
 
-      context "sad path" do
+      context "when invalid data provided" do
         it "renders new template" do
           post cip_create_lesson_path(cip), params: {
             course_lesson: {
