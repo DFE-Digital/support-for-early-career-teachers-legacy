@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Core Induction Programme Lesson", type: :request do
+  let(:cip) { create(:core_induction_programme) }
   let(:course_lesson) { FactoryBot.create(:course_lesson) }
   let(:course_lesson_path) { "/lessons/#{course_lesson.id}" }
 
@@ -62,6 +63,56 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
         put course_lesson_path, params: { course_lesson: { commit: "Save changes", course_module_id: second_course_module[:id] } }
         course_lesson.reload
         expect(course_lesson[:course_module_id]).to eq(second_course_module[:id])
+      end
+    end
+
+    describe "GET /create-lesson" do
+      it "renders the new lesson page" do
+        get cip_create_lesson_path(cip)
+        expect(response).to render_template(:new)
+      end
+    end
+
+    describe "POST /create-lesson" do
+      it "creates a new lesson" do
+        expect {
+          post cip_create_lesson_path(cip), params: {
+            course_lesson: {
+              title: "new lesson title",
+              ect_summary: "new ect summary",
+              completion_time_in_minutes: "10",
+              course_module_id: create(:course_module).id,
+            },
+          }
+        }.to change(CourseLesson, :count).by(1)
+      end
+
+      it "redirects to the lesson" do
+        post cip_create_lesson_path(cip), params: {
+          course_lesson: {
+            title: "new lesson title",
+            ect_summary: "new ect summary",
+            completion_time_in_minutes: "10",
+            course_module_id: create(:course_module).id,
+          },
+        }
+
+        expect(response).to redirect_to(lesson_path(CourseLesson.last))
+      end
+
+      context "when invalid data provided" do
+        it "renders new template" do
+          post cip_create_lesson_path(cip), params: {
+            course_lesson: {
+              title: "",
+              ect_summary: "new ect summary",
+              completion_time_in_minutes: "10",
+              course_module_id: create(:course_module).id,
+            },
+          }
+
+          expect(response).to render_template(:new)
+        end
       end
     end
   end

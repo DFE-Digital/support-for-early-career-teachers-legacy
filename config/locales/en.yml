@@ -39,3 +39,8 @@ en:
               blank: "Enter an email"
               taken: "This email address is already in use"
               invalid: "Enter a valid email address"
+  helpers:
+    submit:
+      course_lesson:
+        create: "Create lesson"
+        update: "Save lesson"

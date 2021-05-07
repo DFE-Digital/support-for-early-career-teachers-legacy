@@ -22,6 +22,25 @@ Given("{word} was created", (factory) => {
   cy.appFactories([["create", factory]]);
 });
 
+Given("core induction programme with year and module", () => {
+  cy.appFactories([
+    [
+      "create",
+      "core_induction_programme",
+      "with_course_year",
+      { id: "a4dc302c-ab71-4d7b-a10a-3116a778e8d5" },
+    ],
+  ]).then((records) => {
+    cy.appFactories([
+      [
+        "create",
+        "course_module",
+        { course_year_id: records[0].course_year_one_id },
+      ],
+    ]);
+  });
+});
+
 Given("{word} was created with {}", (factory, args) => {
   cy.appFactories([["create", factory, parseArgs(args)]]);
 });

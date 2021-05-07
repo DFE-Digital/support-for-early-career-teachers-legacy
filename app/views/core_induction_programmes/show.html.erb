@@ -4,6 +4,7 @@
 
     <% if current_user&.admin? %>
       <%= govuk_link_to "Create CIP Module", cip_create_module_path(@core_induction_programme), button: true %>
+      <%= govuk_link_to "Create CIP Lesson", cip_create_lesson_path(@core_induction_programme), button: true %>
     <% end %>
 
     <h1 class="govuk-heading-xl">The Early Career Framework study material</h1>

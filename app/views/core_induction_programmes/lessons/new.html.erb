@@ -1,8 +1,8 @@
 <%= govuk_breadcrumbs breadcrumbs: course_lesson_breadcrumbs(current_user, @course_lesson) %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">Edit lesson</h1>
-    <%= form_with model: @course_lesson, url: lesson_path, method: :put do |f| %>
+    <h1 class="govuk-heading-l">Create lesson</h1>
+    <%= form_with model: @course_lesson, url: cip_create_lesson_path(@cip) do |f| %>
       <%= render "course_lesson_fields", { f: f } %>
     <% end %>
   </div>

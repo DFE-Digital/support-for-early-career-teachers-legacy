@@ -35,7 +35,12 @@
           <% if @course_lessons_with_progress.each do |lesson| %>
             <li class="app-task-list__item">
               <div>
-                <%= govuk_link_to lesson.title, lesson_path(lesson) %>
+                <% if lesson.course_lesson_parts.any? %>
+                  <%= govuk_link_to lesson.title, lesson_path(lesson) %>
+                <% else %>
+                  <%= lesson.title %>
+                <% end %>
+
                 <% if lesson.completion_time_in_minutes %>
                   <p>Duration: <%= lesson.duration_in_minutes_in_words %></p>
                 <% end %>
