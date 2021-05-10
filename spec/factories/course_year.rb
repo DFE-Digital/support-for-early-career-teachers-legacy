@@ -6,7 +6,12 @@ FactoryBot.define do
     content { "No content" }
 
     trait :with_cip do
-      core_induction_programme_one { FactoryBot.create(:core_induction_programme) }
+      after(:create) do |year|
+        cip = FactoryBot.create(:core_induction_programme,
+                                course_year_one: year,
+                                course_year_two: FactoryBot.create(:course_year))
+        year.core_induction_programme_one = cip
+      end
     end
   end
 end

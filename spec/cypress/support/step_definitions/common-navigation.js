@@ -9,7 +9,8 @@ const pagePaths = {
   "edit preferred name": "/preferred-name/edit",
   "sign in": "/users/sign_in",
   "core induction programme index": "/core-induction-programmes",
-  "core induction programme year": "/core-induction-programmes/:id",
+  "core induction programme show": "/core-induction-programmes/:id",
+  "core induction programme year": "/years/:id",
   "core induction programme lesson new":
     "/core-induction-programmes/:id/create-lesson",
   "core induction programme year edit": "/years/:id/edit",

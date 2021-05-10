@@ -9,6 +9,10 @@ class CoreInductionProgrammes::YearsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_course_year, except: %i[new create]
 
+  def show
+    @cip = @course_year.core_induction_programme
+  end
+
   def new
     authorize CourseYear
     @core_induction_programmes = CoreInductionProgramme.all
@@ -21,7 +25,7 @@ class CoreInductionProgrammes::YearsController < ApplicationController
 
     if @course_year.valid?
       @course_year.save!
-      redirect_to cip_index_path
+      redirect_to year_path(@course_year)
     else
       @core_induction_programmes = CoreInductionProgramme.all
       render action: "new"
@@ -34,7 +38,7 @@ class CoreInductionProgrammes::YearsController < ApplicationController
     if params[:commit] == "Save changes"
       @course_year.save!
       flash[:success] = "Your changes have been saved"
-      redirect_to cip_path(@course_year.core_induction_programme)
+      redirect_to year_path(@course_year)
     else
       render action: "edit"
     end

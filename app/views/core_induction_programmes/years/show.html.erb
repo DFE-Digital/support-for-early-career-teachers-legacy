@@ -1,0 +1,40 @@
+<%= govuk_breadcrumbs breadcrumbs: course_year_breadcrumbs(current_user, @course_year) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Your module materials</h1>
+
+    <% if @cip.course_year_two_id %>
+      <%= render SubnavComponent.new do |component| %>
+        <%= component.nav_item(path: year_path(@cip.course_year_one_id)) do %>
+          Year 1
+        <% end %>
+        <%= component.nav_item(path: year_path(@cip.course_year_two_id)) do %>
+          Year 2
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if current_user&.admin? %>
+      <div class="govuk-button-group">
+        <%= govuk_link_to "Create CIP Module", cip_create_module_path(@cip), button: true %>
+        <%= govuk_link_to "Create CIP Lesson", cip_create_lesson_path(@cip), button: true %>
+        <%= govuk_link_to "Edit year content", edit_year_path(@course_year), button: true %>
+      </div>
+    <% end %>
+
+    <div class="gem-c-govspeak govuk-govspeak ">
+      <%= @course_year.content_to_html.html_safe %>
+    </div>
+
+    <h2 class="govuk-heading-l">Autumn term</h2>
+    <%= render "module_list", locals = { course_modules: @course_year.autumn_modules_with_progress(current_user) } %>
+
+    <h2 class="govuk-heading-l">Spring term</h2>
+    <%= render "module_list", locals = { course_modules: @course_year.spring_modules_with_progress(current_user) } %>
+
+    <h2 class="govuk-heading-l">Summer term</h2>
+    <%= render "module_list", locals = { course_modules: @course_year.summer_modules_with_progress(current_user) } %>
+
+  </div>
+</div>

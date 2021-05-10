@@ -14,7 +14,7 @@ Feature: ECT user interaction with Core Induction Programme
     Then I should be on "core induction programme module" page
     And "link" containing "Edit module content" should not exist
 
-    When I click on "link" containing "Test Course lesson"
+    When I click on "link" containing "Work through the self-study material"
     Then I should be on "core induction programme lesson part" page
     And "link" containing "Edit lesson" should not exist
     And "link" containing "Edit lesson part" should not exist
@@ -24,17 +24,17 @@ Feature: ECT user interaction with Core Induction Programme
     Then "tag component" should contain "to do"
     And percy should be sent snapshot
 
-    When I click on "link" containing "Test Course lesson"
+    When I click on "link" containing "Work through the self-study material"
     And I click on "I would like more time on this session and will either revisit or pick up with my mentor" label
     And I click the submit button
     Then "tag component" should contain "in progress"
 
-    When I click on "link" containing "Test Course lesson"
+    When I click on "link" containing "Work through the self-study material"
     And I click on "I am just browsing and have yet to properly look at this session" label
     And I click the submit button
     Then "tag component" should contain "to do"
 
-    When I click on "link" containing "Test Course lesson"
+    When I click on "link" containing "Work through the self-study material"
     And I click on "I feel confident that I’ve read and understood this session" label
     And I click the submit button
     Then "tag component" should contain "complete"

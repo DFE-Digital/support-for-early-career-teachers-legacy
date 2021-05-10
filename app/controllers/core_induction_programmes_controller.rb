@@ -14,6 +14,7 @@ class CoreInductionProgrammesController < ApplicationController
   def show
     @core_induction_programme = CoreInductionProgramme.find(params[:id])
     authorize @core_induction_programme
+    redirect_to year_path(@core_induction_programme.course_year_one_id)
   end
 
   def download_export

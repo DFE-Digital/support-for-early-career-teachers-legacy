@@ -6,7 +6,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
   let(:course_module) { FactoryBot.create(:course_module) }
   let(:course_module_path) { "/modules/#{course_module.id}" }
   let(:second_course_module) { FactoryBot.create(:course_module, title: "Second module title", previous_module: course_module) }
-  let(:core_induction_programme) { FactoryBot.create(:core_induction_programme, course_year_one: course_module.course_year) }
+  let(:core_induction_programme) { FactoryBot.create(:core_induction_programme, course_year_one: course_module.course_year, course_year_two: course_module.course_year) }
 
   describe "when an admin user is logged in" do
     before do
@@ -24,13 +24,14 @@ RSpec.describe "Core Induction Programme Module", type: :request do
     describe "POST /create-module" do
       it "creates a new module and redirects" do
         course_module.next_module = second_course_module
-        expect(create_course_module(course_module[:id])).to redirect_to("/core-induction-programmes")
+        create_course_module(course_module[:id])
+        expect(response.location).to match("/modules/[a-f0-9-]+$")
       end
 
       it "creates a new module that is then displayed in the list of course module" do
         course_module.next_module = second_course_module
         create_course_module(course_module[:id])
-        get cip_path(course_module.course_year.core_induction_programme)
+        get year_path(course_module.course_year)
         expect(response.body).to include("Additional module title")
         expect(response.body).to include("Additional module content")
       end

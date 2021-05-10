@@ -7,7 +7,7 @@ Feature: Admin user interaction with Core Induction Programme
 
   Scenario: Can edit years
     Given core_induction_programme was created as "with_course_year" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme year" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 
     When I click on "link" containing "Edit year content"
     Then I should be on "core induction programme year edit" page
@@ -24,7 +24,6 @@ Feature: Admin user interaction with Core Induction Programme
 
     When I click on "button" containing "Save changes"
     Then "page body" should contain "Your changes have been saved"
-    Then "page body" should contain "New test title"
     Then "page body" should contain "New test content"
     And the page should be accessible
 
@@ -110,7 +109,7 @@ Feature: Admin user interaction with Core Induction Programme
 
   Scenario: Can create content-less lessons
     Given core induction programme with year and module
-    And I am on "core induction programme year" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 
     When I click on "link" containing "Create CIP Lesson"
     Then I should be on "core induction programme lesson new" page
