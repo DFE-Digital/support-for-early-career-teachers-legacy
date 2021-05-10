@@ -4,7 +4,8 @@ require "rails_helper"
 
 RSpec.describe "Core Induction Programme Lesson", type: :request do
   let(:cip) { create(:core_induction_programme) }
-  let(:course_lesson) { FactoryBot.create(:course_lesson) }
+  let(:course_module) { FactoryBot.create(:course_module) }
+  let(:course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
   let(:course_lesson_path) { "/lessons/#{course_lesson.id}" }
 
   describe "when an admin user is logged in" do
@@ -63,6 +64,23 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
         put course_lesson_path, params: { course_lesson: { commit: "Save changes", course_module_id: second_course_module[:id] } }
         course_lesson.reload
         expect(course_lesson[:course_module_id]).to eq(second_course_module[:id])
+      end
+
+      context "when re-ordering" do
+        let(:first_course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
+        let(:second_course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
+
+        before do
+          first_course_lesson
+          second_course_lesson
+          course_lesson
+        end
+
+        it "allows lesson to be re-ordered" do
+          put course_lesson_path, params: { course_lesson: { new_position: "2" } }
+
+          expect(course_module.reload.course_lessons).to eq([first_course_lesson, course_lesson, second_course_lesson])
+        end
       end
     end
 

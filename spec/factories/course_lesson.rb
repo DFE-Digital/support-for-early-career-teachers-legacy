@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :course_lesson do
-    title { "Test Course lesson" }
+    sequence(:title) { |n| "Test Course lesson #{n}" }
+
     course_module { FactoryBot.create(:course_module) }
 
     trait :with_lesson_part do
