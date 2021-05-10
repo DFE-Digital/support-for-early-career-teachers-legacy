@@ -34,7 +34,6 @@ Cypress.Commands.add("visitModuleOfLesson", (courseLesson) => {
     `CourseModule.find_by(id: "${courseLesson.course_module_id}")`
   ).then((courseModule) => {
     cy.visit(`/modules/${courseModule.id}`);
-    cy.get("h1").should("contain", courseModule.title);
   });
 });
 

@@ -55,7 +55,7 @@ class CourseModule < ApplicationRecord
   end
 
   def term_and_title
-    "#{term}: #{title}"
+    "#{term.capitalize} #{title.downcase}"
   end
 
   def check_previous_module_id
