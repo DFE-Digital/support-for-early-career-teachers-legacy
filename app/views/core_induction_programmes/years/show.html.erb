@@ -4,12 +4,14 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Your module materials</h1>
 
-    <%= render SubnavComponent.new do |component| %>
-      <%= component.nav_item(path: year_path(@cip.course_year_one_id)) do %>
-        Year 1
-      <% end %>
-      <%= component.nav_item(path: year_path(@cip.course_year_two_id)) do %>
-        Year 2
+    <% if @cip.course_year_two_id %>
+      <%= render SubnavComponent.new do |component| %>
+        <%= component.nav_item(path: year_path(@cip.course_year_one_id)) do %>
+          Year 1
+        <% end %>
+        <%= component.nav_item(path: year_path(@cip.course_year_two_id)) do %>
+          Year 2
+        <% end %>
       <% end %>
     <% end %>
 
