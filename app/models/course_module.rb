@@ -6,7 +6,7 @@ class CourseModule < ApplicationRecord
   attr_accessor :progress
 
   belongs_to :course_year
-  has_many :course_lessons, dependent: :delete_all
+  has_many :course_lessons, -> { order(position: :asc) }, dependent: :delete_all
   has_many :mentor_materials
 
   # We use previous_module_id to store the connections between modules

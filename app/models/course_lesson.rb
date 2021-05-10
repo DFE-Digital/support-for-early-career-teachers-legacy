@@ -4,6 +4,8 @@ class CourseLesson < ApplicationRecord
   include OrderHelper
 
   belongs_to :course_module
+  acts_as_list scope: :course_module
+
   has_one :course_year, through: :course_module
 
   # We use previous_lesson_id to store the connections between lessons
