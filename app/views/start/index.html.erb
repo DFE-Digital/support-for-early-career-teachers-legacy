@@ -1,7 +1,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Support for early career teachers</h1>
-    <h2 class="govuk-heading-l">Start Page</h2>
-    <%= govuk_link_to "Start", new_user_session_path, button: true %>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">Support for early career teachers</h1>
+    <p class="govuk-body">This service is for teachers and mentors to access Department for Education-accredited training and support materials.</p>
+    <%= govuk_start_now_button text: "Start now", href: new_user_session_path %>
+
+    <h3 class="govuk-heading-m">Before you start</h3>
+    <p class="govuk-body">You will need the email address your school used when they created your account. This will probably be your work email.</p>
   </div>
 </div>
