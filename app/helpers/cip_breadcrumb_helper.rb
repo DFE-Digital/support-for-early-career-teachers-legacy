@@ -43,7 +43,7 @@ private
   end
 
   def course_module_crumb(course_module)
-    [course_module.title, module_path(course_module)]
+    [course_module.term_and_title, module_path(course_module)]
   end
 
   def course_lesson_crumb(course_lesson)
