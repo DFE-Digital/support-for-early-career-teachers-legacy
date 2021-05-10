@@ -6,7 +6,7 @@ class CoreInductionProgrammes::ModulesController < ApplicationController
   include CipBreadcrumbHelper
 
   after_action :verify_authorized
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate_user!
   before_action :load_course_module, only: %i[update edit show]
   before_action :make_course_module, only: %i[new create]
 

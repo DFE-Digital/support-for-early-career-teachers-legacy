@@ -150,9 +150,9 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
   describe "when a non-user is accessing the module page" do
     describe "GET /modules/:id/" do
-      it "renders the cip module page" do
+      it "redirects to the sign in page" do
         get course_module_path
-        expect(response).to render_template(:show)
+        expect(response).to redirect_to("/users/sign_in")
       end
     end
 
