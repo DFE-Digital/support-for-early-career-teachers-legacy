@@ -27,7 +27,7 @@ class CoreInductionProgrammeExporter
       append: true,
     )
 
-    lessons = modules.map(&:course_lessons_in_order).flatten
+    lessons = modules.map(&:course_lessons).flatten
     SeedDump.dump(
       lessons,
       file: "db/seeds/cip_seed_dump.rb",
