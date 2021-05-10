@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe CourseLessonProgress, type: :model do
   it "is created with the default progress value" do
     course_lesson = CourseLessonProgress.new
-    expect(course_lesson[:progress]).to eql("not_started")
+    expect(course_lesson[:progress]).to eql("to_do")
   end
 
   describe "associations" do

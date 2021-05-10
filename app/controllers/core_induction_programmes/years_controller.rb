@@ -54,8 +54,6 @@ private
   end
 
   def course_year_params
-    return {} unless params.key? :course_year
-
-    params.require(:course_year).permit(:title, :content)
+    params.fetch(:course_year, {}).permit(:title, :content)
   end
 end

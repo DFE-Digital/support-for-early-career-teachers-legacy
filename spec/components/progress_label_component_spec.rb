@@ -15,24 +15,24 @@ RSpec.describe ProgressLabelComponent, type: :component do
     end
   end
 
-  context "when receiving not_started" do
+  context "when receiving to_do" do
     it "renders grey govuk tag" do
-      render_inline(ProgressLabelComponent.new(progress: "not_started"))
-      expect(rendered_component).to include('<strong class="govuk-tag app-task-list__tag govuk-tag--grey">not started</strong>')
+      render_inline(ProgressLabelComponent.new(progress: "to_do"))
+      expect(rendered_component).to include('<strong class="govuk-tag app-task-list__tag govuk-tag--grey">to do</strong>')
     end
   end
 
   context "when receiving in_progress" do
     it "renders blue govuk tag" do
       render_inline(ProgressLabelComponent.new(progress: "in_progress"))
-      expect(rendered_component).to include('<strong class="govuk-tag app-task-list__tag govuk-tag--blue">in progress</strong>')
+      expect(rendered_component).to include('<strong class="govuk-tag app-task-list__tag govuk-tag--yellow">in progress</strong>')
     end
   end
 
   context "when receiving complete" do
     it "renders default govuk tag" do
       render_inline(ProgressLabelComponent.new(progress: "complete"))
-      expect(rendered_component).to include('<strong class="govuk-tag app-task-list__tag ">complete</strong>')
+      expect(rendered_component).to include('<strong class="govuk-tag app-task-list__tag govuk-tag--green">complete</strong>')
     end
   end
 end

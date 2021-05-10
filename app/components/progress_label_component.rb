@@ -10,14 +10,12 @@ private
 
   def get_class_for_progress(progress)
     case progress
-    when "not_started"
+    when "to_do"
       "govuk-tag--grey"
     when "in_progress"
-      "govuk-tag--blue"
-    when "discussion_needed"
-      "govuk-tag--orange"
+      "govuk-tag--yellow"
     else
-      ""
+      "govuk-tag--green"
     end
   end
 end

@@ -38,12 +38,14 @@
           <h2 class="govuk-heading-m"><%= lesson.title %></h2>
           <p class="govuk-body"><%= lesson.ect_summary %></p>
 
-          <div class="app-task-list__section">
-            <%= govuk_link_to "Work through the self-study material#{
-                lesson.completion_time_in_minutes ? " (#{lesson.completion_time_in_minutes} minutes)" : ""
-              }", lesson_path(lesson) %>
-            <%= render ProgressLabelComponent.new progress: lesson.progress %>
-          </div>
+          <% if lesson.course_lesson_parts.any? %>
+            <div class="app-task-list__section">
+              <%= govuk_link_to "Work through the self-study material#{
+                  lesson.completion_time_in_minutes ? " (#{lesson.completion_time_in_minutes} minutes)" : ""
+                }", lesson_path(lesson) %>
+              <%= render ProgressLabelComponent.new progress: lesson.progress %>
+            </div>
+          <% end %>
         </li>
       <% end.empty? %>
         <li>No course lessons were found!</li>

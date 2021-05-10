@@ -106,3 +106,23 @@ Feature: Admin user interaction with Core Induction Programme
     And "page body" should contain "New mentor material title"
     And "page body" should contain "New mentor material content"
     And the page should be accessible
+
+  Scenario: Can create content-less lessons
+    Given core induction programme with year and module
+    And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+
+    When I click on "link" containing "Create CIP Lesson"
+    Then I should be on "core induction programme lesson new" page
+    And "page heading" should contain "Create lesson"
+    And the page should be accessible
+
+    When I type "New content-less lesson" into "title input"
+    And I type "30" into "input#course-lesson-completion-time-in-minutes-field"
+    And I type "Some ECT summary" into "#course-lesson-ect-summary-field"
+    And I type "Some mentor summary" into "#course-lesson-mentor-summary-field"
+    And I click on "button" containing "Create lesson"
+
+    Then I should be on "core induction programme lesson" page
+    And "page heading" should contain "New content-less lesson"
+    And "page body" should contain "Duration: 30 minutes"
+    And the page should be accessible

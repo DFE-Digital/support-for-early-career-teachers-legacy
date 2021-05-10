@@ -11,6 +11,8 @@ const pagePaths = {
   "core induction programme index": "/core-induction-programmes",
   "core induction programme show": "/core-induction-programmes/:id",
   "core induction programme year": "/years/:id",
+  "core induction programme lesson new":
+    "/core-induction-programmes/:id/create-lesson",
   "core induction programme year edit": "/years/:id/edit",
   "core induction programme module": "/modules/:id",
   "core induction programme module edit": "/modules/:id/edit",
