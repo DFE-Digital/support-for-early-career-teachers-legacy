@@ -1,22 +1,30 @@
 import { When, Then } from "cypress-cucumber-preprocessor/steps";
 
-const elements = {
-  "cookie consent radio": '[name="cookies_form[analytics_consent]"]',
-  "cookie banner": ".js-cookie-banner",
-  "phase banner": ".govuk-phase-banner",
-  "page body": "main",
-  "page heading": "h1",
-  link: "a",
-  button: "button,input[type=submit],input[type=button]",
-  "edit name link": '[data-test="edit-name"]',
+const inputs = {
+  "email input": "input[name*=email]",
   "name input": '[name*="name"]',
   "title input": '[name*="title"]',
   "content input": '[name*="content"]',
   "ect summary input": '[name*="ect_summary"]',
-  "email input": '[name*="email"]',
+  "mentor summary input": '[name*="mentor_summary"]',
   "time input": '[name*="time"]',
-  "username input": '[name*="username"]',
+  "cookie consent radio": '[name="cookies_form[analytics_consent]"]',
+};
+
+const links = {
+  link: "a",
+  "edit name link": '[data-test="edit-name"]',
+};
+
+const elements = {
+  ...inputs,
+  ...links,
+  "page body": "main",
+  "page heading": "h1",
+  "cookie banner": ".js-cookie-banner",
+  "phase banner": ".govuk-phase-banner",
   "govspeak content": ".govuk-govspeak",
+  button: "button,input[type=submit],input[type=button]",
   "tag component": ".govuk-tag",
   "service name in navigation": '[data-test="service-name"]',
   "service navigation item": ".govuk-header__navigation-item",

@@ -117,9 +117,9 @@ Feature: Admin user interaction with Core Induction Programme
     And the page should be accessible
 
     When I type "New content-less lesson" into "title input"
-    And I type "30" into "input#course-lesson-completion-time-in-minutes-field"
-    And I type "Some ECT summary" into "#course-lesson-ect-summary-field"
-    And I type "Some mentor summary" into "#course-lesson-mentor-summary-field"
+    And I type "30" into "time input"
+    And I type "Some ECT summary" into "ect summary input"
+    And I type "Some mentor summary" into "mentor summary input"
     And I click on "button" containing "Create lesson"
 
     Then I should be on "core induction programme lesson" page

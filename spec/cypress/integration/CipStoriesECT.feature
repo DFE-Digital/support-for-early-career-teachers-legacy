@@ -25,16 +25,16 @@ Feature: ECT user interaction with Core Induction Programme
     And percy should be sent snapshot
 
     When I click on "link" containing "Work through the self-study material"
-    And I click on "I would like more time on this session and will either revisit or pick up with my mentor" label
+    And I click on "No, I’d like to spend more time on this topic" label
     And I click the submit button
     Then "tag component" should contain "in progress"
 
     When I click on "link" containing "Work through the self-study material"
-    And I click on "I am just browsing and have yet to properly look at this session" label
+    And I click on "I have not started this topic yet and was just browsing the materials" label
     And I click the submit button
     Then "tag component" should contain "to do"
 
     When I click on "link" containing "Work through the self-study material"
-    And I click on "I feel confident that I’ve read and understood this session" label
+    And I click on "Yes, I’ve understood the topic materials and am ready to put my learning into practice in the classroom" label
     And I click the submit button
     Then "tag component" should contain "complete"
