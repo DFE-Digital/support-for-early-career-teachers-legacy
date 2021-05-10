@@ -21,14 +21,18 @@
 
         <%= render "core_induction_programmes/lesson_parts/lesson_part_content" %>
 
-        <%= f.govuk_radio_buttons_fieldset(:progress, legend: { text: "Have you finished and understood the session?" }) do %>
-          <%= f.govuk_radio_button :progress, :complete, label: { text: "I feel confident that I’ve read and understood this session" } %>
-          <%= f.govuk_radio_button :progress, :in_progress, label: { text: "I would like more time on this session and will either revisit or pick up with my mentor" } %>
+        <%= f.govuk_radio_buttons_fieldset(:progress, legend: { text: "Have you understood this week’s topic materials?" }) do %>
+          <%= f.govuk_radio_button :progress, :complete, label: { text: "Yes, I’ve understood the topic materials and am ready to put my learning into practice in the classroom" } %>
+          <%= f.govuk_radio_button :progress, :in_progress, label: { text: "No, I’d like to spend more time on this topic" } %>
           <%= f.govuk_radio_divider %>
-          <%= f.govuk_radio_button :progress, :to_do, label: { text: "I am just browsing and have yet to properly look at this session" } %>
+          <%= f.govuk_radio_button :progress, :to_do, label: { text: "I have not started this topic yet and was just browsing the materials" } %>
         <% end %>
 
-        <%= f.govuk_submit "End session" %>
+        <p>
+          Speak to your mentor at the earliest possible opportunity if there’s anything you have not understood in this week’s topic materials.
+        </p>
+
+        <%= f.govuk_submit "Return to module" %>
       <% end %>
     <% else %>
       <%= render "core_induction_programmes/lesson_parts/lesson_part_content" %>
