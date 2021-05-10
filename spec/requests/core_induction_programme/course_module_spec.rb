@@ -88,7 +88,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
         put course_module_path, params: { commit: "Save changes", course_module: { title: "New title", previous_module_id: "" } }
         expect(response).to redirect_to(course_module_path)
         get course_module_path
-        expect(response.body).to include("New title")
+        expect(response.body).to include("Spring new title")
       end
 
       it "reassigns an existing modules previous module id when moved" do
