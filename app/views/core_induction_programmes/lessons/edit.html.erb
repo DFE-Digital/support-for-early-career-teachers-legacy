@@ -4,6 +4,8 @@
     <h1 class="govuk-heading-l">Edit lesson</h1>
 
     <%= form_with model: @course_lesson, url: lesson_path, method: :put do |f| %>
+      <%= render LessonNewPositionComponent.new(lesson: f.object, form: f) %>
+
       <%= render "course_lesson_fields", { f: f } %>
     <% end %>
   </div>

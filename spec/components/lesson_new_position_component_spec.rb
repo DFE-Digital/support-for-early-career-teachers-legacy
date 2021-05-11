@@ -15,15 +15,6 @@ RSpec.describe LessonNewPositionComponent, type: :component do
 
   let(:form) { GOVUKDesignSystemFormBuilder::FormBuilder.new(:test, OpenStruct.new, template, {}) }
 
-  context "when lesson is not persisted?" do
-    let(:lesson) { CourseLesson.new }
-
-    it "doesn't display anything" do
-      render_inline(subject)
-      expect(rendered_component).to be_blank
-    end
-  end
-
   context "when there are no other lessons" do
     let(:lesson) { create(:course_lesson) }
 

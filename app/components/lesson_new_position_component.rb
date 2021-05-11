@@ -23,8 +23,4 @@ class LessonNewPositionComponent < ViewComponent::Base
   def selected
     lesson.position
   end
-
-  def render?
-    lesson.persisted?
-  end
 end

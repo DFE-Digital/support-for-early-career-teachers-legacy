@@ -10,8 +10,6 @@
       label: { text: "Which module would you like the lesson to be assigned to?" },
       ) %>
 
-<%= render LessonNewPositionComponent.new(lesson: f.object, form: f) %>
-
 <%= f.govuk_number_field(
       :completion_time_in_minutes,
       label: { text: "Time in minutes"},
