@@ -36,7 +36,7 @@
       <% if @course_lessons_with_progress.each do |lesson| %>
         <li class="app-task-list__item">
           <h2 class="govuk-heading-m">
-            <% if !lesson.course_lesson_parts.any? && current_user.admin? %>
+            <% if current_user.admin? %>
               <%= govuk_link_to lesson.title, lesson_path(lesson) %>
             <% else %>
               <%= lesson.title %>
