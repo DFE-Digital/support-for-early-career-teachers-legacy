@@ -1,9 +1,4 @@
 describe("Accessibility", () => {
-  it("Landing page should be accessible", () => {
-    cy.visit("/");
-    cy.checkA11y();
-  });
-
   it("Govspeak should be accessible", () => {
     cy.visit("/govspeak_test");
 
