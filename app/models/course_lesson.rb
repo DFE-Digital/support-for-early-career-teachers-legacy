@@ -4,6 +4,8 @@ class CourseLesson < ApplicationRecord
   include OrderHelper
 
   belongs_to :course_module
+  acts_as_list scope: :course_module
+
   has_one :course_year, through: :course_module
 
   # We use previous_lesson_id to store the connections between lessons
@@ -18,7 +20,9 @@ class CourseLesson < ApplicationRecord
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :completion_time_in_minutes, numericality: { greater_than: 0, allow_nil: true, message: "Enter a number greater than 0" }
 
-  attr_accessor :progress
+  attr_accessor :progress, :new_position
+
+  after_commit :update_to_new_position
 
   def course_lesson_parts_in_order
     preloaded_parts = course_lesson_parts.includes(:previous_lesson_part, :next_lesson_part)
@@ -47,5 +51,13 @@ class CourseLesson < ApplicationRecord
 
   def ect_summary_to_html
     Govspeak::Document.new(ect_summary, options: { allow_extra_quotes: true }).to_html
+  end
+
+private
+
+  def update_to_new_position
+    if new_position.present?
+      insert_at(new_position.to_i)
+    end
   end
 end

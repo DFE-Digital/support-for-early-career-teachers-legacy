@@ -6,7 +6,7 @@ class CourseModule < ApplicationRecord
   attr_accessor :progress
 
   belongs_to :course_year
-  has_many :course_lessons, dependent: :delete_all
+  has_many :course_lessons, -> { order(position: :asc) }, dependent: :delete_all
   has_many :mentor_materials
 
   # We use previous_module_id to store the connections between modules
@@ -41,17 +41,11 @@ class CourseModule < ApplicationRecord
     Govspeak::Document.new(ect_summary, options: { allow_extra_quotes: true }).to_html
   end
 
-  def course_lessons_in_order
-    preloaded_lessons = course_lessons.includes(:previous_lesson, :next_lesson)
-    elements_in_order(elements: preloaded_lessons, get_previous_element: :previous_lesson)
-  end
-
   def lessons_with_progress(user)
-    lessons_in_order = course_lessons_in_order
     ect_profile = user&.early_career_teacher_profile
-    return lessons_in_order unless ect_profile
+    return course_lessons unless ect_profile
 
-    get_user_lessons_and_progresses(ect_profile, lessons_in_order)
+    get_user_lessons_and_progresses(ect_profile, course_lessons)
   end
 
   def term_and_title

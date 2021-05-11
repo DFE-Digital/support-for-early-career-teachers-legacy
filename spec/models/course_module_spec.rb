@@ -30,19 +30,15 @@ RSpec.describe CourseModule, type: :model do
   end
 
   describe "course_lessons" do
-    it "returns lessons in order after they get updated" do
+    it "returns lessons in correct order" do
       course_module = FactoryBot.create(:course_module)
-      course_lesson_one = FactoryBot.create(:course_lesson, title: "One", course_module: course_module)
-      course_lesson_two = FactoryBot.create(:course_lesson, title: "Two", course_module: course_module)
-      course_lesson_three = FactoryBot.create(:course_lesson, title: "Three", course_module: course_module)
-      course_lesson_four = FactoryBot.create(:course_lesson, title: "Four", course_module: course_module)
+      course_lesson_four = FactoryBot.create(:course_lesson, title: "Four", course_module: course_module, position: 4)
+      course_lesson_one = FactoryBot.create(:course_lesson, title: "One", course_module: course_module, position: 1)
+      course_lesson_three = FactoryBot.create(:course_lesson, title: "Three", course_module: course_module, position: 3)
+      course_lesson_two = FactoryBot.create(:course_lesson, title: "Two", course_module: course_module, position: 2)
 
-      course_lesson_two.update!(previous_lesson: course_lesson_one)
-      course_lesson_four.update!(previous_lesson: course_lesson_two)
-      course_lesson_three.update!(previous_lesson: course_lesson_four)
-
-      expected_lessons_with_order = [course_lesson_one, course_lesson_two, course_lesson_four, course_lesson_three]
-      course_module.course_lessons_in_order.zip(expected_lessons_with_order).each do |actual, expected|
+      expected_lessons_with_order = [course_lesson_one, course_lesson_two, course_lesson_three, course_lesson_four]
+      course_module.course_lessons.zip(expected_lessons_with_order).each do |actual, expected|
         expect(actual).to eq(expected)
       end
     end
