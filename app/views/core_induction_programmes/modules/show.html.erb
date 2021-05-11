@@ -57,21 +57,5 @@
         <li>No course lessons were found!</li>
       <% end %>
     </ul>
-
-    <nav class="step-by-step-navigation" role="navigation" aria-label="Lesson Part Navigation">
-      <ul class="step-by-step-navigation__list">
-        <% if @course_module.previous_module %>
-          <%= render NavigationPreviousComponent.new(
-            url: module_path(@course_module.previous_module),
-            text: @course_module.previous_module.title) %>
-        <% end %>
-
-        <% if @course_module.next_module %>
-          <%= render NavigationNextComponent.new(
-            url: module_path(@course_module.next_module),
-            text: @course_module.next_module.title) %>
-        <% end %>
-      </ul>
-    </nav>
   </div>
 </div>
