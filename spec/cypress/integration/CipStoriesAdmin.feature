@@ -84,6 +84,19 @@ Feature: Admin user interaction with Core Induction Programme
     And "page body" should contain "Lesson part test title"
     And "page body" should contain "New content for lesson part"
 
+  Scenario: Can edit lessons without lesson part
+    Given course_lesson was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme lesson" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+
+    When I click on "link" containing "Spring test course module"
+    Then I should be on "core induction programme module" page
+    And the page should be accessible
+    And percy should be sent snapshot
+
+    When I click on "link" containing "Test Course lesson 1"
+    Then I should be on "core induction programme lesson" page
+    And percy should be sent snapshot
+
   Scenario: Can edit mentor materials
     Given mentor_material was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
     And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
