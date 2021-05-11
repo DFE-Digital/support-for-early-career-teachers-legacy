@@ -6,17 +6,6 @@
     <% end %>
     <h1 class="govuk-heading-l"> <%= @course_module.term_and_title %></h1>
 
-    <% if current_user&.early_career_teacher? %>
-      <div class="gem-c-govspeak govuk-govspeak ">
-        <%= @course_module.ect_summary_to_html.html_safe %>
-      </div>
-    <% end %>
-    <% if current_user&.mentor? %>
-      <div class="gem-c-govspeak govuk-govspeak ">
-        <%= @course_module.mentor_summary_to_html.html_safe %>
-      </div>
-    <% end %>
-
     <% if current_user&.admin? %>
       <% if @course_module.ect_summary %>
         <h2 class="govuk-heading-m">ECT summary:</h2>
