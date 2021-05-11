@@ -67,19 +67,14 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
       end
 
       context "when re-ordering" do
-        let(:first_course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
-        let(:second_course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
-
-        before do
-          first_course_lesson
-          second_course_lesson
-          course_lesson
-        end
-
         it "allows lesson to be re-ordered" do
+          first_course_lesson = FactoryBot.create(:course_lesson, course_module: course_module)
+          second_course_lesson = FactoryBot.create(:course_lesson, course_module: course_module)
+          third_course_lesson = course_lesson
+
           put course_lesson_path, params: { course_lesson: { new_position: "2" } }
 
-          expect(course_module.reload.course_lessons).to eq([first_course_lesson, course_lesson, second_course_lesson])
+          expect(course_module.reload.course_lessons).to eq([first_course_lesson, third_course_lesson, second_course_lesson])
         end
       end
     end
