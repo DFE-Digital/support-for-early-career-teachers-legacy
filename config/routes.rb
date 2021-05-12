@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
     end
 
-    resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update]
+    resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create]
   end
   root to: "start#index"
 

@@ -5,7 +5,8 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
 
   after_action :verify_authorized
   before_action :authenticate_user!, except: :show
-  before_action :load_mentor_material, except: :index
+  before_action :load_mentor_material, only: %i[show edit update]
+  before_action :load_core_induction_materials, only: %i[edit update new create]
 
   def index
     @mentor_materials = MentorMaterial.all
@@ -19,20 +20,40 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
   def update
     @mentor_material.assign_attributes(mentor_material_params)
 
-    if params[:commit] == "Save changes"
+    if params[:commit] == "Save"
       @mentor_material.save!
       flash[:success] = "Your changes have been saved"
       redirect_to mentor_material_path
     else
-      render action: "edit"
+      render :edit
+    end
+  end
+
+  def new
+    authorize MentorMaterial
+    @mentor_material = MentorMaterial.new
+    @course_lessons = CourseLesson.all
+  end
+
+  def create
+    authorize MentorMaterial
+    @mentor_material = MentorMaterial.new(mentor_material_params)
+    if @mentor_material.save
+      flash[:success] = "Mentor material created"
+      redirect_to mentor_material_path(@mentor_material)
+    else
+      render :new
     end
   end
 
 private
 
+  def load_core_induction_materials
+    @core_induction_programmes = CoreInductionProgramme.all
+  end
+
   def load_mentor_material
     @mentor_material = MentorMaterial.find(params[:id])
-    @core_induction_programmes = CoreInductionProgramme.all
     @course_lessons = @mentor_material.core_induction_programme&.course_lessons
     authorize @mentor_material
   end
