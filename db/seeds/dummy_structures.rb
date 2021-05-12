@@ -6,6 +6,18 @@ unless Cohort.first
 end
 
 unless Rails.env.production?
+  user = User.find_or_create_by!(email: "georgia@example.com") do |u|
+    u.full_name = "Georgia"
+  end
+  EarlyCareerTeacherProfile.find_or_create_by!(user: user, cohort: Cohort.first, core_induction_programme: CoreInductionProgramme.find_by(name: "UCL"))
+
+  user = User.find_or_create_by!(email: "amanda@example.com") do |u|
+    u.full_name = "Amanda"
+  end
+  EarlyCareerTeacherProfile.find_or_create_by!(user: user, cohort: Cohort.first, core_induction_programme: CoreInductionProgramme.find_by(name: "UCL"))
+end
+
+unless Rails.env.production?
   if AdminProfile.none?
     user = User.find_or_create_by!(email: "admin@example.com") do |u|
       u.full_name = "Admin User"
