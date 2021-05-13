@@ -5,8 +5,11 @@
     <%= form_with model: @course_year, url: year_path, method: :put do |f| %>
       <%= f.govuk_text_field :title, label: { text: "Year title" }, value: @course_year.title %>
       <%= f.govuk_text_area :content, label: { text: "Markdown string for course year content" }, rows: 10, value: @course_year.content %>
-      <%= f.govuk_submit "See preview" %>
-      <%= f.govuk_submit "Save changes" %>
+
+      <div class="govuk-button-group">
+        <%= f.govuk_submit "See preview" %>
+        <%= f.govuk_submit "Save changes" %>
+      </div>
     <% end %>
     <div class="gem-c-govspeak govuk-govspeak ">
       <%= @course_year.content_to_html.html_safe %>

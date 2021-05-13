@@ -12,9 +12,6 @@
 .app-task-list__item {
   margin-top: 50px;
 }
-.app-task-list__item {
-  border-bottom: 1px solid $govuk-border-colour;
-}
 
 .app-task-list__section {
   display: flex;
@@ -22,6 +19,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   border-top: 1px solid $govuk-border-colour;
+  border-bottom: 1px solid $govuk-border-colour;
 }
 
 .app-task-list__tag {
