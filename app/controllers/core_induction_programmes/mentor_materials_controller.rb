@@ -8,7 +8,7 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
   before_action :load_mentor_material, except: :index
 
   def index
-    @mentor_materials = MentorMaterial.all
+    @core_induction_programmes = CoreInductionProgramme.all
     authorize MentorMaterial
   end
 
