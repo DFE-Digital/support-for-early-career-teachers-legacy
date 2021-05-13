@@ -2,7 +2,7 @@
 
 namespace :invites do
   desc "Send ECT invites"
-  task :send_ect_invites, [:ect_emails] => :environment do |_task, args|
-    InviteEarlyCareerTeachers.new.run(args.ect_emails.split)
+  task :send_invites, [:emails] => :environment do |_task, args|
+    InviteParticipants.new.run(args.emails.split)
   end
 end
