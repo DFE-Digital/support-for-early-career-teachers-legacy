@@ -18,8 +18,14 @@ module RegisterAndPartnerApi
     end
 
     def self.sync_users(users)
-      # TODO: For each user, update that user, their profiles, their connections
-      # Preferably directly from the data received in here - I don't want to have another API request per user
+      users.each do |remote_user|
+        attributes = remote_user.attributes
+        user = ::User.find_or_initialize_by(id: attributes[:id]) do |u|
+          u.full_name = attributes[:full_name]
+          u.email = attributes[:email]
+        end
+        user.save!
+      end
     end
 
     private_class_method :sync_users

@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": "f750b841-a97c-48b5-b29d-e758c7bdd7a1",
+      "full_name": "Induction Tutor",
+      "email": "induction-tutor@example.com"
+    },
+    {
+      "id": "5b9fa4a4-35b5-4cf7-b3db-b3b395af7406",
+      "full_name": "LeadProvider User",
+      "email": "lead-provider@example.com"
+    }
+  ]
+}
