@@ -7,7 +7,7 @@ class CourseLessonProgress < ApplicationRecord
     complete: "complete",
   }
 
-  validates :progress, presence: { message: "Select if you have finished the session" }
+  validates :progress, presence: { message: "Select if you have finished and understood the session" }
 
   belongs_to :course_lesson
   belongs_to :early_career_teacher_profile

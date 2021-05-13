@@ -1,12 +1,24 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h2 class="govuk-heading-l">Mentor materials</h2>
-    <% if @mentor_materials.any? %>
-      <% @mentor_materials.each do |mentor_material| %>
+    <h1 class="govuk-heading-l">Mentor materials</h1>
+
+    <% if current_user&.admin? %>
+      <%= govuk_link_to "Create Mentor Material", new_mentor_material_path, button: true %>
+    <% end %>
+  
+    <% @core_induction_programmes.each do |cip|  %>
+      <h2><%= cip.name %></h2>
+      <% if cip.mentor_materials.any? %>
+      <% cip.mentor_materials.each do |mentor_material| %>
         <p><%= govuk_link_to mentor_material.title, mentor_material_path(mentor_material) %></p>
+        <% if mentor_material.course_lesson %>
+          <p>Corresponding lesson: <%= govuk_link_to mentor_material.course_lesson.title, lesson_path(mentor_material.course_lesson) %></p>
+          <% else %> <p>No corresponding lesson found</p>
+       <%end %>
       <% end %>
-    <% else %>
+      <% else %>
       <p>No mentor materials were found!</p>
+      <% end %>
     <% end %>
   </div>
 </div>

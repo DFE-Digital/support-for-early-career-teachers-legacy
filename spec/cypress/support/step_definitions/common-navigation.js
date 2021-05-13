@@ -19,6 +19,8 @@ const pagePaths = {
   "core induction programme lesson": "/lessons/:id",
   "core induction programme lesson edit": "/lessons/:id/edit",
   "core induction programme lesson part": "/lesson_parts/:id",
+  "core induction programme mentor materials": "/mentor-materials",
+  "core induction programme mentor material new": "/mentor-materials/new",
   "core induction programme mentor material": "/mentor-materials/:id",
   "core induction programme mentor material edit": "/mentor-materials/:id/edit",
   "training and support": "/training-and-support",

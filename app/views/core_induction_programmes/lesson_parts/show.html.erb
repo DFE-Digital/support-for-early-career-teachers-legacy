@@ -1,20 +1,22 @@
 <%= govuk_breadcrumbs breadcrumbs: course_lesson_breadcrumbs(current_user, @course_lesson_part.course_lesson) %>
+
+<div class="govuk-button-group">
+  <% if policy(@course_lesson_part.course_lesson).edit? %>
+    <%= govuk_link_to "Edit lesson", edit_lesson_path(@course_lesson_part.course_lesson), button: true %>
+  <% end %>
+  <% if policy(@course_lesson_part).edit? %>
+    <%= govuk_link_to "Edit lesson part", edit_lesson_part_path(@course_lesson_part), button: true %>
+  <% end %>
+  <% if policy(@course_lesson_part).show_split? %>
+    <%= govuk_link_to "Split lesson part", lesson_part_split_path(lesson_part_id: @course_lesson_part.id), button: true %>
+  <% end %>
+  <% if policy(@course_lesson_part).show_delete? %>
+    <%= govuk_link_to "Delete lesson part", lesson_part_show_delete_path(lesson_part_id: @course_lesson_part.id), button: true, class: "govuk-button--secondary"  %>
+  <% end %>
+</div>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
-    <% if policy(@course_lesson_part.course_lesson).edit? %>
-      <%= govuk_link_to "Edit lesson", edit_lesson_path(@course_lesson_part.course_lesson), button: true %>
-    <% end %>
-    <% if policy(@course_lesson_part).edit? %>
-      <%= govuk_link_to "Edit lesson part", edit_lesson_part_path(@course_lesson_part), button: true %>
-    <% end %>
-    <% if policy(@course_lesson_part).show_split? %>
-      <%= govuk_link_to "Split lesson part", lesson_part_split_path(lesson_part_id: @course_lesson_part.id), button: true %>
-    <% end %>
-    <% if policy(@course_lesson_part).show_delete? %>
-      <%= govuk_link_to "Delete lesson part", lesson_part_show_delete_path(lesson_part_id: @course_lesson_part.id), button: true, class: "govuk-button--secondary"  %>
-    <% end %>
-
     <% if policy(@course_lesson_part.course_lesson).update_progress? && @course_lesson_part.next_lesson_part.nil? %>
       <%= form_with model: @lesson_progress, url: lesson_part_update_progress_path(lesson_part_id: @course_lesson_part.id), method: :put do |f| %>
         <%= f.govuk_error_summary %>
@@ -22,7 +24,7 @@
         <%= render "core_induction_programmes/lesson_parts/lesson_part_content" %>
 
         <%= f.govuk_radio_buttons_fieldset(:progress, legend: { text: "Have you understood this week’s topic materials?" }) do %>
-          <%= f.govuk_radio_button :progress, :complete, label: { text: "Yes, I’ve understood the topic materials and am ready to put my learning into practice in the classroom" } %>
+          <%= f.govuk_radio_button :progress, :complete, label: { text: "Yes, I’ve understood the topic materials and am ready to put my learning into practice in the classroom" }, link_errors: true %>
           <%= f.govuk_radio_button :progress, :in_progress, label: { text: "No, I’d like to spend more time on this topic" } %>
           <%= f.govuk_radio_divider %>
           <%= f.govuk_radio_button :progress, :to_do, label: { text: "I have not started this topic yet and was just browsing the materials" } %>

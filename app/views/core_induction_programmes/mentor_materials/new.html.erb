@@ -1,0 +1,8 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Create mentor material</h1>
+    <%= form_with model: @mentor_material, url: mentor_materials_path, method: :post do |f| %>
+      <%= render "mentor_material_fields", locals = { f:f } %>
+    <% end %>
+  </div>
+</div>

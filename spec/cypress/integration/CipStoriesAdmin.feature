@@ -84,18 +84,22 @@ Feature: Admin user interaction with Core Induction Programme
     And "page body" should contain "Lesson part test title"
     And "page body" should contain "New content for lesson part"
 
-  Scenario: Can edit lessons without lesson part
-    Given course_lesson was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme lesson" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+  Scenario: Can create mentor materials
+    Given I am on "core induction programme mentor materials" page
 
-    When I click on "link" containing "Spring test course module"
-    Then I should be on "core induction programme module" page
+    When I click on "link" containing "Create Mentor Material"
+    Then I should be on "core induction programme mentor material new" page
     And the page should be accessible
     And percy should be sent snapshot
 
-    When I click on "link" containing "Test Course lesson 1"
-    Then I should be on "core induction programme lesson" page
-    And percy should be sent snapshot
+    When I type "New mentor material title" into "title input"
+    And I type "New mentor material content" into "content input"
+    And I click on "button" containing "Save"
+
+    Then "page body" should contain "Mentor material created"
+    And "page body" should contain "New mentor material title"
+    And "page body" should contain "New mentor material content"
+    And the page should be accessible
 
   Scenario: Can edit mentor materials
     Given mentor_material was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
@@ -114,7 +118,7 @@ Feature: Admin user interaction with Core Induction Programme
     Then "page heading" should contain "preview"
     And "govspeak content" should contain "New mentor material content"
 
-    When I click on "button" containing "Save changes"
+    When I click on "button" containing "Save"
     Then "page body" should contain "Your changes have been saved"
     And "page body" should contain "New mentor material title"
     And "page body" should contain "New mentor material content"
@@ -139,3 +143,16 @@ Feature: Admin user interaction with Core Induction Programme
     And "page heading" should contain "New content-less lesson"
     And "page body" should contain "Duration: 30 minutes"
     And the page should be accessible
+
+  Scenario: Can edit lessons without lesson part
+    Given course_lesson was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme lesson" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+
+    When I click on "link" containing "Spring test course module"
+    Then I should be on "core induction programme module" page
+    And the page should be accessible
+    And percy should be sent snapshot
+
+    When I click on "link" containing "Test Course lesson 1"
+    Then I should be on "core induction programme lesson" page
+    And percy should be sent snapshot
