@@ -24,7 +24,7 @@
         <%= render "core_induction_programmes/lesson_parts/lesson_part_content" %>
 
         <%= f.govuk_radio_buttons_fieldset(:progress, legend: { text: "Have you understood this week’s topic materials?" }) do %>
-          <%= f.govuk_radio_button :progress, :complete, label: { text: "Yes, I’ve understood the topic materials and am ready to put my learning into practice in the classroom" } %>
+          <%= f.govuk_radio_button :progress, :complete, label: { text: "Yes, I’ve understood the topic materials and am ready to put my learning into practice in the classroom" }, link_errors: true %>
           <%= f.govuk_radio_button :progress, :in_progress, label: { text: "No, I’d like to spend more time on this topic" } %>
           <%= f.govuk_radio_divider %>
           <%= f.govuk_radio_button :progress, :to_do, label: { text: "I have not started this topic yet and was just browsing the materials" } %>
