@@ -15,6 +15,21 @@ unless Rails.env.production?
     u.full_name = "Amanda"
   end
   EarlyCareerTeacherProfile.find_or_create_by!(user: user, cohort: Cohort.first, core_induction_programme: CoreInductionProgramme.find_by(name: "UCL"))
+
+  user = User.find_or_create_by!(email: "tom@example.com") do |u|
+    u.full_name = "Tom"
+  end
+  EarlyCareerTeacherProfile.find_or_create_by!(user: user, cohort: Cohort.first, core_induction_programme: CoreInductionProgramme.find_by(name: "UCL"))
+
+  user = User.find_or_create_by!(email: "natasha@example.com") do |u|
+    u.full_name = "Natasha"
+  end
+  EarlyCareerTeacherProfile.find_or_create_by!(user: user, cohort: Cohort.first, core_induction_programme: CoreInductionProgramme.find_by(name: "UCL"))
+
+  user = User.find_or_create_by!(email: "chelsea@example.com") do |u|
+    u.full_name = "Chelsea"
+  end
+  EarlyCareerTeacherProfile.find_or_create_by!(user: user, cohort: Cohort.first, core_induction_programme: CoreInductionProgramme.find_by(name: "UCL"))
 end
 
 unless Rails.env.production?
