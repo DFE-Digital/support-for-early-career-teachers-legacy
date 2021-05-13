@@ -1,6 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h2 class="govuk-heading-l">Mentor materials</h2>
+    <h1 class="govuk-heading-l">Mentor materials</h1>
+
+    <% if current_user&.admin? %>
+      <%= govuk_link_to "Create Mentor Material", new_mentor_material_path, button: true %>
+    <% end %>
+  
     <% @core_induction_programmes.each do |cip|  %>
       <h2><%= cip.name %></h2>
       <% if cip.mentor_materials.any? %>

@@ -21,4 +21,12 @@ class MentorMaterialPolicy < ApplicationPolicy
   def update?
     admin_only
   end
+
+  def new?
+    admin_only
+  end
+
+  def create?
+    admin_only
+  end
 end

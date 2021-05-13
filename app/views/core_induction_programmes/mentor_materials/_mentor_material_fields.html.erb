@@ -1,3 +1,4 @@
+<%= f.govuk_error_summary %>
 <%= f.govuk_collection_select(
       :core_induction_programme_id,
       @core_induction_programmes,
@@ -16,4 +17,4 @@
 <% end %>
 <%= f.govuk_text_field :title, label: { text: "Mentor material title" }, value: @mentor_material.title %>
 <%= f.govuk_text_area :content, label: { text: "Markdown string for mentor material content" }, rows: 10, value: @mentor_material.content %>
-<%= f.govuk_submit "Save changes" %>
+<%= f.govuk_submit "Save" %>
