@@ -9,7 +9,7 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
   before_action :load_core_induction_materials, only: %i[edit update new create]
 
   def index
-    @mentor_materials = MentorMaterial.all
+    @core_induction_programmes = CoreInductionProgramme.all
     authorize MentorMaterial
   end
 
