@@ -53,6 +53,10 @@ class CourseLesson < ApplicationRecord
     Govspeak::Document.new(ect_summary, options: { allow_extra_quotes: true }).to_html
   end
 
+  def module_and_lesson
+    "#{course_module.title}: #{title}"
+  end
+
 private
 
   def update_to_new_position
