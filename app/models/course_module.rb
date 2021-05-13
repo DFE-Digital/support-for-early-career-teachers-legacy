@@ -48,6 +48,10 @@ class CourseModule < ApplicationRecord
     get_user_lessons_and_progresses(ect_profile, course_lessons)
   end
 
+  def self_study_lessons
+    course_lessons.includes(:course_lesson_parts).joins(:course_lesson_parts)
+  end
+
   def term_and_title
     "#{term.capitalize} #{title.downcase}"
   end
