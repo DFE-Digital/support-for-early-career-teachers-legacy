@@ -26,13 +26,11 @@ Feature: Navigation
     And I click on "link" containing "Start"
     Then "service navigation item" should not exist
 
-  Scenario: Navigation should show "Home" and "Sign out" elements when user is signed in
+  Scenario: Navigation should show "Sign out" element when user is signed in
     Given I am logged in as "early_career_teacher"
-    Then "service navigation item" containing "Home" should exist
     Then "service navigation item" containing "Sign out" should exist
 
-  Scenario: Navigation should show "Home", "Sign out" and "Core Induction Programme" elements when user is signed in as admin
+  Scenario: Navigation should show  "Sign out" and "Core Induction Programme" elements when user is signed in as admin
     Given I am logged in as "admin"
-    Then "service navigation item" containing "Home" should exist
     Then "service navigation item" containing "Sign out" should exist
     Then "service navigation item" containing "Core Induction Programme" should exist

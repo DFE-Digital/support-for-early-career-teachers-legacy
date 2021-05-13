@@ -11,7 +11,7 @@
         </div>
 
         <div class="app-task-list__section">
-          <span><%= course_module.course_lessons.count.humanize.capitalize %> self-study session<%= course_module.course_lessons.count === 1 ? "" : "s" %></span>
+          <span><%= course_module.course_lessons.count.humanize.capitalize %> self-study <%= "session".pluralize(course_module.course_lessons.count) %></span>
           <%= render ProgressLabelComponent.new progress: course_module.progress %>
         </div>
       </div>
