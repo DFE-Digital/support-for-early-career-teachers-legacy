@@ -2,8 +2,12 @@
 
 module RegisterAndPartnerApi
   class User < RegisterAndPartnerApi::Resource
-    property :id, type: :string
-    property :full_name, type: :string
-    property :email, type: :string
+    def self.path(_params = nil)
+      "users"
+    end
+
+    def self.table_name
+      "data"
+    end
   end
 end
