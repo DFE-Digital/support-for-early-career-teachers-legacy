@@ -6,7 +6,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
   include CipBreadcrumbHelper
 
   after_action :verify_authorized
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate_user!
   before_action :load_course_lesson_part, except: :update_progress
 
   def show; end
