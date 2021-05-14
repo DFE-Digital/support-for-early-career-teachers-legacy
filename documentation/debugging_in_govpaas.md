@@ -37,7 +37,7 @@ First, ssh into the host instance
 
 Then, 
 
-`cd /app`
+`cd ../app`
 
 and finally
 
