@@ -116,9 +116,9 @@ RSpec.describe "Core Induction Programme Module", type: :request do
     end
   end
 
-  describe "when a non-admin user is logged in" do
+  describe "when an ect is logged in" do
     before do
-      user = create(:user)
+      user = create(:user, :early_career_teacher, core_induction_programme: core_induction_programme)
       sign_in user
     end
 

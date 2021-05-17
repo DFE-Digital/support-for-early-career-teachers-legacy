@@ -22,7 +22,7 @@ describe("Meta test helper tests", () => {
       "courseLesson"
     );
 
-    cy.login();
+    cy.login("admin");
 
     cy.get("@courseLesson").then(([lesson]) => {
       cy.visitModuleOfLesson(lesson);

@@ -1,21 +1,8 @@
 # frozen_string_literal: true
 
-class CourseLessonPartPolicy < ApplicationPolicy
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class CourseLessonPartPolicy < CourseLessonPolicy
   def show?
-    true
-  end
-
-  def create?
-    admin_only
-  end
-
-  def update?
-    admin_only
+    has_access_to_year(@user, @record.course_lesson.course_module.course_year)
   end
 
   def show_split?

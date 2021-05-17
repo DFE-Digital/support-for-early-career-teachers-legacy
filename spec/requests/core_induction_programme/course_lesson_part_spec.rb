@@ -7,6 +7,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
   let(:course_lesson) { course_lesson_part.course_lesson }
   let(:course_module) { course_lesson.course_module }
   let(:course_year) { course_module.course_year }
+  let(:cip) { FactoryBot.create(:core_induction_programme, course_year_one: course_year) }
   let(:course_lesson_part_path) { "/lesson_parts/#{course_lesson_part.id}" }
   let(:module_path) { "/modules/#{course_module.id}" }
 
@@ -160,9 +161,9 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
     end
   end
 
-  describe "when a non-admin user is logged in" do
+  describe "when an ect is logged in" do
     before do
-      user = create(:user)
+      user = create(:user, :early_career_teacher, core_induction_programme: cip)
       sign_in user
     end
 
@@ -206,9 +207,9 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
 
   describe "when a non-user is accessing the lesson part page" do
     describe "GET /lesson_parts/:id" do
-      it "renders the cip lesson part page" do
+      it "redirects to the sign in page" do
         get course_lesson_part_path
-        expect(response).to render_template(:show)
+        expect(response).to redirect_to("/users/sign_in")
       end
     end
 

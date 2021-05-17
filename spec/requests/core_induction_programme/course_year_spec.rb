@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe "Core Induction Programme Year", type: :request do
   let(:course_year) { FactoryBot.create(:course_year, :with_cip) }
   let(:course_year_path) { "/years/#{course_year.id}" }
+  let(:cip) { FactoryBot.create(:core_induction_programme, course_year_two: course_year) }
 
   describe "when an admin user is logged in" do
     before do
@@ -59,9 +60,9 @@ RSpec.describe "Core Induction Programme Year", type: :request do
     end
   end
 
-  describe "when a non-admin user is logged in" do
+  describe "when an ect is logged in" do
     before do
-      user = create(:user)
+      user = create(:user, :early_career_teacher, core_induction_programme: cip)
       sign_in user
     end
 
@@ -80,21 +81,6 @@ RSpec.describe "Core Induction Programme Year", type: :request do
     describe "GET /years/:id/edit" do
       it "raises an error when trying to access edit page" do
         expect { get "#{course_year_path}/edit" }.to raise_error Pundit::NotAuthorizedError
-      end
-    end
-  end
-
-  describe "when an early career teacher is logged in" do
-    before do
-      ect_cip = create(:core_induction_programme, course_year_one_id: course_year.id)
-      early_career_teacher = create(:user, :early_career_teacher, { core_induction_programme: ect_cip })
-      sign_in early_career_teacher
-    end
-
-    describe "GET /years/:id" do
-      it "renders the years show page" do
-        get "/years/#{course_year.id}"
-        expect(response).to render_template(:show)
       end
     end
   end

@@ -1,24 +1,17 @@
 # frozen_string_literal: true
 
-class CourseYearPolicy < ApplicationPolicy
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
-  def new?
-    admin_only
+class CourseYearPolicy < CoreInductionProgrammePolicy
+  def index?
+    false
   end
 
   def show?
-    true
+    has_access_to_year(@user, @record)
   end
 
-  def create?
-    admin_only
-  end
+private
 
-  def update?
-    admin_only
+  def has_access_to_year(user, year)
+    has_access_to_cip(user, year.core_induction_programme_one) || has_access_to_cip(user, year.core_induction_programme_two)
   end
 end

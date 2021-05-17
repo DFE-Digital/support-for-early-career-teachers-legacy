@@ -4,7 +4,8 @@ require "rails_helper"
 
 RSpec.describe "Core Induction Programme Lesson", type: :request do
   let(:cip) { create(:core_induction_programme) }
-  let(:course_module) { FactoryBot.create(:course_module) }
+  let(:course_year) { FactoryBot.create(:course_year, core_induction_programme_one: cip) }
+  let(:course_module) { FactoryBot.create(:course_module, course_year: course_year) }
   let(:course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
   let(:course_lesson_path) { "/lessons/#{course_lesson.id}" }
 
@@ -130,9 +131,16 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
     end
   end
 
-  describe "when a non-admin user is logged in" do
+  describe "when an ect is logged in" do
+    let(:user) { create(:user, :early_career_teacher, core_induction_programme: cip) }
+    let(:progress) do
+      CourseLessonProgress.find_by(
+        course_lesson: course_lesson,
+        early_career_teacher_profile: user.early_career_teacher_profile,
+      ).progress
+    end
+
     before do
-      user = create(:user)
       sign_in user
     end
 
@@ -142,9 +150,14 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
         expect(response).to render_template(:show)
       end
 
-      it "does not track progress" do
+      it "leaves progress unchanged when lesson is completed" do
+        CourseLessonProgress.create!(
+          course_lesson: course_lesson,
+          early_career_teacher_profile: user.early_career_teacher_profile,
+          progress: "complete",
+        )
         get course_lesson_path
-        expect(CourseLessonProgress.count).to eq(0)
+        expect(progress).to eq("complete")
       end
     end
 
@@ -157,14 +170,9 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
 
   describe "when a non-user is accessing the lesson page" do
     describe "GET /lessons/:id" do
-      it "renders the cip lesson page" do
+      it "redirects to the sign in page" do
         get course_lesson_path
-        expect(response).to render_template(:show)
-      end
-
-      it "does not track progress" do
-        get course_lesson_path
-        expect(CourseLessonProgress.count).to eq(0)
+        expect(response).to redirect_to("/users/sign_in")
       end
     end
 
@@ -179,31 +187,6 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
       it "redirects to the sign in page" do
         put course_lesson_path, params: { commit: "Save changes" }
         expect(response).to redirect_to("/users/sign_in")
-      end
-    end
-  end
-
-  describe "when a ECT is accessing the lesson page" do
-    let(:user) { create(:user, :early_career_teacher) }
-    let(:progress) do
-      CourseLessonProgress.find_by(
-        course_lesson: course_lesson,
-        early_career_teacher_profile: user.early_career_teacher_profile,
-      ).progress
-    end
-    before do
-      sign_in user
-    end
-
-    describe "GET /lessons/:id" do
-      it "leaves progress unchanged when lesson is completed" do
-        CourseLessonProgress.create!(
-          course_lesson: course_lesson,
-          early_career_teacher_profile: user.early_career_teacher_profile,
-          progress: "complete",
-        )
-        get course_lesson_path
-        expect(progress).to eq("complete")
       end
     end
   end
