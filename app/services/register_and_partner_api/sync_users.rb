@@ -10,8 +10,8 @@ module RegisterAndPartnerApi
       rescue JsonApiClient::Errors::ClientError
         # This is how the API responds when we run out of pages :/
       end
-    rescue JsonApiClient::Errors::ApiError
-      raise RegisterAndPartnerApi::SyncError
+    rescue StandardError
+      Rails.logger.warn("Failed to sync users")
     end
 
     def self.sync_users(users)
