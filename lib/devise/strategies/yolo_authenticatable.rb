@@ -30,7 +30,7 @@ module Devise
 
           user = User.find_by(email: email)
 
-          if !user && !Rails.env.test?
+          unless user
             RegisterAndPartnerApi::SyncUsers.perform
             user = User.find_by(email: email)
           end

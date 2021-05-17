@@ -94,4 +94,16 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+
+  # Stub Register and Partner users api
+  config.before(:each) do
+    stub_request(:get, "https://api.example.com/api/v1/users.json")
+        .with(
+          headers: {
+            "Accept" => "application/json,*/*",
+            "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+            "User-Agent" => "Faraday v1.3.0",
+          },
+        ).to_return(status: 200, body: file_fixture("api/users.json").read, headers: { content_type: "application/json" })
+  end
 end
