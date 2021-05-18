@@ -38,7 +38,12 @@ RSpec.describe CourseLessonPartPolicy, type: :policy do
   end
 
   context "ect with access" do
-    let(:user) { create(:user, :early_career_teacher, core_induction_programme: cip_for_lesson_part) }
+    let(:user) do
+      user = create(:user, :early_career_teacher)
+      user.early_career_teacher_profile.core_induction_programme = cip_for_lesson_part
+      user
+    end
+
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action(:show_split) }

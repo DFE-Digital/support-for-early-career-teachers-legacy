@@ -2,7 +2,7 @@
 
 class CourseLessonPartPolicy < CourseLessonPolicy
   def show?
-    has_access_to_year(@user, @record.course_lesson.course_module.course_year)
+    has_access_to_year?(@user, @record.course_lesson.course_module.course_year)
   end
 
   def show_split?

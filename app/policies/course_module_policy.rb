@@ -2,6 +2,6 @@
 
 class CourseModulePolicy < CourseYearPolicy
   def show?
-    has_access_to_year(@user, @record.course_year)
+    has_access_to_year?(@user, @record.course_year)
   end
 end

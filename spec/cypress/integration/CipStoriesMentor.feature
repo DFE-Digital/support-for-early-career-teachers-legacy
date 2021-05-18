@@ -7,6 +7,6 @@ Feature: Mentor user interaction with Core Induction Programme
     And I am on "dashboard" page
 
   Scenario: Mentor should be able to view ECT CIP
-    When I click on "link" containing "Go to Demo ECT User's materials"
+    When I click on "link" containing "Go to your mentee's module materials"
     Then I should be on "core induction programme year" page
     And "page body" should contain "Test Course module"
