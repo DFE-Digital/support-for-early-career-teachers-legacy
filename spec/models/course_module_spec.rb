@@ -42,12 +42,22 @@ RSpec.describe CourseModule, type: :model do
         expect(actual).to eq(expected)
       end
     end
+  end
 
-    describe "course_modules" do
-      it "returns the term and title of a course module" do
-        course_module = FactoryBot.create(:course_module)
-        expect(course_module.term_and_title).to eq("Spring test course module")
-      end
+  describe "term_and_title" do
+    it "returns the term and title of a course module" do
+      course_module = FactoryBot.create(:course_module)
+      expect(course_module.term_and_title).to eq("Spring test course module")
+    end
+  end
+
+  describe "self_study_lessons" do
+    it "returns number of lessons that have at least one part" do
+      course_module = FactoryBot.create(:course_module)
+      create(:course_lesson, course_module: course_module)
+      course_lesson_non_empty = create(:course_lesson, :with_lesson_part, course_module: course_module)
+
+      expect(course_module.self_study_lessons).to contain_exactly(course_lesson_non_empty)
     end
   end
 end
