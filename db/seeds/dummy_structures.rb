@@ -20,20 +20,18 @@ unless Rails.env.production?
     InductionCoordinatorProfile.find_or_create_by!(user: user)
   end
 
-  if MentorProfile.none?
-    user = User.find_or_create_by!(email: "mentor@example.com") do |u|
-      u.full_name = "Mentor User"
-    end
-    MentorProfile.find_or_create_by!(user: user)
-  end
-
   CoreInductionProgramme.all.each do |cip|
     cip_name_for_email = cip.name.gsub(/\s+/, "-").downcase
 
-    user = User.find_or_create_by!(email: "#{cip_name_for_email}-early-career-teacher@example.com") do |u|
+    ect_user = User.find_or_create_by!(email: "#{cip_name_for_email}-early-career-teacher@example.com") do |u|
       u.full_name = "#{cip.name} ECT User"
     end
-    EarlyCareerTeacherProfile.find_or_create_by!(user: user, cohort: Cohort.first, core_induction_programme: cip, mentor_profile: MentorProfile.first)
+    EarlyCareerTeacherProfile.find_or_create_by!(user: ect_user, cohort: Cohort.first, core_induction_programme: cip)
+
+    mentor_user = User.find_or_create_by!(email: "#{cip_name_for_email}-mentor@example.com") do |u|
+      u.full_name = "#{cip.name} Mentor User"
+    end
+    MentorProfile.find_or_create_by!(user: mentor_user, cohort: Cohort.first, core_induction_programme: cip)
   end
 end
 

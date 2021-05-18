@@ -62,7 +62,8 @@ RSpec.describe "Core Induction Programme Year", type: :request do
 
   describe "when an ect is logged in" do
     before do
-      user = create(:user, :early_career_teacher, core_induction_programme: cip)
+      user = create(:user, :early_career_teacher)
+      user.early_career_teacher_profile.core_induction_programme = cip
       sign_in user
     end
 

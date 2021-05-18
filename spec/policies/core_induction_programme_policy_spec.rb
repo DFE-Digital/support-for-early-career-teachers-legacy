@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe CoreInductionProgrammePolicy, type: :policy do
-  subject { described_class.new(@user || user, core_induction_programme) }
+  subject { described_class.new(user, user&.core_induction_programme || core_induction_programme) }
   let(:core_induction_programme) { create(:core_induction_programme) }
 
   context "accessing cip views as admin" do
@@ -13,26 +13,14 @@ RSpec.describe CoreInductionProgrammePolicy, type: :policy do
   end
 
   context "accessing cip views as an early career teacher" do
-    let(:user) { create(:user, :early_career_teacher, { core_induction_programme: core_induction_programme }) }
+    let(:user) { create(:user, :early_career_teacher) }
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
   end
 
-  context "accessing cip views as a mentor with an ect" do
-    before do
-      ect_user = create(:user, :early_career_teacher, { core_induction_programme: core_induction_programme })
-      @user = create(:user, :mentor)
-      @user.mentor_profile.early_career_teachers = [ect_user]
-    end
-
-    it { is_expected.to permit_action(:show) }
-    it { is_expected.to forbid_action(:index) }
-  end
-
-  context "accessing cip views as a mentor without an ect" do
+  context "accessing cip views as a mentor" do
     let(:user) { create(:user, :mentor) }
-
-    it { is_expected.to forbid_action(:show) }
+    it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:index) }
   end
 

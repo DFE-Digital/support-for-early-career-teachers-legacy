@@ -132,7 +132,12 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
   end
 
   describe "when an ect is logged in" do
-    let(:user) { create(:user, :early_career_teacher, core_induction_programme: cip) }
+    let(:user) do
+      user = create(:user, :early_career_teacher)
+      user.early_career_teacher_profile.core_induction_programme = cip
+      user
+    end
+
     let(:progress) do
       CourseLessonProgress.find_by(
         course_lesson: course_lesson,

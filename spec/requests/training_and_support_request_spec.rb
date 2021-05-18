@@ -5,8 +5,7 @@ require "rails_helper"
 RSpec.describe "TrainingAndSupports", type: :request do
   describe "GET /show" do
     before do
-      cip = create(:core_induction_programme)
-      early_career_teacher = create(:user, :early_career_teacher, { core_induction_programme: cip })
+      early_career_teacher = create(:user, :early_career_teacher)
       sign_in early_career_teacher
     end
 

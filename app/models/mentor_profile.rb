@@ -2,6 +2,6 @@
 
 class MentorProfile < ApplicationRecord
   belongs_to :user
-  has_many :early_career_teacher_profiles
-  has_many :early_career_teachers, through: :early_career_teacher_profiles, source: :user
+  belongs_to :core_induction_programme, optional: true
+  belongs_to :cohort, optional: true
 end

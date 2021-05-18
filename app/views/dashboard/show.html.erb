@@ -11,15 +11,10 @@
         button: true %>
     <% end %>
 
-    <% if current_user.mentor? %>
-      <ul class="govuk-list">
-        <% current_user.mentor_profile.early_career_teachers.each do |ect| %>
-          <li>
-            <%= govuk_link_to "Go to #{ect.name}'s materials",
-              cip_path(ect.early_career_teacher_profile.core_induction_programme) %>
-          </li>
-        <% end %>
-      </ul>
+    <% if current_user.mentor? && current_user.mentor_profile.core_induction_programme %>
+      <%= govuk_link_to "Go to your mentee's module materials",
+        cip_path(current_user.mentor_profile.core_induction_programme),
+        button: true %>
     <% end %>
 
     <h2 class="govuk-heading-l govuk-!-margin-top-4">Related content</h2>

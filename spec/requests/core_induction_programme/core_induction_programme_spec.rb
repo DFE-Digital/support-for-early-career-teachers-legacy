@@ -28,7 +28,8 @@ RSpec.describe "Core Induction Programme", type: :request do
 
   describe "when an early career teacher is logged in" do
     before do
-      early_career_teacher = create(:user, :early_career_teacher, { core_induction_programme: core_induction_programme })
+      early_career_teacher = create(:user, :early_career_teacher)
+      early_career_teacher.early_career_teacher_profile.core_induction_programme = core_induction_programme
       sign_in early_career_teacher
     end
 

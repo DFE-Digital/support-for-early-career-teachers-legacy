@@ -17,7 +17,12 @@ RSpec.describe CourseYearPolicy, type: :policy do
   end
 
   context "ect with access" do
-    let(:user) { create(:user, :early_career_teacher, core_induction_programme: cip_for_year) }
+    let(:user) do
+      user = create(:user, :early_career_teacher)
+      user.early_career_teacher_profile.core_induction_programme = cip_for_year
+      user
+    end
+
     it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_new_and_create_actions }
@@ -32,9 +37,8 @@ RSpec.describe CourseYearPolicy, type: :policy do
 
   context "mentor with access" do
     let(:user) do
-      ect_user = create(:user, :early_career_teacher, { core_induction_programme: cip_for_year })
       user = create(:user, :mentor)
-      user.mentor_profile.early_career_teachers = [ect_user]
+      user.mentor_profile.core_induction_programme = cip_for_year
       user
     end
 
