@@ -95,7 +95,7 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
               title: "new lesson title",
               ect_summary: "new ect summary",
               completion_time_in_minutes: "10",
-              course_module_id: create(:course_module).id,
+              course_module_id: course_module.id,
             },
           }
         }.to change(CourseLesson, :count).by(1)
@@ -107,7 +107,7 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
             title: "new lesson title",
             ect_summary: "new ect summary",
             completion_time_in_minutes: "10",
-            course_module_id: create(:course_module).id,
+            course_module_id: course_module.id,
           },
         }
 
@@ -121,7 +121,7 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
               title: "",
               ect_summary: "new ect summary",
               completion_time_in_minutes: "10",
-              course_module_id: create(:course_module).id,
+              course_module_id: course_module.id,
             },
           }
 

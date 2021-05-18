@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": "65abf54c-c7c2-490b-9bcd-bbb4e0aab934",
+      "type": "user",
+      "attributes": {
+        "email": "lead-provider@example.com",
+        "full_name": "Lead Provider"
+      }
+    },
+    {
+      "id": "d0c50384-ecb4-4950-839b-854ebc073ae9",
+      "type": "user",
+      "attributes": {
+        "email": "school-leader@example.com",
+        "full_name": "Induction Tutor"
+      }
+    }
+  ]
+}

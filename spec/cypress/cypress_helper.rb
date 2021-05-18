@@ -14,3 +14,9 @@ CypressOnRails::SmartFactoryWrapper.configure(
   ],
 )
 Webpacker.compile
+
+class RegisterAndPartnerApi::User
+  def self.all
+    []
+  end
+end
