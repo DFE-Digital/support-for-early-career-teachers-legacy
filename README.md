@@ -36,51 +36,39 @@ It should be possible to run just the database from docker, if you want to.
 Check docker-compose file for username and password to put in your `.env` file.
 
 If you want to seed the database you can either run `db:drop` and `db:setup` tasks with your preferred method,
-or `db:seed`. 
+or `db:seed`.
 
 ### Govuk Notify
+
 Register on [GOV.UK Notify](https://www.notifications.service.gov.uk). 
 Ask someone from the team to add you to our service.
 Generate an api key for yourself and set it in your `.env` file.
 
-### Set up git hooks
-Run `git config core.hooksPath .githooks` to use the included git hooks.
+### Register and Partner API
 
-### Test displaying markdown with govspeak 
-Run your app locally. Go to http://localhost:3000/govspeak_test. Enter your markdown into the text area,
-click "See preview". Voila!
+We integrate with https://github.com/DFE-Digital/early-careers-framework, which we call Register and Partner - repository name is a bit of an old artifact.
 
-## Whats included in this boilerplate?
+Check out the [specific docs](/documentation/register_and_partner_api_setup.md) for integration details.
 
-- Rails 6.0 with Webpacker
-- [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
-- RSpec
-- Dotenv (managing environment variables)
-- Travis with Heroku deployment
+### Git hooks
 
-## Running specs, linter(without auto correct) and annotate models and serializers
+Run `git config core.hooksPath .githooks` to use the included git hooks. They run linting on commit and check for AWS secrets.
+
+## Tests
+
+### Running specs, linter(without auto correct) and annotate models and serializers
+
 ```
 bundle exec rake
 ```
 
-## Running specs
+### Running specs
+
 ```
 bundle exec rspec
 ```
 
-## Linting
-
-It's best to lint just your app directories and not those belonging to the framework, e.g.
-
-```bash
-bundle exec rubocop app config db lib spec Gemfile --format clang -a
-
-or
-
-bundle exec scss-lint app/webpacker/styles
-```
-
-## End to end tests
+### End to end tests
 
 To set up:
 
@@ -98,47 +86,41 @@ bin/rails server -e test -p 5017
 yarn cypress:open
 ```
 
-## Review apps
+
+## Dev ops
+
+### Review apps
+
 Review apps are automatically created when a PR is opened. A link to the app will be posted on the review.
 
-## Deploying on GOV.UK PaaS
+### Terraform
 
-### Prerequisites
+Check out the [specific docs](/documentation/terraform.md).
 
-- Your department, agency or team has a GOV.UK PaaS account
-- You have a personal account granted by your organisation manager
-- You have downloaded and installed the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads) for your platform
+### Debugging in PaaS
 
-### Deploy
+Check out the [specific docs](/documentation/debugging_in_govpaas.md).
 
-1. Run `cf login -a api.london.cloud.service.gov.uk -u USERNAME`, `USERNAME` is your personal GOV.UK PaaS account email address
-2. Run `bundle package --all` to vendor ruby dependencies
-3. Run `yarn` to vendor node dependencies
-4. Run `bundle exec rails webpacker:compile` to compile assets
-5. Run `cf push` to push the app to Cloud Foundry Application Runtime
+### Secrets used in Rails
 
-Check the file `manifest.yml` for customisation of name (you may need to change it as there could be a conflict on that name), buildpacks and eventual services (PostgreSQL needs to be [set up](https://docs.cloud.service.gov.uk/deploying_services/postgresql/)).
+Check out the [specific docs](/documentation/credentials.md).
 
-The app should be available at https://govuk-rails-boilerplate.london.cloudapps.digital
+## Application functions
 
-## Dealing with cip content
+### CIP content
 
-### Seeding cip content / anything else
+We have a lot of content in database. Its format is markdown, we display it using govspeak gem. 
+If you need to change it permanently, check out the [specific docs](/documentation/dealing_with_cip_content.md).
 
-1. Make sure you are ok with the content in seed files to be created in your db.
-2. Run `cf login -a api.london.cloud.service.gov.uk -u USERNAME`, `USERNAME` is your personal GOV.UK PaaS account email address
-3. Run `cf run-task ecf-engage-and-learn-dev "cd .. && cd app && ../usr/local/bundle/bin/bundle exec rails db:seed"` to start the task.
+### Test displaying markdown with govspeak
 
-### Updating cip content from changes on an app
+Run your app locally. Go to http://localhost:3000/govspeak_test. Enter your markdown into the text area,
+click "See preview". Voila!
 
-1. Download the file to your machine - log in as admin, go to cip page, press the button to download content.
-1. Copy the file or its contents into `cip_seed.rb`.
-1. Add an option `on_duplicate_key_ignore` to CIPs, think carefully which ones from seed dump are needed.
-1. Commit, push, run seeding job from above in the deployed app.
+### Updating CIP images
 
-## Sending invites
+Check out the [specific docs](/documentation/updating_images_in_cip_content.md).
+
+### Sending user invites
+
 Run the job `invites[email_1@example.com email_2@example.com]`. Emails need to match users. 
-
-### Register and Partner
-We will be using R&P's api to fetch users into our system. In order to set it up locally, you will need to run the R&P
-on a different port (say, 3001), and you need to include the local url in your `.env` file.

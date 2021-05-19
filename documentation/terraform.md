@@ -1,7 +1,9 @@
 ### Terraform setup
+
 Instruction on setting up the Terraform CLI can be found on [their website](https://www.terraform.io/downloads.html)
 
 ### Creating a new Terraform environment
+
 If we want to create a new long term environment, we need to create a new backing store for state.
 
 We are using S3 buckets created through GovPaaS & Cloudfoundry to store terraform state.
@@ -24,4 +26,5 @@ You should be able to see the bucket_name, aws_access_key_id and aws_secret_acce
 ```terraform init -backend-config="bucket=dfe-ecf-engage-and-learn-terraform-state-<env>" -backend-config="access_key=<aws_access_key_id>" -backend-config="secret_key=<aws_secret_access_key>"```
 
 ### Running Terraform apply
+
 ```terraform apply --var-file=... -var='secret_paas_app_env_values={"RAILS_MASTER_KEY":"..."}' -var='paas_user=...' -var='paas_password=...' -var='paas_app_docker_image=...'```
