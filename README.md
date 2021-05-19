@@ -50,14 +50,6 @@ Run `git config core.hooksPath .githooks` to use the included git hooks.
 Run your app locally. Go to http://localhost:3000/govspeak_test. Enter your markdown into the text area,
 click "See preview". Voila!
 
-## Whats included in this boilerplate?
-
-- Rails 6.0 with Webpacker
-- [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
-- RSpec
-- Dotenv (managing environment variables)
-- Travis with Heroku deployment
-
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```
 bundle exec rake
@@ -101,44 +93,22 @@ yarn cypress:open
 ## Review apps
 Review apps are automatically created when a PR is opened. A link to the app will be posted on the review.
 
-## Deploying on GOV.UK PaaS
+## Terraform
+Check out the [specific docs](/documentation/terraform.md).
 
-### Prerequisites
+## CIP content
+We have a lot of content in database. Its format is markdown, we display it using govspeak gem. 
+If you need to change it permanently, check out the [specific docs](/documentation/dealing_with_cip_content.md).
 
-- Your department, agency or team has a GOV.UK PaaS account
-- You have a personal account granted by your organisation manager
-- You have downloaded and installed the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads) for your platform
+## Updating CIP images
+Check out the [specific docs](/documentation/updating_images_in_cip_content.md).
 
-### Deploy
-
-1. Run `cf login -a api.london.cloud.service.gov.uk -u USERNAME`, `USERNAME` is your personal GOV.UK PaaS account email address
-2. Run `bundle package --all` to vendor ruby dependencies
-3. Run `yarn` to vendor node dependencies
-4. Run `bundle exec rails webpacker:compile` to compile assets
-5. Run `cf push` to push the app to Cloud Foundry Application Runtime
-
-Check the file `manifest.yml` for customisation of name (you may need to change it as there could be a conflict on that name), buildpacks and eventual services (PostgreSQL needs to be [set up](https://docs.cloud.service.gov.uk/deploying_services/postgresql/)).
-
-The app should be available at https://govuk-rails-boilerplate.london.cloudapps.digital
-
-## Dealing with cip content
-
-### Seeding cip content / anything else
-
-1. Make sure you are ok with the content in seed files to be created in your db.
-2. Run `cf login -a api.london.cloud.service.gov.uk -u USERNAME`, `USERNAME` is your personal GOV.UK PaaS account email address
-3. Run `cf run-task ecf-engage-and-learn-dev "cd .. && cd app && ../usr/local/bundle/bin/bundle exec rails db:seed"` to start the task.
-
-### Updating cip content from changes on an app
-
-1. Download the file to your machine - log in as admin, go to cip page, press the button to download content.
-1. Copy the file or its contents into `cip_seed.rb`.
-1. Add an option `on_duplicate_key_ignore` to CIPs, think carefully which ones from seed dump are needed.
-1. Commit, push, run seeding job from above in the deployed app.
-
-## Sending invites
+## Sending user invites
 Run the job `invites[email_1@example.com email_2@example.com]`. Emails need to match users. 
 
-### Register and Partner
-We will be using R&P's api to fetch users into our system. In order to set it up locally, you will need to run the R&P
-on a different port (say, 3001), and you need to include the local url in your `.env` file.
+## Register and Partner
+We integrate with https://github.com/DFE-Digital/early-careers-framework, which we call Register and Partner - repository name is a bit of an old artifact.
+
+Check out the [specific docs](/documentation/register_and_partner_api_setup.md) for integration details.
+
+
