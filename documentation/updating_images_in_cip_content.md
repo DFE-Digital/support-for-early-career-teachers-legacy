@@ -1,6 +1,7 @@
 ## Updating images in CIP content
 
 ### Getting the access key
+
 1. Log in with `cf login`
 2. Choose the `dev` space
 3. Locate the right bucket - at the time of writing it's `dfe-ecf-engage-and-learn-cip-images`
@@ -10,6 +11,7 @@
 The details from step 5 will be used to access the bucket and change its files.
 
 ### Making a local back-up of the bucket
+
 1. Get aws cli: https://aws.amazon.com/cli/
 2. `aws configure` - use the details from step 5 above.
 3. Make a new empty directory, go into it. This will be your local backup.
@@ -17,6 +19,7 @@ The details from step 5 will be used to access the bucket and change its files.
 5. You should get a list of files in your local directory that match the files in the bucket.
 
 ### Changing the image to new version
+
 1. Make a local back-up of the bucket by following the steps above. Don't go to next steps until you have done that.
 2. In terminal, go to your local backup directory. 
 3. Add the new image into your local backup directory.

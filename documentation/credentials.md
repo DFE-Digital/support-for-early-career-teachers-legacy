@@ -1,4 +1,5 @@
 ## Rails secrets management
+
 We are using rails credentials to manage secrets. If you need to modify secrets for one of the deployed environments,
 you can get the encryption keys from another developer on the team.
 

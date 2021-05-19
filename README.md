@@ -2,7 +2,6 @@
 
 # Engage and Learn
 
-
 ## Prerequisites
 
 - Ruby 2.7.2
@@ -11,10 +10,10 @@
 - Yarn 1.12.x
 - Docker
 
-
 ## Setting up the app in development
 
 ### Without docker
+
 1. Run `bundle install` to install the gem dependencies
 2. Run `yarn` to install node dependencies
 3. Create `.env` file - copy `.env.template`. Set your database password and user in the `.env` file
@@ -23,6 +22,7 @@
 6. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
 ### With docker
+
 There is a separate Dockerfile for local development. It isn't (currently) very
 widely used - if it doesn't work, make sure any recently changes to Dockerfile
 have been applied to Dockerfile.dev where appropriate.
@@ -39,32 +39,37 @@ If you want to seed the database you can either run `db:drop` and `db:setup` tas
 or `db:seed`.
 
 ### Govuk Notify
+
 Register on [GOV.UK Notify](https://www.notifications.service.gov.uk). 
 Ask someone from the team to add you to our service.
 Generate an api key for yourself and set it in your `.env` file.
 
 ### Register and Partner API
+
 We integrate with https://github.com/DFE-Digital/early-careers-framework, which we call Register and Partner - repository name is a bit of an old artifact.
 
 Check out the [specific docs](/documentation/register_and_partner_api_setup.md) for integration details.
 
 ### Git hooks
-Run `git config core.hooksPath .githooks` to use the included git hooks. They run linting on commit and check for AWS secrets.
 
+Run `git config core.hooksPath .githooks` to use the included git hooks. They run linting on commit and check for AWS secrets.
 
 ## Tests
 
 ### Running specs, linter(without auto correct) and annotate models and serializers
+
 ```
 bundle exec rake
 ```
 
 ### Running specs
+
 ```
 bundle exec rspec
 ```
 
 ### End to end tests
+
 To set up:
 
 ```
@@ -85,30 +90,37 @@ yarn cypress:open
 ## Dev ops
 
 ### Review apps
+
 Review apps are automatically created when a PR is opened. A link to the app will be posted on the review.
 
 ### Terraform
+
 Check out the [specific docs](/documentation/terraform.md).
 
 ### Debugging in PaaS
+
 Check out the [specific docs](/documentation/debugging_in_govpaas.md).
 
 ### Secrets used in Rails
-Check out the [specific docs](/documentation/credentials.md).
 
+Check out the [specific docs](/documentation/credentials.md).
 
 ## Application functions
 
 ### CIP content
+
 We have a lot of content in database. Its format is markdown, we display it using govspeak gem. 
 If you need to change it permanently, check out the [specific docs](/documentation/dealing_with_cip_content.md).
 
-### Test displaying markdown with govspeak 
+### Test displaying markdown with govspeak
+
 Run your app locally. Go to http://localhost:3000/govspeak_test. Enter your markdown into the text area,
 click "See preview". Voila!
 
 ### Updating CIP images
+
 Check out the [specific docs](/documentation/updating_images_in_cip_content.md).
 
 ### Sending user invites
+
 Run the job `invites[email_1@example.com email_2@example.com]`. Emails need to match users. 
