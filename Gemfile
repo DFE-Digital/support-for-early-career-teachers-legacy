@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.3.1", ">= 6.1.3.1"
+gem "rails", "~> 6.1.3.1"
 
 gem "devise", ">= 4.7.3"
 gem "kaminari", ">= 1.2.1"
@@ -46,7 +46,7 @@ gem "tzinfo-data"
 
 gem "activerecord-import", ">= 1.0.7"
 gem "govuk-components", ">= 1.0.2"
-gem "govuk_design_system_formbuilder", "~> 2.1", ">= 2.1.5"
+gem "govuk_design_system_formbuilder", "~> 2.1", ">= 2.1.6"
 gem "httpclient"
 gem "json_api_client"
 gem "rack-attack", ">=6.5.0"
@@ -102,6 +102,6 @@ group :test do
   gem "rails-controller-testing", ">= 1.0.5"
   gem "shoulda-matchers", "~> 4.4"
   gem "simplecov"
-  gem "webdrivers", "~> 4.4", ">= 4.4.1"
+  gem "webdrivers", "~> 4.4", ">= 4.4.2"
   gem "webmock"
 end
