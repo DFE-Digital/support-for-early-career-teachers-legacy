@@ -50,6 +50,8 @@ Rails.application.configure do
   config.gias_api_root = "https://ea-edubase-api-prod.azurewebsites.net"
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
+  config.register_and_partner_api_key = "test"
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 

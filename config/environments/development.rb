@@ -37,6 +37,8 @@ Rails.application.configure do
     end
   })
 
+  config.register_and_partner_api_key = ENV.fetch("REGISTER_AND_PARTNER_API_TOKEN")
+
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
