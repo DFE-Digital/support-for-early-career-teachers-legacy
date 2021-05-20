@@ -27,5 +27,16 @@ describe("Accessibility", () => {
         });
       });
     });
+
+    it("Visit all mentor materials to check for accessiblity", () => {
+      cy.app("load_seed");
+      cy.login("mentor");
+      cy.appEval(`MentorMaterial.all.map(&:id)`).then((ids) => {
+        cy.wrap(ids).each((id) => {
+          cy.visit(`/mentor-materials/${id}`);
+          cy.checkA11y();
+        });
+      });
+    });
   }
 });
