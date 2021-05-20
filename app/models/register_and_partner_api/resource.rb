@@ -9,4 +9,5 @@ end
 
 RegisterAndPartnerApi::Resource.connection do |connection|
   connection.use Faraday::Response::Logger, Rails.logger, formatter: ApiRequestLoggingFormatter
+  connection.use Faraday::Request::Authorization, "Bearer", Rails.application.config.register_and_partner_api_key
 end

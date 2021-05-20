@@ -63,6 +63,9 @@ Rails.application.configure do
   config.action_mailer.notify_settings = {
     api_key: Rails.application.credentials.GOVUK_NOTIFY_API_KEY,
   }
+
+  config.register_and_partner_api_key = Rails.application.credentials.REGISTER_AND_PARTNER_API_TOKEN
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
