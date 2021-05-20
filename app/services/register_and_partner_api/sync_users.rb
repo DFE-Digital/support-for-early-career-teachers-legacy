@@ -19,7 +19,8 @@ module RegisterAndPartnerApi
       users.each do |remote_user|
         attributes = user_attributes_from(remote_user)
 
-        user = ::User.find_or_initialize_by(email: attributes[:email])
+        user = ::User.find_or_initialize_by(register_and_partner_id: attributes[:register_and_partner_id])
+        user.email = attributes[:email]
         user.full_name = attributes[:full_name]
 
         ect_profile = ::EarlyCareerTeacherProfile.find_or_initialize_by(user: user)
@@ -40,7 +41,6 @@ module RegisterAndPartnerApi
         cip: "UCL",
       }
     end
-
     private_class_method :sync_users, :user_attributes_from
   end
 end
