@@ -25,11 +25,13 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
     end
 
     it "updates an existing user that has changed their email address" do
+      create(:user, register_and_partner_id: "65abf54c-c7c2-490b-9bcd-bbb4e0aab934", email: "lead-provider-1@example.com")
+
       described_class.perform
 
       record = User.find_by(register_and_partner_id: "65abf54c-c7c2-490b-9bcd-bbb4e0aab934")
       expect(User.count).to eql(2)
-      expect(record.email).to eql("lead-provider-1@example.com")
+      expect(record.email).to eql("lead-provider@example.com")
     end
   end
 end
