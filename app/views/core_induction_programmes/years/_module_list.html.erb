@@ -10,11 +10,13 @@
           <%= course_module.ect_summary_to_html.html_safe %>
         </div>
 
-        <div class="app-task-list__section">
-          <span><%= course_module.self_study_lessons.count.humanize.capitalize %> self-study <%= "session".pluralize(course_module.course_lessons.count) %></span>
+        <% if current_user.early_career_teacher? %>
+          <div class="app-task-list__section">
+            <span><%= course_module.self_study_lessons.count.humanize.capitalize %> self-study <%= "session".pluralize(course_module.course_lessons.count) %></span>
 
-          <%= render ProgressLabelComponent.new progress: course_module.progress %>
-        </div>
+            <%= render ProgressLabelComponent.new progress: course_module.progress %>
+          </div>
+        <% end %>
       </div>
     </li>
   </ul>
