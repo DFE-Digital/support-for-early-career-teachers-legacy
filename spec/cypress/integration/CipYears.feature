@@ -12,7 +12,7 @@ Feature: Core Induction Programme years
     And percy should be sent snapshot
 
     When I clear "title input"
-    And I type "New test title" into "title input"
+    And I type "New test title" into "year title input"
     And I clear "content input"
     And I type "New test content" into "content input"
     And I click on "button" containing "See preview"
@@ -30,6 +30,8 @@ Feature: Core Induction Programme years
 
     When I click on "link" containing "Go to your module materials"
     Then I should be on "core induction programme year" page
+    And "page body" should contain "Test Course year"
+    And "page body" should not contain "Mentor title"
     And "link" containing "Edit year content" should not exist
 
   Scenario: Mentors can view but not edit years
@@ -39,5 +41,7 @@ Feature: Core Induction Programme years
 
     When I click on "link" containing "Go to your mentee's module materials"
     Then I should be on "core induction programme year" page
+    And "page body" should contain "Mentor title"
+    And "page body" should not contain "Test Course year"
     And "page body" should contain "Test Course module"
     And "link" containing "Edit year content" should not exist

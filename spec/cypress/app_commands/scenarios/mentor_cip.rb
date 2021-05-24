@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-year = FactoryBot.create(:course_year)
+year = FactoryBot.create(:course_year, mentor_title: "Mentor title")
 course_module = FactoryBot.create(:course_module, course_year: year)
 FactoryBot.create(:course_lesson, :with_lesson_part, course_module: course_module)
 

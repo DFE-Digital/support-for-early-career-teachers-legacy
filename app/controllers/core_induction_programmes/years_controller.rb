@@ -54,6 +54,6 @@ private
   end
 
   def course_year_params
-    params.fetch(:course_year, {}).permit(:title, :content)
+    params.fetch(:course_year, {}).permit(:title, :mentor_title, :content)
   end
 end
