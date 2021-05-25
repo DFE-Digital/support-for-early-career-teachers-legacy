@@ -5,7 +5,9 @@
       "type": "user",
       "attributes": {
         "email": "lead-provider@example.com",
-        "full_name": "Lead Provider"
+        "full_name": "Lead Provider",
+        "user_type": "mentor",
+        "core_induction_programme": "ucl"
       }
     },
     {
@@ -13,7 +15,29 @@
       "type": "user",
       "attributes": {
         "email": "school-leader@example.com",
-        "full_name": "Induction Tutor"
+        "full_name": "Induction Tutor",
+        "user_type": "mentor",
+        "core_induction_programme": "ucl"
+      }
+    },
+    {
+      "id": "26cb7f92-333d-4503-8d5d-817ef5d9563b",
+      "type": "user",
+      "attributes": {
+        "email": "rp-ect-ambition@example.com",
+        "full_name": "Joe Bloggs",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "ambition"
+      }
+    },
+    {
+      "id": "47dc8g13-444e-5614-9e6e-928fg6e1674c",
+      "type": "user",
+      "attributes": {
+        "email": "user_type_other@example.com",
+        "full_name": "Jane Doe",
+        "user_type": "other",
+        "core_induction_programme": "ucl"
       }
     }
   ]
