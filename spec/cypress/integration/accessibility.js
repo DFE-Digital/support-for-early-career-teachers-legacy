@@ -20,9 +20,21 @@ describe("Accessibility", () => {
   if (Cypress.env("tags")?.includes("checkCourseLessonsAccessibility")) {
     it("Visit all course lessons to check for accessibility", () => {
       cy.app("load_seed");
+      cy.login("admin");
       cy.appEval(`CourseLessonPart.all`).then((lessonParts) => {
         cy.wrap(lessonParts).each((part) => {
           cy.visitLessonPart(part);
+          cy.checkA11y();
+        });
+      });
+    });
+
+    it("Visit all mentor materials to check for accessiblity", () => {
+      cy.app("load_seed");
+      cy.login("admin");
+      cy.appEval(`MentorMaterial.all.map(&:id)`).then((ids) => {
+        cy.wrap(ids).each((id) => {
+          cy.visit(`/mentor-materials/${id}`);
           cy.checkA11y();
         });
       });
