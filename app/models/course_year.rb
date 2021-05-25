@@ -10,7 +10,8 @@ class CourseYear < ApplicationRecord
   has_many :mentor_materials
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
-  validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
+  validates :mentor_title, length: { maximum: 255 }
+  validates :content, length: { maximum: 100_000 }
 
   def content_to_html
     Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
@@ -46,6 +47,12 @@ class CourseYear < ApplicationRecord
 
   def core_induction_programme
     core_induction_programme_one || core_induction_programme_two
+  end
+
+  def title_for(user)
+    return title if mentor_title.blank?
+
+    user.mentor? ? mentor_title : title
   end
 
 private

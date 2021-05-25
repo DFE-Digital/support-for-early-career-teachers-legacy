@@ -2,7 +2,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Your module materials</h1>
+    <h1 class="govuk-heading-xl"><%= @course_year.title_for(current_user) %></h1>
 
     <% if @cip.course_year_two_id %>
       <%= render SubnavComponent.new do |component| %>

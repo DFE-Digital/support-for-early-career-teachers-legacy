@@ -23,8 +23,33 @@ RSpec.describe CourseYear, type: :model do
     subject { FactoryBot.create(:course_year) }
     it { is_expected.to validate_presence_of(:title).with_message("Enter a title") }
     it { is_expected.to validate_length_of(:title).is_at_most(255) }
-    it { is_expected.to validate_presence_of(:content).with_message("Enter content") }
+    it { is_expected.to validate_length_of(:mentor_title).is_at_most(255) }
     it { is_expected.to validate_length_of(:content).is_at_most(100_000) }
+  end
+
+  describe "#title_for" do
+    subject { FactoryBot.create(:course_year, title: "Normal title", mentor_title: "Mentor title") }
+
+    it "is expected to return normal title for admins" do
+      user = create(:user, :admin)
+      expect(subject.title_for(user)).to eq "Normal title"
+    end
+
+    it "is expected to return mentor title for mentors" do
+      user = create(:user, :mentor)
+      expect(subject.title_for(user)).to eq "Mentor title"
+    end
+
+    it "is expected to return normal title for mentors when no mentor title" do
+      year = create(:course_year, title: "Normal title")
+      user = create(:user, :mentor)
+      expect(year.title_for(user)).to eq "Normal title"
+    end
+
+    it "is expected to return normal title for ECTs" do
+      user = create(:user, :early_career_teacher)
+      expect(subject.title_for(user)).to eq "Normal title"
+    end
   end
 
   describe "course_modules" do

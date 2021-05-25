@@ -7,7 +7,24 @@
         </h3>
 
         <div class="gem-c-govspeak govuk-govspeak">
-          <%= course_module.ect_summary_to_html.html_safe %>
+          <% if current_user.admin? %>
+            <h4 class="govuk-heading-s">Mentor summary</h4>
+            <% if course_module.mentor_summary.present? %>
+              <%= course_module.mentor_summary_to_html.html_safe %>
+            <% else %>
+              <p>No mentor summary</p>
+            <% end %>
+            <h4 class="govuk-heading-s">ECT summary</h4>
+            <% if course_module.ect_summary.present? %>
+              <%= course_module.ect_summary_to_html.html_safe %>
+            <% else %>
+              <p>No ECT summary</p>
+            <% end %>
+          <% elsif current_user.mentor? %>
+            <%= course_module.mentor_summary_to_html.html_safe %>
+          <% else %>
+            <%= course_module.ect_summary_to_html.html_safe %>
+          <% end %>
         </div>
 
         <% if current_user.early_career_teacher? %>
