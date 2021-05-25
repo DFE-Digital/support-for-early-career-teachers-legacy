@@ -124,3 +124,5 @@ Check out the [specific docs](/documentation/updating_images_in_cip_content.md).
 ### Sending user invites
 
 Run the job `invites[email_1@example.com email_2@example.com]`. Emails need to match users. 
+
+Change for demo to run
