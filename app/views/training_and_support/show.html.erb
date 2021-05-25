@@ -1,13 +1,5 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <% if @provider.name == "Ambition Institute" %>
-      <%= render "guidance_ambition_institite" %>
-    <% elsif @provider.name == "Education Development Trust" %>
-      <%= render "guidance_education_development_trust" %>
-    <% elsif @provider.name == "Teach First" %>
-      <%= render "guidance_teach_first" %>
-    <% elsif @provider.name == "UCL" %>
-      <%= render "guidance_ucl" %>
-    <% end %>
+    <%= render "guidance_#{current_user.mentor? ? "mentor" : "ect"}_#{@provider_name_key}" %>
   </div>
 </div>

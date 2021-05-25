@@ -9,5 +9,7 @@ class TrainingAndSupportController < ApplicationController
     if @provider.blank?
       raise Pundit::NotAuthorizedError, "This page is only available to Early Career Teachers"
     end
+
+    @provider_name_key = @provider.name.downcase.gsub(/ /, "_")
   end
 end
