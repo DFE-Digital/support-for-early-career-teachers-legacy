@@ -1,20 +1,23 @@
 .blue-header {
   @include govuk-responsive-padding(3, "left");
   @include govuk-responsive-padding(3, "right");
-  @include govuk-responsive-padding(6, "top");
-  @include govuk-responsive-padding(9, "bottom");
+  @include govuk-responsive-padding(7, "top");
+  @include govuk-responsive-padding(7, "bottom");
   @include govuk-responsive-margin(6, "bottom");
 
   background-color: govuk-colour("dark-blue");
 
   .blue-header__title {
-    @include govuk-responsive-margin(1, "bottom");
+    @include govuk-responsive-margin(6, "bottom");
 
     color: white;
   }
 
   .blue-header__text {
-    font-weight: bold;
     color: white;
+  }
+
+  .govuk-button {
+    margin-bottom: 0;
   }
 }

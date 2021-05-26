@@ -1,0 +1,40 @@
+<% content_for :outside_container do %>
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Welcome <%= current_user.name %></h2>
+          <%= govuk_link_to "Edit name", edit_preferred_name_path, "data-test": "edit-name" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blue-header">
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl blue-header__title">Plan compelling feedback and coaching sessions</h1>
+          <p class="blue-header__text govuk-body-l">Using the materials available in this service, you can support your school’s early career teachers develop the skills they need to thrive.</p>
+
+          <% if current_user.mentor? && current_user.mentor_profile.core_induction_programme %>
+            <%= render GovukComponent::StartNowButton.new text: "Start now",
+              href: cip_path(current_user.mentor_profile.core_induction_programme) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-l govuk-!-margin-top-2">Mentoring early career teachers</h2>
+
+        <p>This is some placeholder content for Mark to write - a brief description about what is in the guidance</p>
+
+        <p><%= govuk_link_to "Read guidance", training_and_support_path %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

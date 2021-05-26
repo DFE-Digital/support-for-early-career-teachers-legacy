@@ -31,7 +31,7 @@
   </p>
 </div>
 
-<main class="govuk-body outside-content-wrapper" id="main-content" role="main">
+<div class="outside-content-wrapper">
   <%= form_with model: @split_lesson_part_form, url: lesson_part_split_path, method: :post do |f| %>
     <%= f.govuk_error_summary %>
 
@@ -42,7 +42,7 @@
       </div>
 
       <div class="govuk-grid-column-one-half">
-      <%= f.govuk_text_field :new_title, label: { text: "New part title" } %>
+        <%= f.govuk_text_field :new_title, label: { text: "New part title" } %>
         <%= f.govuk_text_area :new_content, label: { text: "New part content" }, rows: 10 %>
       </div>
     </div>
@@ -68,5 +68,5 @@
       </div>
     </div>
   </div>
-</main>
+</div>
 <% end %>
