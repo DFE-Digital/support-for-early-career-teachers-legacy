@@ -42,9 +42,9 @@
               <p class="govuk-body"><%= lesson.mentor_summary.presence || "No summary available" %></p>
             <% end %>
           <% elsif current_user.mentor? %>
-            <p class="govuk-body"><%= lesson.mentor_summary.presence || "No summary available" %></p>
+            <p class="govuk-body"><%= lesson.mentor_summary.presence %></p>
           <% else %>
-            <p class="govuk-body"><%= lesson.ect_summary.presence || "No summary available" %></p>
+            <p class="govuk-body"><%= lesson.ect_summary.presence %></p>
           <% end %>
 
           <% if lesson.course_lesson_parts.any? %>
