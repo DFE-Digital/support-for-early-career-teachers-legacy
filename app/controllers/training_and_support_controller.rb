@@ -7,7 +7,9 @@ class TrainingAndSupportController < ApplicationController
     @provider = current_user.core_induction_programme
 
     if @provider.blank?
-      raise Pundit::NotAuthorizedError, "This page is only available to Early Career Teachers"
+      raise Pundit::NotAuthorizedError, "This page is only available to CIP participants"
     end
+
+    @provider_name_key = @provider.name.downcase.gsub(/ /, "_")
   end
 end
