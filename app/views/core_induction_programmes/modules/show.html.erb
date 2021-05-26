@@ -26,12 +26,26 @@
         <li class="app-task-list__item">
           <h2 class="govuk-heading-m">
             <% if current_user.admin? %>
-              <%= govuk_link_to lesson.title, lesson_path(lesson) %>
+              <%= govuk_link_to lesson.title_for(current_user), lesson_path(lesson) %>
             <% else %>
-              <%= lesson.title %>
+              <%= lesson.title_for(current_user) %>
             <% end %>
           </h2>
-          <p class="govuk-body"><%= lesson.ect_summary %></p>
+
+          <% if current_user&.admin? %>
+            <% if lesson.ect_summary %>
+              <h3 class="govuk-heading-s">ECT summary:</h3>
+              <p class="govuk-body"><%= lesson.ect_summary.presence || "No summary available" %></p>
+            <% end %>
+            <% if lesson.mentor_summary %>
+              <h3 class="govuk-heading-s">Mentor summary:</h3>
+              <p class="govuk-body"><%= lesson.mentor_summary.presence || "No summary available" %></p>
+            <% end %>
+          <% elsif current_user.mentor? %>
+            <p class="govuk-body"><%= lesson.mentor_summary.presence || "No summary available" %></p>
+          <% else %>
+            <p class="govuk-body"><%= lesson.ect_summary.presence || "No summary available" %></p>
+          <% end %>
 
           <% if lesson.course_lesson_parts.any? %>
             <div class="app-task-list__section">

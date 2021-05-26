@@ -25,6 +25,7 @@ RSpec.describe CourseLesson, type: :model do
     subject { FactoryBot.create(:course_lesson) }
     it { is_expected.to validate_presence_of(:title).with_message("Enter a title") }
     it { is_expected.to validate_length_of(:title).is_at_most(255) }
+    it { is_expected.to validate_length_of(:mentor_title).is_at_most(255) }
     it { is_expected.to validate_numericality_of(:completion_time_in_minutes).is_greater_than(0).with_message("Enter a number greater than 0") }
   end
 
@@ -56,6 +57,31 @@ RSpec.describe CourseLesson, type: :model do
     it "returns hours pluralized and only the hours when there is 0 minutes" do
       @course_lesson.completion_time_in_minutes = 120
       expect(@course_lesson.duration_in_minutes_in_words).to eql("2 hours")
+    end
+  end
+
+  describe "#title_for" do
+    subject { FactoryBot.create(:course_lesson, title: "Normal title", mentor_title: "Mentor title") }
+
+    it "is expected to return normal title for admins" do
+      user = create(:user, :admin)
+      expect(subject.title_for(user)).to eq "Normal title"
+    end
+
+    it "is expected to return mentor title for mentors" do
+      user = create(:user, :mentor)
+      expect(subject.title_for(user)).to eq "Mentor title"
+    end
+
+    it "is expected to return normal title for mentors when no mentor title" do
+      lesson = create(:course_lesson, title: "Normal title")
+      user = create(:user, :mentor)
+      expect(lesson.title_for(user)).to eq "Normal title"
+    end
+
+    it "is expected to return normal title for ECTs" do
+      user = create(:user, :early_career_teacher)
+      expect(subject.title_for(user)).to eq "Normal title"
     end
   end
 end

@@ -18,6 +18,7 @@ class CourseLesson < ApplicationRecord
   has_many :mentor_materials
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
+  validates :mentor_title, length: { maximum: 255 }
   validates :completion_time_in_minutes, numericality: { greater_than: 0, allow_nil: true, message: "Enter a number greater than 0" }
 
   attr_accessor :progress, :new_position
@@ -55,6 +56,12 @@ class CourseLesson < ApplicationRecord
 
   def module_and_lesson
     "#{course_module.title}: #{title}"
+  end
+
+  def title_for(user)
+    return title if mentor_title.blank?
+
+    user.mentor? ? mentor_title : title
   end
 
 private
