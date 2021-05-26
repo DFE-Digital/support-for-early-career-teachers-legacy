@@ -43,7 +43,7 @@ Feature: Training and Support page
 
   Scenario: Information for Ambition Institute mentor
     Given I am logged in as existing user with email "ambition-institute-mentor@example.com"
-    And I click on "link" containing "Information about training and support during your induction"
+    And I click on "link" containing "Read guidance"
     Then I should be on "training and support" page
     And "page body" should contain "Mentoring early career teachers"
     And "page body" should contain "Ambition Institute"
@@ -52,7 +52,7 @@ Feature: Training and Support page
 
   Scenario: Information for Education Development Trust mentor
     Given I am logged in as existing user with email "education-development-trust-mentor@example.com"
-    When I click on "link" containing "Information about training and support during your induction"
+    When I click on "link" containing "Read guidance"
     Then I should be on "training and support" page
     And "page body" should contain "Mentoring early career teachers"
     And "page body" should contain "Education Development Trust"
@@ -61,7 +61,7 @@ Feature: Training and Support page
 
   Scenario: Information for Teach First mentor
     Given I am logged in as existing user with email "teach-first-mentor@example.com"
-    When I click on "link" containing "Information about training and support during your induction"
+    When I click on "link" containing "Read guidance"
     Then I should be on "training and support" page
     And "page body" should contain "Mentoring early career teachers"
     And "page body" should contain "Teach First"
@@ -70,7 +70,7 @@ Feature: Training and Support page
 
   Scenario: Information for UCL mentor
     Given I am logged in as existing user with email "ucl-mentor@example.com"
-    When I click on "link" containing "Information about training and support during your induction"
+    When I click on "link" containing "Read guidance"
     Then I should be on "training and support" page
     And "page body" should contain "Mentoring early career teachers"
     And "page body" should contain "University College London"

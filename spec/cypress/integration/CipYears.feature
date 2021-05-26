@@ -39,7 +39,7 @@ Feature: Core Induction Programme years
     And scenario "mentor_cip" has been ran
     And I am on "dashboard" page
 
-    When I click on "link" containing "Go to your mentee's module materials"
+    When I click on "start now button"
     Then I should be on "core induction programme year" page
     And "page body" should contain "Mentor title"
     And "page body" should not contain "Test Course year"

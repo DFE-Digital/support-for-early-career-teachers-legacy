@@ -36,5 +36,5 @@ Feature: Login
     And I am on "sign in" page
     When I type "mentor@example.com" into "email input"
     And I click the submit button
-    Then "page heading" should contain "Welcome Demo Mentor User"
+    Then "page body" should contain "Welcome Demo Mentor User"
 
