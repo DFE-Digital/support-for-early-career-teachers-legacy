@@ -27,6 +27,7 @@ const elements = {
   "phase banner": ".govuk-phase-banner",
   "govspeak content": ".govuk-govspeak",
   button: "button,input[type=submit],input[type=button]",
+  "start now button": ".govuk-button--start",
   "tag component": ".govuk-tag",
   "service name in navigation": '[data-test="service-name"]',
   "service navigation item": ".govuk-header__navigation-item",

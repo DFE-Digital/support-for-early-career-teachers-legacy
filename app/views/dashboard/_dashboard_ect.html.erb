@@ -1,0 +1,20 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="blue-header">
+      <h1 class="govuk-heading-xl blue-header__title">Welcome <%= current_user.name %></h1>
+      <strong><%= govuk_link_to "Edit name", edit_preferred_name_path, class: "blue-header__text", "data-test": "edit-name" %></strong>
+    </div>
+
+    <% if current_user.early_career_teacher_profile&.core_induction_programme %>
+      <%= govuk_link_to "Go to your module materials",
+        cip_path(current_user.early_career_teacher_profile.core_induction_programme),
+        button: true %>
+    <% end %>
+
+    <h2 class="govuk-heading-l govuk-!-margin-top-4">Related content</h2>
+
+    <p><%= govuk_link_to "Information about training and support during your induction", training_and_support_path %></p>
+    <p><%= govuk_link_to "How the teacher standards relate to the ECF", "#" %></p>
+    <p><%= govuk_link_to "Your mentor's role and responsibilities", "#" %></p>
+  </div>
+</div>

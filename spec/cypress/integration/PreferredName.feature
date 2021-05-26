@@ -4,7 +4,6 @@ Feature: Changing preferred name
   Scenario: Should be able to change preferred name
     Given I am logged in as "early_career_teacher" with full_name "Charles Darwin"
     Then I should be on "dashboard" page
-    And the page should be accessible
     And "page body" should contain "Charles Darwin"
 
     When I click on "edit name link"
