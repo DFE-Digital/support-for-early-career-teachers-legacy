@@ -1,6 +1,7 @@
 <%= f.govuk_error_summary %>
 
 <%= f.govuk_text_field :title, label: { text: "Lesson title" } %>
+<%= f.govuk_text_field :mentor_title, label: { text: "Mentor lesson title" }, hint: { text: "This will override the title for mentors if specified" } %>
 
 <%= f.govuk_collection_select(
       :course_module_id,
