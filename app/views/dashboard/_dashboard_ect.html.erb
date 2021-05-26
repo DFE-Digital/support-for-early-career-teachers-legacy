@@ -5,7 +5,7 @@
       <strong><%= govuk_link_to "Edit name", edit_preferred_name_path, class: "blue-header__text", "data-test": "edit-name" %></strong>
     </div>
 
-    <% if current_user.early_career_teacher_profile.core_induction_programme %>
+    <% if current_user.early_career_teacher_profile&.core_induction_programme %>
       <%= govuk_link_to "Go to your module materials",
         cip_path(current_user.early_career_teacher_profile.core_induction_programme),
         button: true %>

@@ -17,7 +17,7 @@
           <h1 class="govuk-heading-xl blue-header__title">Plan compelling feedback and coaching sessions</h1>
           <p class="blue-header__text govuk-body-l">Using the materials available in this service, you can support your school’s early career teachers develop the skills they need to thrive.</p>
 
-          <% if current_user.mentor? && current_user.mentor_profile.core_induction_programme %>
+          <% if current_user.mentor_profile.core_induction_programme %>
             <%= render GovukComponent::StartNowButton.new text: "Start now",
               href: cip_path(current_user.mentor_profile.core_induction_programme) %>
           <% end %>
