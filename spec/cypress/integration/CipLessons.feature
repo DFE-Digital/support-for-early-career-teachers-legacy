@@ -11,8 +11,8 @@ Feature: Core Induction Programme lessons
     And the page should be accessible
     And percy should be sent snapshot called "edit lesson page"
 
-    When I clear "year title input"
-    And I type "New lesson title" into "year title input"
+    When I clear "lesson title input"
+    And I type "New lesson title" into "lesson title input"
     And I type "45" into "time input"
     And I click the submit button
     Then "page body" should contain "Your changes have been saved"
@@ -46,7 +46,7 @@ Feature: Core Induction Programme lessons
     And "page heading" should contain "Create lesson"
     And the page should be accessible
 
-    When I type "New content-less lesson" into "year title input"
+    When I type "New content-less lesson" into "lesson title input"
     And I type "30" into "time input"
     And I type "Some ECT summary" into "ect summary input"
     And I type "Some mentor summary" into "mentor summary input"
