@@ -52,3 +52,9 @@ Feature: Cookie page
     When I navigate to "cookie" page
     Then "cookie banner" should not exist
     And "cookie consent radio" with value "off" is checked
+
+  Scenario: Footer should have cookies link
+    When I am on "start" page
+    Then "footer" should contain "Cookies"
+    And the page should be accessible
+    And percy should be sent snapshot
