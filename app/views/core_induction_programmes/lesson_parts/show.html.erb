@@ -21,7 +21,7 @@
       <span class="govuk-caption-l">The teacher's self-study materials</span>
     <% end %>
     <% if policy(@course_lesson_part.course_lesson).update_progress? && @course_lesson_part.next_lesson_part.nil? %>
-      <%= form_with model: @lesson_progress, url: lesson_part_update_progress_path(lesson_part_id: @course_lesson_part.id), method: :put do |f| %>
+      <%= form_with model: @lesson_progress, url: lesson_part_update_progress_path(lesson_part_id: @course_lesson_part.id), method: :put, id: "lesson-progress-form" do |f| %>
         <%= f.govuk_error_summary %>
 
         <%= render "core_induction_programmes/lesson_parts/lesson_part_content" %>
