@@ -17,7 +17,7 @@ RSpec.describe "Users::Sessions", type: :request do
 
       get "/users/sign_out"
 
-      expect(response).to redirect_to(signed_out_path)
+      expect(response).to redirect_to(users_signed_out_path)
       expect(controller.current_user).to be_nil
     end
   end
