@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Create an additional course year</h1>
-    <%= form_with model: @course_year, url: years_path, method: :post do |f| %>
+    <%= form_with model: @course_year, url: years_path, method: :post, id: "course-year-create-form" do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_collection_radio_buttons(
             :core_induction_programme,

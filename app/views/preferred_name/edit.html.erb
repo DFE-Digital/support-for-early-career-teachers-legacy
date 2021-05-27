@@ -7,7 +7,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Edit your name</h1>
 
-    <%= form_with model: current_user, url: preferred_name_path do |f| %>
+    <%= form_with model: current_user, url: preferred_name_path, id: "preferred-name-form" do |f| %>
       <%= f.govuk_text_field :preferred_name,
         label: { text: "What is your preferred name?" },
         hint: { text: "For example, Jess rather than Jessica." },

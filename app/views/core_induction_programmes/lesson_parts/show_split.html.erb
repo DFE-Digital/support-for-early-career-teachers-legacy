@@ -32,7 +32,7 @@
 </div>
 
 <div class="outside-content-wrapper">
-  <%= form_with model: @split_lesson_part_form, url: lesson_part_split_path, method: :post do |f| %>
+  <%= form_with model: @split_lesson_part_form, url: lesson_part_split_path, method: :post, id: "course-lesson-part-split-form" do |f| %>
     <%= f.govuk_error_summary %>
 
     <div class="govuk-grid-row">

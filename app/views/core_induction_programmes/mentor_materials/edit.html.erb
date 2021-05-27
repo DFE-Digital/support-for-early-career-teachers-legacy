@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">Content change preview</h1>
-    <%= form_with model: @mentor_material, url: mentor_material_path, method: :put do |f| %>
+    <%= form_with model: @mentor_material, url: mentor_material_path, method: :put, id: "mentor-materials-update-form" do |f| %>
       <%= render "mentor_material_fields", locals = { f:f } %>
       <%= f.govuk_submit "See preview" %>
     <% end %>

@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <%= form_with url: cookies_path, class: "js-cookie-form", method: :put do |f| %>
+    <%= form_with url: cookies_path, class: "js-cookie-form", method: :put, id: "cookie-form" do |f| %>
       <div class="govuk-button-group">
         <button type="submit" class="govuk-button" name="cookies_form[analytics_consent]" value="on">
           Accept analytics cookies
