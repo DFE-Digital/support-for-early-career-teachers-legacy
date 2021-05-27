@@ -18,6 +18,8 @@ module Devise
 
           return unless user&.admin?
 
+          return if Rails.env.development? || Rails.env.deployed_development? || Rails.env.staging?
+
           token_expiry = 60.minutes.from_now
           result = user&.update(
             login_token: SecureRandom.hex(10),
