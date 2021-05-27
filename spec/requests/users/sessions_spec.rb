@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Users::Sessions", type: :request do
-  let(:user) { create(:user, account_created: true) }
+  let(:user) { create(:user) }
 
   describe "GET /users/sign_in" do
     it "renders the sign in page" do
@@ -24,13 +24,6 @@ RSpec.describe "Users::Sessions", type: :request do
   end
 
   describe "POST /users/sign_in" do
-    context "when email matches a user" do
-      it "redirects to dashboard" do
-        post "/users/sign_in", params: { user: { email: user.email } }
-        expect(response).to redirect_to(dashboard_path)
-      end
-    end
-
     context "when email doesn't match any user" do
       context "user does not exist on api" do
         let(:email) { Faker::Internet.email }
@@ -48,6 +41,116 @@ RSpec.describe "Users::Sessions", type: :request do
           post "/users/sign_in", params: { user: { email: user.email } }
           expect(response).to redirect_to(dashboard_path)
         end
+      end
+    end
+  end
+
+  describe "POST /users/sign_in" do
+    context "when email matches an ect" do
+      let(:user) { create(:user, :early_career_teacher) }
+
+      it "redirects to dashboard" do
+        post "/users/sign_in", params: { user: { email: user.email } }
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+
+    context "when email matches a mentor" do
+      let(:user) { create(:user, :mentor) }
+
+      it "redirects to dashboard" do
+        post "/users/sign_in", params: { user: { email: user.email } }
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+
+    context "when email matches an admin" do
+      let(:user) { create(:user, :admin) }
+      let(:login_url_regex) { /http:\/\/www\.example\.com\/users\/confirm-sign-in\?login_token=.*/ }
+      let(:token_expiry_regex) { /\d\d:\d\d/ }
+
+      before do
+        allow(UserMailer).to receive(:sign_in_email).and_call_original
+      end
+
+      it "renders email sent" do
+        post "/users/sign_in", params: { user: { email: user.email } }
+        expect(response).to render_template(:login_email_sent)
+      end
+
+      context "when email case-insensitively matches a user" do
+        def randomize_case(string)
+          string.chars.map { |char| char.send(%i[upcase downcase].sample) }.join
+        end
+
+        it "sends a log_in email request to User Mailer" do
+          expect(UserMailer).to receive(:sign_in_email).with(
+            hash_including(
+              user: user,
+              url: login_url_regex,
+              token_expiry: token_expiry_regex,
+            ),
+          )
+          post "/users/sign_in", params: { user: { email: randomize_case(user.email) } }
+        end
+      end
+    end
+  end
+
+  describe "GET /users/confirm-sign-in" do
+    context "when user is an admin" do
+      let(:user) { create(:user, :admin) }
+
+      it "renders the redirect_from_magic_link template" do
+        get "/users/confirm-sign-in?login_token=#{user.login_token}"
+        expect(assigns(:login_token)).to eq(user.login_token)
+        expect(response).to render_template(:redirect_from_magic_link)
+      end
+
+      it "redirects to link invalid when the token doesn't match" do
+        get "/users/confirm-sign-in?login_token=aaaaaaaaaa"
+
+        expect(response).to redirect_to "/users/link-invalid"
+      end
+
+      context "when the token has expired" do
+        before { user.update!(login_token_valid_until: 1.hour.ago) }
+
+        it "redirects to link invalid" do
+          get "/users/confirm-sign-in?login_token=#{user.login_token}"
+
+          expect(response).to redirect_to "/users/link-invalid"
+        end
+      end
+    end
+
+    context "when already signed in" do
+      before { sign_in user }
+
+      it "redirects to the dashboard" do
+        get "/users/confirm-sign-in?login_token=aaaaaaaaaa"
+
+        expect(response).to redirect_to "/dashboard"
+      end
+    end
+  end
+
+  describe "POST /users/sign-in-with-token" do
+    context "when user is an admin" do
+      let(:user) { create(:user, :admin) }
+
+      it "redirects to dashboard" do
+        post "/users/sign-in-with-token", params: { login_token: user.login_token }
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+
+    context "when the login_token has expired" do
+      before { user.update(login_token_valid_until: 2.days.ago) }
+
+      it "redirects to link invalid page" do
+        post "/users/sign-in-with-token", params: { login_token: user.login_token }
+        expect(response).to redirect_to(users_link_invalid_path)
       end
     end
   end
