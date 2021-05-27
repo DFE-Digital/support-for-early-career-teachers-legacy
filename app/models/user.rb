@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  devise :trackable, :yolo_authenticatable
+  devise :trackable, :yolo_authenticatable, :passwordless_authenticatable
 
   has_one :induction_coordinator_profile
 
@@ -42,4 +42,8 @@ class User < ApplicationRecord
   def name
     preferred_name&.presence || full_name
   end
+
+  scope :admins, -> { joins(:admin_profile) }
+  scope :early_career_teachers, -> { joins(:early_career_teacher_profile).includes(:early_career_teacher_profile) }
+  scope :mentors, -> { joins(:mentor_profile).includes(:mentor_profile) }
 end
