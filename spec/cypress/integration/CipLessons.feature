@@ -2,7 +2,7 @@ Feature: Core Induction Programme lessons
   Users should be able to view and sometimes edit cip lessons.
 
   Scenario: Admins can edit lessons
-    Given I am logged in as "admin"
+    Given I am admin and logged in
     And course_lesson was created as "with_lesson_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
     And I am on "core induction programme lesson" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 
@@ -37,7 +37,7 @@ Feature: Core Induction Programme lessons
     And "page body" should contain "New content for lesson part"
 
   Scenario: Admins can create content-less lessons
-    Given I am logged in as "admin"
+    Given I am admin and logged in
     And scenario "cip_year_module" has been ran
     And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 
@@ -58,7 +58,7 @@ Feature: Core Induction Programme lessons
     And the page should be accessible
 
   Scenario: Admins can edit lessons without lesson part
-    Given I am logged in as "admin"
+    Given I am admin and logged in
     And course_lesson was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
     And I am on "core induction programme lesson" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 

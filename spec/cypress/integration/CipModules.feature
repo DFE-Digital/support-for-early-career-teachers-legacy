@@ -2,7 +2,7 @@ Feature: Core Induction Programme modules
   Users should be able to view and sometiems edit cip modules.
 
   Scenario: Admins can edit modules
-    Given I am logged in as "admin"
+    Given I am admin and logged in
     And course_module was created as "with_previous" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
     And I am on "core induction programme module" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 

@@ -2,7 +2,7 @@ Feature: Core Induction Programme mentor materials
   Users should be able to view and sometimes edit mentor material.
 
   Scenario: Admins can create mentor materials
-    Given I am logged in as "admin"
+    Given I am admin and logged in
     And I am on "core induction programme mentor materials" page
 
     When I click on "link" containing "Create Mentor Material"
@@ -20,7 +20,7 @@ Feature: Core Induction Programme mentor materials
     And the page should be accessible
 
   Scenario: Admins can edit mentor materials
-    Given I am logged in as "admin"
+    Given I am admin and logged in
     Given mentor_material was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
     And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 

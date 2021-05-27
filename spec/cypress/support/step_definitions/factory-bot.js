@@ -51,6 +51,24 @@ const login = (traits, args) => {
     });
 };
 
+const loginAdmin = (args) => {
+  const factoryArgs = ["create", "user", "admin"];
+
+  if (args) {
+    factoryArgs.push(parseArgs(args));
+  }
+
+  cy.appFactories([factoryArgs])
+    .as("userData")
+    .then(([user]) => {
+      cy.visit(`/users/confirm-sign-in?login_token=${user.login_token}`);
+    });
+
+  cy.get('[action="/users/sign-in-with-token"] [name="commit"]').click();
+};
+
+Given("I am admin and logged in", () => loginAdmin());
+Given("I am admin and logged in with {}", (args) => loginAdmin(args));
 Given("I am logged in as {string}", (traits) => login(traits));
 Given("I am logged in as {string} with {}", (traits, args) =>
   login(traits, args)
