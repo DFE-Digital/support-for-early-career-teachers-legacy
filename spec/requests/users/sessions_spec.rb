@@ -52,6 +52,7 @@ RSpec.describe "Users::Sessions", type: :request do
       it "redirects to dashboard" do
         post "/users/sign_in", params: { user: { email: user.email } }
         expect(response).to redirect_to(dashboard_path)
+        expect(user.reload.last_sign_in_at).not_to be_nil
       end
     end
 
@@ -61,6 +62,7 @@ RSpec.describe "Users::Sessions", type: :request do
       it "redirects to dashboard" do
         post "/users/sign_in", params: { user: { email: user.email } }
         expect(response).to redirect_to(dashboard_path)
+        expect(user.reload.last_sign_in_at).not_to be_nil
       end
     end
 
@@ -76,6 +78,7 @@ RSpec.describe "Users::Sessions", type: :request do
       it "renders email sent" do
         post "/users/sign_in", params: { user: { email: user.email } }
         expect(response).to render_template(:login_email_sent)
+        expect(user.reload.last_sign_in_at).to be_nil
       end
 
       context "when email case-insensitively matches a user" do
@@ -142,6 +145,7 @@ RSpec.describe "Users::Sessions", type: :request do
       it "redirects to dashboard" do
         post "/users/sign-in-with-token", params: { login_token: user.login_token }
         expect(response).to redirect_to(dashboard_path)
+        expect(user.reload.last_sign_in_at).not_to be_nil
       end
     end
 
@@ -151,6 +155,7 @@ RSpec.describe "Users::Sessions", type: :request do
       it "redirects to link invalid page" do
         post "/users/sign-in-with-token", params: { login_token: user.login_token }
         expect(response).to redirect_to(users_link_invalid_path)
+        expect(user.reload.last_sign_in_at).to be_nil
       end
     end
   end
