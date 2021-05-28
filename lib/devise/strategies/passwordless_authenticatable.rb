@@ -6,19 +6,23 @@ require_relative "../../../app/mailers/user_mailer"
 module Devise
   module Strategies
     class PasswordlessAuthenticatable < Authenticatable
+      TEST_USERS = %w[admin@example.com].freeze
+
       class Error < StandardError; end
 
       class EmailNotFoundError < Error; end
 
       class LoginIncompleteError < Error; end
 
+      def valid?
+        true
+      end
+
       def authenticate!
         if params[:user].present?
           user = User.find_by(email: params[:user][:email].downcase)
 
-          return unless user&.admin?
-
-          return if Rails.env.development? || Rails.env.deployed_development? || Rails.env.staging?
+          return success! user unless user_requires_magic_link(user)
 
           token_expiry = 60.minutes.from_now
           result = user&.update(
@@ -38,6 +42,17 @@ module Devise
             raise EmailNotFoundError
           end
         end
+      end
+
+    private
+
+      def user_requires_magic_link(user)
+        return false unless user&.admin?
+
+        in_test_environment = Rails.env.development? || Rails.env.deployed_development? || Rails.env.staging?
+        return false if TEST_USERS.include?(user.email) && in_test_environment
+
+        true
       end
     end
   end
