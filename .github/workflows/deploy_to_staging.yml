@@ -52,7 +52,7 @@ jobs:
           allow_force_pushes: |
             true
           required_linear_history: |
-            true
+            false
           allow_deletions: |
             null
           restrictions: |
@@ -97,7 +97,7 @@ jobs:
           allow_force_pushes: |
             null
           required_linear_history: |
-            true
+            false
           allow_deletions: |
             null
           restrictions: |
