@@ -4,21 +4,12 @@ class Users::SessionsController < Devise::SessionsController
   before_action :redirect_to_dashboard, only: %i[sign_in_with_token redirect_from_magic_link]
   before_action :ensure_login_token_valid, only: %i[sign_in_with_token redirect_from_magic_link]
 
-  def new
-    super do
-      if flash.present?
-        flash.clear
-        resource.valid?
-        resource.errors.delete(:full_name)
-      end
-    end
-  end
-
   def create
-    self.resource = warden.authenticate!(auth_options)
+    self.resource = validate_email
     if resource.errors.any?
       render :new
     else
+      self.resource = warden.authenticate!(auth_options)
       sign_in(resource_name, resource)
       respond_with resource, location: after_sign_in_path_for(resource)
     end
@@ -58,5 +49,41 @@ private
     return true if @user.login_token_valid_until.nil?
 
     Time.zone.now > @user.login_token_valid_until
+  end
+
+  def validate_email
+    if params[:user].nil?
+      user = User.new
+      user.errors.add :email, "Enter an email address"
+      return user
+    end
+
+    email = params[:user][:email].downcase
+
+    if email == ""
+      user = User.new
+      user.errors.add :email, "Enter an email address"
+      return user
+    end
+
+    unless email.match(Devise.email_regexp)
+      user = User.new
+      user.errors.add :email, "Enter an email address in the correct format, like name@school.org"
+      return user
+    end
+
+    user = User.find_by(email: email)
+
+    unless user
+      RegisterAndPartnerApi::SyncUsers.perform
+      user = User.find_by(email: email)
+    end
+
+    if user.blank?
+      user = User.new
+      user.errors.add :email, "Enter the email address your school used when they registered your account"
+    end
+
+    user
   end
 end
