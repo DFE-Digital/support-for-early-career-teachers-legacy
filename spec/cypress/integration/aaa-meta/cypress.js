@@ -22,7 +22,7 @@ describe("Meta test helper tests", () => {
       "courseLesson"
     );
 
-    cy.login("admin");
+    cy.loginAdmin();
 
     cy.get("@courseLesson").then(([lesson]) => {
       cy.visitModuleOfLesson(lesson);
@@ -44,7 +44,7 @@ describe("Meta test helper tests", () => {
       ["create", "core_induction_programme"],
     ]);
 
-    cy.login("admin");
+    cy.loginAdmin();
 
     cy.visit("/core-induction-programmes");
 
@@ -54,7 +54,7 @@ describe("Meta test helper tests", () => {
     );
 
     cy.app("clean");
-    cy.login("admin");
+    cy.loginAdmin();
     cy.visit("/core-induction-programmes");
 
     cy.get('.govuk-link:contains("Test Core induction programme")').should(
@@ -65,7 +65,7 @@ describe("Meta test helper tests", () => {
   });
 
   it("should start with a clean database", () => {
-    cy.login("admin");
+    cy.loginAdmin();
 
     cy.get('.govuk-link:contains("Lead Provider")').should("have.length", 0);
   });
