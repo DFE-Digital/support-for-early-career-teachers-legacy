@@ -14,15 +14,4 @@ RSpec.describe Devise::Strategies::YoloAuthenticatable do
       expect(subject.valid?).to be_truthy
     end
   end
-
-  describe "#authenticate!" do
-    context "when user does not exist" do
-      it "call RegisterAndPartnerApi::SyncUsers.perform" do
-        allow(RegisterAndPartnerApi::SyncUsers).to receive(:perform)
-
-        subject.authenticate!
-        expect(RegisterAndPartnerApi::SyncUsers).to have_received(:perform)
-      end
-    end
-  end
 end
