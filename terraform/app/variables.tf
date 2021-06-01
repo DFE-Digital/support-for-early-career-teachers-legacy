@@ -69,11 +69,15 @@ variable paas_worker_app_deployment_strategy {
 }
 
 variable paas_worker_app_instances {
-  default = 1
+  default = 0
 }
 
 variable paas_worker_app_memory {
-  default = 512
+  default = 2048
+}
+
+variable paas_worker_app_start_command {
+  default = ""
 }
 
 variable secret_paas_app_env_values {
