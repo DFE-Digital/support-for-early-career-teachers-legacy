@@ -31,6 +31,6 @@ Feature: Navigation
     Then "service navigation item" containing "Sign out" should exist
 
   Scenario: Navigation should show "Sign out" and "Core Induction Programme" elements when user is signed in as admin
-    Given I am admin and logged in
+    Given I am logged in as "admin"
     Then "service navigation item" containing "Sign out" should exist
     Then "service navigation item" containing "Core Induction Programme" should exist

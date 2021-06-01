@@ -3,7 +3,7 @@ Feature: Core Induction Programme years
 
   Scenario: Admins can edit years
     Given core_induction_programme was created as "with_course_year" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am admin and logged in
+    And I am logged in as "admin"
     And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
 
     When I click on "link" containing "Edit year content"

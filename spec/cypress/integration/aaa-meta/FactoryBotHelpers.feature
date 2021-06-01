@@ -2,7 +2,7 @@ Feature: factory_bot helper meta tests
   Cucumber step definitions should define helpers to interact with factory_bot
 
   Scenario: Should be able to log in as a new user
-    Given I am admin and logged in with full_name "Lance Schimmel"
+    Given I am logged in as "admin" with full_name "Lance Schimmel"
     Then "page body" should contain "Lance Schimmel"
 
   Scenario: Should be able to log in as existing users

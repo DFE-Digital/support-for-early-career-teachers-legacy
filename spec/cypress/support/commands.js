@@ -3,19 +3,14 @@ Cypress.Commands.add("login", (...traits) => {
   cy.appFactories([["create", "user", ...traits]])
     .as("userData")
     .then(([user]) => {
-      cy.visit("/users/sign_in");
-      cy.get("[name*=email]").type(`${user.email}{enter}`);
+      if (traits.includes("admin")) {
+        cy.visit(`/users/confirm-sign-in?login_token=${user.login_token}`);
+        cy.get('[action="/users/sign-in-with-token"] [name="commit"]').click();
+      } else {
+        cy.visit("/users/sign_in");
+        cy.get("[name*=email]").type(`${user.email}{enter}`);
+      }
     });
-});
-
-Cypress.Commands.add("loginAdmin", (...traits) => {
-  cy.appFactories([["create", "user", "admin", ...traits]])
-    .as("userData")
-    .then(([user]) => {
-      cy.visit(`/users/confirm-sign-in?login_token=${user.login_token}`);
-    });
-
-  cy.get('[action="/users/sign-in-with-token"] [name="commit"]').click();
 });
 
 Cypress.Commands.add("logout", () => {
