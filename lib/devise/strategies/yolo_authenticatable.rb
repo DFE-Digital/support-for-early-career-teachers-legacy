@@ -30,11 +30,6 @@ module Devise
 
           user = User.find_by(email: email)
 
-          unless user
-            RegisterAndPartnerApi::SyncUsers.perform
-            user = User.find_by(email: email)
-          end
-
           if user.blank?
             user = User.new
             user.errors.add :email, "Enter the email address your school used when they registered your account"
