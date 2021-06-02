@@ -41,7 +41,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
-  config.session_store :cookie_store, key: "_govuk_rails_boilerplate_session", secure: true, expire_after: 2.weeks
+  config.session_store :cookie_store, key: "_support_for_early_career_teachers_session", secure: true, expire_after: 2.weeks
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
@@ -54,7 +54,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :delayed_job
   # config.active_job.queue_name_prefix = "govuk_rails_boilerplate_production"
   config.domain = ENV["DOMAIN"]
   config.gias_api_root = ENV["GIAS_API_ROOT"]

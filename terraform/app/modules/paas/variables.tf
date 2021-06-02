@@ -27,14 +27,24 @@ variable web_app_deployment_strategy {
 }
 
 variable web_app_instances {
-  default = 1
 }
 
 variable web_app_memory {
-  default = 512
 }
 
 variable web_app_start_command {
+}
+
+variable worker_app_start_command {
+}
+
+variable worker_app_instances {
+}
+
+variable worker_app_memory {
+}
+
+variable worker_app_deployment_strategy {
 }
 
 locals {
@@ -56,6 +66,7 @@ locals {
   app_service_bindings = concat(
     local.app_cloudfoundry_service_instances,
   )
-  postgres_service_name    = "${var.service_name}-postgres-${var.environment}"
-  web_app_name             = "${var.service_name}-${var.environment}"
+  postgres_service_name = "${var.service_name}-postgres-${var.environment}"
+  web_app_name          = "${var.service_name}-${var.environment}"
+  worker_app_name       = "${var.service_name}-${var.environment}-worker"
 }

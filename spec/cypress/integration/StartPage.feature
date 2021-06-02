@@ -6,4 +6,3 @@ Feature: Start Page
     Then "phase banner" should contain "feedback"
     And the page should be accessible
     And percy should be sent snapshot
-
