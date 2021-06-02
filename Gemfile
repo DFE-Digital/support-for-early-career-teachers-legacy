@@ -53,6 +53,7 @@ gem "rack-attack", ">=6.5.0"
 gem "seed_dump", ">= 3.3.1"
 
 # Database based asynchronous priority queue system
+gem "daemons"
 gem "delayed_cron_job"
 gem "delayed_job_active_record", ">= 4.1.5"
 
