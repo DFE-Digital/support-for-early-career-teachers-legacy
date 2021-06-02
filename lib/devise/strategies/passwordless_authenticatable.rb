@@ -49,10 +49,10 @@ module Devise
       def user_requires_magic_link(user)
         return false unless user&.admin?
 
-        in_test_environment = Rails.env.development? || Rails.env.deployed_development? || Rails.env.staging?
-        return false if TEST_USERS.include?(user.email) && in_test_environment
+        environment_requires_emails = Rails.env.development? || Rails.env.deployed_development? || Rails.env.staging?
+        return false unless environment_requires_emails
 
-        true
+        !TEST_USERS.include?(user.email)
       end
     end
   end
