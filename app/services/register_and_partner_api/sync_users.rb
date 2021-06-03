@@ -54,41 +54,39 @@ module RegisterAndPartnerApi
       }
     end
 
-    def self.determine_core_induction_programme(cip_name)
-      case cip_name
-      when "ambition"
-        CIP_TYPES[:ambition]
-      when "edt"
-        CIP_TYPES[:edt]
-      when "teach_first"
-        CIP_TYPES[:teach_first]
-      when "ucl"
-        CIP_TYPES[:ucl]
+    def self.find_or_create_user(attributes, profile_class)
+      user = ::User.find_or_initialize_by(register_and_partner_id: attributes[:register_and_partner_id])
+      needs_inviting = !user.persisted?
+      save_user(attributes, user, profile_class)
+
+      if needs_inviting
+        InviteParticipants.run([user.email])
       end
     end
 
-    def self.find_or_create_user(attributes, profile_class)
-      user = ::User.find_or_initialize_by(register_and_partner_id: attributes[:register_and_partner_id])
+    def self.save_user(attributes, user, profile_class)
       profile = profile_class.find_or_initialize_by(user: user)
-
-      save_user_email_and_full_name(attributes, user)
-      save_profile_core_induction_programme(attributes, profile)
-    end
-
-    def self.save_user_email_and_full_name(attributes, user)
       user.email = attributes[:email]
       user.full_name = attributes[:full_name]
       user.save!
-    end
-
-    def self.save_profile_core_induction_programme(attributes, profile)
-      profile.core_induction_programme = CoreInductionProgramme.find_by(
-        name: determine_core_induction_programme(attributes[:cip]),
-      )
+      profile.core_induction_programme = get_core_induction_programme(attributes)
       profile.save!
     end
 
-    private_class_method :sync_users, :user_attributes_from, :save_profile_core_induction_programme,
-                         :determine_core_induction_programme, :save_user_email_and_full_name, :find_or_create_user
+    def self.get_core_induction_programme(attributes)
+      name = case attributes[:cip]
+             when CIP_TYPES[:ambition]
+               "Ambition Institute"
+             when CIP_TYPES[:edt]
+               "Education Development Trust"
+             when CIP_TYPES[:teach_first]
+               "Teach First"
+             when CIP_TYPES[:ucl]
+               "UCL"
+             end
+      CoreInductionProgramme.find_by(name: name)
+    end
+
+    private_class_method :sync_users, :user_attributes_from, :find_or_create_user, :save_user, :get_core_induction_programme
   end
 end
