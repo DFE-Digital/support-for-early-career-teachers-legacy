@@ -8,9 +8,6 @@ class InviteParticipants
     emails.each do |email|
       user = User.find_by(email: email)
       email = create_invite_email_for_user(user)
-
-      # if user is ect and before certain time, don't send
-      # otherwise send
       email.send!
     rescue StandardError
       logger.info "Error emailing user, id: #{user&.id} ... skipping"
@@ -19,9 +16,9 @@ class InviteParticipants
 
   def self.create_invite_email_for_user(user)
     if user.mentor?
-      InviteEmailMentor.create!(user: user)
+      InviteEmailMentor.find_or_create_by!(user: user, sent_at: nil)
     elsif user.early_career_teacher?
-      InviteEmailEct.create!(user: user)
+      InviteEmailEct.find_or_create_by!(user: user, sent_at: nil)
     end
   end
 
