@@ -4,7 +4,7 @@
       "id": "65abf54c-c7c2-490b-9bcd-bbb4e0aab934",
       "type": "user",
       "attributes": {
-        "email": "lead-provider@example.com",
+        "email": "mentor@example.com",
         "full_name": "Lead Provider",
         "user_type": "mentor",
         "core_induction_programme": "ucl"
@@ -17,7 +17,7 @@
         "email": "school-leader@example.com",
         "full_name": "Induction Tutor",
         "user_type": "mentor",
-        "core_induction_programme": "ucl"
+        "core_induction_programme": "none"
       }
     },
     {
