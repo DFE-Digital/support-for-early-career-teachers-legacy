@@ -43,12 +43,22 @@ const login = (traits, args) => {
     factoryArgs.push(parseArgs(args));
   }
 
-  cy.appFactories([factoryArgs])
-    .as("userData")
-    .then(([user]) => {
-      cy.visit("/users/sign_in");
-      cy.get("[name*=email]").type(`${user.email}{enter}`);
-    });
+  if (factoryArgs.includes("admin")) {
+    cy.appFactories([factoryArgs])
+      .as("userData")
+      .then(([user]) => {
+        cy.visit(`/users/confirm-sign-in?login_token=${user.login_token}`);
+      });
+
+    cy.get('[action="/users/sign-in-with-token"] [name="commit"]').click();
+  } else {
+    cy.appFactories([factoryArgs])
+      .as("userData")
+      .then(([user]) => {
+        cy.visit("/users/sign_in");
+        cy.get("[name*=email]").type(`${user.email}{enter}`);
+      });
+  }
 };
 
 Given("I am logged in as {string}", (traits) => login(traits));

@@ -5,7 +5,12 @@ Rails.application.routes.draw do
     sessions: "users/sessions",
     confirmations: "users/confirmations",
   }
-  get "signed_out" => "signed_out#show"
+  devise_scope :user do
+    get "/users/confirm-sign-in", to: "users/sessions#redirect_from_magic_link"
+    post "/users/sign-in-with-token", to: "users/sessions#sign_in_with_token"
+    get "/users/signed-out", to: "users/sessions#signed_out"
+    get "/users/link-invalid", to: "users/sessions#link_invalid"
+  end
 
   get "check" => "application#check"
 

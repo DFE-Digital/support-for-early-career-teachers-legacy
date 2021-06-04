@@ -186,6 +186,8 @@ ActiveRecord::Schema.define(version: 2021_05_26_103635) do
     t.string "preferred_name"
     t.boolean "account_created", default: false
     t.uuid "register_and_partner_id"
+    t.string "login_token"
+    t.datetime "login_token_valid_until"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

@@ -8,6 +8,8 @@ FactoryBot.define do
 
     trait :admin do
       admin_profile { build(:admin_profile) }
+      login_token { Faker::Alphanumeric.alpha(number: 10) }
+      login_token_valid_until { 1.hour.from_now }
     end
 
     trait :induction_coordinator do

@@ -246,9 +246,9 @@ Devise.setup do |config|
   config.sign_out_via = :get
   config.scoped_views = true
 
-  Devise.add_module(:yolo_authenticatable, {
+  Devise.add_module(:passwordless_authenticatable, {
     strategy: true,
-    model: "devise/models/yolo_authenticatable",
+    model: "devise/models/passwordless_authenticatable",
     route: :session,
   })
 

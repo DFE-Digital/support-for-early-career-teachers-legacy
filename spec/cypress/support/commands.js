@@ -3,15 +3,20 @@ Cypress.Commands.add("login", (...traits) => {
   cy.appFactories([["create", "user", ...traits]])
     .as("userData")
     .then(([user]) => {
-      cy.visit("/users/sign_in");
-      cy.get("[name*=email]").type(`${user.email}{enter}`);
+      if (traits.includes("admin")) {
+        cy.visit(`/users/confirm-sign-in?login_token=${user.login_token}`);
+        cy.get('[action="/users/sign-in-with-token"] [name="commit"]').click();
+      } else {
+        cy.visit("/users/sign_in");
+        cy.get("[name*=email]").type(`${user.email}{enter}`);
+      }
     });
 });
 
 Cypress.Commands.add("logout", () => {
   cy.get("#navigation").contains("Sign out").click();
 
-  cy.location("pathname").should("eq", "/signed_out");
+  cy.location("pathname").should("eq", "/users/signed-out");
 });
 
 Cypress.Commands.add("visitModule", (courseModule) => {

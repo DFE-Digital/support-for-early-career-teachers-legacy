@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(_user)
-    signed_out_path
+    users_signed_out_path
   end
 
 protected
