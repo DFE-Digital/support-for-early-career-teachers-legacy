@@ -16,13 +16,14 @@ module RegisterAndPartnerApi
     }.freeze
 
     def self.perform
-      # TODO: Add the last time we synced users, to avoid getting too many of them back
+      new_sync_time = Time.zone.now
       # TODO: Add pagination
       begin
-        sync_users(RegisterAndPartnerApi::User.all)
+        sync_users(RegisterAndPartnerApi::User.where(filter: { updated_since: SyncUsersTimer.last_sync }))
       rescue JsonApiClient::Errors::ClientError
         # This is how the API responds when we run out of pages :/
       end
+      SyncUsersTimer.set_last_sync(new_sync_time)
     rescue StandardError
       Rails.logger.warn("Failed to sync users")
     end
