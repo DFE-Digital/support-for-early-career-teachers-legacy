@@ -32,6 +32,21 @@
             <% end %>
           </h2>
 
+          <% if lesson.teacher_standards_for(current_user) %>
+            <details class="govuk-details  govuk-!-margin-top-2 govuk-!-margin-bottom-2" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                View which teachers' standards this topic relates to
+              </span>
+              </summary>
+              <div class="govuk-details__text">
+                <div class="gem-c-govspeak govuk-govspeak">
+                  <%= lesson.teacher_standards_to_html_for(current_user).html_safe %>
+                </div>
+              </div>
+            </details>
+          <% end %>
+
           <% if current_user&.admin? %>
             <% if lesson.ect_summary %>
               <h3 class="govuk-heading-s">ECT summary:</h3>

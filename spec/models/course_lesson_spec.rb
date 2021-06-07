@@ -84,4 +84,29 @@ RSpec.describe CourseLesson, type: :model do
       expect(subject.title_for(user)).to eq "Normal title"
     end
   end
+
+  describe "#teacher_standards_for" do
+    subject { FactoryBot.create(:course_lesson, ect_teacher_standards: "Normal standards", mentor_teacher_standards: "Mentor standards") }
+
+    it "is expected to return normal standards for admins" do
+      user = create(:user, :admin)
+      expect(subject.teacher_standards_for(user)).to eq "Normal standards"
+    end
+
+    it "is expected to return mentor standards for mentors" do
+      user = create(:user, :mentor)
+      expect(subject.teacher_standards_for(user)).to eq "Mentor standards"
+    end
+
+    it "is expected to return normal standards for mentors when no mentor standards" do
+      lesson = create(:course_lesson, ect_teacher_standards: "Normal standards")
+      user = create(:user, :mentor)
+      expect(lesson.teacher_standards_for(user)).to eq "Normal standards"
+    end
+
+    it "is expected to return normal standards for ECTs" do
+      user = create(:user, :early_career_teacher)
+      expect(subject.teacher_standards_for(user)).to eq "Normal standards"
+    end
+  end
 end

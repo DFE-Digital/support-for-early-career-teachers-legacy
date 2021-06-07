@@ -62,6 +62,8 @@ private
   end
 
   def course_lesson_params
-    params.require(:course_lesson).permit(:title, :mentor_title, :ect_summary, :mentor_summary, :completion_time_in_minutes, :course_module_id, :new_position)
+    params.require(:course_lesson).permit(
+      :title, :mentor_title, :ect_summary, :mentor_summary, :completion_time_in_minutes, :course_module_id, :new_position, :ect_teacher_standards, :mentor_teacher_standards
+    )
   end
 end

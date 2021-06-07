@@ -27,4 +27,14 @@
       label: { text: 'Mentor summary' },
       rows: 10) %>
 
+<%= f.govuk_text_area(
+      :ect_teacher_standards,
+      label: { text: 'ECT Teacher Standards' },
+      rows: 10) %>
+
+<%= f.govuk_text_area(
+      :mentor_teacher_standards,
+      label: { text: 'Mentor Teacher Standards' },
+      rows: 10) %>
+
 <%= f.govuk_submit t(f.object.persisted? ? :update : :create, scope: [:helpers, :submit, :course_lesson]) %>

@@ -64,6 +64,16 @@ class CourseLesson < ApplicationRecord
     user.mentor? ? mentor_title : title
   end
 
+  def teacher_standards_to_html_for(user)
+    Govspeak::Document.new(teacher_standards_for(user), options: { allow_extra_quotes: true }).to_html
+  end
+
+  def teacher_standards_for(user)
+    return ect_teacher_standards if mentor_teacher_standards.blank?
+
+    user.mentor? ? mentor_teacher_standards : ect_teacher_standards
+  end
+
 private
 
   def update_to_new_position
