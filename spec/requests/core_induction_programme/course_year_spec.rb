@@ -54,8 +54,7 @@ RSpec.describe "Core Induction Programme Year", type: :request do
         create_cip
         put course_year_path, params: { commit: "Save changes", course_year: { content: "Adding new content" } }
         expect(response).to redirect_to(year_path(course_year))
-        get year_path(course_year)
-        expect(response.body).to include("Adding new content")
+        expect(course_year.reload.content).to include("Adding new content")
       end
     end
   end
