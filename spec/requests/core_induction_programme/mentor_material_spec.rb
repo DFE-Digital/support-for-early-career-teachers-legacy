@@ -65,27 +65,25 @@ RSpec.describe "Mentor materials", type: :request do
     end
 
     describe "GET /mentor-materials" do
-      it "renders index template" do
-        get "/mentor-materials"
-        expect(response).to render_template(:index)
+      it "raises an error" do
+        expect { get "/mentor-materials" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
     describe "GET /mentor-materials/:id" do
-      it "renders the mentor materials show page" do
-        get "/mentor-materials/#{mentor_material.id}"
-        expect(response).to render_template(:show)
+      it "raises an error" do
+        expect { get "/mentor-materials/#{mentor_material.id}" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
     describe "GET /mentor-materials/:id/edit" do
-      it "raises an error when trying to access edit page" do
+      it "raises an error" do
         expect { get "#{mentor_material_path}/edit" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
     describe "PUT /mentor-materials/:id" do
-      it "redirects to the sign in page" do
+      it "raises an error" do
         expect { put mentor_material_path, params: { commit: "Save", content: mentor_material.content } }.to raise_error Pundit::NotAuthorizedError
       end
     end

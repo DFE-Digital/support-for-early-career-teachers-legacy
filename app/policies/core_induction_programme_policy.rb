@@ -25,12 +25,12 @@ class CoreInductionProgrammePolicy < ApplicationPolicy
   def update?
     admin_only
   end
-end
 
 private
 
-def has_access_to_cip?(user, cip)
-  return true if admin_only
+  def has_access_to_cip?(user, cip)
+    return true if admin_only
 
-  user && (user.core_induction_programme == cip)
+    user && (user.core_induction_programme == cip)
+  end
 end
