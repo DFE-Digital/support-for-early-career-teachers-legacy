@@ -23,18 +23,44 @@
       </div>
     <% end %>
 
-    <div class="gem-c-govspeak govuk-govspeak ">
-      <%= @course_year.content_to_html.html_safe %>
-    </div>
+    <% if @course_year.course_modules.empty? %>
 
-    <h2 class="govuk-heading-l">Autumn term</h2>
-    <%= render "module_list", locals = { course_modules: @course_year.autumn_modules_with_progress(current_user) } %>
+      <% if current_user&.early_career_teacher? %>
+        <p>
+          The second year offers you the chance to focus on developing your skills in specific areas within the modules.
+        </p>
+        <p>
+          It also allows you to catch up on anything you might have missed in the first year.
+        </p>
+        <p>
+          We’ll give you more details here about how the second year works closer to the time.
+        </p>
+      <% else %>
+        <p>
+          The second year offers the ECT the chance to focus on developing their skills in specific areas within the modules.
+        </p>
+        <p>
+          It also allows them to catch up on anything they might have missed in the first year.
+        </p>
+        <p>
+          We’ll give you more details here about how the second year works closer to the time.
+        </p>
+      <% end %>
 
-    <h2 class="govuk-heading-l">Spring term</h2>
-    <%= render "module_list", locals = { course_modules: @course_year.spring_modules_with_progress(current_user) } %>
+    <% else %>
+      <div class="gem-c-govspeak govuk-govspeak ">
+        <%= @course_year.content_to_html.html_safe %>
+      </div>
 
-    <h2 class="govuk-heading-l">Summer term</h2>
-    <%= render "module_list", locals = { course_modules: @course_year.summer_modules_with_progress(current_user) } %>
+      <h2 class="govuk-heading-l">Autumn term</h2>
+      <%= render "module_list", locals = { course_modules: @course_year.autumn_modules_with_progress(current_user) } %>
+
+      <h2 class="govuk-heading-l">Spring term</h2>
+      <%= render "module_list", locals = { course_modules: @course_year.spring_modules_with_progress(current_user) } %>
+
+      <h2 class="govuk-heading-l">Summer term</h2>
+      <%= render "module_list", locals = { course_modules: @course_year.summer_modules_with_progress(current_user) } %>
+    <% end %>
 
   </div>
 </div>
