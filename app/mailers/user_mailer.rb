@@ -6,7 +6,8 @@ class UserMailer < ApplicationMailer
   SIGN_IN_EMAIL_TEMPLATE = "a3219fe5-e320-48ee-a386-7a244785785c"
 
   def mentor_welcome_email(user)
-    sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain)
+    sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain,
+                                                                            **UtmService.email(:new_mentor))
     template_mail(
       MENTOR_WELCOME_TEMPLATE,
       to: user.email,
@@ -20,7 +21,8 @@ class UserMailer < ApplicationMailer
   end
 
   def ect_welcome_email(user)
-    sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain)
+    sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain,
+                                                                            **UtmService.email(:new_early_career_teacher))
     template_mail(
       ECT_WELCOME_TEMPLATE,
       to: user.email,
