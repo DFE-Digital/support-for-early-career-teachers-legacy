@@ -33,14 +33,6 @@ class CourseModule < ApplicationRecord
 
   enum term: terms
 
-  def mentor_summary_to_html
-    Govspeak::Document.new(mentor_summary, options: { allow_extra_quotes: true }).to_html
-  end
-
-  def ect_summary_to_html
-    Govspeak::Document.new(ect_summary, options: { allow_extra_quotes: true }).to_html
-  end
-
   def lessons_with_progress(user)
     ect_profile = user&.early_career_teacher_profile
     return course_lessons unless ect_profile

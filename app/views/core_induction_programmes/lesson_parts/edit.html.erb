@@ -12,8 +12,6 @@
         <%= f.govuk_submit "Save changes" %>
       </div>
     <% end %>
-    <div class="gem-c-govspeak govuk-govspeak ">
-      <%= @course_lesson_part.content_to_html.html_safe %>
-    </div>
+    <%= render GovspeakComponent.new(content: @course_lesson_part.content) %>
   </div>
 </div>

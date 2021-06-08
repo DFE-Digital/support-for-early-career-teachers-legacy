@@ -2,7 +2,6 @@
 
 class CoreInductionProgrammes::LessonPartsController < ApplicationController
   include Pundit
-  include GovspeakHelper
   include CipBreadcrumbHelper
 
   after_action :verify_authorized

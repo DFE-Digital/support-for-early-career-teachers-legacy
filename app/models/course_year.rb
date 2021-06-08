@@ -13,10 +13,6 @@ class CourseYear < ApplicationRecord
   validates :mentor_title, length: { maximum: 255 }
   validates :content, length: { maximum: 100_000 }
 
-  def content_to_html
-    Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
-  end
-
   def course_modules_in_order(modules_to_order = course_modules)
     preloaded_modules = modules_to_order.includes(:previous_module, :next_module)
     elements_in_order(elements: preloaded_modules, get_previous_element: :previous_module)

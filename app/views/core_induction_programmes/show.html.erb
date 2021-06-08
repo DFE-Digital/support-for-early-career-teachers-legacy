@@ -16,9 +16,8 @@
         <% if policy(course_year).edit? %>
           <%= govuk_link_to "Edit year content", edit_year_path(course_year), button: true %>
         <% end %>
-        <div class="gem-c-govspeak govuk-govspeak ">
-          <%= course_year.content_to_html.html_safe %>
-        </div>
+
+        <%= render GovspeakComponent.new(content: course_year.content) %>
 
         <h3 class="govuk-heading-l">Autumn term</h3>
         <%= render "module_list", locals = { course_modules: course_year.autumn_modules_with_progress(current_user) } %>

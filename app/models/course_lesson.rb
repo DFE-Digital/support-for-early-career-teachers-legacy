@@ -46,14 +46,6 @@ class CourseLesson < ApplicationRecord
     end
   end
 
-  def mentor_summary_to_html
-    Govspeak::Document.new(mentor_summary, options: { allow_extra_quotes: true }).to_html
-  end
-
-  def ect_summary_to_html
-    Govspeak::Document.new(ect_summary, options: { allow_extra_quotes: true }).to_html
-  end
-
   def module_and_lesson
     "#{course_module.title}: #{title}"
   end
@@ -62,10 +54,6 @@ class CourseLesson < ApplicationRecord
     return title if mentor_title.blank?
 
     user.mentor? ? mentor_title : title
-  end
-
-  def teacher_standards_to_html_for(user)
-    Govspeak::Document.new(teacher_standards_for(user), options: { allow_extra_quotes: true }).to_html
   end
 
   def teacher_standards_for(user)

@@ -7,18 +7,17 @@
     <h1 class="govuk-heading-l"> <%= @course_module.term_and_title %></h1>
 
     <% if current_user&.admin? %>
+
       <% if @course_module.ect_summary %>
         <h2 class="govuk-heading-m">ECT summary:</h2>
-        <div class="gem-c-govspeak govuk-govspeak ">
-          <%= @course_module.ect_summary_to_html.html_safe %>
-        </div>
+        <%= render GovspeakComponent.new(content: @course_module.ect_summary) %>
       <% end %>
+
       <% if @course_module.mentor_summary %>
         <h2 class="govuk-heading-m">Mentor summary:</h2>
-        <div class="gem-c-govspeak govuk-govspeak ">
-          <%= @course_module.mentor_summary_to_html.html_safe %>
-        </div>
+        <%= render GovspeakComponent.new(content: @course_module.mentor_summary) %>
       <% end %>
+
     <% end %>
 
     <ul class="app-task-list__items">
@@ -40,9 +39,7 @@
               </span>
               </summary>
               <div class="govuk-details__text">
-                <div class="gem-c-govspeak govuk-govspeak">
-                  <%= lesson.teacher_standards_to_html_for(current_user).html_safe %>
-                </div>
+                <%= render GovspeakComponent.new(content: lesson.teacher_standards_for(current_user)) %>
               </div>
             </details>
           <% end %>

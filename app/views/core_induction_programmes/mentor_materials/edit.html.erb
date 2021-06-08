@@ -5,8 +5,7 @@
       <%= render "mentor_material_fields", locals = { f:f } %>
       <%= f.govuk_submit "See preview" %>
     <% end %>
-    <div class="gem-c-govspeak govuk-govspeak ">
-      <%= @mentor_material.content_to_html.html_safe %>
-    </div>
+
+    <%= render GovspeakComponent.new(content: @mentor_material.content) %>
   </div>
 </div>

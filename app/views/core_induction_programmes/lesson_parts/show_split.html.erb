@@ -56,16 +56,12 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
       <h2 class="govuk-heading-l"><%= @split_lesson_part_form.title %></h2>
-      <div class="gem-c-govspeak govuk-govspeak ">
-        <%= content_to_html(@split_lesson_part_form.content).html_safe %>
-      </div>
+      <%= render GovspeakComponent.new(content: @split_lesson_part_form.content) %>
     </div>
 
     <div class="govuk-grid-column-one-half">
       <h2 class="govuk-heading-l"><%= @split_lesson_part_form.new_title %></h2>
-      <div class="gem-c-govspeak govuk-govspeak ">
-        <%= content_to_html(@split_lesson_part_form.new_content).html_safe %>
-      </div>
+      <%= render GovspeakComponent.new(content: @split_lesson_part_form.new_content) %>
     </div>
   </div>
 </div>
