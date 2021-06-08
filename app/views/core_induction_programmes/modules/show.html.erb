@@ -31,7 +31,7 @@
             <% end %>
           </h2>
 
-          <% if lesson.teacher_standards_for(current_user) %>
+          <% if lesson.teacher_standards_for(current_user).presence %>
             <details class="govuk-details  govuk-!-margin-top-2 govuk-!-margin-bottom-2" data-module="govuk-details">
               <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
@@ -47,16 +47,16 @@
           <% if current_user&.admin? %>
             <% if lesson.ect_summary %>
               <h3 class="govuk-heading-s">ECT summary:</h3>
-              <p class="govuk-body"><%= lesson.ect_summary.presence || "No summary available" %></p>
+              <%= render GovspeakComponent.new(content: lesson.ect_summary) %>
             <% end %>
             <% if lesson.mentor_summary %>
               <h3 class="govuk-heading-s">Mentor summary:</h3>
-              <p class="govuk-body"><%= lesson.mentor_summary.presence || "No summary available" %></p>
+              <%= render GovspeakComponent.new(content: lesson.mentor_summary) %>
             <% end %>
           <% elsif current_user.mentor? %>
-            <p class="govuk-body"><%= lesson.mentor_summary.presence %></p>
+            <%= render GovspeakComponent.new(content: lesson.mentor_summary) %>
           <% else %>
-            <p class="govuk-body"><%= lesson.ect_summary.presence %></p>
+            <%= render GovspeakComponent.new(content: lesson.ect_summary) %>
           <% end %>
 
           <% if lesson.course_lesson_parts.any? %>
