@@ -1,32 +1,9 @@
 # frozen_string_literal: true
 
-class MentorMaterialPolicy < ApplicationPolicy
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
-  def index?
-    true
-  end
-
+class MentorMaterialPolicy < CoreInductionProgrammePolicy
   def show?
-    true
-  end
+    return false unless has_access_to_cip?(@user, @record.get_core_induction_programme)
 
-  def edit?
-    admin_only
-  end
-
-  def update?
-    admin_only
-  end
-
-  def new?
-    admin_only
-  end
-
-  def create?
-    admin_only
+    @user&.mentor? || @user&.admin?
   end
 end

@@ -13,4 +13,16 @@ class MentorMaterial < ApplicationRecord
   def content_to_html
     Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
   end
+
+  def get_core_induction_programme
+    if course_lesson.present?
+      course_lesson.course_year.core_induction_programme
+    elsif course_module.present?
+      course_module.course_year.core_induction_programme
+    elsif course_year.present?
+      course_year.core_induction_programme
+    else
+      core_induction_programme
+    end
+  end
 end
