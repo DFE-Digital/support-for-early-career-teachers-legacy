@@ -21,7 +21,7 @@ Feature: Core Induction Programme years
 
     When I click on "button" containing "Save changes"
     Then "page body" should contain "Your changes have been saved"
-    Then "page body" should contain "New test content"
+    Then "page body" should contain "New test title"
     And the page should be accessible
 
   Scenario: ECTs can view but not edit years
