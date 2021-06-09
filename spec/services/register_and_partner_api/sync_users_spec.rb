@@ -65,5 +65,13 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
       described_class.perform
       expect(InviteParticipants).not_to have_received(:run)
     end
+
+    it "retrieves and updates the last sync time" do
+      allow(RegisterAndPartnerApi::SyncUsersTimer).to receive(:set_last_sync)
+      allow(RegisterAndPartnerApi::SyncUsersTimer).to receive(:last_sync)
+      described_class.perform
+      expect(RegisterAndPartnerApi::SyncUsersTimer).to have_received(:set_last_sync)
+      expect(RegisterAndPartnerApi::SyncUsersTimer).to have_received(:last_sync)
+    end
   end
 end
