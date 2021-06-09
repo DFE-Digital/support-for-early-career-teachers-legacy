@@ -16,8 +16,11 @@ RSpec.describe InviteParticipants do
         expect { InviteParticipants.run([mentor.email]) }.to change { InviteEmailMentor.count }.by(1)
       end
 
-      it "creates an an ect and a mentor email when given an ect and a mentor" do
+      it "creates a ect email when given an ect and a mentor" do
         expect { InviteParticipants.run([ect.email, mentor.email]) }.to change { InviteEmailEct.count }.by(1)
+      end
+
+      it "creates a mentor email when given an ect and a mentor" do
         expect { InviteParticipants.run([ect.email, mentor.email]) }.to change { InviteEmailMentor.count }.by(1)
       end
     end
