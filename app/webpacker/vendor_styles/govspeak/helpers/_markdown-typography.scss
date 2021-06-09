@@ -5,8 +5,11 @@
 
   $gutter-two-thirds: $govuk-gutter - ($govuk-gutter / 3);
 
+  ul {
+    @include govuk-font($size: 19);
+  }
+
   ol,
-  ul,
   p {
     @include govuk-font($size: 19);
     margin-top: $govuk-gutter-half;

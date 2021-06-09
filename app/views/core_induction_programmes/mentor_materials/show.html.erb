@@ -4,8 +4,7 @@
       <%= govuk_link_to "Edit mentor material", edit_mentor_material_path(@mentor_material), button: true %>
     <% end %>
     <h1 class="govuk-heading-xl"><%= @mentor_material.title %></h1>
-    <div class="gem-c-govspeak govuk-govspeak">
-      <%= @mentor_material.content_to_html.html_safe %>
-    </div>
+
+    <%= render GovspeakComponent.new(content: @mentor_material.content) %>
   </div>
 </div>

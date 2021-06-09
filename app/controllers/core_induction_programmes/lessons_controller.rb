@@ -2,7 +2,6 @@
 
 class CoreInductionProgrammes::LessonsController < ApplicationController
   include Pundit
-  include GovspeakHelper
   include CipBreadcrumbHelper
 
   after_action :verify_authorized
@@ -62,6 +61,16 @@ private
   end
 
   def course_lesson_params
-    params.require(:course_lesson).permit(:title, :mentor_title, :ect_summary, :mentor_summary, :completion_time_in_minutes, :course_module_id, :new_position)
+    params.require(:course_lesson).permit(
+      :title,
+      :mentor_title,
+      :ect_teacher_standards,
+      :mentor_teacher_standards,
+      :ect_summary,
+      :mentor_summary,
+      :completion_time_in_minutes,
+      :course_module_id,
+      :new_position,
+    )
   end
 end

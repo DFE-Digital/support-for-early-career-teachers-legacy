@@ -7,18 +7,17 @@
     <h1 class="govuk-heading-l"> <%= @course_module.term_and_title %></h1>
 
     <% if current_user&.admin? %>
+
       <% if @course_module.ect_summary %>
         <h2 class="govuk-heading-m">ECT summary:</h2>
-        <div class="gem-c-govspeak govuk-govspeak ">
-          <%= @course_module.ect_summary_to_html.html_safe %>
-        </div>
+        <%= render GovspeakComponent.new(content: @course_module.ect_summary) %>
       <% end %>
+
       <% if @course_module.mentor_summary %>
         <h2 class="govuk-heading-m">Mentor summary:</h2>
-        <div class="gem-c-govspeak govuk-govspeak ">
-          <%= @course_module.mentor_summary_to_html.html_safe %>
-        </div>
+        <%= render GovspeakComponent.new(content: @course_module.mentor_summary) %>
       <% end %>
+
     <% end %>
 
     <ul class="app-task-list__items">
@@ -32,19 +31,32 @@
             <% end %>
           </h2>
 
+          <% if lesson.teacher_standards_for(current_user).presence %>
+            <details class="govuk-details  govuk-!-margin-top-2 govuk-!-margin-bottom-2" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  View which teachers' standards this topic relates to
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                <%= render GovspeakComponent.new(content: lesson.teacher_standards_for(current_user)) %>
+              </div>
+            </details>
+          <% end %>
+
           <% if current_user&.admin? %>
             <% if lesson.ect_summary %>
               <h3 class="govuk-heading-s">ECT summary:</h3>
-              <p class="govuk-body"><%= lesson.ect_summary.presence || "No summary available" %></p>
+              <%= render GovspeakComponent.new(content: lesson.ect_summary) %>
             <% end %>
             <% if lesson.mentor_summary %>
               <h3 class="govuk-heading-s">Mentor summary:</h3>
-              <p class="govuk-body"><%= lesson.mentor_summary.presence || "No summary available" %></p>
+              <%= render GovspeakComponent.new(content: lesson.mentor_summary) %>
             <% end %>
           <% elsif current_user.mentor? %>
-            <p class="govuk-body"><%= lesson.mentor_summary.presence %></p>
+            <%= render GovspeakComponent.new(content: lesson.mentor_summary) %>
           <% else %>
-            <p class="govuk-body"><%= lesson.ect_summary.presence %></p>
+            <%= render GovspeakComponent.new(content: lesson.ect_summary) %>
           <% end %>
 
           <% if lesson.course_lesson_parts.any? %>

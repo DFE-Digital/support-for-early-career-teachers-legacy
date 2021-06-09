@@ -8,8 +8,4 @@ class CourseLessonPart < ApplicationRecord
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
-
-  def content_to_html
-    Govspeak::Document.new(content, options: { allow_extra_quotes: true }).to_html
-  end
 end

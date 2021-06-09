@@ -48,9 +48,8 @@
       <% end %>
 
     <% else %>
-      <div class="gem-c-govspeak govuk-govspeak ">
-        <%= @course_year.content_to_html.html_safe %>
-      </div>
+
+      <%= render GovspeakComponent.new(content: @course_year.content) %>
 
       <h2 class="govuk-heading-l">Autumn term</h2>
       <%= render "module_list", locals = { course_modules: @course_year.autumn_modules_with_progress(current_user) } %>
@@ -60,7 +59,7 @@
 
       <h2 class="govuk-heading-l">Summer term</h2>
       <%= render "module_list", locals = { course_modules: @course_year.summer_modules_with_progress(current_user) } %>
-    <% end %>
 
+    <% end %>
   </div>
 </div>
