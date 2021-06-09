@@ -34,9 +34,9 @@
           <% if lesson.teacher_standards_for(current_user).presence %>
             <details class="govuk-details  govuk-!-margin-top-2 govuk-!-margin-bottom-2" data-module="govuk-details">
               <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                View which teachers' standards this topic relates to
-              </span>
+                <span class="govuk-details__summary-text">
+                  View which teachers' standards this topic relates to
+                </span>
               </summary>
               <div class="govuk-details__text">
                 <%= render GovspeakComponent.new(content: lesson.teacher_standards_for(current_user)) %>
