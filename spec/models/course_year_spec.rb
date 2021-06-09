@@ -58,8 +58,8 @@ RSpec.describe CourseYear, type: :model do
 
       @course_year = FactoryBot.create(:course_year)
       @course_module_one = FactoryBot.create(:course_module, title: "One", course_year: @course_year, term: "summer")
-      @course_lesson_one = FactoryBot.create(:course_lesson, course_module: @course_module_one)
-      @course_lesson_two = FactoryBot.create(:course_lesson, course_module: @course_module_one)
+      @course_lesson_one = FactoryBot.create(:course_lesson, :with_lesson_part, course_module: @course_module_one)
+      @course_lesson_two = FactoryBot.create(:course_lesson, :with_lesson_part, course_module: @course_module_one)
 
       @course_lesson_one_progress = FactoryBot.create(
         :course_lesson_progress, course_lesson: @course_lesson_one, early_career_teacher_profile: @teacher.early_career_teacher_profile
@@ -104,6 +104,16 @@ RSpec.describe CourseYear, type: :model do
     it "returns a progress of complete when all lessons in that module are complete" do
       @course_lesson_one_progress.complete!
       @course_lesson_two_progress.complete!
+
+      module_progress = @course_year.modules_with_progress(@teacher).first
+      expect(module_progress.progress).to eql("complete")
+    end
+
+    it "returns a progress of complete when all lessons with content in that module are complete" do
+      @course_lesson_one_progress.complete!
+      @course_lesson_two_progress.complete!
+
+      FactoryBot.create(:course_lesson, course_module: @course_module_one)
 
       module_progress = @course_year.modules_with_progress(@teacher).first
       expect(module_progress.progress).to eql("complete")
