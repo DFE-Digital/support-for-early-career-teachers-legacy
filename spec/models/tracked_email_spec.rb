@@ -61,11 +61,43 @@ RSpec.describe TrackedEmail, type: :model do
   describe "sending mentor invite" do
     let(:invite_email_mentor) { InviteEmailMentor.create!(user: create(:user)) }
 
-    it "sends the email" do
-      invite_email_mentor.send!
-      expect(invite_email_mentor.reload.sent?).to be_truthy
-      expect(invite_email_mentor.notify_id).to eq("test_id")
-      expect(invite_email_mentor.sent_to).to eq(invite_email_mentor.user.email)
+    context "before cut off date" do
+      before do
+        travel_to InviteEmailMentor::INVITES_SENT_FROM - 2.days
+      end
+
+      it "does not send the email" do
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_falsey
+        expect(invite_email_mentor.notify_id).to be_nil
+        expect(invite_email_mentor.sent_to).to be_nil
+      end
+    end
+
+    context "on cutoff date" do
+      before do
+        travel_to InviteEmailMentor::INVITES_SENT_FROM
+      end
+
+      it "sends the email" do
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_truthy
+        expect(invite_email_mentor.notify_id).to eq("test_id")
+        expect(invite_email_mentor.sent_to).to eq(invite_email_mentor.user.email)
+      end
+    end
+
+    context "after cutoff date" do
+      before do
+        travel_to InviteEmailMentor::INVITES_SENT_FROM + 2.days
+      end
+
+      it "sends the email" do
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_truthy
+        expect(invite_email_mentor.notify_id).to eq("test_id")
+        expect(invite_email_mentor.sent_to).to eq(invite_email_mentor.user.email)
+      end
     end
   end
 end
