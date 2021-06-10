@@ -60,18 +60,21 @@
           <% end %>
 
           <% if lesson.course_lesson_parts.any? %>
-            <div class="app-task-list__section">
 
-               <% if current_user&.early_career_teacher? %>
-                 <%= govuk_link_to "Work through the self-study material#{
+            <% if current_user&.early_career_teacher? %>
+              <hr class="govuk-section-break govuk-section-break--visible" />
+              <div class="app-task-list__section">
+                <%= govuk_link_to "Work through the self-study material#{
                     lesson.completion_time_in_minutes ? " (#{lesson.completion_time_in_minutes} minutes)" : ""
                   }", lesson_path(lesson) %>
-                 <%= render ProgressLabelComponent.new progress: lesson.progress %>
-               <% else %>
-                  <%= govuk_link_to "View the teacher's self study materials", lesson_path(lesson) %>
-               <% end %>
+                <%= render ProgressLabelComponent.new progress: lesson.progress %>
+              </div>
+            <% else %>
+              <div class="app-task-list__section">
+                <%= govuk_link_to "View the teacher's self study materials", lesson_path(lesson) %>
+              </div>
+            <% end %>
 
-            </div>
           <% end %>
         </li>
       <% end.empty? %>
