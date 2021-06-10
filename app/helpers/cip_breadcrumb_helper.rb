@@ -8,7 +8,7 @@ module CipBreadcrumbHelper
   def course_year_breadcrumbs(user, year)
     [
       home_crumb(user),
-      end_crumb(course_year_crumb(year)),
+      end_crumb(course_year_crumb(year, user)),
     ]
   end
 
@@ -16,7 +16,7 @@ module CipBreadcrumbHelper
     module_crumb = course_module_crumb(course_module)
     [
       home_crumb(user),
-      course_year_crumb(course_module.course_year),
+      course_year_crumb(course_module.course_year, user),
       end_crumb(module_crumb),
     ]
   end
@@ -25,7 +25,7 @@ module CipBreadcrumbHelper
     array = []
 
     array << home_crumb(user)
-    array << course_year_crumb(course_lesson.course_module.course_year) if course_lesson.course_module
+    array << course_year_crumb(course_lesson.course_module.course_year, user) if course_lesson.course_module
     array << course_module_crumb(course_lesson.course_module) if course_lesson.course_module
     array << end_crumb(course_lesson_crumb(course_lesson))
 
@@ -38,8 +38,8 @@ private
     ["Home", user ? dashboard_path : cip_path]
   end
 
-  def course_year_crumb(year)
-    ["Your module materials", year.present? ? year_path(year) : nil]
+  def course_year_crumb(year, user)
+    [year.title_for(user), year.present? ? year_path(year) : nil]
   end
 
   def course_module_crumb(course_module)
