@@ -41,7 +41,7 @@ class CourseModule < ApplicationRecord
   end
 
   def self_study_lessons
-    course_lessons.includes(:course_lesson_parts).joins(:course_lesson_parts)
+    course_lessons.with_self_study_materials
   end
 
   def term_and_title

@@ -25,6 +25,8 @@ class CourseLesson < ApplicationRecord
 
   after_commit :update_to_new_position
 
+  scope :with_self_study_materials, -> { includes(:course_lesson_parts).joins(:course_lesson_parts) }
+
   def course_lesson_parts_in_order
     preloaded_parts = course_lesson_parts.includes(:previous_lesson_part, :next_lesson_part)
     elements_in_order(elements: preloaded_parts, get_previous_element: :previous_lesson_part)

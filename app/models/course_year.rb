@@ -35,7 +35,7 @@ class CourseYear < ApplicationRecord
     ect_profile = user&.early_career_teacher_profile
     return modules_in_order unless ect_profile
 
-    course_lessons = CourseLesson.where(course_module: modules_in_order)
+    course_lessons = CourseLesson.with_self_study_materials.where(course_module: modules_in_order)
     lessons_with_progresses = get_user_lessons_and_progresses(ect_profile, course_lessons)
 
     compute_user_course_module_progress(lessons_with_progresses, modules_in_order)
