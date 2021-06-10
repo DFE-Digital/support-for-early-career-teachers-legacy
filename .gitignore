@@ -48,11 +48,5 @@ tokens
 
 /coverage/
 
-/config/credentials/deployed_development.key
-
 /spec/cypress/videos
 /spec/cypress/screenshots
-
-/config/credentials/staging.key
-
-/config/credentials/production.key
