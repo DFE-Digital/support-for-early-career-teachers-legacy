@@ -21,6 +21,8 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.version }}
 
       - name: Pin Terraform version
         uses: hashicorp/setup-terraform@v1.2.1
@@ -29,8 +31,6 @@ jobs:
 
       - name: Deploy to production
         env:
-#          QQ add secrets to github
-#          QQ create a bucket for terraform state
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PRODUCTION }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PRODUCTION }}
           TF_VAR_paas_user: ${{ secrets.GOVPAAS_PROD_USERNAME }}
@@ -38,9 +38,7 @@ jobs:
         run: |
           export TF_VAR_paas_app_docker_image=dfedigital/early-careers-framework-prod:engage-and-learn-${{ github.event.inputs.version }}
           cd terraform/app
-#          QQ change the bucket
-          terraform init -reconfigure -input=false -backend-config="bucket=paas-s3-broker-prod-lon-037149fa-bf9a-4577-a066-f627d277d6c4"
-#          QQ add production credentials rails
+          terraform init -reconfigure -input=false -backend-config="bucket=paas-s3-broker-prod-lon-85a8538e-3854-4c92-8af2-5f522bd1a4e0"
           terraform apply -input=false -auto-approve -var-file ../workspace-variables/production.tfvars -var='secret_paas_app_env_values={"RAILS_MASTER_KEY":"${{secrets.RAILS_MASTER_KEY_PRODUCTION}}", "RELEASE_VERSION":"${{github.event.inputs.version}}"}'
 
       - name: Branch protection OFF
