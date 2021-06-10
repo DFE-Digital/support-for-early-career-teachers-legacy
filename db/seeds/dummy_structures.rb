@@ -6,10 +6,6 @@ unless Cohort.first
 end
 
 unless Rails.env.production?
-  user = User.find_or_create_by!(email: "admin@example.com") do |u|
-    u.full_name = "Admin User"
-  end
-  AdminProfile.find_or_create_by!(user: user)
 
   user = User.find_or_create_by!(email: "ecf-engage-and-learn@mailinator.com") do |u|
     u.full_name = "Admin User"
