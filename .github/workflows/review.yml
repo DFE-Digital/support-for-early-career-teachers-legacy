@@ -103,7 +103,7 @@ jobs:
           export TF_VAR_paas_app_docker_image=dfedigital/early-careers-framework-dev:engage-and-learn-${{ github.event.pull_request.head.sha }}
           cd terraform/app
           terraform init -reconfigure -input=false -backend-config="bucket=paas-s3-broker-prod-lon-583f04ed-cc98-4c9d-b633-a3a6fa3785b5" -backend-config="key=${{ env.ENVIRONMENT }}/terraform.tfstate"
-          terraform apply -input=false -auto-approve -var-file ../workspace-variables/review.tfvars -var='secret_paas_app_env_values={"RAILS_MASTER_KEY":"${{secrets.RAILS_MASTER_KEY_DEV}}"}' -var='environment=${{env.ENVIRONMENT}}'
+          terraform apply -input=false -auto-approve -var-file ../workspace-variables/review.tfvars -var='secret_paas_app_env_values={"RAILS_MASTER_KEY":"${{secrets.RAILS_MASTER_KEY_DEV}}"}' -var='environment=${{env.ENVIRONMENT}}' -var 'logstash_url=${{secrets.SYSLOG_DRAIN_URL}}'
 
       - name: comment on PR
         uses: unsplash/comment-on-pr@master

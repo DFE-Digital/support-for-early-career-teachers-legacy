@@ -48,4 +48,5 @@ module paas {
   worker_app_instances              = var.paas_worker_app_instances
   worker_app_memory                 = var.paas_worker_app_memory
   worker_app_deployment_strategy    = var.paas_worker_app_deployment_strategy
+  logstash_url                      = var.logstash_url
 }
