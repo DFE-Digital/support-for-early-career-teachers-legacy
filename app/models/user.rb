@@ -32,7 +32,8 @@ class User < ApplicationRecord
 
   def core_induction_programme
     return early_career_teacher_profile.core_induction_programme if early_career_teacher?
-    return mentor_profile.core_induction_programme if mentor?
+
+    mentor_profile.core_induction_programme if mentor?
   end
 
   def course_years
@@ -41,6 +42,18 @@ class User < ApplicationRecord
 
   def name
     preferred_name&.presence || full_name
+  end
+
+  def user_description
+    if admin?
+      "DfE admin"
+    elsif early_career_teacher?
+      "Early career teacher"
+    elsif mentor?
+      "Mentor"
+    else
+      "Unknown"
+    end
   end
 
   scope :admins, -> { joins(:admin_profile) }
