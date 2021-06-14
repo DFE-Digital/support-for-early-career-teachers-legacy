@@ -105,7 +105,7 @@ Rails.application.configure do
 
   # Include params in logs: https://github.com/roidrage/lograge#what-it-doesnt-do
   config.lograge.custom_options = lambda do |event|
-    exceptions = %w[controller action format id]
+    exceptions = %w[controller action format id login_token]
     {
       params: event.payload[:params].except(*exceptions),
       exception: event.payload[:exception], # ["ExceptionClass", "the message"]
