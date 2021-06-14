@@ -12,6 +12,10 @@ gem "devise", ">= 4.7.3"
 gem "kaminari", ">= 1.2.1"
 gem "pundit"
 
+# Cleaner logs, one line per request
+gem "lograge", ">= 0.11.2"
+gem "logstash-event"
+
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 
@@ -23,9 +27,6 @@ gem "puma", "~> 5.3", ">= 5.3.1"
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", ">= 5.2.1"
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false

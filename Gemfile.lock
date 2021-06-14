@@ -190,6 +190,12 @@ GEM
     listen (3.3.4)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    lograge (0.11.2)
+      actionpack (>= 4)
+      activesupport (>= 4)
+      railties (>= 4)
+      request_store (~> 1.0)
+    logstash-event (1.2.02)
     logstasher (2.1.5)
       activesupport (>= 5.2)
       request_store
@@ -443,6 +449,8 @@ DEPENDENCIES
   json_api_client
   kaminari (>= 1.2.1)
   listen (>= 3.0.5, < 3.4)
+  lograge (>= 0.11.2)
+  logstash-event
   mail-notify (>= 1.0.3)
   pg (>= 0.18, < 2.0)
   pry-byebug
