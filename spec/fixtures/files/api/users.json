@@ -7,7 +7,8 @@
         "email": "mentor@example.com",
         "full_name": "Lead Provider",
         "user_type": "mentor",
-        "core_induction_programme": "ucl"
+        "core_induction_programme": "ucl",
+        "induction_programme_choice": "core_induction_programme"
       }
     },
     {
@@ -17,7 +18,8 @@
         "email": "school-leader@example.com",
         "full_name": "Induction Tutor",
         "user_type": "mentor",
-        "core_induction_programme": "none"
+        "core_induction_programme": "none",
+        "induction_programme_choice": "core_induction_programme"
       }
     },
     {
@@ -27,7 +29,8 @@
         "email": "rp-ect-ambition@example.com",
         "full_name": "Joe Bloggs",
         "user_type": "early_career_teacher",
-        "core_induction_programme": "ambition"
+        "core_induction_programme": "ambition",
+        "induction_programme_choice": "core_induction_programme"
       }
     },
     {
@@ -37,7 +40,19 @@
         "email": "user_type_other@example.com",
         "full_name": "Jane Doe",
         "user_type": "other",
-        "core_induction_programme": "ucl"
+        "core_induction_programme": "ucl",
+        "induction_programme_choice": "core_induction_programme"
+      }
+    },
+    {
+      "id": "d97fbf35-842f-4c12-a191-fcd2d6317e39",
+      "type": "user",
+      "attributes": {
+        "email": "rp-ect-edt@example.com",
+        "full_name": "Steve Austin",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "edt",
+        "induction_programme_choice": "full_induction_programme"
       }
     }
   ]

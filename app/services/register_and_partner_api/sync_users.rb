@@ -52,6 +52,7 @@ module RegisterAndPartnerApi
         email: user_from_api.attributes[:attributes][:email],
         user_type: user_from_api.attributes[:attributes][:user_type],
         cip: user_from_api.attributes[:attributes][:core_induction_programme],
+        induction_programme_choice: user_from_api.attributes[:attributes][:induction_programme_choice],
       }
     end
 
@@ -71,6 +72,7 @@ module RegisterAndPartnerApi
       user.full_name = attributes[:full_name]
       user.save!
       profile.core_induction_programme = get_core_induction_programme(attributes)
+      profile.induction_programme_choice = attributes[:induction_programme_choice]
       profile.save!
     end
 
