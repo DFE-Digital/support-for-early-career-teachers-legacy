@@ -12,6 +12,11 @@ gem "devise", ">= 4.7.3"
 gem "kaminari", ">= 1.2.1"
 gem "pundit"
 
+# Error and performance monitoring
+gem "sentry-delayed_job", ">= 4.5.1"
+gem "sentry-rails", ">= 4.5.1"
+gem "sentry-ruby", ">= 4.5.1"
+
 # Cleaner logs, one line per request
 gem "lograge", ">= 0.11.2"
 gem "logstash-event"
