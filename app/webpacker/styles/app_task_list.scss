@@ -14,11 +14,14 @@
 }
 
 .app-task-list__section {
-  display: flex;
   width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid $govuk-border-colour;
+}
+
+.app-task-list__flex {
+  display: flex;
 }
 
 .app-task-list__tag {
