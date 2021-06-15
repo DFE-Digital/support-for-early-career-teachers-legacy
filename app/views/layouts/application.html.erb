@@ -18,6 +18,10 @@
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application', defer: true unless params[:nojs] === "nojs" %>
 
+    <script>
+      dataLayer = <%= data_layer.to_json.html_safe %>;
+    </script>
+
     <!-- Google Tag Manager (doesn't store personal info until permission given) -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -26,10 +30,7 @@
     })(window,document,'script','dataLayer','GTM-N58Z5PG');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- We currently don't have a production environment but will do some point down the line. The production gtm_id
-    will be different to other environments so it will need to be added to below -->
-
-    <% gtm_id = "G-ZZT9RT0XPZ" %>
+    <% gtm_id = Rails.env.production? ? "G-MVYXYK5Z9Y" : "G-ZZT9RT0XPZ" %>
 
     <% if cookies[:cookie_consent_1] == "on" %>
       <script async src="https://www.googletagmanager.com/gtag/js?id=<% gtm_id %> %>"></script>
