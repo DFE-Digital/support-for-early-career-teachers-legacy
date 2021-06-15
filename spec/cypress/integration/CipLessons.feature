@@ -21,7 +21,7 @@ Feature: Core Induction Programme lessons
 
     When I click on "link" containing "Edit lesson part"
     Then the page should be accessible
-    And percy should be sent snapshot called "edit lesson page"
+    And percy should be sent snapshot called "edit lesson part page"
 
     When I clear "title input"
     And I type "Lesson part test title" into "title input"
@@ -67,7 +67,7 @@ Feature: Core Induction Programme lessons
     And the page should be accessible
     And percy should be sent snapshot
 
-    When I click on "link" containing "Test Course lesson 1"
+    When I click on "link" containing "View the lesson"
     Then I should be on "core induction programme lesson" page
     And percy should be sent snapshot
 
