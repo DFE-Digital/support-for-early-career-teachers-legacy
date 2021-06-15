@@ -6,20 +6,6 @@
     <% end %>
     <h1 class="govuk-heading-l"> <%= @course_module.term_and_title %></h1>
 
-    <% if current_user&.admin? %>
-
-      <% if @course_module.ect_summary %>
-        <h2 class="govuk-heading-m">ECT summary:</h2>
-        <%= render GovspeakComponent.new(content: @course_module.ect_summary) %>
-      <% end %>
-
-      <% if @course_module.mentor_summary %>
-        <h2 class="govuk-heading-m">Mentor summary:</h2>
-        <%= render GovspeakComponent.new(content: @course_module.mentor_summary) %>
-      <% end %>
-
-    <% end %>
-
     <ul class="app-task-list__items">
       <% if @course_lessons_with_progress.each do |lesson| %>
         <li class="app-task-list__item">
