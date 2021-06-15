@@ -16,7 +16,8 @@ RSpec.describe TrackedEmail, type: :model do
   end
 
   describe "sending ect invite" do
-    let(:invite_email_ect) { InviteEmailEct.create!(user: create(:user)) }
+    let(:ect) { create(:user, :early_career_teacher) }
+    let(:invite_email_ect) { InviteEmailEct.create!(user: ect) }
 
     context "before cut off date" do
       before do
@@ -55,11 +56,18 @@ RSpec.describe TrackedEmail, type: :model do
         expect(invite_email_ect.notify_id).to eq("test_id")
         expect(invite_email_ect.sent_to).to eq(invite_email_ect.user.email)
       end
+
+      it "does not send the email to a full induction programme ect user" do
+        ect.early_career_teacher_profile.update!(induction_programme_choice: "full_induction_programme")
+        invite_email_ect.send!
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
     end
   end
 
   describe "sending mentor invite" do
-    let(:invite_email_mentor) { InviteEmailMentor.create!(user: create(:user)) }
+    let(:mentor) { create(:user, :mentor) }
+    let(:invite_email_mentor) { InviteEmailMentor.create!(user: mentor) }
 
     context "before cut off date" do
       before do
@@ -84,6 +92,12 @@ RSpec.describe TrackedEmail, type: :model do
         expect(invite_email_mentor.reload.sent?).to be_truthy
         expect(invite_email_mentor.notify_id).to eq("test_id")
         expect(invite_email_mentor.sent_to).to eq(invite_email_mentor.user.email)
+      end
+
+      it "does not send the email to a full induction programme mentor user" do
+        mentor.mentor_profile.update!(induction_programme_choice: "full_induction_programme")
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_falsey
       end
     end
 

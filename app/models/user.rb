@@ -36,6 +36,16 @@ class User < ApplicationRecord
     mentor_profile.core_induction_programme if mentor?
   end
 
+  def is_on_full_induction_programme?
+    early_career_teacher_profile&.induction_programme_choice == "full_induction_programme" ||
+      mentor_profile&.induction_programme_choice == "full_induction_programme"
+  end
+
+  def is_on_core_induction_programme?
+    early_career_teacher_profile&.induction_programme_choice == "core_induction_programme" ||
+      mentor_profile&.induction_programme_choice == "core_induction_programme"
+  end
+
   def course_years
     core_induction_programme&.course_years || []
   end

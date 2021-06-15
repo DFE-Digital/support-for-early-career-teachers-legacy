@@ -56,6 +56,16 @@ RSpec.describe "Users::Sessions", type: :request do
       end
     end
 
+    context "when a user's induction programme choice is a full induction programme" do
+      let(:user) { create(:user, :early_career_teacher) }
+
+      it "renders sign_in page" do
+        user.early_career_teacher_profile.update!(induction_programme_choice: "full_induction_programme")
+        post "/users/sign_in", params: { user: { email: user.email } }
+        expect(response).to render_template(:new)
+      end
+    end
+
     context "when email matches a mentor" do
       let(:user) { create(:user, :mentor) }
 
@@ -63,6 +73,16 @@ RSpec.describe "Users::Sessions", type: :request do
         post "/users/sign_in", params: { user: { email: user.email } }
         expect(response).to redirect_to(dashboard_path)
         expect(user.reload.last_sign_in_at).not_to be_nil
+      end
+    end
+
+    context "when a user's induction programme choice is a full induction programme" do
+      let(:user) { create(:user, :mentor) }
+
+      it "renders sign_in page" do
+        user.mentor_profile.update!(induction_programme_choice: "full_induction_programme")
+        post "/users/sign_in", params: { user: { email: user.email } }
+        expect(response).to render_template(:new)
       end
     end
 
