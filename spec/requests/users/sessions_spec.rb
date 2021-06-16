@@ -60,7 +60,7 @@ RSpec.describe "Users::Sessions", type: :request do
       let(:user) { create(:user, :early_career_teacher) }
 
       it "renders sign_in page" do
-        user.early_career_teacher_profile.update!(induction_programme_choice: "full_induction_programme")
+        user.early_career_teacher_profile.full_induction_programme!
         post "/users/sign_in", params: { user: { email: user.email } }
         expect(response).to render_template(:new)
       end
@@ -80,7 +80,7 @@ RSpec.describe "Users::Sessions", type: :request do
       let(:user) { create(:user, :mentor) }
 
       it "renders sign_in page" do
-        user.mentor_profile.update!(induction_programme_choice: "full_induction_programme")
+        user.mentor_profile.full_induction_programme!
         post "/users/sign_in", params: { user: { email: user.email } }
         expect(response).to render_template(:new)
       end

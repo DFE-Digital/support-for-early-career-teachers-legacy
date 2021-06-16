@@ -58,7 +58,7 @@ RSpec.describe TrackedEmail, type: :model do
       end
 
       it "does not send the email to a full induction programme ect user" do
-        ect.early_career_teacher_profile.update!(induction_programme_choice: "full_induction_programme")
+        ect.early_career_teacher_profile.full_induction_programme!
         invite_email_ect.send!
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
@@ -95,7 +95,7 @@ RSpec.describe TrackedEmail, type: :model do
       end
 
       it "does not send the email to a full induction programme mentor user" do
-        mentor.mentor_profile.update!(induction_programme_choice: "full_induction_programme")
+        mentor.mentor_profile.full_induction_programme!
         invite_email_mentor.send!
         expect(invite_email_mentor.reload.sent?).to be_falsey
       end
