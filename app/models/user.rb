@@ -37,10 +37,7 @@ class User < ApplicationRecord
   end
 
   def is_not_on_core_induction_programme?
-    is_on_full_induction_programme? ||
-      is_on_designed_programme? ||
-      programme_has_no_early_career_teachers? ||
-      programme_not_yet_known?
+    !is_on_core_induction_programme? && (mentor? || early_career_teacher?)
   end
 
   def is_on_core_induction_programme?
@@ -54,26 +51,6 @@ class User < ApplicationRecord
 
   def name
     preferred_name&.presence || full_name
-  end
-
-  def is_on_full_induction_programme?
-    early_career_teacher_profile&.full_induction_programme? ||
-      mentor_profile&.full_induction_programme?
-  end
-
-  def is_on_designed_programme?
-    early_career_teacher_profile&.design_our_own? ||
-      mentor_profile&.design_our_own?
-  end
-
-  def programme_has_no_early_career_teachers?
-    early_career_teacher_profile&.no_early_career_teachers? ||
-      mentor_profile&.no_early_career_teachers?
-  end
-
-  def programme_not_yet_known?
-    early_career_teacher_profile&.not_yet_known? ||
-      mentor_profile&.not_yet_known?
   end
 
   def user_description
