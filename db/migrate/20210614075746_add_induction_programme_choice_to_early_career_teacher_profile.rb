@@ -2,6 +2,6 @@
 
 class AddInductionProgrammeChoiceToEarlyCareerTeacherProfile < ActiveRecord::Migration[6.1]
   def change
-    add_column :early_career_teacher_profiles, :induction_programme_choice, :string
+    add_column :early_career_teacher_profiles, :induction_programme_choice, :string, default: "not_yet_known"
   end
 end
