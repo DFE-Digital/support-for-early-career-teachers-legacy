@@ -62,6 +62,24 @@ RSpec.describe TrackedEmail, type: :model do
         invite_email_ect.send!
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
+
+      it "does not send the email to ect if programme has no ects" do
+        ect.early_career_teacher_profile.no_early_career_teachers!
+        invite_email_ect.send!
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to ect if programme is being designed" do
+        ect.early_career_teacher_profile.design_our_own!
+        invite_email_ect.send!
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to ect if induction programme is not yet known" do
+        ect.early_career_teacher_profile.not_yet_known!
+        invite_email_ect.send!
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
     end
   end
 
@@ -96,6 +114,24 @@ RSpec.describe TrackedEmail, type: :model do
 
       it "does not send the email to a full induction programme mentor user" do
         mentor.mentor_profile.full_induction_programme!
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to a mentor if programme has no ects" do
+        mentor.mentor_profile.no_early_career_teachers!
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to mentor if programme is being designed" do
+        mentor.mentor_profile.design_our_own!
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to mentor if induction programme is not yet known" do
+        mentor.mentor_profile.not_yet_known!
         invite_email_mentor.send!
         expect(invite_email_mentor.reload.sent?).to be_falsey
       end

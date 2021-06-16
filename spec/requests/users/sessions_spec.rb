@@ -46,43 +46,91 @@ RSpec.describe "Users::Sessions", type: :request do
   end
 
   describe "POST /users/sign_in" do
-    context "when email matches an ect" do
-      let(:user) { create(:user, :early_career_teacher) }
+    context "when an early career teacher is trying to log in" do
+      let(:ect) { create(:user, :early_career_teacher) }
 
-      it "redirects to dashboard" do
-        post "/users/sign_in", params: { user: { email: user.email } }
-        expect(response).to redirect_to(dashboard_path)
-        expect(user.reload.last_sign_in_at).not_to be_nil
+      context "when email matches an ect" do
+        it "redirects to dashboard" do
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to redirect_to(dashboard_path)
+          expect(ect.reload.last_sign_in_at).not_to be_nil
+        end
+      end
+
+      context "when a user's induction programme choice is a full induction programme" do
+        it "renders sign_in page" do
+          ect.early_career_teacher_profile.full_induction_programme!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context "when a user's induction programme choice has no early career teachers" do
+        it "renders sign_in page" do
+          ect.early_career_teacher_profile.no_early_career_teachers!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context "when a user is doing a designed induction programme" do
+        it "renders sign_in page" do
+          ect.early_career_teacher_profile.design_our_own!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context "when a user's induction programme choice is not yet known" do
+        it "renders sign_in page" do
+          ect.early_career_teacher_profile.not_yet_known!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to render_template(:new)
+        end
       end
     end
 
-    context "when a user's induction programme choice is a full induction programme" do
-      let(:user) { create(:user, :early_career_teacher) }
+    context "when a mentor is trying to log in" do
+      let(:mentor) { create(:user, :mentor) }
 
-      it "renders sign_in page" do
-        user.early_career_teacher_profile.full_induction_programme!
-        post "/users/sign_in", params: { user: { email: user.email } }
-        expect(response).to render_template(:new)
+      context "when email matches a mentor" do
+        it "redirects to dashboard" do
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to redirect_to(dashboard_path)
+          expect(mentor.reload.last_sign_in_at).not_to be_nil
+        end
       end
-    end
 
-    context "when email matches a mentor" do
-      let(:user) { create(:user, :mentor) }
-
-      it "redirects to dashboard" do
-        post "/users/sign_in", params: { user: { email: user.email } }
-        expect(response).to redirect_to(dashboard_path)
-        expect(user.reload.last_sign_in_at).not_to be_nil
+      context "when a user's induction programme choice is a full induction programme" do
+        it "renders sign_in page" do
+          mentor.mentor_profile.full_induction_programme!
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to render_template(:new)
+        end
       end
-    end
 
-    context "when a user's induction programme choice is a full induction programme" do
-      let(:user) { create(:user, :mentor) }
+      context "when a user's induction programme choice has no early career teachers" do
+        it "renders sign_in page" do
+          mentor.mentor_profile.no_early_career_teachers!
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to render_template(:new)
+        end
+      end
 
-      it "renders sign_in page" do
-        user.mentor_profile.full_induction_programme!
-        post "/users/sign_in", params: { user: { email: user.email } }
-        expect(response).to render_template(:new)
+      context "when a user is doing a designed induction programme" do
+        it "renders sign_in page" do
+          mentor.mentor_profile.design_our_own!
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context "when a user's induction programme choice is not yet known" do
+        it "renders sign_in page" do
+          mentor.mentor_profile.not_yet_known!
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to render_template(:new)
+        end
       end
     end
 
