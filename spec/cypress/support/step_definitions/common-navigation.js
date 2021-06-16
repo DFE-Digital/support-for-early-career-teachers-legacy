@@ -5,6 +5,7 @@ Given("scenario {string} has been ran", (scenario) => cy.appScenario(scenario));
 const pagePaths = {
   cookie: "/cookies",
   start: "/",
+  accessibility: "/accessibility-statement",
   dashboard: "/dashboard",
   "edit preferred name": "/preferred-name/edit",
   "sign in": "/users/sign_in",
