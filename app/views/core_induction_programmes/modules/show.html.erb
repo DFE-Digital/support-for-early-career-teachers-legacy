@@ -6,76 +6,10 @@
     <% end %>
     <h1 class="govuk-heading-l"> <%= @course_module.term_and_title %></h1>
 
-    <% if current_user&.admin? %>
-
-      <% if @course_module.ect_summary %>
-        <h2 class="govuk-heading-m">ECT summary:</h2>
-        <%= render GovspeakComponent.new(content: @course_module.ect_summary) %>
-      <% end %>
-
-      <% if @course_module.mentor_summary %>
-        <h2 class="govuk-heading-m">Mentor summary:</h2>
-        <%= render GovspeakComponent.new(content: @course_module.mentor_summary) %>
-      <% end %>
-
-    <% end %>
-
     <ul class="app-task-list__items">
       <% if @course_lessons_with_progress.each do |lesson| %>
         <li class="app-task-list__item">
-          <h2 class="govuk-heading-m">
-            <% if current_user.admin? %>
-              <%= govuk_link_to lesson.title_for(current_user), lesson_path(lesson) %>
-            <% else %>
-              <%= lesson.title_for(current_user) %>
-            <% end %>
-          </h2>
-
-          <% if lesson.teacher_standards_for(current_user).presence %>
-            <details class="govuk-details  govuk-!-margin-top-2 govuk-!-margin-bottom-2" data-module="govuk-details">
-              <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                  View which teachers' standards this topic relates to
-                </span>
-              </summary>
-              <div class="govuk-details__text">
-                <%= render GovspeakComponent.new(content: lesson.teacher_standards_for(current_user)) %>
-              </div>
-            </details>
-          <% end %>
-
-          <% if current_user&.admin? %>
-            <% if lesson.ect_summary %>
-              <h3 class="govuk-heading-s">ECT summary:</h3>
-              <%= render GovspeakComponent.new(content: lesson.ect_summary) %>
-            <% end %>
-            <% if lesson.mentor_summary %>
-              <h3 class="govuk-heading-s">Mentor summary:</h3>
-              <%= render GovspeakComponent.new(content: lesson.mentor_summary) %>
-            <% end %>
-          <% elsif current_user.mentor? %>
-            <%= render GovspeakComponent.new(content: lesson.mentor_summary) %>
-          <% else %>
-            <%= render GovspeakComponent.new(content: lesson.ect_summary) %>
-          <% end %>
-
-          <% if lesson.course_lesson_parts.any? %>
-
-            <% if current_user&.early_career_teacher? %>
-              <hr class="govuk-section-break govuk-section-break--visible" />
-              <div class="app-task-list__section">
-                <%= govuk_link_to "Work through the self-study material#{
-                    lesson.completion_time_in_minutes ? " (#{lesson.completion_time_in_minutes} minutes)" : ""
-                  }", lesson_path(lesson) %>
-                <%= render ProgressLabelComponent.new progress: lesson.progress %>
-              </div>
-            <% else %>
-              <div class="app-task-list__section">
-                <%= govuk_link_to "View the teacher's self study materials", lesson_path(lesson) %>
-              </div>
-            <% end %>
-
-          <% end %>
+          <%= render LessonSummaryComponent.new(lesson:lesson, user: current_user) %>
         </li>
       <% end.empty? %>
         <li>No course lessons were found!</li>

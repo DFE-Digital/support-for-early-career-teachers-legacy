@@ -81,7 +81,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
         put course_module_path, params: { commit: "Save changes", course_module: { ect_summary: "Adding new content" } }
         expect(response).to redirect_to(course_module_path)
         get course_module_path
-        expect(response.body).to include("Adding new content")
+        expect(course_module.reload.ect_summary).to include("Adding new content")
       end
 
       it "redirects to the module page when saving title" do

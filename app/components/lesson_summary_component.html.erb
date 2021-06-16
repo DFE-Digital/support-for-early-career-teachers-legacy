@@ -1,0 +1,79 @@
+<h2 class="govuk-heading-m">
+  <%= @lesson_title %>
+</h2>
+
+<% if @teacher_standards.present? %>
+  <details class="govuk-details  govuk-!-margin-top-2 govuk-!-margin-bottom-2" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        View which teachers' standards this topic relates to
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <%= render GovspeakComponent.new(content: @teacher_standards) %>
+    </div>
+  </details>
+<% end %>
+
+<% if @user.admin? %>
+  <h3 class="govuk-heading-s">ECT summary:</h3>
+  <% if @lesson.ect_summary %>
+    <%= render GovspeakComponent.new(content: @lesson.ect_summary) %>
+  <% end %>
+
+  <h3 class="govuk-heading-s">Mentor summary:</h3>
+  <% if @lesson.mentor_summary %>
+    <%= render GovspeakComponent.new(content: @lesson.mentor_summary) %>
+  <% end %>
+<% elsif @user.mentor? %>
+  <%= render GovspeakComponent.new(content: @lesson.mentor_summary) %>
+<% else %>
+  <%= render GovspeakComponent.new(content: @lesson.ect_summary) %>
+<% end %>
+
+<% if @user.early_career_teacher? %>
+
+  <% if @lesson_has_self_study %>
+    <hr class="govuk-section-break govuk-section-break--visible" />
+    <div class="app-task-list__section">
+      <div class="app-task-list__flex">
+        <%= govuk_link_to "Work through the self-study material#{
+        @lesson.completion_time_in_minutes ? " (#{@lesson.completion_time_in_minutes} minutes)" : ""
+        }", lesson_path(@lesson) %>
+        <%= render ProgressLabelComponent.new progress: @lesson.progress %>
+      </div>
+    </div>
+  <% end %>
+
+<% else %>
+
+  <div class="app-task-list__section">
+    <% if @lesson_has_self_study %>
+      <p class="govuk-body govuk-!-margin-bottom-2">
+        <%= govuk_link_to "View the teacher's self study materials", lesson_path(@lesson) %>
+      </p>
+    <% elsif @user.admin? %>
+      <p class="govuk-body govuk-!-margin-bottom-2">
+        <%= govuk_link_to "View the lesson", lesson_path(@lesson) %>
+      </p>
+    <% end %>
+
+    <% if @mentor_materials.count > 1 %>
+
+      <h3 class="govuk-heading-s">Materials for you to use during your ECT catch-up</h3>
+      <% @mentor_materials.each_with_index do |mentor_material, index| %>
+        <p class="govuk-body govuk-!-margin-bottom-2">
+          <%= govuk_link_to "#{index + 1}. #{mentor_material.title}", mentor_material_path(mentor_material) %>
+        </p>
+      <% end %>
+
+    <% elsif @mentor_materials.count == 1 %>
+
+      <p class="govuk-body govuk-!-margin-bottom-2">
+        <%= govuk_link_to "Materials for you to use during your ECT catch-up", mentor_material_path(@mentor_materials.first) %>
+      </p>
+
+    <% end %>
+  </div>
+
+<% end %>

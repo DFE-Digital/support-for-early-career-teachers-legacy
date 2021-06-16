@@ -22,7 +22,6 @@ Feature: Core Induction Programme modules
     When I click on "button" containing "Save changes"
     Then "page body" should contain "Your changes have been saved"
     And "page body" should contain "Spring new module title"
-    And "page body" should contain "New test module content"
     And the page should be accessible
 
   Scenario: ECTs can view but not edit modules
