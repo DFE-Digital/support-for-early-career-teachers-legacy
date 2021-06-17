@@ -8,3 +8,6 @@ RAILS_SERVE_STATIC_FILES: true
 SERVICE_TYPE: web
 DATABASE_URL: postgres://postgres@localhost:5432
 REGISTER_AND_PARTNER_URL: "https://manage-training-for-early-career-teachers.education.gov.uk/"
+DOMAIN: support-for-early-career-teachers.education.gov.uk
+GOVUK_WEBSITE_ROOT: support-for-early-career-teachers.education.gov.uk
+GOVUK_APP_DOMAIN: support-for-early-career-teachers.education.gov.uk

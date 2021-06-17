@@ -37,6 +37,13 @@ resource cloudfoundry_route web_app_route {
   hostname = local.web_app_name
 }
 
+resource cloudfoundry_route web_app_route_gov_uk {
+  for_each = toset(var.govuk_hostnames)
+  domain = data.cloudfoundry_domain.education_gov_uk.id
+  space = data.cloudfoundry_space.space.id
+  hostname = each.value
+}
+
 resource cloudfoundry_app worker_app {
   name = local.worker_app_name
   command = var.worker_app_start_command
