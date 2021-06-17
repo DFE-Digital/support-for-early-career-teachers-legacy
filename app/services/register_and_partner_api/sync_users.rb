@@ -19,11 +19,9 @@ module RegisterAndPartnerApi
       new_sync_time = Time.zone.now
       # TODO: Add pagination
       begin
-        if all
-          sync_users(RegisterAndPartnerApi::User.all)
-        else
-          sync_users(RegisterAndPartnerApi::User.where(filter: { updated_since: SyncUsersTimer.last_sync }))
-        end
+        api_class = RegisterAndPartnerApi::User
+        query = all ? api_class.all : api_class.where(filter: { updated_since: SyncUsersTimer.last_sync })
+        sync_users(query)
       rescue JsonApiClient::Errors::ClientError
         # This is how the API responds when we run out of pages :/
       end
