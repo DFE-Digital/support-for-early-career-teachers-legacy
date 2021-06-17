@@ -28,6 +28,12 @@ resource cloudfoundry_app web_app {
   routes {
     route = cloudfoundry_route.web_app_route.id
   }
+  dynamic "routes" {
+    for_each = cloudfoundry_route.web_app_route_gov_uk
+    content {
+      route = routes.value["id"]
+    }
+  }
   environment = local.app_environment
 }
 
