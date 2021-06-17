@@ -50,6 +50,11 @@ variable worker_app_deployment_strategy {
 variable logstash_url {
 }
 
+variable govuk_hostnames {
+  type    = list(string)
+  default = []
+}
+
 locals {
 
   app_env_domain  = {
