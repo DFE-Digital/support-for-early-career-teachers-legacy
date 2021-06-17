@@ -36,6 +36,15 @@ class User < ApplicationRecord
     mentor_profile.core_induction_programme if mentor?
   end
 
+  def is_not_on_core_induction_programme?
+    !is_on_core_induction_programme? && (mentor? || early_career_teacher?)
+  end
+
+  def is_on_core_induction_programme?
+    early_career_teacher_profile&.core_induction_programme? ||
+      mentor_profile&.core_induction_programme?
+  end
+
   def course_years
     core_induction_programme&.course_years || []
   end

@@ -8,7 +8,7 @@ class InviteEmailEct < TrackedEmail
   end
 
   def send!
-    if Time.zone.now >= INVITES_SENT_FROM
+    if user.is_on_core_induction_programme? && Time.zone.now >= INVITES_SENT_FROM
       super
     end
   end

@@ -79,6 +79,10 @@ private
       user.errors.add :email, "Enter the email address your school used when they registered your account"
     end
 
+    if user.is_not_on_core_induction_programme?
+      user.errors.add :induction_programme_choice, "Please go to your provider's system to access your training materials"
+    end
+
     user
   end
 end
