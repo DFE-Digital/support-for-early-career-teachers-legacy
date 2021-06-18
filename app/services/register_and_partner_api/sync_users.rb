@@ -20,17 +20,17 @@ module RegisterAndPartnerApi
       last_sync = SyncUsersTimer.last_sync
       base_query = all ? {} : { filter: { updated_since: last_sync } }
 
-      is_last_page = false
+      # is_last_page = false
       page_number = 0
-      until is_last_page || page_number > 10_000
-        page_number += 1
-        paginated_query = base_query.merge(page: { page: page_number, per_page: 100 })
+      # until is_last_page || page_number > 10_000
+      page_number += 1
+      paginated_query = base_query.merge(page: { page: page_number, per_page: 100 })
 
-        response = RegisterAndPartnerApi::User.where(paginated_query)
-        sync_users(response)
+      response = RegisterAndPartnerApi::User.where(paginated_query)
+      sync_users(response)
 
-        is_last_page = true if response.count.zero?
-      end
+      # is_last_page = true if response.count.zero?
+      # end
 
       SyncUsersTimer.set_last_sync(new_sync_time)
     rescue StandardError => e
