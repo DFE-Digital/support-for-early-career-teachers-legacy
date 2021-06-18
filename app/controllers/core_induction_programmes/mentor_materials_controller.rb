@@ -13,7 +13,11 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
     authorize MentorMaterial
   end
 
-  def show; end
+  def show
+    if @mentor_material.mentor_material_parts.length
+      redirect_to mentor_material_part_path(@mentor_material.mentor_material_parts_in_order[0])
+    end
+  end
 
   def edit; end
 
@@ -59,6 +63,6 @@ private
   end
 
   def mentor_material_params
-    params.require(:mentor_material).permit(:title, :content, :core_induction_programme_id, :course_lesson_id)
+    params.require(:mentor_material).permit(:title, :core_induction_programme_id, :course_lesson_id)
   end
 end

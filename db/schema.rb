@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_075806) do
+ActiveRecord::Schema.define(version: 2021_06_17_135602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -144,9 +144,19 @@ ActiveRecord::Schema.define(version: 2021_06_14_075806) do
     t.index ["user_id"], name: "index_induction_coordinator_profiles_on_user_id"
   end
 
-  create_table "mentor_materials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "mentor_material_parts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "title", null: false
     t.text "content", null: false
+    t.uuid "previous_mentor_material_part_id"
+    t.uuid "mentor_material_id", null: false
+    t.index ["mentor_material_id"], name: "index_mentor_material_parts_on_mentor_material_id"
+    t.index ["previous_mentor_material_part_id"], name: "index_mentor_material_parts_on_previous_mentor_material_part_id"
+  end
+
+  create_table "mentor_materials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "core_induction_programme_id"
@@ -217,6 +227,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_075806) do
   add_foreign_key "early_career_teacher_profiles", "core_induction_programmes"
   add_foreign_key "early_career_teacher_profiles", "users"
   add_foreign_key "induction_coordinator_profiles", "users"
+  add_foreign_key "mentor_material_parts", "mentor_material_parts", column: "previous_mentor_material_part_id"
+  add_foreign_key "mentor_material_parts", "mentor_materials"
   add_foreign_key "mentor_materials", "core_induction_programmes"
   add_foreign_key "mentor_materials", "course_lessons"
   add_foreign_key "mentor_materials", "course_modules"
