@@ -18,7 +18,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if current_user&.mentor? %>
-      <span class="govuk-caption-l">The teacher's self-study materials</span>
+      <span class="govuk-caption-l">The ECT's self-study materials</span>
     <% end %>
     <% if policy(@course_lesson_part.course_lesson).update_progress? && @course_lesson_part.next_lesson_part.nil? %>
       <%= form_with model: @lesson_progress, url: lesson_part_update_progress_path(lesson_part_id: @course_lesson_part.id), method: :put, id: "lesson-progress-form" do |f| %>
