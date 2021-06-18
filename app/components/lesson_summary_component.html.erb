@@ -50,7 +50,7 @@
   <div class="app-task-list__section">
     <% if @lesson_has_self_study %>
       <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= govuk_link_to "View the teacher's self study materials", lesson_path(@lesson) %>
+        <%= govuk_link_to "View the ECT's self study materials", lesson_path(@lesson) %>
       </p>
     <% elsif @user.admin? %>
       <p class="govuk-body govuk-!-margin-bottom-2">
