@@ -22,7 +22,7 @@ module RegisterAndPartnerApi
 
       is_last_page = false
       page_number = 0
-      until is_last_page
+      until is_last_page || page_number > 10_000
         page_number += 1
         paginated_query = base_query.merge(page: { page: page_number, per_page: 100 })
 
