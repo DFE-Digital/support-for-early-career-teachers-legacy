@@ -7,6 +7,7 @@ class CoreInductionProgrammes::YearsController < ApplicationController
   after_action :verify_authorized
   before_action :authenticate_user!
   before_action :load_course_year, except: %i[new create]
+  before_action :fill_data_layer, except: %i[new create]
 
   def show
     @cip = @course_year.core_induction_programme
@@ -54,5 +55,9 @@ private
 
   def course_year_params
     params.fetch(:course_year, {}).permit(:title, :mentor_title, :content)
+  end
+
+  def fill_data_layer
+    data_layer.add_year_info(@course_year)
   end
 end

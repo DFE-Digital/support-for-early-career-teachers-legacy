@@ -7,6 +7,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
   after_action :verify_authorized
   before_action :authenticate_user!
   before_action :load_course_lesson_part, except: :update_progress
+  before_action :fill_data_layer, except: :update_progress
 
   def show; end
 
@@ -98,5 +99,9 @@ private
 
   def lesson_progress_params
     params.fetch(:course_lesson_progress, {}).permit(:progress)
+  end
+
+  def fill_data_layer
+    data_layer.add_lesson_part_info(@course_lesson_part)
   end
 end

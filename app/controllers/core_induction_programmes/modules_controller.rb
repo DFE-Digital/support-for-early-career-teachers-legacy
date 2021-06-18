@@ -8,6 +8,7 @@ class CoreInductionProgrammes::ModulesController < ApplicationController
   before_action :authenticate_user!
   before_action :load_course_module, only: %i[update edit show]
   before_action :make_course_module, only: %i[new create]
+  before_action :fill_data_layer
 
   def show
     @course_lessons_with_progress = @course_module.lessons_with_progress current_user
@@ -73,5 +74,9 @@ private
     previous_module_id = params[:course_module][:previous_module_id]
     previous_module = CourseModule.where(id: previous_module_id).first
     previous_module&.next_module
+  end
+
+  def fill_data_layer
+    data_layer.add_module_info(@course_module)
   end
 end
