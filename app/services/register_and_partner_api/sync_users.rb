@@ -17,17 +17,24 @@ module RegisterAndPartnerApi
 
     def self.perform(all: false)
       new_sync_time = Time.zone.now
-      # TODO: Add pagination
-      begin
-        api_class = RegisterAndPartnerApi::User
-        query = all ? api_class.all : api_class.where(filter: { updated_since: SyncUsersTimer.last_sync })
-        sync_users(query)
-      rescue JsonApiClient::Errors::ClientError
-        # This is how the API responds when we run out of pages :/
+      last_sync = SyncUsersTimer.last_sync
+      base_query = all ? {} : { filter: { updated_since: last_sync } }
+
+      is_last_page = false
+      page_number = 0
+      until is_last_page
+        page_number += 1
+        paginated_query = base_query.merge(page: { page: page_number, per_page: 100 })
+
+        response = RegisterAndPartnerApi::User.where(paginated_query)
+        sync_users(response)
+
+        is_last_page = true if response.count.zero?
       end
+
       SyncUsersTimer.set_last_sync(new_sync_time)
-    rescue StandardError
-      Rails.logger.warn("Failed to sync users")
+    rescue StandardError => e
+      Rails.logger.warn("Failed to sync users: #{e}")
     end
 
     def self.sync_users(users)
