@@ -104,6 +104,10 @@ RSpec.configure do |config|
             "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
             "User-Agent" => "Faraday v1.3.0",
           },
-        ).to_return(status: 200, body: file_fixture("api/users.json").read, headers: { content_type: "application/json" })
+        )
+        .to_return(
+          { status: 200, body: file_fixture("api/users.json").read, headers: { content_type: "application/json" } },
+          { status: 200, body: file_fixture("api/users_empty.json").read, headers: { content_type: "application/json" } },
+        )
   end
 end
