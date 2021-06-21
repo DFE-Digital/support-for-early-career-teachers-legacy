@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
 
   get "check" => "application#check"
+  get "healthcheck" => "healthcheck#check"
 
   resource :cookies, only: %i[show update]
   resource :dashboard, controller: :dashboard, only: :show

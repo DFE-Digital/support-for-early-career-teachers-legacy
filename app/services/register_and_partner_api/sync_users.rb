@@ -16,24 +16,43 @@ module RegisterAndPartnerApi
     }.freeze
 
     def self.perform(all: false)
-      new_sync_time = Time.zone.now
-      # TODO: Add pagination
-      begin
-        api_class = RegisterAndPartnerApi::User
-        query = all ? api_class.all : api_class.where(filter: { updated_since: SyncUsersTimer.last_sync })
-        sync_users(query)
-      rescue JsonApiClient::Errors::ClientError
-        # This is how the API responds when we run out of pages :/
-      end
+      new_sync_time = Time.zone.now - 1.minute
+      last_sync = SyncUsersTimer.last_sync
+      base_query = all ? {} : { filter: { updated_since: last_sync } }
+
+      perform_pagination(base_query)
+
       SyncUsersTimer.set_last_sync(new_sync_time)
-    rescue StandardError
-      Rails.logger.warn("Failed to sync users")
+    rescue StandardError => e
+      Rails.logger.warn("Failed to sync users: #{e}")
+    end
+
+    def self.perform_pagination(base_query)
+      is_last_page = false
+      page_number = 0
+      all_user_ids = []
+      until is_last_page
+        page_number += 1
+        paginated_query = base_query.merge(page: { page: page_number, per_page: 100 })
+
+        response = RegisterAndPartnerApi::User.where(paginated_query).to_a
+        new_user_ids = sync_users(response)
+
+        only_repeated_users = response.count.positive? && (new_user_ids - all_user_ids).empty?
+        Rails.logger.warn("No new users found on new page in user sync, stopping!") if only_repeated_users
+
+        is_last_page = response.count.zero? || only_repeated_users
+        all_user_ids += new_user_ids
+        sleep(1)
+      end
     end
 
     def self.sync_users(users)
+      user_ids = []
       logger = Rails.logger
       users.each do |remote_user|
         attributes = user_attributes_from(remote_user)
+        user_ids << attributes[:register_and_partner_id]
 
         case attributes[:user_type]
         when USER_TYPES[:ect]
@@ -45,6 +64,7 @@ module RegisterAndPartnerApi
       rescue StandardError
         logger.warn("Error saving user!")
       end
+      user_ids
     end
 
     def self.user_attributes_from(user_from_api)
