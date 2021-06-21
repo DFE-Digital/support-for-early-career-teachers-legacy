@@ -54,7 +54,7 @@ RSpec.describe "MentorMaterialsParts", type: :request do
     end
   end
 
-  describe "when a non-user is accessing the lesson part page" do
+  describe "when a non-user is accessing the mentor material part page" do
     describe "GET /module-material-parts/:id" do
       it "redirects to the sign in page" do
         get "/mentor-material-parts/#{mentor_material_part.id}"

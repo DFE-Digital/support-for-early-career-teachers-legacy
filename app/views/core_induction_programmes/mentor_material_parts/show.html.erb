@@ -2,9 +2,9 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%# <% if policy(@mentor_material).edit? %1> %>
-      <%#   <%= govuk_link_to "Edit mentor material", edit_mentor_material_path(@mentor_material), button: true %1> %>
-    <%# <% end %1> %>
+    <% if policy(@mentor_material_part.mentor_material).edit? %>
+        <%= govuk_link_to "Edit mentor material", edit_mentor_material_path(@mentor_material_part.mentor_material), button: true %>
+    <% end %>
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4"><%= @mentor_material_part.mentor_material.title %></h1>
 
