@@ -7,7 +7,7 @@ RAILS_MAX_THREADS: 5
 RAILS_SERVE_STATIC_FILES: true
 SERVICE_TYPE: web
 DATABASE_URL: postgres://postgres@localhost:5432
-REGISTER_AND_PARTNER_URL: "https://ecf-staging.london.cloudapps.digital/"
+REGISTER_AND_PARTNER_URL: "https://ecf-staging.london.cloudapps.digital"
 DOMAIN: staging-support-ects.education.gov.uk
 GOVUK_WEBSITE_ROOT: staging-support-ects.education.gov.uk
 GOVUK_APP_DOMAIN: staging-support-ects.education.gov.uk
