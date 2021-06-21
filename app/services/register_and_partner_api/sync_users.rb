@@ -8,10 +8,10 @@ module RegisterAndPartnerApi
     }.freeze
 
     CIP_TYPES = {
-      ambition: "Ambition Institute",
-      edt: "Education Development Trust",
-      teach_first: "Teach First",
-      ucl: "UCL",
+      ambition: "ambition",
+      edt: "edt",
+      teach_first: "teach_first",
+      ucl: "ucl",
       none: "none",
     }.freeze
 
@@ -43,7 +43,7 @@ module RegisterAndPartnerApi
 
         is_last_page = response.count.zero? || only_repeated_users
         all_user_ids += new_user_ids
-        sleep(1)
+        sleep(1) unless Rails.env.test?
       end
     end
 
