@@ -6,4 +6,16 @@ class MentorMaterialPolicy < CoreInductionProgrammePolicy
 
     @user&.mentor? || @user&.admin?
   end
+
+  def update?
+    @user&.admin?
+  end
+
+  alias_method :edit?, :update?
+
+  def destroy?
+    @user&.admin?
+  end
+
+  alias_method :show_delete?, :destroy?
 end

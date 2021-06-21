@@ -15,10 +15,35 @@ RSpec.describe "MentorMaterialsParts", type: :request do
       sign_in admin_user
     end
 
-    describe "GET /module-material-parts/:id" do
-      it "renders the module material part page" do
+    describe "GET /mentor-material-parts/:id" do
+      it "renders the mentor material part page" do
         get "/mentor-material-parts/#{mentor_material_part.id}"
         expect(response).to render_template(:show)
+      end
+    end
+
+    describe "GET /mentor-material-parts/:id/edit" do
+      it "renders the mentor material part edit page" do
+        get "/mentor-material-parts/#{mentor_material_part.id}/edit"
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    describe "PUT /mentor-material-parts/:id" do
+      it "renders a preview of changes to mentor material part" do
+        put "/mentor-material-parts/#{mentor_material_part.id}", params: { commit: "See preview", content: "Extra content" }
+        expect(response).to render_template(:edit)
+        expect(response.body).to include("Extra content")
+        mentor_material_part.reload
+        expect(mentor_material_part.content).not_to include("Extra content")
+      end
+
+      it "redirects to the mentor material part page when saving content and title" do
+        put "/mentor-material-parts/#{mentor_material_part.id}", params: { commit: "Save changes", content: "Adding new content", title: "New title" }
+        expect(response).to redirect_to(mentor_material_part_path)
+        get mentor_material_part_path
+        expect(response.body).to include("Adding new content")
+        expect(response.body).to include("New title")
       end
     end
   end
@@ -30,11 +55,17 @@ RSpec.describe "MentorMaterialsParts", type: :request do
       sign_in user
     end
 
-    describe "GET /module-material-parts/:id" do
-      it "throws an auth error for module material part page" do
+    describe "GET /mentor-material-parts/:id" do
+      it "throws an auth error for mentor material part page" do
         expect {
           get "/mentor-material-parts/#{mentor_material_part.id}"
         }.to raise_error Pundit::NotAuthorizedError
+      end
+    end
+
+    describe "GET /mentor-material-parts/:id/edit" do
+      it "raises an authorization error" do
+        expect { get "/mentor-material-parts/#{mentor_material_part.id}/edit" }.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
@@ -46,18 +77,31 @@ RSpec.describe "MentorMaterialsParts", type: :request do
       sign_in user
     end
 
-    describe "GET /module-material-parts/:id" do
-      it "renders the module material part page" do
+    describe "GET /mentor-material-parts/:id" do
+      it "renders the mentor material part page" do
         get "/mentor-material-parts/#{mentor_material_part.id}"
         expect(response).to render_template(:show)
+      end
+    end
+
+    describe "GET /mentor-material-parts/:id/edit" do
+      it "raises an authorization error" do
+        expect { get "/mentor-material-parts/#{mentor_material_part.id}/edit" }.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
 
   describe "when a non-user is accessing the mentor material part page" do
-    describe "GET /module-material-parts/:id" do
+    describe "GET /mentor-material-parts/:id" do
       it "redirects to the sign in page" do
         get "/mentor-material-parts/#{mentor_material_part.id}"
+        expect(response).to redirect_to("/users/sign_in")
+      end
+    end
+
+    describe "GET /mentor-material-parts/:id/edit" do
+      it "redirects to the sign in page" do
+        get "/mentor-material-parts/#{mentor_material_part.id}/edit"
         expect(response).to redirect_to("/users/sign_in")
       end
     end
