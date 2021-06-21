@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     end
 
     resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create]
+    resources :mentor_material_parts, path: "mentor-material-parts", only: %i[show]
   end
   root to: "start#index"
 

@@ -13,20 +13,20 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
     authorize MentorMaterial
   end
 
-  def show; end
+  def show
+    if @mentor_material.mentor_material_parts.present?
+      redirect_to mentor_material_part_path(@mentor_material.mentor_material_parts_in_order[0])
+    end
+  end
 
   def edit; end
 
   def update
     @mentor_material.assign_attributes(mentor_material_params)
 
-    if params[:commit] == "Save"
-      @mentor_material.save!
-      flash[:success] = "Your changes have been saved"
-      redirect_to mentor_material_path
-    else
-      render :edit
-    end
+    @mentor_material.save!
+    flash[:success] = "Your changes have been saved"
+    redirect_to mentor_material_path
   end
 
   def new
@@ -59,6 +59,6 @@ private
   end
 
   def mentor_material_params
-    params.require(:mentor_material).permit(:title, :content, :core_induction_programme_id, :course_lesson_id)
+    params.require(:mentor_material).permit(:title, :core_induction_programme_id, :course_lesson_id)
   end
 end

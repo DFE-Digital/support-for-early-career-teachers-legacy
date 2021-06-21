@@ -1,0 +1,29 @@
+<%= govuk_breadcrumbs breadcrumbs: mentor_material_breadcrumbs(current_user, @mentor_material_part.mentor_material) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <% if policy(@mentor_material_part.mentor_material).edit? %>
+        <%= govuk_link_to "Edit mentor material", edit_mentor_material_path(@mentor_material_part.mentor_material), button: true %>
+    <% end %>
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4"><%= @mentor_material_part.mentor_material.title %></h1>
+
+    <p class="govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-2">Contents</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <% @mentor_material_part.mentor_material.mentor_material_parts_in_order.each do |part| %>
+        <li>
+          <% if part == @mentor_material_part %>
+            <span><%= part.title %></span>
+          <% else %>
+            <%= govuk_link_to part.title, mentor_material_part_path(part) %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <h2 class="govuk-heading-l"> <%= @mentor_material_part.title %></h2>
+
+    <%= render GovspeakComponent.new(content: @mentor_material_part.content) %>
+
+  </div>
+</div>

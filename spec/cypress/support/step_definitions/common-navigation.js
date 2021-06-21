@@ -22,6 +22,7 @@ const pagePaths = {
   "core induction programme mentor materials": "/mentor-materials",
   "core induction programme mentor material new": "/mentor-materials/new",
   "core induction programme mentor material": "/mentor-materials/:id",
+  "core induction programme mentor material part": "/mentor-material-parts/:id",
   "core induction programme mentor material edit": "/mentor-materials/:id/edit",
   "training and support": "/training-and-support",
 };

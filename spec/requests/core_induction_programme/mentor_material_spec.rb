@@ -3,8 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Mentor materials", type: :request do
-  let(:mentor_material) { create(:mentor_material) }
+  let(:mentor_material) { create(:mentor_material, :with_mentor_material_part) }
   let(:mentor_material_path) { "/mentor-materials/#{mentor_material.id}" }
+  let(:first_part) { mentor_material.mentor_material_parts_in_order[0] }
+  let(:mentor_material_part_path) { "/mentor-material-parts/#{first_part.id}" }
 
   describe "when an admin user is logged in" do
     before do
@@ -20,17 +22,17 @@ RSpec.describe "Mentor materials", type: :request do
     end
 
     describe "GET /mentor-materials/:id" do
-      it "renders show template" do
+      it "redirect to part" do
         get "/mentor-materials/#{mentor_material.id}"
-        expect(response).to render_template(:show)
+        expect(response).to redirect_to(mentor_material_part_path)
       end
     end
 
     describe "PUT /mentor-materials/:id" do
-      it "redirects to the mentor materials" do
+      it "redirects to the first part" do
         put mentor_material_path, params: { commit: "Save", mentor_material: { title: "New title" } }
         expect(response).to redirect_to(mentor_material_path)
-        get mentor_material_path
+        get mentor_material_part_path
         expect(response.body).to include("New title")
       end
     end
@@ -52,7 +54,7 @@ RSpec.describe "Mentor materials", type: :request do
     describe "POST /mentor-materials" do
       it "creates a mentor material" do
         expect {
-          post mentor_materials_path, params: { mentor_material: { title: "New title", content: "new content" } }
+          post mentor_materials_path, params: { mentor_material: { title: "New title" } }
         }.to(change { MentorMaterial.count }.by(1))
       end
     end
@@ -84,7 +86,7 @@ RSpec.describe "Mentor materials", type: :request do
 
     describe "PUT /mentor-materials/:id" do
       it "raises an error" do
-        expect { put mentor_material_path, params: { commit: "Save", content: mentor_material.content } }.to raise_error Pundit::NotAuthorizedError
+        expect { put mentor_material_path, params: { commit: "Save" } }.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
@@ -106,7 +108,7 @@ RSpec.describe "Mentor materials", type: :request do
 
     describe "PUT /mentor-materials/:id" do
       it "redirects to the sign in page" do
-        put mentor_material_path, params: { commit: "Save", content: mentor_material.content }
+        put mentor_material_path, params: { commit: "Save" }
         expect(response).to redirect_to("/users/sign_in")
       end
     end

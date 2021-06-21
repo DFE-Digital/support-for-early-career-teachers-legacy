@@ -11,18 +11,18 @@ Feature: Core Induction Programme mentor materials
     And percy should be sent snapshot
 
     When I type "New mentor material title" into "title input"
-    And I type "New mentor material content" into "content input"
     And I click on "button" containing "Save"
 
     Then "page body" should contain "Mentor material created"
     And "page body" should contain "New mentor material title"
-    And "page body" should contain "New mentor material content"
     And the page should be accessible
 
   Scenario: Admins can edit mentor materials
     Given I am logged in as "admin"
-    Given mentor_material was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    Given mentor_material was created as "with_mentor_material_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
     And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+
+    Then I should have been redirected to "core induction programme mentor material part" page
 
     When I click on "link" containing "Edit mentor material"
     Then I should be on "core induction programme mentor material edit" page
@@ -31,14 +31,7 @@ Feature: Core Induction Programme mentor materials
 
     When I clear "title input"
     And I type "New mentor material title" into "title input"
-    And I clear "content input"
-    And I type "New mentor material content" into "content input"
-    And I click on "button" containing "See preview"
-    Then "page heading" should contain "preview"
-    And "govspeak content" should contain "New mentor material content"
-
     When I click on "button" containing "Save"
     Then "page body" should contain "Your changes have been saved"
     And "page body" should contain "New mentor material title"
-    And "page body" should contain "New mentor material content"
     And the page should be accessible
