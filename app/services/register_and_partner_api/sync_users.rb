@@ -16,9 +16,9 @@ module RegisterAndPartnerApi
     }.freeze
 
     def self.perform(all: false)
-      new_sync_time = Time.zone.now
+      new_sync_time = Time.zone.now - 1.minute
       last_sync = SyncUsersTimer.last_sync
-      base_query = all ? {} : { filter: { updated_since: last_sync - 1.minute } }
+      base_query = all ? {} : { filter: { updated_since: last_sync } }
 
       perform_pagination(base_query)
 
