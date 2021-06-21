@@ -4,6 +4,10 @@ require "rails_helper"
 
 RSpec.describe RegisterAndPartnerApi::SyncUsers do
   describe "::perform" do
+    before do
+      create(:core_induction_programme, name: "UCL")
+    end
+
     it "imports all users returned" do
       expect {
         described_class.perform
@@ -37,6 +41,7 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
 
       record = User.find_by(email: "rp-ect-ambition@example.com")
       expect(record.early_career_teacher?).to be true
+      expect(record.core_induction_programme).not_to be_nil
     end
 
     it "updates an existing user that has changed their email address" do
