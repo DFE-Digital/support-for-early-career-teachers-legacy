@@ -18,7 +18,7 @@ module RegisterAndPartnerApi
     def self.perform(all: false)
       new_sync_time = Time.zone.now
       last_sync = SyncUsersTimer.last_sync
-      base_query = all ? {} : { filter: { updated_since: last_sync } }
+      base_query = all ? {} : { filter: { updated_since: last_sync - 1.minute } }
 
       perform_pagination(base_query)
 
@@ -33,7 +33,7 @@ module RegisterAndPartnerApi
       all_user_ids = []
       until is_last_page
         page_number += 1
-        paginated_query = base_query.merge(page: { page: page_number, per_page: 10 })
+        paginated_query = base_query.merge(page: { page: page_number, per_page: 100 })
 
         response = RegisterAndPartnerApi::User.where(paginated_query).to_a
         new_user_ids = sync_users(response)
