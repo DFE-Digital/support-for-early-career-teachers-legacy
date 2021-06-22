@@ -30,6 +30,37 @@ class AnalyticsDataLayer
 
   def add_user_info(user)
     @analytics_data[:userType] = user.user_description if user
+    @analytics_data[:userRegisterAndPartnerId] = user.register_and_partner_id if user
+    @analytics_data[:userCoreInductionProgramme] = user.core_induction_programme if user
+  end
+
+  def add_cip_info(cip)
+    @analytics_data[:cip] = cip.name if cip
+  end
+
+  def add_year_info(year)
+    add_cip_info(year.core_induction_programme) if year
+    @analytics_data[:cipYear] = year.title if year
+  end
+
+  def add_module_info(course_module)
+    add_year_info(course_module.course_year) if course_module
+    @analytics_data[:cipModule] = course_module.title if course_module
+  end
+
+  def add_lesson_info(course_lesson)
+    add_module_info(course_lesson.course_module) if course_lesson
+    @analytics_data[:cipLesson] = course_lesson.title if course_lesson
+  end
+
+  def add_lesson_part_info(course_lesson_part)
+    add_lesson_info(course_lesson_part.course_lesson) if course_lesson_part
+    @analytics_data[:cipLessonPart] = course_lesson_part.title if course_lesson_part
+  end
+
+  def add_mentor_material_info(mentor_material)
+    add_lesson_info(mentor_material.course_lesson) if mentor_material
+    @analytics_data[:cipMentorMaterial] = mentor_material.title if mentor_material
   end
 
   def as_json(_opts = nil)

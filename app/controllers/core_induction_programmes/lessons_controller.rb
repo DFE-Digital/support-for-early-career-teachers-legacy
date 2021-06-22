@@ -7,6 +7,7 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
   after_action :verify_authorized
   before_action :authenticate_user!
   before_action :load_course_lesson, only: %i[show edit update]
+  before_action :fill_data_layer, only: %i[show edit update]
 
   def show
     if current_user&.early_career_teacher?
@@ -72,5 +73,9 @@ private
       :course_module_id,
       :new_position,
     )
+  end
+
+  def fill_data_layer
+    data_layer.add_lesson_info(@course_lesson)
   end
 end
