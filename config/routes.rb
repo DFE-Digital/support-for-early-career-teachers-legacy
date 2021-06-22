@@ -54,6 +54,8 @@ Rails.application.routes.draw do
 
     resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create]
     resources :mentor_material_parts, path: "mentor-material-parts", only: %i[show edit update show_delete destroy] do
+      get "split", to: "mentor_material_parts#show_split", as: "split"
+      post "split", to: "mentor_material_parts#split"
       get "show_delete", to: "mentor_material_parts#show_delete"
     end
   end

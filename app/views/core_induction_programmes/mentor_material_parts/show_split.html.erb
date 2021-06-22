@@ -1,0 +1,68 @@
+<% content_for :outside_container do %>
+<div class="govuk-width-container govuk-main-wrapper govuk-body">
+  <%= govuk_breadcrumbs breadcrumbs: mentor_material_breadcrumbs(current_user, @mentor_material_part.mentor_material) %>
+  <h1 class="govuk-heading-l">Split mentor material part</h1>
+
+  <p class="govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-2">Contents</p>
+
+  <ul class="govuk-list">
+    <% @mentor_material_part.mentor_material.mentor_material_parts_in_order.each do |part| %>
+      <li class="govuk-list--bullet">
+        <% if part == @mentor_material_part %>
+          <span><%= part.title %></span>
+        <% else %>
+          <%= govuk_link_to part.title, mentor_material_part_split_path(mentor_material_part_id: part.id) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <p>
+    The first part is the one you are splitting (current).
+  </p>
+  <p>
+    The second part is the new part.
+  </p>
+  <p>
+    If current part is not last, the new part will be inserted between the current part and the next part.
+  </p>
+  <p>
+    If the current part is last, the new part will become last.
+  </p>
+</div>
+
+<div class="outside-content-wrapper">
+  <%= form_with model: @split_mentor_material_part_form, url: mentor_material_part_split_path, method: :post, id: "mentor-material-part-split-form" do |f| %>
+    <%= f.govuk_error_summary %>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <%= f.govuk_text_field :title, label: { text: "Current part title" } %>
+        <%= f.govuk_text_area :content, label: { text: "Current part content" }, rows: 10 %>
+      </div>
+
+      <div class="govuk-grid-column-one-half">
+        <%= f.govuk_text_field :new_title, label: { text: "New part title" } %>
+        <%= f.govuk_text_area :new_content, label: { text: "New part content" }, rows: 10 %>
+      </div>
+    </div>
+
+    <div class="govuk-button-group">
+      <%= f.govuk_submit "See preview" %>
+      <%= f.govuk_submit "Save changes" %>
+    </div>
+  <% end %>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      <h2 class="govuk-heading-l"><%= @split_mentor_material_part_form.title %></h2>
+      <%= render GovspeakComponent.new(content: @split_mentor_material_part_form.content) %>
+    </div>
+
+    <div class="govuk-grid-column-one-half">
+      <h2 class="govuk-heading-l"><%= @split_mentor_material_part_form.new_title %></h2>
+      <%= render GovspeakComponent.new(content: @split_mentor_material_part_form.new_content) %>
+    </div>
+  </div>
+</div>
+<% end %>

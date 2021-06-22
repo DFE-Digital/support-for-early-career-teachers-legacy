@@ -3,7 +3,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">Content change preview</h1>
-    <%# <%= govuk_link_to "Delete lesson part", lesson_part_show_delete_path(lesson_part_id: @course_lesson_part.id), button: true, class: "govuk-button--secondary"  %1> %>
+    <%= govuk_link_to "Delete mentor material part", mentor_material_part_show_delete_path(mentor_material_part_id: @mentor_material_part.id), button: true, class: "govuk-button--secondary"  %>
     <%= form_with url: mentor_material_part_path, method: :put, id: "mentor-material-part-update-form" do |f| %>
       <%= f.govuk_text_field :title, label: { text: "Mentor material part title" }, value: @mentor_material_part.title %>
       <%= f.govuk_text_area :content, label: { text: "Markdown string for mentor material part content" }, rows: 10, value: @mentor_material_part.content %>
