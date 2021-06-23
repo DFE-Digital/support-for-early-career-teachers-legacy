@@ -81,3 +81,25 @@ Feature: Core Induction Programme mentor materials
     When I click on "button" containing "Save changes"
     Then "govspeak content" should contain "New current part content"
     Then "govspeak content" should not contain "New new part content"
+
+  Scenario: Admins can delete mentor material parts
+    Given I am logged in as "admin"
+    And mentor_material was created as "with_mentor_material_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+
+    Then I should have been redirected to "core induction programme mentor material part" page
+
+    When I click on "link" containing "Split mentor material part"
+    And I clear "exact title input"
+    And I type "Old part title" into "exact title input"
+    And I type "New part title" into "new title input"
+    And I type "New part content" into "new content input"
+    And I click on "button" containing "Save changes"
+    And I click on "link" containing "Delete mentor material part"
+    Then "page heading" should contain "Confirm you would like to remove Old part title from Test Mentor materials"
+    And the page should be accessible
+    And percy should be sent snapshot
+
+    When I click on "button" containing "Delete"
+    Then "page body" should contain "New part title"
+    And "page body" should not contain "Old part title"

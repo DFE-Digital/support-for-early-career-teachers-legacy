@@ -30,5 +30,20 @@
 
     <%= render GovspeakComponent.new(content: @mentor_material_part.content) %>
 
+    <nav class="step-by-step-navigation" role="navigation" aria-label="Mentor Material Part Navigation">
+      <ul class="step-by-step-navigation__list">
+        <% if @mentor_material_part.previous_mentor_material_part %>
+          <%= render NavigationPreviousComponent.new(
+            url: mentor_material_part_path(@mentor_material_part.previous_mentor_material_part),
+            text: @mentor_material_part.previous_mentor_material_part.title) %>
+        <% end %>
+
+        <% if @mentor_material_part.next_mentor_material_part %>
+          <%= render NavigationNextComponent.new(
+            url: mentor_material_part_path(@mentor_material_part.next_mentor_material_part),
+            text: @mentor_material_part.next_mentor_material_part.title) %>
+        <% end %>
+      </ul>
+    </nav>
   </div>
 </div>
