@@ -1,5 +1,8 @@
 <%= f.govuk_error_summary %>
 <%= f.govuk_text_field :title, label: { text: 'Course module title' } %>
+<%= f.govuk_text_field :page_header, label: { text: 'Course module page header' },
+                                              hint: { text: "Setting a page header will overwrite the module title above" }
+ %>
 <%= f.govuk_collection_select(
       :course_year_id,
       @course_years,

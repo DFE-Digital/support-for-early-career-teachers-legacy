@@ -27,6 +27,8 @@ RSpec.describe CourseModule, type: :model do
     it { is_expected.to validate_length_of(:title).is_at_most(255) }
     it { is_expected.to validate_presence_of(:ect_summary).with_message("Enter ECT summary") }
     it { is_expected.to validate_length_of(:ect_summary).is_at_most(100_000) }
+    it { is_expected.to validate_length_of(:page_header).is_at_most(255) }
+    it { is_expected.to allow_value(nil).for(:page_header) }
   end
 
   describe "course_lessons" do
