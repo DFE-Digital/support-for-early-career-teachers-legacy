@@ -1,0 +1,18 @@
+<%= govuk_breadcrumbs breadcrumbs: mentor_material_breadcrumbs(current_user, @mentor_material_part.mentor_material) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Confirm you would like to remove <i><%= @mentor_material_part.title %></i> from <%= @mentor_material_part.mentor_material.title %>.</h1>
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <div class="govuk-warning-text__text">This mentor material part can not be retrieved once it has been deleted.</div>
+    </div>
+    <p>You can return to <b><%= @mentor_material_part.mentor_material.title %></b> without making any changes by clicking cancel</p>
+    <div class="govuk-button-group">
+      <%= form_with url: mentor_material_part_path(@mentor_material_part), method: :delete, id: "mentor-material-part-delete-form" do |f| %>
+        <%= f.govuk_submit "Delete", warning: true %>
+        <%= govuk_link_to "Cancel", mentor_material_part_path(@mentor_material_part), class: "govuk-!-margin-top-2"%>
+      <% end %>
+    </div>
+  </div>
+</div>

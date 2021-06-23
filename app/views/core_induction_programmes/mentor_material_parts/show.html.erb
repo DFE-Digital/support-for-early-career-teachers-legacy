@@ -3,7 +3,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if policy(@mentor_material_part.mentor_material).edit? %>
+      <div class="govuk-button-group">
         <%= govuk_link_to "Edit mentor material", edit_mentor_material_path(@mentor_material_part.mentor_material), button: true %>
+        <%= govuk_link_to "Edit mentor material part", edit_mentor_material_part_path(@mentor_material_part), button: true %>
+        <%= govuk_link_to "Split mentor material part", mentor_material_part_split_path(mentor_material_part_id: @mentor_material_part.id), button: true %>
+        <%= govuk_link_to "Delete mentor material part", mentor_material_part_show_delete_path(mentor_material_part_id: @mentor_material_part.id), button: true, class: "govuk-button--secondary" %>
+      </div>
     <% end %>
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4"><%= @mentor_material_part.mentor_material.title %></h1>
@@ -25,5 +30,20 @@
 
     <%= render GovspeakComponent.new(content: @mentor_material_part.content) %>
 
+    <nav class="step-by-step-navigation" role="navigation" aria-label="Mentor Material Part Navigation">
+      <ul class="step-by-step-navigation__list">
+        <% if @mentor_material_part.previous_mentor_material_part %>
+          <%= render NavigationPreviousComponent.new(
+            url: mentor_material_part_path(@mentor_material_part.previous_mentor_material_part),
+            text: @mentor_material_part.previous_mentor_material_part.title) %>
+        <% end %>
+
+        <% if @mentor_material_part.next_mentor_material_part %>
+          <%= render NavigationNextComponent.new(
+            url: mentor_material_part_path(@mentor_material_part.next_mentor_material_part),
+            text: @mentor_material_part.next_mentor_material_part.title) %>
+        <% end %>
+      </ul>
+    </nav>
   </div>
 </div>

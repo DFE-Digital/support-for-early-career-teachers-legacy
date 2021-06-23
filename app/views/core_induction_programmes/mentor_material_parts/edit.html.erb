@@ -1,0 +1,18 @@
+<%= govuk_breadcrumbs breadcrumbs: mentor_material_breadcrumbs(current_user, @mentor_material_part.mentor_material) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Content change preview</h1>
+    <%= govuk_link_to "Delete mentor material part", mentor_material_part_show_delete_path(mentor_material_part_id: @mentor_material_part.id), button: true, class: "govuk-button--secondary"  %>
+    <%= form_with url: mentor_material_part_path, method: :put, id: "mentor-material-part-update-form" do |f| %>
+      <%= f.govuk_text_field :title, label: { text: "Mentor material part title" }, value: @mentor_material_part.title %>
+      <%= f.govuk_text_area :content, label: { text: "Markdown string for mentor material part content" }, rows: 10, value: @mentor_material_part.content %>
+
+      <div class="govuk-button-group">
+        <%= f.govuk_submit "See preview" %>
+        <%= f.govuk_submit "Save changes" %>
+      </div>
+    <% end %>
+    <%= render GovspeakComponent.new(content: @mentor_material_part.content) %>
+  </div>
+</div>
