@@ -70,7 +70,6 @@ end
 gem "govspeak", git: "https://github.com/DFE-Digital/ecf-govspeak.git", ref: "3334d4b"
 
 gem "acts_as_list"
-gem "humanize"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
