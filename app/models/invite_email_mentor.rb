@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class InviteEmailMentor < TrackedEmail
-  INVITES_SENT_FROM = Date.new(2021, 6, 30).beginning_of_day
+  INVITES_SENT_FROM = Date.new(2021, 8, 31).beginning_of_day
 
   def mail_to_send
     UserMailer.mentor_welcome_email(user)
