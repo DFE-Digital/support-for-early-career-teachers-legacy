@@ -17,6 +17,7 @@ class CourseModule < ApplicationRecord
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :ect_summary, presence: { message: "Enter ECT summary" }, length: { maximum: 100_000 }
+  validates :page_header, length: { maximum: 255, allow_blank: true }
   validate :check_previous_module_id
 
   def self.terms

@@ -4,7 +4,12 @@
     <% if policy(@course_module).edit? %>
       <%= govuk_link_to "Edit module content", edit_module_path(@course_module), button: true%>
     <% end %>
-    <h1 class="govuk-heading-l"> <%= @course_module.term_and_title %></h1>
+
+    <% if @course_module.page_header? %>
+      <h1 class="govuk-heading-l"><%= @course_module.page_header %></h1>
+    <% else %>
+      <h1 class="govuk-heading-l"><%= @course_module.term_and_title %></h1>
+    <% end %>
 
     <ul class="app-task-list__items">
       <% if @course_lessons_with_progress.each do |lesson| %>

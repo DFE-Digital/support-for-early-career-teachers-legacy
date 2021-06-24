@@ -1,5 +1,5 @@
 Feature: Core Induction Programme modules
-  Users should be able to view and sometiems edit cip modules.
+  Users should be able to view and sometimes edit cip modules.
 
   Scenario: Admins can edit modules
     Given I am logged in as "admin"
@@ -23,6 +23,20 @@ Feature: Core Induction Programme modules
     Then "page body" should contain "Your changes have been saved"
     And "page body" should contain "Spring new module title"
     And the page should be accessible
+
+  Scenario: The module title is replaced when a page header is added
+    Given I am logged in as "admin"
+    And course_module was created as "with_previous" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme module" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    Then "page body" should contain "Spring test course module"
+
+    When I click on "link" containing "Edit module content"
+    Then I should be on "core induction programme module edit" page
+
+    When I type "A page header" into "page header input"
+    And I click on "button" containing "Save changes"
+    Then "page body" should contain "A page header"
+    And "page body" should not contain "Spring test Course module"
 
   Scenario: ECTs can view but not edit modules
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
