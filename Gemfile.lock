@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/DFE-Digital/ecf-govspeak.git
-  revision: 3334d4b911c4a4c71965b885583abcd726b2d202
-  ref: 3334d4b
+  revision: 5d76bd2a5a2ed28a0c395075ff825138fa19018e
+  ref: 5d76bd2a5a2ed28a0c395075ff825138fa19018e
   specs:
     govspeak (6.6.0)
       actionview (>= 5.0, < 7)
@@ -145,7 +145,7 @@ GEM
     govuk-components (1.0.2)
       rails (>= 6.0)
       view_component (>= 2.22.1, < 2.25.0)
-    govuk_app_config (2.8.4)
+    govuk_app_config (3.2.0)
       logstasher (>= 1.2.2, < 2.2.0)
       sentry-raven (~> 3.1.1)
       statsd-ruby (~> 1.5.0)
@@ -154,7 +154,7 @@ GEM
       actionview (~> 6.1.0, >= 6.1)
       activemodel (~> 6.1.0, >= 6.1)
       activesupport (~> 6.1.0, >= 6.1)
-    govuk_publishing_components (24.4.0)
+    govuk_publishing_components (24.15.3)
       govuk_app_config
       kramdown
       plek
@@ -183,8 +183,8 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
-    kgio (2.11.3)
-    kramdown (2.3.0)
+    kgio (2.11.4)
+    kramdown (2.3.1)
       rexml
     listen (3.3.4)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -221,7 +221,7 @@ GEM
     nokogiri (1.11.7)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    nokogumbo (2.0.4)
+    nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
     notifications-ruby-client (5.3.0)
       jwt (>= 1.5, < 3)
@@ -283,7 +283,7 @@ GEM
       rake (>= 0.8.7)
       thor (~> 1.0)
     rainbow (3.0.0)
-    raindrops (0.19.1)
+    raindrops (0.19.2)
     rake (13.0.3)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
@@ -367,7 +367,7 @@ GEM
     sentry-rails (4.5.1)
       railties (>= 5.0)
       sentry-ruby-core (~> 4.5.0)
-    sentry-raven (3.1.1)
+    sentry-raven (3.1.2)
       faraday (>= 1.0)
     sentry-ruby (4.5.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
