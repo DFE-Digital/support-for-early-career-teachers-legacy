@@ -8,6 +8,7 @@ const inputs = {
   "lesson title input": '[name*="[title]"]',
   "exact title input": '[name*="[title]"]',
   "new title input": '[name*="[new_title]"]',
+  "page header input": '[name*="[page_header]"]',
   "content input": '[name*="content"]',
   "exact content input": '[name*="[content]"]',
   "new content input": '[name*="[new_content]"]',
