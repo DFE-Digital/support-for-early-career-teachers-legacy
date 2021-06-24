@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::LessonPartsController < ApplicationController
+class CoreInductionProgrammes::LessonPartsController < CoreInductionProgrammes::LessonsController
   include Pundit
   include CipBreadcrumbHelper
+
+  skip_before_action :load_course_lesson_internal
 
   after_action :verify_authorized
   before_action :authenticate_user!
@@ -40,7 +42,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
         )
         @course_lesson_part.update!(title: @split_lesson_part_form.title, content: @split_lesson_part_form.content)
       end
-      redirect_to lesson_part_path(id: params[:lesson_part_id])
+      redirect_to lesson_part_path(@course_lesson_part)
     else
       render action: "show_split"
     end
@@ -51,7 +53,6 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
   def show_delete; end
 
   def destroy
-    @course_lesson_part = CourseLessonPart.find(params[:id])
     lesson = @course_lesson_part.course_lesson
     @course_lesson_part.destroy!
     redirect_to lesson_path(lesson)
@@ -73,7 +74,10 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
 private
 
   def load_course_lesson_part
-    @course_lesson_part = CourseLessonPart.find(params[:id] || params[:lesson_part_id])
+    load_course_lesson
+
+    id = (params[:lesson_part_id] || params[:id]).to_i - 1
+    @course_lesson_part = @course_lesson.course_lesson_parts_in_order[id]
     authorize @course_lesson_part
     @course_lesson_part.assign_attributes(course_lesson_part_params)
     if current_user&.early_career_teacher?

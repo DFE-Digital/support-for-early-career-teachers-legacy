@@ -41,20 +41,19 @@ Rails.application.routes.draw do
   get "download-export", to: "core_induction_programmes#download_export", as: :download_export
 
   scope path: "/", module: :core_induction_programmes do
-    # TODO: constraints
     resources :providers do
       resources :years, only: %i[show new create edit update] do
-        resources :modules, only: %i[show edit update]
+        resources :modules, only: %i[show edit update] do
+          resources :lessons, only: %i[show edit update] do
+            resources :lesson_parts, only: %i[show edit update destroy], path: "part" do
+              get "split", to: "lesson_parts#show_split", as: "split"
+              post "split", to: "lesson_parts#split"
+              get "show_delete", to: "lesson_parts#show_delete"
+              put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
+            end
+          end
+        end
       end
-    end
-
-    resources :lessons, only: %i[show edit update]
-
-    resources :lesson_parts, only: %i[show edit update destroy] do
-      get "split", to: "lesson_parts#show_split", as: "split"
-      post "split", to: "lesson_parts#split"
-      get "show_delete", to: "lesson_parts#show_delete"
-      put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
     end
 
     resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create]

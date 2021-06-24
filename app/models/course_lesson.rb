@@ -64,6 +64,10 @@ class CourseLesson < ApplicationRecord
     user.mentor? ? mentor_teacher_standards : ect_teacher_standards
   end
 
+  def to_param
+    course_module.course_lessons.find_index(self) + 1
+  end
+
 private
 
   def update_to_new_position

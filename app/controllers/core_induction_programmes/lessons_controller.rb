@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::LessonsController < ApplicationController
+class CoreInductionProgrammes::LessonsController < CoreInductionProgrammes::ModulesController
   include Pundit
   include CipBreadcrumbHelper
 
+  skip_before_action :load_course_module_internal
+  skip_before_action :make_course_module
+
   after_action :verify_authorized
   before_action :authenticate_user!
-  before_action :load_course_lesson, only: %i[show edit update]
+  before_action :load_course_lesson_internal, only: %i[show edit update]
   before_action :fill_data_layer, only: %i[show edit update]
 
   def show
@@ -56,7 +59,13 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
 private
 
   def load_course_lesson
-    @course_lesson = CourseLesson.find(params[:id])
+    load_course_module
+    id = (params[:lesson_id] || params[:id]).to_i - 1
+    @course_lesson = @course_module.course_lessons[id]
+  end
+
+  def load_course_lesson_internal
+    load_course_lesson
     @course_modules = CourseModule.where(course_year: @course_lesson.course_year)
     authorize @course_lesson
   end

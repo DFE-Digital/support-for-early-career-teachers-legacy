@@ -39,7 +39,7 @@
       <div class="app-task-list__flex">
         <%= govuk_link_to "Work through the self-study material#{
         @lesson.completion_time_in_minutes ? " (#{@lesson.completion_time_in_minutes} minutes)" : ""
-        }", lesson_path(@lesson) %>
+        }", helpers.lesson_path(@lesson) %>
         <%= render ProgressLabelComponent.new progress: @lesson.progress %>
       </div>
     </div>
@@ -50,11 +50,11 @@
   <div class="app-task-list__section">
     <% if @lesson_has_self_study %>
       <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= govuk_link_to "View the ECT's self study materials", lesson_path(@lesson) %>
+        <%= govuk_link_to "View the ECT's self study materials", helpers.lesson_path(@lesson) %>
       </p>
     <% elsif @user.admin? %>
       <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= govuk_link_to "View the lesson", lesson_path(@lesson) %>
+        <%= govuk_link_to "View the lesson", helpers.lesson_path(@lesson) %>
       </p>
     <% end %>
 

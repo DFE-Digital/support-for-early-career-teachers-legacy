@@ -35,7 +35,31 @@ class ApplicationController < ActionController::Base
     edit_provider_year_module_path(course_module.course_year, course_module, *args)
   end
 
-  helper_method :year_path, :module_path, :edit_module_path
+  def lesson_path(course_lesson = @course_lesson, *args)
+    provider_year_module_lesson_path(course_lesson.course_module.course_year, course_lesson.course_module, course_lesson, *args)
+  end
+
+  def edit_lesson_path(course_lesson = @course_lesson, *args)
+    edit_provider_year_module_lesson_path(course_lesson.course_module.course_year, course_lesson.course_module, course_lesson, *args)
+  end
+
+  def lesson_part_path(lesson_part = @course_lesson_part, *args)
+    provider_year_module_lesson_lesson_part_path(lesson_part.course_lesson.course_module.course_year, lesson_part.course_lesson.course_module, lesson_part.course_lesson, lesson_part, *args)
+  end
+
+  def edit_lesson_part_path(lesson_part = @course_lesson_part, *args)
+    edit_provider_year_module_lesson_lesson_part_path(lesson_part.course_lesson.course_module.course_year, lesson_part.course_lesson.course_module, lesson_part.course_lesson, lesson_part, *args)
+  end
+
+  def lesson_part_split_path(lesson_part = @course_lesson_part, *args)
+    provider_year_module_lesson_lesson_part_split_path(lesson_part.course_lesson.course_module.course_year, lesson_part.course_lesson.course_module, lesson_part.course_lesson, lesson_part, *args)
+  end
+
+  def lesson_part_show_delete_path(lesson_part = @course_lesson_part, *args)
+    provider_year_module_lesson_lesson_part_show_delete_path(lesson_part.course_lesson.course_module.course_year, lesson_part.course_lesson.course_module, lesson_part.course_lesson, lesson_part, *args)
+  end
+
+  helper_method :year_path, :module_path, :edit_module_path, :lesson_path, :edit_lesson_path, :lesson_part_path, :edit_lesson_part_path, :lesson_part_split_path, :lesson_part_show_delete_path
 
 protected
 
