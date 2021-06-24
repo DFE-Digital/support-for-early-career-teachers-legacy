@@ -1,0 +1,16 @@
+.gem-c-govspeak {
+  .section {
+    background-color: govuk-colour("light-grey", $legacy: "grey-3");
+    padding: 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    p:last-child,
+    ul:last-child,
+    ol:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
