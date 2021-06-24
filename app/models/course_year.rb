@@ -51,6 +51,10 @@ class CourseYear < ApplicationRecord
     user.mentor? ? mentor_title : title
   end
 
+  def to_param
+    self == core_induction_programme.course_year_one ? "1" : "2"
+  end
+
 private
 
   def compute_user_course_module_progress(lessons_with_progresses, modules_in_order)

@@ -7,6 +7,8 @@ class CoreInductionProgramme < ApplicationRecord
   has_many :early_career_teachers, through: :early_career_teacher_profiles, source: :user
   has_many :mentor_materials
 
+  validates :slug, presence: true
+
   def course_years
     CourseYear.where(id: [course_year_one&.id, course_year_two&.id].compact)
   end
@@ -17,5 +19,9 @@ class CoreInductionProgramme < ApplicationRecord
 
   def course_lessons
     CourseLesson.where(course_module: course_modules)
+  end
+
+  def to_param
+    slug
   end
 end

@@ -19,6 +19,24 @@ class ApplicationController < ActionController::Base
     users_signed_out_path
   end
 
+  def url_options
+    { provider_id: params[:provider_id] }.merge(super)
+  end
+
+  def year_path(course_year = @course_year, *args)
+    provider_year_path(course_year, *args)
+  end
+
+  def module_path(course_module = @course_module, *args)
+    provider_year_module_path(course_module.course_year, course_module, *args)
+  end
+
+  def edit_module_path(course_module = @course_module, *args)
+    edit_provider_year_module_path(course_module.course_year, course_module, *args)
+  end
+
+  helper_method :year_path, :module_path, :edit_module_path
+
 protected
 
   def release_version

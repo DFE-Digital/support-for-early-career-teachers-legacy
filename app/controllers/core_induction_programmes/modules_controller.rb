@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::ModulesController < ApplicationController
+class CoreInductionProgrammes::ModulesController < CoreInductionProgrammes::YearsController
   include Pundit
   include CipBreadcrumbHelper
+
+  skip_before_action :load_course_year_with_progress
 
   after_action :verify_authorized
   before_action :authenticate_user!
@@ -58,7 +60,9 @@ private
   end
 
   def load_course_module
-    @course_module = CourseModule.find(params[:id])
+    load_course_year
+    id = (params[:module_id] || params[:id]).to_i - 1
+    @course_module = @course_year.course_modules_in_order[id]
     @course_years = @course_module.course_year.core_induction_programme&.course_years || []
     @course_modules = @course_module.other_modules_in_year
     authorize @course_module

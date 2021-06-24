@@ -56,4 +56,8 @@ class CourseModule < ApplicationRecord
   def other_modules_in_year
     course_year.course_modules.where.not(id: id)
   end
+
+  def to_param
+    course_year.course_modules_in_order.find_index(self) + 1
+  end
 end
