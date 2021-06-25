@@ -8,7 +8,9 @@ class InviteEmailEct < TrackedEmail
   end
 
   def send!(force_send: false)
-    can_send_automatically = user.is_on_core_induction_programme? && Time.zone.now >= INVITES_SENT_FROM
+    return unless user.is_on_core_induction_programme?
+
+    can_send_automatically = Time.zone.now >= INVITES_SENT_FROM
     if can_send_automatically || force_send
       super
     end
