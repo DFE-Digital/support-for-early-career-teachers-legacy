@@ -7,8 +7,9 @@ class InviteEmailMentor < TrackedEmail
     UserMailer.mentor_welcome_email(user)
   end
 
-  def send!
-    if user.is_on_core_induction_programme? && Time.zone.now >= INVITES_SENT_FROM
+  def send!(force_send: false)
+    can_send_automatically = user.is_on_core_induction_programme? && Time.zone.now >= INVITES_SENT_FROM
+    if can_send_automatically || force_send
       super
     end
   end

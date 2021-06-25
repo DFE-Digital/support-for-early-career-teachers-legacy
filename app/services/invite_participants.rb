@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class InviteParticipants
-  def self.run(emails)
+  def self.run(emails, force_send: false)
     logger.info "Emailing Participants"
 
     user = nil
     emails.each do |email|
       user = User.find_by(email: email)
       email = create_invite_email_for_user(user)
-      email.send!
+      email.send!(force_send: force_send)
     rescue StandardError
       logger.info "Error emailing user, id: #{user&.id} ... skipping"
     end
