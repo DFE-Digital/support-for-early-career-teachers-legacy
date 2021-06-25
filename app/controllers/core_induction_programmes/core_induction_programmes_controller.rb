@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammesController < ApplicationController
+class CoreInductionProgrammes::CoreInductionProgrammesController < ApplicationController
   include Pundit
   include CipBreadcrumbHelper
 
   before_action :authenticate_user!
+  before_action :load_core_induction_programme, only: :show
 
   def index
     authorize CoreInductionProgramme
@@ -12,10 +13,9 @@ class CoreInductionProgrammesController < ApplicationController
   end
 
   def show
-    @core_induction_programme = CoreInductionProgramme.find(params[:id])
     data_layer.add_cip_info(@core_induction_programme)
     authorize @core_induction_programme
-    redirect_to year_path(@core_induction_programme.course_year_one_id)
+    redirect_to cip_year_path(@core_induction_programme, @core_induction_programme.course_year_one)
   end
 
   def download_export
@@ -29,6 +29,15 @@ class CoreInductionProgrammesController < ApplicationController
       )
     else
       redirect_to cip_index_path
+    end
+  end
+
+  def load_core_induction_programme
+    slug = params[:cip_id] || params[:id]
+    @core_induction_programme = CoreInductionProgramme.find_by slug: slug
+
+    unless @core_induction_programme
+      raise ActionController::RoutingError, "Core Induction Programme not found"
     end
   end
 end

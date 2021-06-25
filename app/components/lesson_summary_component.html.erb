@@ -63,14 +63,14 @@
       <h3 class="govuk-heading-s">Materials for you to use during your ECT catch-up</h3>
       <% @mentor_materials.each_with_index do |mentor_material, index| %>
         <p class="govuk-body govuk-!-margin-bottom-2">
-          <%= govuk_link_to "#{index + 1}. #{mentor_material.title}", mentor_material_path(mentor_material) %>
+          <%= govuk_link_to "#{index + 1}. #{mentor_material.title}", helpers.mentor_material_path(mentor_material) %>
         </p>
       <% end %>
 
     <% elsif @mentor_materials.count == 1 %>
 
       <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= govuk_link_to "Materials for you to use during your ECT catch-up", mentor_material_path(@mentor_materials.first) %>
+        <%= govuk_link_to "Materials for you to use during your ECT catch-up", helpers.mentor_material_path(@mentor_materials.first) %>
       </p>
 
     <% end %>

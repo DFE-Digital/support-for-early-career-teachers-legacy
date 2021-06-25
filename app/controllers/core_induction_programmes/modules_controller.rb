@@ -52,9 +52,10 @@ class CoreInductionProgrammes::ModulesController < CoreInductionProgrammes::Year
 private
 
   def make_course_module
+    load_core_induction_programme
+
     authorize CourseModule
-    core_induction_programme = CoreInductionProgramme.find(params[:cip_id])
-    @course_years = core_induction_programme.course_years
+    @course_years = @core_induction_programme.course_years
     @course_modules = CourseModule.where(course_year_id: @course_years.map(&:id))
     @course_module = CourseModule.new
   end

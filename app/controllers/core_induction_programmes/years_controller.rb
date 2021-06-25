@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::YearsController < CoreInductionProgrammes::ProviderController
+class CoreInductionProgrammes::YearsController < CoreInductionProgrammes::CoreInductionProgrammesController
   include Pundit
   include CipBreadcrumbHelper
 

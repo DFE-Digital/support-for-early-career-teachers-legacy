@@ -58,6 +58,6 @@ class CourseModule < ApplicationRecord
   end
 
   def to_param
-    course_year.course_modules_in_order.find_index(self) + 1
+    (course_year.course_modules_in_order.find_index(self) + 1).to_s
   end
 end

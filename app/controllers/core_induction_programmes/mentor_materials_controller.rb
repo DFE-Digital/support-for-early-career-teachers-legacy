@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
+class CoreInductionProgrammes::MentorMaterialsController < CoreInductionProgrammes::LessonsController
   include Pundit
+
+  skip_before_action :load_course_lesson_internal
 
   after_action :verify_authorized
   before_action :authenticate_user!, except: :show
-  before_action :load_mentor_material, only: %i[show edit update]
+  before_action :load_mentor_material_internal, only: %i[show edit update]
   before_action :load_core_induction_materials, only: %i[edit update new create]
   before_action :fill_data_layer, only: %i[show edit update]
 
@@ -54,7 +56,13 @@ private
   end
 
   def load_mentor_material
-    @mentor_material = MentorMaterial.find(params[:id])
+    load_course_lesson
+    id = (params[:mentor_material_id] || params[:id]).to_i - 1
+    @mentor_material = @course_lesson.mentor_materials[id]
+  end
+
+  def load_mentor_material_internal
+    load_mentor_material
     @course_lessons = @mentor_material.core_induction_programme&.course_lessons
     authorize @mentor_material
   end

@@ -29,4 +29,8 @@ class MentorMaterial < ApplicationRecord
     preloaded_parts = mentor_material_parts.includes(:previous_mentor_material_part, :next_mentor_material_part)
     elements_in_order(elements: preloaded_parts, get_previous_element: :previous_mentor_material_part)
   end
+
+  def to_param
+    (course_lesson.mentor_materials.find_index(self) + 1).to_s
+  end
 end

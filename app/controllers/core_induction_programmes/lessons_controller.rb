@@ -36,9 +36,10 @@ class CoreInductionProgrammes::LessonsController < CoreInductionProgrammes::Modu
   end
 
   def new
-    @cip = CoreInductionProgramme.find(params[:cip_id])
+    load_core_induction_programme
+
     @course_lesson = CourseLesson.new
-    @course_modules = @cip.course_modules
+    @course_modules = @core_induction_programme.course_modules
     authorize @course_lesson
   end
 

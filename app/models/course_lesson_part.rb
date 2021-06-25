@@ -10,6 +10,6 @@ class CourseLessonPart < ApplicationRecord
   validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
 
   def to_param
-    course_lesson.course_lesson_parts_in_order.find_index(self) + 1
+    (course_lesson.course_lesson_parts_in_order.find_index(self) + 1).to_s
   end
 end

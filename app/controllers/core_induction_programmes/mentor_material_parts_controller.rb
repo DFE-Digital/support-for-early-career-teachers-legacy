@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationController
+class CoreInductionProgrammes::MentorMaterialPartsController < CoreInductionProgrammes::MentorMaterialsController
   include Pundit
+
+  skip_before_action :load_mentor_material_internal
+  skip_before_action :load_core_induction_materials
 
   after_action :verify_authorized
   before_action :authenticate_user!
-  before_action :load_mentor_material_part
+  before_action :load_mentor_material_part_internal
 
   def show; end
 
@@ -40,7 +43,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
         )
         @mentor_material_part.update!(title: @split_mentor_material_part_form.title, content: @split_mentor_material_part_form.content)
       end
-      redirect_to mentor_material_part_path(id: params[:mentor_material_part_id])
+      redirect_to mentor_material_part_path(@mentor_material_part)
     else
       render action: "show_split"
     end
@@ -59,7 +62,13 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
 private
 
   def load_mentor_material_part
-    @mentor_material_part = MentorMaterialPart.find(params[:mentor_material_part_id] || params[:id])
+    load_mentor_material
+    id = (params[:mentor_material_part_id] || params[:id]).to_i - 1
+    @mentor_material_part = @mentor_material.mentor_material_parts_in_order[id]
+  end
+
+  def load_mentor_material_part_internal
+    load_mentor_material_part
     authorize @mentor_material_part
   end
 

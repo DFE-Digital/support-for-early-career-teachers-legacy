@@ -65,7 +65,7 @@ class CourseLesson < ApplicationRecord
   end
 
   def to_param
-    course_module.course_lessons.find_index(self) + 1
+    (course_module.course_lessons.find_index(self) + 1).to_s
   end
 
 private

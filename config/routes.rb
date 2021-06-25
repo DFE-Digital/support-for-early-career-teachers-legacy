@@ -30,39 +30,37 @@ Rails.application.routes.draw do
     post "/govspeak_test", to: "govspeak_test#preview"
   end
 
-  resources :core_induction_programmes, path: "core-induction-programmes", only: %i[show index], as: "cip" do
-    get "create-module", to: "core_induction_programmes/modules#new"
-    post "create-module", to: "core_induction_programmes/modules#create"
+  resources :core_induction_programmes, module: :core_induction_programmes, path: "provider", only: %i[show index], as: "cip" do
+    get "create-module", to: "modules#new"
+    post "create-module", to: "modules#create"
 
-    get "create-lesson", to: "core_induction_programmes/lessons#new"
-    post "create-lesson", to: "core_induction_programmes/lessons#create"
-  end
+    get "create-lesson", to: "lessons#new"
+    post "create-lesson", to: "lessons#create"
 
-  get "download-export", to: "core_induction_programmes#download_export", as: :download_export
+    resources :years, only: %i[show new create edit update], path: "year" do
+      resources :modules, only: %i[show edit update], path: "module" do
+        resources :lessons, only: %i[show edit update], path: "lesson" do
+          resources :lesson_parts, only: %i[show edit update destroy], path: "part" do
+            get "split", to: "lesson_parts#show_split", as: "split"
+            post "split", to: "lesson_parts#split"
+            get "delete", as: "show_delete", to: "lesson_parts#show_delete"
+            put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
+          end
 
-  scope path: "/", module: :core_induction_programmes do
-    resources :providers do
-      resources :years, only: %i[show new create edit update] do
-        resources :modules, only: %i[show edit update] do
-          resources :lessons, only: %i[show edit update] do
-            resources :lesson_parts, only: %i[show edit update destroy], path: "part" do
-              get "split", to: "lesson_parts#show_split", as: "split"
-              post "split", to: "lesson_parts#split"
-              get "show_delete", to: "lesson_parts#show_delete"
-              put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
+          resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create] do
+            resources :mentor_material_parts, path: "part", only: %i[show edit update show_delete destroy] do
+              get "split", to: "mentor_material_parts#show_split", as: "split"
+              post "split", to: "mentor_material_parts#split"
+              get "delete", as: "show_delete", to: "mentor_material_parts#show_delete"
             end
           end
         end
       end
     end
-
-    resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create]
-    resources :mentor_material_parts, path: "mentor-material-parts", only: %i[show edit update show_delete destroy] do
-      get "split", to: "mentor_material_parts#show_split", as: "split"
-      post "split", to: "mentor_material_parts#split"
-      get "show_delete", to: "mentor_material_parts#show_delete"
-    end
   end
+
+  get "download-export", to: "core_induction_programmes#download_export", as: :download_export
+
   root to: "start#index"
 
   get "training-and-support" => "training_and_support#show"

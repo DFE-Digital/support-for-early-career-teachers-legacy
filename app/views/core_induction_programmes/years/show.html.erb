@@ -6,10 +6,10 @@
 
     <% if @cip.course_year_two_id %>
       <%= render SubnavComponent.new do |component| %>
-        <%= component.nav_item(path: provider_year_path(@cip.course_year_one)) do %>
+        <%= component.nav_item(path: year_path(@cip.course_year_one)) do %>
           Year 1
         <% end %>
-        <%= component.nav_item(path: provider_year_path(@cip.course_year_two)) do %>
+        <%= component.nav_item(path: year_path(@cip.course_year_two)) do %>
           Year 2
         <% end %>
       <% end %>
@@ -19,7 +19,7 @@
       <div class="govuk-button-group">
         <%= govuk_link_to "Create CIP Module", cip_create_module_path(@cip), button: true %>
         <%= govuk_link_to "Create CIP Lesson", cip_create_lesson_path(@cip), button: true %>
-        <%= govuk_link_to "Edit year content", edit_provider_year_path(@course_year), button: true %>
+        <%= govuk_link_to "Edit year content", edit_year_path(@course_year), button: true %>
       </div>
     <% end %>
 
