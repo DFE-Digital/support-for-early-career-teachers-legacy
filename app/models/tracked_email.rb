@@ -15,7 +15,7 @@ class TrackedEmail < ApplicationRecord
     raise NotImplementedError
   end
 
-  def send!
+  def send!(*)
     self.notify_id = mail_to_send.deliver_now.delivery_method.response.id
     self.sent_to = user.email
     self.sent_at = Time.zone.now

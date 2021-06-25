@@ -30,6 +30,19 @@ RSpec.describe TrackedEmail, type: :model do
         expect(invite_email_ect.notify_id).to be_nil
         expect(invite_email_ect.sent_to).to be_nil
       end
+
+      it "sends the email if forced" do
+        invite_email_ect.send!(force_send: true)
+        expect(invite_email_ect.reload.sent?).to be_truthy
+        expect(invite_email_ect.notify_id).to eq("test_id")
+        expect(invite_email_ect.sent_to).to eq(invite_email_ect.user.email)
+      end
+
+      it "does not send the email to a full induction programme ect user even if forced" do
+        ect.early_career_teacher_profile.full_induction_programme!
+        invite_email_ect.send!(force_send: true)
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
     end
 
     context "on cutoff date" do
@@ -97,6 +110,19 @@ RSpec.describe TrackedEmail, type: :model do
         expect(invite_email_mentor.reload.sent?).to be_falsey
         expect(invite_email_mentor.notify_id).to be_nil
         expect(invite_email_mentor.sent_to).to be_nil
+      end
+
+      it "sends the email if forced" do
+        invite_email_mentor.send!(force_send: true)
+        expect(invite_email_mentor.reload.sent?).to be_truthy
+        expect(invite_email_mentor.notify_id).to eq("test_id")
+        expect(invite_email_mentor.sent_to).to eq(invite_email_mentor.user.email)
+      end
+
+      it "does not send the email to a full induction programme mentor user even if forced" do
+        mentor.mentor_profile.full_induction_programme!
+        invite_email_mentor.send!(force_send: true)
+        expect(invite_email_mentor.reload.sent?).to be_falsey
       end
     end
 
