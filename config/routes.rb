@@ -30,16 +30,22 @@ Rails.application.routes.draw do
     post "/govspeak_test", to: "govspeak_test#preview"
   end
 
-  resources :core_induction_programmes, module: :core_induction_programmes, path: "provider", only: %i[show index], as: "cip" do
+  # index needs a path
+  resources :core_induction_programmes, module: :core_induction_programmes, path: "providers", only: :index, as: "cip"
+
+  # If you add a new cip, you'll need to reload the routes
+  id_regex = Regexp.new CoreInductionProgramme.all.map(&:slug).join("|")
+
+  resources :core_induction_programmes, module: :core_induction_programmes, path: "/", constraints: { id: id_regex }, only: :show, as: "cip" do
     get "create-module", to: "modules#new"
     post "create-module", to: "modules#create"
 
     get "create-lesson", to: "lessons#new"
     post "create-lesson", to: "lessons#create"
 
-    resources :years, only: %i[show new create edit update], path: "year" do
-      resources :modules, only: %i[show edit update], path: "module" do
-        resources :lessons, only: %i[show edit update], path: "lesson" do
+    resources :years, only: %i[show new create edit update], path: "year", constraints: { id: /\d+/ } do
+      resources :modules, only: %i[show edit update], path: "module", constraints: { id: /(autumn|spring|summer)-\d+/ } do
+        resources :lessons, only: %i[show edit update], path: "topic", constraints: { id: /\d+/ } do
           resources :lesson_parts, only: %i[show edit update destroy], path: "part" do
             get "split", to: "lesson_parts#show_split", as: "split"
             post "split", to: "lesson_parts#split"
@@ -47,8 +53,8 @@ Rails.application.routes.draw do
             put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
           end
 
-          resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create] do
-            resources :mentor_material_parts, path: "part", only: %i[show edit update show_delete destroy] do
+          resources :mentor_materials, path: "mentoring", only: %i[show index edit update new create] do
+            resources :mentor_material_parts, path: "part", only: %i[show edit update destroy] do
               get "split", to: "mentor_material_parts#show_split", as: "split"
               post "split", to: "mentor_material_parts#split"
               get "delete", as: "show_delete", to: "mentor_material_parts#show_delete"
@@ -59,7 +65,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "download-export", to: "core_induction_programmes#download_export", as: :download_export
+  get "download-export", to: "core_induction_programmes/core_induction_programmes#download_export", as: :download_export
 
   root to: "start#index"
 

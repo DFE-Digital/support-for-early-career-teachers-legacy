@@ -19,10 +19,6 @@ class ApplicationController < ActionController::Base
     users_signed_out_path
   end
 
-  # def url_options
-  #   { cip_id: params[:cip_id] }.merge(super)
-  # end
-
   def years_path(*args)
     cip_years_path(*args)
   end
