@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "healthcheck" => "healthcheck#check"
 
   resource :cookies, only: %i[show update]
+  resource :privacy_policy, only: %i[show], path: "privacy-policy"
   resource :dashboard, controller: :dashboard, only: :show
   resource :preferred_name, path: "preferred-name", controller: :preferred_name, only: %i[edit update]
 

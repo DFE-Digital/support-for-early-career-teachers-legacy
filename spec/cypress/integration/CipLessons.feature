@@ -69,7 +69,6 @@ Feature: Core Induction Programme lessons
 
     When I click on "link" containing "View the lesson"
     Then I should be on "core induction programme lesson" page
-    And percy should be sent snapshot
 
   Scenario: ECTs shouldn't be able to edit lessons
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"

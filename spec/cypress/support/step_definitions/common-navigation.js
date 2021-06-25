@@ -25,6 +25,7 @@ const pagePaths = {
   "core induction programme mentor material part": "/mentor-material-parts/:id",
   "core induction programme mentor material edit": "/mentor-materials/:id/edit",
   "training and support": "/training-and-support",
+  privacy: "/privacy-policy",
 };
 
 Given("I am on {string} page", (page) => {
