@@ -52,7 +52,7 @@ class CourseYear < ApplicationRecord
   end
 
   def to_param
-    self == core_induction_programme.course_year_one ? "1" : "2"
+    "year-#{self == core_induction_programme.course_year_one ? '1' : '2'}"
   end
 
 private

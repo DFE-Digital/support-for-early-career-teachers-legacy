@@ -61,8 +61,8 @@ private
 
   def load_course_lesson
     load_course_module
-    id = (params[:lesson_id] || params[:id]).to_i - 1
-    @course_lesson = @course_module.course_lessons[id]
+    match = (params[:lesson_id] || params[:id]).match(/topic-(\d+)/)
+    @course_lesson = @course_module.course_lessons[match[1].to_i - 1]
   end
 
   def load_course_lesson_internal

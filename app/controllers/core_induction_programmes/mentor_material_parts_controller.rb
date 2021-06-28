@@ -63,7 +63,8 @@ private
 
   def load_mentor_material_part
     load_mentor_material
-    id = (params[:mentor_material_part_id] || params[:id]).to_i - 1
+    match = (params[:mentor_material_part_id] || params[:id]).match(/part-(\d+)/)
+    id = match[1].to_i - 1
     @mentor_material_part = @mentor_material.mentor_material_parts_in_order[id]
   end
 

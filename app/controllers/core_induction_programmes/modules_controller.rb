@@ -64,11 +64,12 @@ private
     load_course_year
 
     match = (params[:module_id] || params[:id]).match(/(autumn|spring|summer)-(\d+)/)
-    # TODO: handle no match
 
     index = match[2].to_i - 1
     term_modules = @course_year.course_modules.public_send(match[1])
     @course_module = @course_year.course_modules_in_order(term_modules)[index]
+
+    raise ActionController::RoutingError, "module not found" unless @course_module
   end
 
   def load_course_module_internal

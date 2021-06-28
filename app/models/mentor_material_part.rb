@@ -10,6 +10,6 @@ class MentorMaterialPart < ApplicationRecord
   validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
 
   def to_param
-    (mentor_material.mentor_material_parts_in_order.find_index(self) + 1).to_s
+    "part-" + (mentor_material.mentor_material_parts_in_order.find_index(self) + 1).to_s
   end
 end

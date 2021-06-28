@@ -43,18 +43,18 @@ Rails.application.routes.draw do
     get "create-lesson", to: "lessons#new"
     post "create-lesson", to: "lessons#create"
 
-    resources :years, only: %i[show new create edit update], path: "year", constraints: { id: /\d+/ } do
-      resources :modules, only: %i[show edit update], path: "module", constraints: { id: /(autumn|spring|summer)-\d+/ } do
-        resources :lessons, only: %i[show edit update], path: "topic", constraints: { id: /\d+/ } do
-          resources :lesson_parts, only: %i[show edit update destroy], path: "part" do
+    resources :years, only: %i[show new create edit update], path: "/", constraints: { id: /year-1|year-2/ } do
+      resources :modules, only: %i[show edit update], path: "/", constraints: { id: /(autumn|spring|summer)-\d+/ } do
+        resources :lessons, only: %i[show edit update], path: "/", constraints: { id: /topic-\d+/ } do
+          resources :lesson_parts, only: %i[show edit update destroy], path: "/", constraints: { id: /part-\d+/ } do
             get "split", to: "lesson_parts#show_split", as: "split"
             post "split", to: "lesson_parts#split"
             get "delete", as: "show_delete", to: "lesson_parts#show_delete"
             put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
           end
 
-          resources :mentor_materials, path: "mentoring", only: %i[show index edit update new create] do
-            resources :mentor_material_parts, path: "part", only: %i[show edit update destroy] do
+          resources :mentor_materials, only: %i[show index edit update new create], path: "mentoring", constraints: { id: /\d+/ } do
+            resources :mentor_material_parts, only: %i[show edit update destroy], path: "/", constraints: { id: /part-\d+/ } do
               get "split", to: "mentor_material_parts#show_split", as: "split"
               post "split", to: "mentor_material_parts#split"
               get "delete", as: "show_delete", to: "mentor_material_parts#show_delete"

@@ -49,9 +49,9 @@ class CoreInductionProgrammes::YearsController < CoreInductionProgrammes::CoreIn
 
     id = params[:year_id] || params[:id]
 
-    if id == "1"
+    if id == "year-1"
       @course_year = @core_induction_programme.course_year_one
-    elsif id == "2"
+    elsif id == "year-2"
       @course_year = @core_induction_programme.course_year_two
     else
       raise ActionController::RoutingError, "Year not found"
