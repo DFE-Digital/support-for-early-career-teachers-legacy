@@ -33,8 +33,13 @@ Rails.application.routes.draw do
   # index needs a path
   resources :core_induction_programmes, module: :core_induction_programmes, path: "providers", only: :index, as: "cip"
 
-  # If you add a new cip, you'll need to reload the routes
-  id_regex = Regexp.new CoreInductionProgramme.all.map(&:slug).join("|")
+  # This is to stop rails breaking when it loads the router during migrations (wtf?)
+  id_regex = if CoreInductionProgramme.column_names.include? :slug
+               # If you add a new cip, you'll need to reload the routes
+               Regexp.new CoreInductionProgramme.all.map(&:slug).join("|")
+             else
+               /tmp/
+             end
 
   resources :core_induction_programmes, module: :core_induction_programmes, path: "/", constraints: { id: id_regex }, only: :show, as: "cip" do
     get "create-module", to: "modules#new"
