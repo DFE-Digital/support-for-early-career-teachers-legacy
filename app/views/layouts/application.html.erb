@@ -33,7 +33,7 @@
     <% gtm_id = Rails.env.production? ? "G-MVYXYK5Z9Y" : "G-ZZT9RT0XPZ" %>
 
     <% if cookies[:cookie_consent_1] == "on" %>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=<% gtm_id %> %>"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gtm_id %> %>"></script>
     <% else %>
       <script>
         // For adding the script once the user has given permission
