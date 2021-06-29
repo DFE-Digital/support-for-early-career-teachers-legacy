@@ -6,7 +6,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
 
   after_action :verify_authorized
   before_action :authenticate_user!
-  before_action :load_course_lesson_part, except: :update_progress
+  before_action :load_course_lesson_part
   before_action :fill_data_layer, except: :update_progress
 
   def show; end
@@ -59,9 +59,6 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
   def update_progress
     redirect_to :show and return unless current_user&.early_career_teacher?
 
-    @course_lesson_part = CourseLessonPart.find(params[:lesson_part_id])
-    authorize @course_lesson_part.course_lesson
-    load_progress
     if @lesson_progress.update(lesson_progress_params)
       redirect_to module_path(@course_lesson_part.course_lesson.course_module)
     else

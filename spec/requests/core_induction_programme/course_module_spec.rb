@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Core Induction Programme Module", type: :request do
   let(:core_induction_programme) { FactoryBot.create(:core_induction_programme, :with_course_year) }
   let(:course_module) { FactoryBot.create(:course_module, course_year: core_induction_programme.course_year_one) }
-  let(:course_module_path) { "/modules/#{course_module.id}" }
+  let(:course_module_path) { "/#{core_induction_programme.to_param}/#{course_module.course_year.to_param}/#{course_module.to_param}" }
   let(:second_course_module) { FactoryBot.create(:course_module, title: "Second module title", previous_module: course_module) }
 
   describe "when an admin user is logged in" do
@@ -16,7 +16,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
     describe "GET /create-module" do
       it "renders the create-module page" do
-        get "/core-induction-programmes/#{core_induction_programme.id}/create-module"
+        get "/#{core_induction_programme.to_param}/create-module"
         expect(response).to render_template(:new)
       end
     end
@@ -25,13 +25,13 @@ RSpec.describe "Core Induction Programme Module", type: :request do
       it "creates a new module and redirects" do
         course_module.next_module = second_course_module
         create_course_module(course_module[:id])
-        expect(response.location).to match("/modules/[a-f0-9-]+$")
+        expect(response.location).to match("/spring-\\d+$")
       end
 
       it "creates a new module that is then displayed in the list of course module" do
         course_module.next_module = second_course_module
         create_course_module(course_module[:id])
-        get year_path(course_module.course_year)
+        get "/#{core_induction_programme.to_param}/#{course_module.course_year.to_param}"
         expect(response.body).to include("Additional module title")
         expect(response.body).to include("Additional module content")
       end
@@ -101,7 +101,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
       it "assigns nil to an existing module when a module is moved from first in the list" do
         third_course_module = FactoryBot.create(:course_module, title: "third module title", previous_module: second_course_module)
 
-        put "/modules/#{course_module.id}", params: {
+        put "/#{core_induction_programme.to_param}/#{course_module.course_year.to_param}/#{course_module.to_param}", params: {
           commit: "Save changes",
           course_module: {
             previous_module_id: third_course_module.id,
@@ -138,7 +138,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
     describe "GET /create-module" do
       it "raises an authorization error" do
-        expect { get "/core-induction-programmes/#{course_module.course_year[:id]}/create-module" }.to raise_error Pundit::NotAuthorizedError
+        expect { get "/#{core_induction_programme.to_param}/create-module" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
@@ -173,7 +173,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 
     describe "GET /create-module" do
       it "redirects to the sign in page" do
-        get "/core-induction-programmes/#{course_module.course_year[:id]}/create-module"
+        get "/#{core_induction_programme.to_param}/create-module"
         expect(response).to redirect_to("/users/sign_in")
       end
     end
@@ -188,7 +188,7 @@ RSpec.describe "Core Induction Programme Module", type: :request do
 end
 
 def create_course_module(course_module_id)
-  post "/core-induction-programmes/#{core_induction_programme.id}/create-module",
+  post "/#{core_induction_programme.to_param}/create-module",
        params: { course_module: {
          course_year_id: course_module.course_year[:id],
          title: "Additional module title",

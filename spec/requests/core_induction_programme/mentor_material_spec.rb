@@ -4,9 +4,15 @@ require "rails_helper"
 
 RSpec.describe "Mentor materials", type: :request do
   let(:mentor_material) { create(:mentor_material, :with_mentor_material_part) }
-  let(:mentor_material_path) { "/mentor-materials/#{mentor_material.id}" }
   let(:first_part) { mentor_material.mentor_material_parts_in_order[0] }
-  let(:mentor_material_part_path) { "/mentor-material-parts/#{first_part.id}" }
+  let(:course_lesson) { mentor_material.course_lesson }
+  let(:course_module) { course_lesson.course_module }
+  let(:course_year) { course_module.course_year }
+  let(:cip) { create(:core_induction_programme, course_year_one: course_year) }
+
+  let(:course_lesson_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}" }
+  let(:mentor_material_path) { "#{course_lesson_path}/mentoring/#{mentor_material.id}" }
+  let(:mentor_material_part_path) { "#{course_lesson_path}/mentoring/#{mentor_material.id}/#{first_part.to_param}" }
 
   describe "when an admin user is logged in" do
     before do

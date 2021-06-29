@@ -46,6 +46,10 @@ module PathHelper
     cip_year_module_lesson_lesson_part_show_delete_path(lesson_part.course_lesson.course_module.course_year.core_induction_programme, lesson_part.course_lesson.course_module.course_year, lesson_part.course_lesson.course_module, lesson_part.course_lesson, lesson_part, *args)
   end
 
+  def lesson_part_update_progress_path(lesson_part = @course_lesson_part, *args)
+    cip_year_module_lesson_lesson_part_update_progress_path(lesson_part.course_lesson.course_module.course_year.core_induction_programme, lesson_part.course_lesson.course_module.course_year, lesson_part.course_lesson.course_module, lesson_part.course_lesson, lesson_part, *args)
+  end
+
   def mentor_material_path(mentor_material = @mentor_material, *args)
     cip_year_module_lesson_mentor_material_path(mentor_material.course_lesson.course_module.course_year.core_induction_programme, mentor_material.course_lesson.course_module.course_year, mentor_material.course_lesson.course_module, mentor_material.course_lesson, mentor_material, *args)
   end

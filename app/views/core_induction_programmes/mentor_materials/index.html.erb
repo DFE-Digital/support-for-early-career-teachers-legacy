@@ -5,7 +5,7 @@
     <% if current_user&.admin? %>
       <%= govuk_link_to "Create Mentor Material", new_mentor_material_path, button: true %>
     <% end %>
-  
+
     <% @core_induction_programmes.each do |cip|  %>
       <h2><%= cip.name %></h2>
       <% if cip.mentor_materials.any? %>

@@ -8,8 +8,8 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
   let(:course_module) { course_lesson.course_module }
   let(:course_year) { course_module.course_year }
   let(:cip) { FactoryBot.create(:core_induction_programme, course_year_one: course_year) }
-  let(:course_lesson_part_path) { "/lesson_parts/#{course_lesson_part.id}" }
-  let(:module_path) { "/modules/#{course_module.id}" }
+  let(:course_lesson_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}" }
+  let(:course_lesson_part_path) { "#{course_lesson_path}/#{course_lesson_part.to_param}" }
 
   describe "when an admin user is logged in" do
     before do
@@ -67,8 +67,6 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
           },
         }
         delete course_lesson_part_path, params: { id: course_lesson.course_lesson_parts[1].id }
-
-        course_lesson_path = "/lessons/#{course_lesson.id}"
 
         expect(CourseLessonPart.count).to eq(1)
         expect(response).to redirect_to(course_lesson_path)
@@ -151,12 +149,12 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
     describe "GET /lesson_parts/:id/show_delete" do
       it "renders the cip lesson part show_delete page when there is > 1 course lesson part" do
         FactoryBot.create(:course_lesson_part, course_lesson: course_lesson)
-        get "#{course_lesson_part_path}/show_delete"
+        get "#{course_lesson_part_path}/delete"
         expect(response).to render_template(:show_delete)
       end
 
       it "raises an authorization error when there is 1 course lesson part" do
-        expect { get "#{course_lesson_part_path}/show_delete" }.to raise_error Pundit::NotAuthorizedError
+        expect { get "#{course_lesson_part_path}/delete" }.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
@@ -201,7 +199,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
 
     describe "GET /lesson_parts/:id/show_delete" do
       it "raises an authorization error" do
-        expect { get "#{course_lesson_part_path}/show_delete" }.to raise_error Pundit::NotAuthorizedError
+        expect { get "#{course_lesson_part_path}/delete" }.to raise_error Pundit::NotAuthorizedError
       end
     end
   end
@@ -244,7 +242,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
 
     describe "GET /lesson_parts/:id/show_delete" do
       it "redirects to the sign in page" do
-        get "#{course_lesson_part_path}/show_delete"
+        get "#{course_lesson_part_path}/delete"
         expect(response).to redirect_to("/users/sign_in")
       end
     end
@@ -272,17 +270,17 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
 
     describe "PUT /lesson_parts/:id/update-progress" do
       it "updates the progress of an ECT" do
-        put lesson_part_update_progress_path(lesson_part_id: course_lesson_part.id), params: { course_lesson_progress: { progress: "complete" } }
+        put "#{course_lesson_part_path}/update-progress", params: { course_lesson_progress: { progress: "complete" } }
         expect(progress).to eq("complete")
       end
 
       it "redirects to module when changing progress" do
-        put lesson_part_update_progress_path(lesson_part_id: course_lesson_part.id), params: { course_lesson_progress: { progress: "complete" } }
-        expect(response).to redirect_to(module_path)
+        put "#{course_lesson_part_path}/update-progress", params: { course_lesson_progress: { progress: "complete" } }
+        expect(response).to redirect_to("/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}")
       end
 
       it "shows an error when not changing progress" do
-        put lesson_part_update_progress_path(lesson_part_id: course_lesson_part.id), params: { course_lesson_progress: { progress: "" } }
+        put "#{course_lesson_part_path}/update-progress", params: { course_lesson_progress: { progress: "" } }
         expect(response).to render_template(:show)
       end
     end

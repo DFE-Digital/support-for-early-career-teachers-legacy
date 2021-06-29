@@ -50,7 +50,7 @@ class CoreInductionProgrammes::ModulesController < ApplicationController
 private
 
   def make_course_module
-    load_core_induction_programme
+    @core_induction_programme = helpers.load_core_induction_programme_from_params
 
     authorize CourseModule
     @course_years = @core_induction_programme.course_years

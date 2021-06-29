@@ -58,7 +58,7 @@ Rails.application.routes.draw do
             put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
           end
 
-          resources :mentor_materials, only: %i[show index edit update new create], path: "mentoring", constraints: { id: /\d+/ } do
+          resources :mentor_materials, only: %i[show edit update], path: "mentoring", constraints: { id: /\d+/ } do
             resources :mentor_material_parts, only: %i[show edit update destroy], path: "/", constraints: { id: /part-\d+/ } do
               get "split", to: "mentor_material_parts#show_split", as: "split"
               post "split", to: "mentor_material_parts#split"
@@ -69,6 +69,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :mentor_materials, module: :core_induction_programmes, only: %i[index new create], path: "mentor-materials"
 
   get "download-export", to: "core_induction_programmes/core_induction_programmes#download_export", as: :download_export
 
