@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::YearsController < CoreInductionProgrammes::CoreInductionProgrammesController
+class CoreInductionProgrammes::YearsController < ApplicationController
   include Pundit
   include CipBreadcrumbHelper
 
   after_action :verify_authorized
   before_action :authenticate_user!
-  before_action :load_course_year_with_progress, except: %i[new create]
+  before_action :load_course_year, except: %i[new create]
   before_action :fill_data_layer, except: %i[new create]
 
   def show
@@ -44,24 +44,10 @@ class CoreInductionProgrammes::YearsController < CoreInductionProgrammes::CoreIn
     end
   end
 
-  def load_course_year
-    load_core_induction_programme
-
-    id = params[:year_id] || params[:id]
-
-    if id == "year-1"
-      @course_year = @core_induction_programme.course_year_one
-    elsif id == "year-2"
-      @course_year = @core_induction_programme.course_year_two
-    else
-      raise ActionController::RoutingError, "Year not found"
-    end
-  end
-
 private
 
-  def load_course_year_with_progress
-    load_course_year
+  def load_course_year
+    @course_year = helpers.load_course_year_from_params
 
     authorize @course_year
     @course_year.assign_attributes(course_year_params)

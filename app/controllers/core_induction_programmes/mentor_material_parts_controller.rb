@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::MentorMaterialPartsController < CoreInductionProgrammes::MentorMaterialsController
+class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationController
   include Pundit
-
-  skip_before_action :load_mentor_material_internal
-  skip_before_action :load_core_induction_materials
 
   after_action :verify_authorized
   before_action :authenticate_user!
-  before_action :load_mentor_material_part_internal
+  before_action :load_mentor_material_part
 
   def show; end
 
@@ -62,14 +59,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < CoreInductionProg
 private
 
   def load_mentor_material_part
-    load_mentor_material
-    match = (params[:mentor_material_part_id] || params[:id]).match(/part-(\d+)/)
-    id = match[1].to_i - 1
-    @mentor_material_part = @mentor_material.mentor_material_parts_in_order[id]
-  end
-
-  def load_mentor_material_part_internal
-    load_mentor_material_part
+    @mentor_material_part = helpers.load_mentor_material_part_from_params
     authorize @mentor_material_part
   end
 

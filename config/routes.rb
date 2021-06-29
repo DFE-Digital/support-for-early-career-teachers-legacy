@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   resources :core_induction_programmes, module: :core_induction_programmes, path: "providers", only: :index, as: "cip"
 
   # This is to stop rails breaking when it loads the router during migrations (wtf?)
-  id_regex = if CoreInductionProgramme.column_names.include? :slug
+  id_regex = if CoreInductionProgramme.column_names.include? "slug"
                # If you add a new cip, you'll need to reload the routes
                Regexp.new CoreInductionProgramme.all.map(&:slug).join("|")
              else

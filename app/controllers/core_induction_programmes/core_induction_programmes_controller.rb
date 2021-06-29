@@ -33,11 +33,6 @@ class CoreInductionProgrammes::CoreInductionProgrammesController < ApplicationCo
   end
 
   def load_core_induction_programme
-    slug = params[:cip_id] || params[:id]
-    @core_induction_programme = CoreInductionProgramme.find_by slug: slug
-
-    unless @core_induction_programme
-      raise ActionController::RoutingError, "Core Induction Programme not found"
-    end
+    @core_induction_programme = helpers.load_core_induction_programme_from_params
   end
 end

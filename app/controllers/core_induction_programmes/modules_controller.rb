@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::ModulesController < CoreInductionProgrammes::YearsController
+class CoreInductionProgrammes::ModulesController < ApplicationController
   include Pundit
   include CipBreadcrumbHelper
 
-  skip_before_action :load_course_year_with_progress
-
   after_action :verify_authorized
   before_action :authenticate_user!
-  before_action :load_course_module_internal, only: %i[update edit show]
+  before_action :load_course_module, only: %i[update edit show]
   before_action :make_course_module, only: %i[new create]
   before_action :fill_data_layer
 
@@ -61,19 +59,7 @@ private
   end
 
   def load_course_module
-    load_course_year
-
-    match = (params[:module_id] || params[:id]).match(/(autumn|spring|summer)-(\d+)/)
-
-    index = match[2].to_i - 1
-    term_modules = @course_year.course_modules.public_send(match[1])
-    @course_module = @course_year.course_modules_in_order(term_modules)[index]
-
-    raise ActionController::RoutingError, "module not found" unless @course_module
-  end
-
-  def load_course_module_internal
-    load_course_module
+    @course_module = helpers.load_course_module_from_params
     @course_years = @course_module.course_year.core_induction_programme&.course_years || []
     @course_modules = @course_module.other_modules_in_year
     authorize @course_module

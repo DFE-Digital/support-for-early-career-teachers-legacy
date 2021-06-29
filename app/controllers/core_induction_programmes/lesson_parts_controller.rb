@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-class CoreInductionProgrammes::LessonPartsController < CoreInductionProgrammes::LessonsController
+class CoreInductionProgrammes::LessonPartsController < ApplicationController
   include Pundit
   include CipBreadcrumbHelper
-
-  skip_before_action :load_course_lesson_internal
 
   after_action :verify_authorized
   before_action :authenticate_user!
@@ -74,11 +72,8 @@ class CoreInductionProgrammes::LessonPartsController < CoreInductionProgrammes::
 private
 
   def load_course_lesson_part
-    load_course_lesson
+    @course_lesson_part = helpers.load_course_lesson_part_from_params
 
-    match = (params[:lesson_part_id] || params[:id]).match(/part-(\d+)/)
-    id = match[1].to_i - 1
-    @course_lesson_part = @course_lesson.course_lesson_parts_in_order[id]
     authorize @course_lesson_part
     @course_lesson_part.assign_attributes(course_lesson_part_params)
     if current_user&.early_career_teacher?
