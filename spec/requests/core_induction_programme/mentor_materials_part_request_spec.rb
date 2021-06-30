@@ -3,12 +3,12 @@
 require "rails_helper"
 
 RSpec.describe "MentorMaterialsParts", type: :request do
-  let(:cip) { create(:core_induction_programme, course_year_one: course_year) }
   let(:mentor_material_part) { create(:mentor_material_part) }
   let(:mentor_material) { mentor_material_part.mentor_material }
   let(:course_lesson) { mentor_material.course_lesson }
   let(:course_module) { course_lesson.course_module }
   let(:course_year) { course_module.course_year }
+  let(:cip) { course_year.core_induction_programme_one }
 
   let(:mentor_material_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}/mentoring/#{mentor_material.to_param}" }
   let(:mentor_material_part_path) { "#{mentor_material_path}/#{mentor_material_part.to_param}" }
