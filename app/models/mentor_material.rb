@@ -30,6 +30,3 @@ class MentorMaterial < ApplicationRecord
     elements_in_order(elements: preloaded_parts, get_previous_element: :previous_mentor_material_part)
   end
 end
-
-MentorMaterialPart.where(mentor_materials: MentorMaterial.where(course_lesson: nil)).delete_all
-MentorMaterial.where(course_lesson: nil).delete_all
