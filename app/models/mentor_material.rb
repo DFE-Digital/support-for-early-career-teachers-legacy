@@ -7,7 +7,7 @@ class MentorMaterial < ApplicationRecord
   belongs_to :core_induction_programme, optional: true
   belongs_to :course_year, optional: true
   belongs_to :course_module, optional: true
-  belongs_to :course_lesson, optional: true
+  belongs_to :course_lesson
 
   has_many :mentor_material_parts
 
