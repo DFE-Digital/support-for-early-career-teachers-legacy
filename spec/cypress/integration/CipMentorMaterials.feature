@@ -3,6 +3,7 @@ Feature: Core Induction Programme mentor materials
 
   Scenario: Admins can create mentor materials
     Given I am logged in as "admin"
+    And course_lesson was created
     And I am on "core induction programme mentor materials" page
 
     When I click on "link" containing "Create Mentor Material"
@@ -19,8 +20,8 @@ Feature: Core Induction Programme mentor materials
 
   Scenario: Admins can edit mentor materials
     Given I am logged in as "admin"
-    And mentor_material was created as "with_mentor_material_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And mentor_material was created as "with_mentor_material_part"
+    And I am on "core induction programme mentor material" page
 
     Then I should have been redirected to "core induction programme mentor material part" page
 
@@ -38,8 +39,8 @@ Feature: Core Induction Programme mentor materials
 
   Scenario: Admins can edit mentor material parts
     Given I am logged in as "admin"
-    And mentor_material was created as "with_mentor_material_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And mentor_material was created as "with_mentor_material_part"
+    And I am on "core induction programme mentor material" page
 
     Then I should have been redirected to "core induction programme mentor material part" page
 
@@ -58,8 +59,8 @@ Feature: Core Induction Programme mentor materials
 
   Scenario: Admins can split mentor material parts
     Given I am logged in as "admin"
-    And mentor_material was created as "with_mentor_material_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And mentor_material was created as "with_mentor_material_part"
+    And I am on "core induction programme mentor material" page
 
     Then I should have been redirected to "core induction programme mentor material part" page
 
@@ -84,8 +85,8 @@ Feature: Core Induction Programme mentor materials
 
   Scenario: Admins can delete mentor material parts
     Given I am logged in as "admin"
-    And mentor_material was created as "with_mentor_material_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme mentor material" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And mentor_material was created as "with_mentor_material_part"
+    And I am on "core induction programme mentor material" page
 
     Then I should have been redirected to "core induction programme mentor material part" page
 

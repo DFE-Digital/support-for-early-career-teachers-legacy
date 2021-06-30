@@ -33,7 +33,8 @@ Rails.application.routes.draw do
   # index needs a path
   resources :core_induction_programmes, module: :core_induction_programmes, path: "providers", only: :index, as: "cip"
 
-  id_regex = Rails.env.test? ? Regexp.new("test-.*") : Regexp.new("ambition|ucl|edt|teach-first")
+  providers = "ambition|ucl|edt|teach-first"
+  id_regex = Rails.env.test? ? Regexp.new("#{providers}|test-.*") : Regexp.new(providers)
 
   resources :core_induction_programmes, module: :core_induction_programmes, path: "/", constraints: { id: id_regex }, only: :show, as: "cip" do
     get "create-module", to: "modules#new"

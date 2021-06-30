@@ -19,29 +19,6 @@ Cypress.Commands.add("logout", () => {
   cy.location("pathname").should("eq", "/users/signed-out");
 });
 
-Cypress.Commands.add("visitModule", (courseModule) => {
-  cy.visit(`/modules/${courseModule.id}`);
-  cy.get("h1").should("contain", courseModule.title);
-});
-
-Cypress.Commands.add("visitLesson", (courseLesson) => {
-  cy.visit(`/lessons/${courseLesson.id}`);
-  cy.get("h1").should("contain", courseLesson.title);
-});
-
-Cypress.Commands.add("visitLessonPart", (lessonPart) => {
-  cy.visit(`/lesson_parts/${lessonPart.id}`);
-  cy.get("h2").should("contain", lessonPart.title);
-});
-
-Cypress.Commands.add("visitModuleOfLesson", (courseLesson) => {
-  cy.appEval(
-    `CourseModule.find_by(id: "${courseLesson.course_module_id}")`
-  ).then((courseModule) => {
-    cy.visit(`/modules/${courseModule.id}`);
-  });
-});
-
 Cypress.Commands.add("clickCommitButton", () => {
   cy.get("[name=commit]").click();
 });

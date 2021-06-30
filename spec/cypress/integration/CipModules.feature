@@ -3,8 +3,8 @@ Feature: Core Induction Programme modules
 
   Scenario: Admins can edit modules
     Given I am logged in as "admin"
-    And course_module was created as "with_previous" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme module" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And course_module was created
+    And I am on "core induction programme module" page
 
     When I click on "link" containing "Edit module content"
     Then I should be on "core induction programme module edit" page
@@ -26,9 +26,9 @@ Feature: Core Induction Programme modules
 
   Scenario: The module title is replaced when a page header is added
     Given I am logged in as "admin"
-    And course_module was created as "with_previous" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme module" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    Then "page body" should contain "Spring test course module"
+    And course_module was created as "with_previous"
+    And I am on "core induction programme module" page
+    Then "page heading" should contain "Spring test previous module"
 
     When I click on "link" containing "Edit module content"
     Then I should be on "core induction programme module edit" page
@@ -36,7 +36,7 @@ Feature: Core Induction Programme modules
     When I type "A page header" into "page header input"
     And I click on "button" containing "Save changes"
     Then "page body" should contain "A page header"
-    And "page body" should not contain "Spring test Course module"
+    And "page body" should not contain "Spring test course module"
 
   Scenario: ECTs can view but not edit modules
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
