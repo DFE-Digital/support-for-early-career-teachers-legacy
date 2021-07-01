@@ -63,6 +63,11 @@ class AnalyticsDataLayer
     @analytics_data[:cipMentorMaterial] = mentor_material.title if mentor_material
   end
 
+  def add_mentor_material_part_info(mentor_material_part)
+    add_mentor_material_info(mentor_material_part.mentor_material) if mentor_material_part
+    @analytics_data[:cipMentorMaterialPart] = mentor_material_part.title if mentor_material_part
+  end
+
   def as_json(_opts = nil)
     analytics_data.map { |k, v| { k => v } }
   end

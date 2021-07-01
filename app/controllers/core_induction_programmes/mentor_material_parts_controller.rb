@@ -70,4 +70,8 @@ private
   def mentor_material_split_params
     params.require(:split_mentor_material_part_form).permit(:title, :content, :new_title, :new_content)
   end
+
+  def fill_data_layer
+    data_layer.add_mentor_material_part_info(@mentor_material_part)
+  end
 end
