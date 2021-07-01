@@ -99,6 +99,16 @@ RSpec.describe TrackedEmail, type: :model do
         invite_email_ect.send!
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
+
+      it "sends only one email" do
+        invite_email_ect.send!
+        time = invite_email_ect.sent_at
+
+        travel_to InviteEmailEct::INVITES_SENT_FROM + 3.days
+
+        invite_email_ect.send!
+        expect(invite_email_ect.reload.sent_at).to eq(time)
+      end
     end
   end
 
