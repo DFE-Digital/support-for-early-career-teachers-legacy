@@ -9,9 +9,5 @@ FactoryBot.define do
       course_year_one_id { FactoryBot.create(:course_year).id }
       course_year_two_id { FactoryBot.create(:course_year).id }
     end
-
-    after :create do
-      Rails.application.reload_routes!
-    end
   end
 end
