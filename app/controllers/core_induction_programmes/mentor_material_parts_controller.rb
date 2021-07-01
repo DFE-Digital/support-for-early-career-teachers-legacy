@@ -6,6 +6,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
   after_action :verify_authorized
   before_action :authenticate_user!
   before_action :load_mentor_material_part
+  before_action :fill_data_layer
 
   def show; end
 
