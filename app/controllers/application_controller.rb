@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include PathHelper
+  include LoadResourcesHelper
 
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 

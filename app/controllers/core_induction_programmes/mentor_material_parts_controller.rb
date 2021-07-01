@@ -59,7 +59,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
 private
 
   def load_mentor_material_part
-    @mentor_material_part = helpers.load_mentor_material_part_from_params
+    @mentor_material_part = load_mentor_material_part_from_params
     authorize @mentor_material_part
   end
 

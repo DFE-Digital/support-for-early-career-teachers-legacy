@@ -69,7 +69,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
 private
 
   def load_course_lesson_part
-    @course_lesson_part = helpers.load_course_lesson_part_from_params
+    @course_lesson_part = load_course_lesson_part_from_params
 
     authorize @course_lesson_part
     @course_lesson_part.assign_attributes(course_lesson_part_params)

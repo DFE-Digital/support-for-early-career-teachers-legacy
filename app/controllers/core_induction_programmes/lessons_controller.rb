@@ -33,7 +33,7 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
   end
 
   def new
-    @core_induction_programme = helpers.load_core_induction_programme_from_params
+    @core_induction_programme = load_core_induction_programme_from_params
 
     @course_lesson = CourseLesson.new
     @course_modules = @core_induction_programme.course_modules
@@ -41,7 +41,7 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
   end
 
   def create
-    @core_induction_programme = helpers.load_core_induction_programme_from_params
+    @core_induction_programme = load_core_induction_programme_from_params
     @course_lesson = CourseLesson.new(course_lesson_params)
     @course_modules = @core_induction_programme.course_modules
     authorize @course_lesson
@@ -57,7 +57,7 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
 private
 
   def load_course_lesson
-    @course_lesson = helpers.load_course_lesson_from_params
+    @course_lesson = load_course_lesson_from_params
     @course_modules = CourseModule.where(course_year: @course_lesson.course_year)
     authorize @course_lesson
   end

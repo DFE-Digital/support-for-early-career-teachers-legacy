@@ -33,6 +33,6 @@ class CoreInductionProgrammes::CoreInductionProgrammesController < ApplicationCo
   end
 
   def load_core_induction_programme
-    @core_induction_programme = helpers.load_core_induction_programme_from_params
+    @core_induction_programme = load_core_induction_programme_from_params
   end
 end

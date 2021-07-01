@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MailToSupportComponent < ViewComponent::Base
+class MailToSupportComponent < BaseComponent
   def initialize(text = nil)
     @text = text
   end

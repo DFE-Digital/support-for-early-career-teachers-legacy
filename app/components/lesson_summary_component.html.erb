@@ -39,7 +39,7 @@
       <div class="app-task-list__flex">
         <%= govuk_link_to "Work through the self-study material#{
         @lesson.completion_time_in_minutes ? " (#{@lesson.completion_time_in_minutes} minutes)" : ""
-        }", helpers.lesson_path(@lesson) %>
+        }", lesson_path(@lesson) %>
         <%= render ProgressLabelComponent.new progress: @lesson.progress %>
       </div>
     </div>
@@ -50,11 +50,11 @@
   <div class="app-task-list__section">
     <% if @lesson_has_self_study %>
       <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= govuk_link_to "View the ECT's self study materials", helpers.lesson_path(@lesson) %>
+        <%= govuk_link_to "View the ECT's self study materials", lesson_path(@lesson) %>
       </p>
     <% elsif @user.admin? %>
       <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= govuk_link_to "View the lesson", helpers.lesson_path(@lesson) %>
+        <%= govuk_link_to "View the lesson", lesson_path(@lesson) %>
       </p>
     <% end %>
 
@@ -63,14 +63,14 @@
       <h3 class="govuk-heading-s">Materials for you to use during your ECT catch-up</h3>
       <% @mentor_materials.each_with_index do |mentor_material, index| %>
         <p class="govuk-body govuk-!-margin-bottom-2">
-          <%= govuk_link_to "#{index + 1}. #{mentor_material.title}", helpers.mentor_material_path(mentor_material) %>
+          <%= govuk_link_to "#{index + 1}. #{mentor_material.title}", mentor_material_path(mentor_material) %>
         </p>
       <% end %>
 
     <% elsif @mentor_materials.count == 1 %>
 
       <p class="govuk-body govuk-!-margin-bottom-2">
-        <%= govuk_link_to "Materials for you to use during your ECT catch-up", helpers.mentor_material_path(@mentor_materials.first) %>
+        <%= govuk_link_to "Materials for you to use during your ECT catch-up", mentor_material_path(@mentor_materials.first) %>
       </p>
 
     <% end %>
