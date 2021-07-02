@@ -132,6 +132,14 @@ RSpec.describe "Users::Sessions", type: :request do
           expect(response).to render_template(:new)
         end
       end
+
+      context "when a user has no CIP specified" do
+        it "renders sign_in page" do
+          mentor.mentor_profile.update!(core_induction_programme: nil)
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to render_template(:new)
+        end
+      end
     end
 
     context "when email matches an admin" do
