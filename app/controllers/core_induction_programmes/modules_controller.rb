@@ -50,15 +50,16 @@ class CoreInductionProgrammes::ModulesController < ApplicationController
 private
 
   def make_course_module
+    @core_induction_programme = load_core_induction_programme_from_params
+
     authorize CourseModule
-    core_induction_programme = CoreInductionProgramme.find(params[:cip_id])
-    @course_years = core_induction_programme.course_years
+    @course_years = @core_induction_programme.course_years
     @course_modules = CourseModule.where(course_year_id: @course_years.map(&:id))
     @course_module = CourseModule.new
   end
 
   def load_course_module
-    @course_module = CourseModule.find(params[:id])
+    @course_module = load_course_module_from_params
     @course_years = @course_module.course_year.core_induction_programme&.course_years || []
     @course_modules = @course_module.other_modules_in_year
     authorize @course_module

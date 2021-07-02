@@ -30,36 +30,45 @@ Rails.application.routes.draw do
     post "/govspeak_test", to: "govspeak_test#preview"
   end
 
-  resources :core_induction_programmes, path: "core-induction-programmes", only: %i[show index], as: "cip" do
-    get "create-module", to: "core_induction_programmes/modules#new"
-    post "create-module", to: "core_induction_programmes/modules#create"
+  # index needs a path
+  resources :core_induction_programmes, module: :core_induction_programmes, path: "providers", only: :index, as: "cip"
 
-    get "create-lesson", to: "core_induction_programmes/lessons#new"
-    post "create-lesson", to: "core_induction_programmes/lessons#create"
+  providers = "ambition|ucl|edt|teach-first"
+  id_regex = Rails.env.test? ? Regexp.new("#{providers}|test-.*") : Regexp.new(providers)
+
+  resources :core_induction_programmes, module: :core_induction_programmes, path: "/", constraints: { id: id_regex }, only: :show, as: "cip" do
+    get "create-module", to: "modules#new"
+    post "create-module", to: "modules#create"
+
+    get "create-lesson", to: "lessons#new"
+    post "create-lesson", to: "lessons#create"
+
+    resources :years, only: %i[show new create edit update], path: "/", constraints: { id: /year-1|year-2/ } do
+      resources :modules, only: %i[show edit update], path: "/", constraints: { id: /(autumn|spring|summer)-\d+/ } do
+        resources :lessons, only: %i[show edit update], path: "/", constraints: { id: /topic-\d+/ } do
+          resources :lesson_parts, only: %i[show edit update destroy], path: "/", constraints: { id: /part-\d+/ } do
+            get "split", to: "lesson_parts#show_split", as: "split"
+            post "split", to: "lesson_parts#split"
+            get "delete", as: "show_delete", to: "lesson_parts#show_delete"
+            put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
+          end
+
+          resources :mentor_materials, only: %i[show edit update], path: "mentoring", constraints: { id: /\d+/ } do
+            resources :mentor_material_parts, only: %i[show edit update destroy], path: "/", constraints: { id: /part-\d+/ } do
+              get "split", to: "mentor_material_parts#show_split", as: "split"
+              post "split", to: "mentor_material_parts#split"
+              get "delete", as: "show_delete", to: "mentor_material_parts#show_delete"
+            end
+          end
+        end
+      end
+    end
   end
 
-  get "download-export", to: "core_induction_programmes#download_export", as: :download_export
+  resources :mentor_materials, module: :core_induction_programmes, only: %i[index new create], path: "mentor-materials"
 
-  scope path: "/", module: :core_induction_programmes do
-    resources :years, only: %i[show new create edit update]
+  get "download-export", to: "core_induction_programmes/core_induction_programmes#download_export", as: :download_export
 
-    resources :modules, only: %i[show edit update]
-    resources :lessons, only: %i[show edit update]
-
-    resources :lesson_parts, only: %i[show edit update destroy] do
-      get "split", to: "lesson_parts#show_split", as: "split"
-      post "split", to: "lesson_parts#split"
-      get "show_delete", to: "lesson_parts#show_delete"
-      put "update-progress", to: "lesson_parts#update_progress", as: :update_progress
-    end
-
-    resources :mentor_materials, path: "mentor-materials", only: %i[show index edit update new create]
-    resources :mentor_material_parts, path: "mentor-material-parts", only: %i[show edit update show_delete destroy] do
-      get "split", to: "mentor_material_parts#show_split", as: "split"
-      post "split", to: "mentor_material_parts#split"
-      get "show_delete", to: "mentor_material_parts#show_delete"
-    end
-  end
   root to: "start#index"
 
   get "training-and-support" => "training_and_support#show"

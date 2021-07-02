@@ -54,7 +54,7 @@ private
   end
 
   def load_mentor_material
-    @mentor_material = MentorMaterial.find(params[:id])
+    @mentor_material = load_mentor_material_from_params
     @course_lessons = @mentor_material.core_induction_programme&.course_lessons
     authorize @mentor_material
   end

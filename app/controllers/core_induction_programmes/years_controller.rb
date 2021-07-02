@@ -47,7 +47,8 @@ class CoreInductionProgrammes::YearsController < ApplicationController
 private
 
   def load_course_year
-    @course_year = CourseYear.find(params[:id])
+    @course_year = load_course_year_from_params
+
     authorize @course_year
     @course_year.assign_attributes(course_year_params)
     @course_modules_with_progress = @course_year.modules_with_progress current_user

@@ -18,21 +18,12 @@ describe("Meta test helper tests", () => {
   it("should have factory_bot helper functions", () => {
     cy.app("clean");
 
-    cy.appFactories([["create", "course_lesson", "with_lesson_part"]]).as(
-      "courseLesson"
-    );
+    cy.appFactories([["create", "course_module"]]).as("courseModule");
 
     cy.login("admin");
 
-    cy.get("@courseLesson").then(([lesson]) => {
-      cy.visitModuleOfLesson(lesson);
-      cy.url().should("contain", `/modules/${lesson.course_module_id}`);
-    });
-
-    cy.get("@courseLesson").then(([lesson]) => {
-      cy.visitLesson(lesson);
-      cy.get(".govuk-govspeak").should("contain", "No content");
-    });
+    cy.visit("/test-cip-1/year-1/spring-1");
+    cy.get("h1").should("contain", "Spring test course module");
   });
 
   it("should have a cleanable database", () => {
@@ -46,7 +37,7 @@ describe("Meta test helper tests", () => {
 
     cy.login("admin");
 
-    cy.visit("/core-induction-programmes");
+    cy.visit("/providers");
 
     cy.get('.govuk-link:contains("Test Core induction programme")').should(
       "have.length",
@@ -55,7 +46,7 @@ describe("Meta test helper tests", () => {
 
     cy.app("clean");
     cy.login("admin");
-    cy.visit("/core-induction-programmes");
+    cy.visit("/providers");
 
     cy.get('.govuk-link:contains("Test Core induction programme")').should(
       "have.length",

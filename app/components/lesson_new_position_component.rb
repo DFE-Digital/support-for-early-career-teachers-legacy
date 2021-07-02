@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LessonNewPositionComponent < ViewComponent::Base
+class LessonNewPositionComponent < BaseComponent
   attr_reader :lesson, :form
 
   def initialize(lesson:, form:)

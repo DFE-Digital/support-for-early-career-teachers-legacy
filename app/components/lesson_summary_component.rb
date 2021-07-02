@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LessonSummaryComponent < ViewComponent::Base
+class LessonSummaryComponent < BaseComponent
   def initialize(lesson:, user:)
     @user = user
     @lesson = lesson

@@ -8,4 +8,8 @@ class MentorMaterialPart < ApplicationRecord
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :content, presence: { message: "Enter content" }, length: { maximum: 100_000 }
+
+  def to_param
+    "part-" + (mentor_material.mentor_material_parts_in_order.find_index(self) + 1).to_s
+  end
 end

@@ -2,9 +2,9 @@ Feature: Core Induction Programme years
   Users should be able to view and sometimes edit cip years.
 
   Scenario: Admins can edit years
-    Given core_induction_programme was created as "with_course_year" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    Given core_induction_programme was created as "with_course_year"
     And I am logged in as "admin"
-    And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme show" page
 
     When I click on "link" containing "Edit year content"
     Then I should be on "core induction programme year edit" page

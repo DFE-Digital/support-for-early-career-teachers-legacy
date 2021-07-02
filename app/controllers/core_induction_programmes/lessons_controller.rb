@@ -33,16 +33,17 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
   end
 
   def new
-    @cip = CoreInductionProgramme.find(params[:cip_id])
+    @core_induction_programme = load_core_induction_programme_from_params
+
     @course_lesson = CourseLesson.new
-    @course_modules = @cip.course_modules
+    @course_modules = @core_induction_programme.course_modules
     authorize @course_lesson
   end
 
   def create
-    @cip = CoreInductionProgramme.find(params[:cip_id])
+    @core_induction_programme = load_core_induction_programme_from_params
     @course_lesson = CourseLesson.new(course_lesson_params)
-    @course_modules = @cip.course_modules
+    @course_modules = @core_induction_programme.course_modules
     authorize @course_lesson
 
     if @course_lesson.save
@@ -56,7 +57,7 @@ class CoreInductionProgrammes::LessonsController < ApplicationController
 private
 
   def load_course_lesson
-    @course_lesson = CourseLesson.find(params[:id])
+    @course_lesson = load_course_lesson_from_params
     @course_modules = CourseModule.where(course_year: @course_lesson.course_year)
     authorize @course_lesson
   end

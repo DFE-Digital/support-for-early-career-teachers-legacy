@@ -6,10 +6,10 @@
 
     <% if @cip.course_year_two_id %>
       <%= render SubnavComponent.new do |component| %>
-        <%= component.nav_item(path: year_path(@cip.course_year_one_id)) do %>
+        <%= component.nav_item(path: year_path(@cip.course_year_one)) do %>
           Year 1
         <% end %>
-        <%= component.nav_item(path: year_path(@cip.course_year_two_id)) do %>
+        <%= component.nav_item(path: year_path(@cip.course_year_two)) do %>
           Year 2
         <% end %>
       <% end %>
