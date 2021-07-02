@@ -90,6 +90,10 @@ yarn cypress:open
 
 ## Dev ops
 
+### Release process
+
+Check out the [specific docs](/documentation/.md).
+
 ### Review apps
 
 Review apps are automatically created when a PR is opened. A link to the app will be posted on the review.
@@ -111,7 +115,7 @@ Check out the [specific docs](/documentation/credentials.md).
 ### CIP content
 
 We have a lot of content in database. Its format is markdown, we display it using govspeak gem. 
-If you need to change it permanently, check out the [specific docs](/documentation/dealing_with_cip_content.md).
+If you need to change it permanently, check out the [specific docs](/documentation/release_process.md).
 
 ### Test displaying markdown with govspeak
 
