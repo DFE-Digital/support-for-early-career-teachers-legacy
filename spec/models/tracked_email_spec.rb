@@ -43,6 +43,12 @@ RSpec.describe TrackedEmail, type: :model do
         invite_email_ect.send!(force_send: true)
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
+
+      it "does not send the email to a cip ect user without cip even if forced" do
+        ect.early_career_teacher_profile.update!(core_induction_programme: nil)
+        invite_email_ect.send!(force_send: true)
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
     end
 
     context "on cutoff date" do
@@ -93,6 +99,16 @@ RSpec.describe TrackedEmail, type: :model do
         invite_email_ect.send!
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
+
+      it "sends only one email" do
+        invite_email_ect.send!
+        time = invite_email_ect.sent_at
+
+        travel_to InviteEmailEct::INVITES_SENT_FROM + 3.days
+
+        invite_email_ect.send!
+        expect(invite_email_ect.reload.sent_at).to eq(time)
+      end
     end
   end
 
@@ -121,6 +137,12 @@ RSpec.describe TrackedEmail, type: :model do
 
       it "does not send the email to a full induction programme mentor user even if forced" do
         mentor.mentor_profile.full_induction_programme!
+        invite_email_mentor.send!(force_send: true)
+        expect(invite_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to a cip mentor without cip user even if forced" do
+        mentor.mentor_profile.update!(core_induction_programme: nil)
         invite_email_mentor.send!(force_send: true)
         expect(invite_email_mentor.reload.sent?).to be_falsey
       end

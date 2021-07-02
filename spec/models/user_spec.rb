@@ -68,4 +68,38 @@ RSpec.describe User, type: :model do
       expect(user.early_career_teacher?).to be false
     end
   end
+
+  describe "#mentor?" do
+    it "is expected to be true when the user has a mentor profile" do
+      user = create(:user, :mentor)
+
+      expect(user.mentor?).to be true
+    end
+
+    it "is expected to be false when the user does not have a mentor profile" do
+      user = create(:user)
+
+      expect(user.mentor?).to be false
+    end
+  end
+
+  describe "#participant?" do
+    it "is expected to be true when the user has a mentor profile" do
+      user = create(:user, :mentor)
+
+      expect(user.participant?).to be true
+    end
+
+    it "is expected to be true when the user has an ect profile" do
+      user = create(:user, :early_career_teacher)
+
+      expect(user.participant?).to be true
+    end
+
+    it "is expected to be false when the user does not have a mentor or ect profile" do
+      user = create(:user)
+
+      expect(user.participant?).to be false
+    end
+  end
 end

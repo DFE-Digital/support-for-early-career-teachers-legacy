@@ -6,6 +6,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
   after_action :verify_authorized
   before_action :authenticate_user!
   before_action :load_mentor_material_part
+  before_action :fill_data_layer
 
   def show; end
 
@@ -69,5 +70,9 @@ private
 
   def mentor_material_split_params
     params.require(:split_mentor_material_part_form).permit(:title, :content, :new_title, :new_content)
+  end
+
+  def fill_data_layer
+    data_layer.add_mentor_material_part_info(@mentor_material_part)
   end
 end

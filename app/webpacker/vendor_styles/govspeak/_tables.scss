@@ -13,7 +13,7 @@
     margin: govuk-spacing(6) 0;
     overflow-x: auto;
     width: 100%;
-    @include govuk-font($size: 14);
+    @include govuk-font($size: 19);
 
     caption {
       text-align: left;
@@ -28,7 +28,7 @@
     }
 
     th {
-      @include govuk-font($size: 14, $weight: bold);
+      @include govuk-font($size: 19, $weight: bold);
       text-align: left;
       color: $govuk-text-colour;
     }
