@@ -63,6 +63,12 @@ RSpec.describe "Users::Sessions", type: :request do
           post "/users/sign_in", params: { user: { email: ect.email } }
           expect(response).to render_template(:new)
         end
+
+        it "does not sign in the user" do
+          ect.early_career_teacher_profile.full_induction_programme!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(ect.reload.last_sign_in_at).to be_nil
+        end
       end
 
       context "when a user's induction programme choice has no early career teachers" do
@@ -70,6 +76,12 @@ RSpec.describe "Users::Sessions", type: :request do
           ect.early_career_teacher_profile.no_early_career_teachers!
           post "/users/sign_in", params: { user: { email: ect.email } }
           expect(response).to render_template(:new)
+        end
+
+        it "does not sign in the user" do
+          ect.early_career_teacher_profile.no_early_career_teachers!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(ect.reload.last_sign_in_at).to be_nil
         end
       end
 
@@ -79,6 +91,12 @@ RSpec.describe "Users::Sessions", type: :request do
           post "/users/sign_in", params: { user: { email: ect.email } }
           expect(response).to render_template(:new)
         end
+
+        it "does not sign in the user" do
+          ect.early_career_teacher_profile.design_our_own!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(ect.reload.last_sign_in_at).to be_nil
+        end
       end
 
       context "when a user's induction programme choice is not yet known" do
@@ -86,6 +104,12 @@ RSpec.describe "Users::Sessions", type: :request do
           ect.early_career_teacher_profile.not_yet_known!
           post "/users/sign_in", params: { user: { email: ect.email } }
           expect(response).to render_template(:new)
+        end
+
+        it "does not sign in the user" do
+          ect.early_career_teacher_profile.not_yet_known!
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(ect.reload.last_sign_in_at).to be_nil
         end
       end
     end
