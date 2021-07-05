@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  devise :trackable, :passwordless_authenticatable
+  devise :trackable
 
   has_one :induction_coordinator_profile
 

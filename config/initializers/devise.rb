@@ -246,12 +246,6 @@ Devise.setup do |config|
   config.sign_out_via = :get
   config.scoped_views = true
 
-  Devise.add_module(:passwordless_authenticatable, {
-    strategy: true,
-    model: "devise/models/passwordless_authenticatable",
-    route: :session,
-  })
-
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.

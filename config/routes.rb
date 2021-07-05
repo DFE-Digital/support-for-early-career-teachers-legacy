@@ -3,13 +3,14 @@
 Rails.application.routes.draw do
   devise_for :users, skip: :registrations, controllers: {
     sessions: "users/sessions",
-    confirmations: "users/confirmations",
   }
   devise_scope :user do
     get "/users/confirm-sign-in", to: "users/sessions#redirect_from_magic_link"
     post "/users/sign-in-with-token", to: "users/sessions#sign_in_with_token"
     get "/users/signed-out", to: "users/sessions#signed_out"
     get "/users/link-invalid", to: "users/sessions#link_invalid"
+    get "/users/sign_in", to: "users/sessions#new", as: :new_session
+    post "/users/sign_in", to: "users/sessions#create", as: :session
   end
 
   get "check" => "application#check"
