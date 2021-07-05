@@ -52,10 +52,10 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
 
   def destroy
     lesson = @course_lesson_part.course_lesson
-    previous_lesson_part = @course_lesson_part.previous_lesson_part
-    next_lesson_part = @course_lesson_part.next_lesson_part
+    previous_part = @course_lesson_part.previous_lesson_part
+    next_part = @course_lesson_part.next_lesson_part
     @course_lesson_part.destroy!
-    next_lesson_part.update!(previous_lesson_part: previous_lesson_part)
+    next_part&.update!(previous_lesson_part: previous_part)
     redirect_to lesson_path(lesson)
   end
 

@@ -56,7 +56,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
     previous_part = @mentor_material_part.previous_mentor_material_part
     next_part = @mentor_material_part.next_mentor_material_part
     @mentor_material_part.destroy!
-    next_part.update!(previous_mentor_material_part: previous_part)
+    next_part&.update!(previous_mentor_material_part: previous_part)
     redirect_to mentor_material_path(mentor_material)
   end
 
