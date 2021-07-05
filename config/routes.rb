@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "check" => "application#check"
   get "healthcheck" => "healthcheck#check"
 
+  resource :csp_reports, only: %i[create]
   resource :cookies, only: %i[show update]
   resource :privacy_policy, only: %i[show], path: "privacy-policy"
   resource :dashboard, controller: :dashboard, only: :show
