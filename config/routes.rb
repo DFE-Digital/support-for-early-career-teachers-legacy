@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   devise_for :users, skip: :registrations, controllers: {
     sessions: "users/sessions",
-    confirmations: "users/confirmations",
   }
   devise_scope :user do
     get "/users/confirm-sign-in", to: "users/sessions#redirect_from_magic_link"

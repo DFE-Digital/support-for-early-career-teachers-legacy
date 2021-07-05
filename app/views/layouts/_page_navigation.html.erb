@@ -1,4 +1,4 @@
-<% if user_signed_in? && current_user.account_created %>
+<% if user_signed_in? %>
   <nav aria-label="Page Navigation">
     <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
       <% if current_user.admin? %>
