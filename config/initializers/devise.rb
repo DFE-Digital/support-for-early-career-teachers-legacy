@@ -246,6 +246,13 @@ Devise.setup do |config|
   config.sign_out_via = :get
   config.scoped_views = true
 
+  Devise.add_module(:pretend_authenticatable, {
+    strategy: true,
+    controller: :sessions,
+    model: "devise/models/pretend_authenticatable",
+    route: :session,
+  })
+
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.

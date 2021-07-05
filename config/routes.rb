@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     post "/users/sign-in-with-token", to: "users/sessions#sign_in_with_token"
     get "/users/signed-out", to: "users/sessions#signed_out"
     get "/users/link-invalid", to: "users/sessions#link_invalid"
-    get "/users/sign_in", to: "users/sessions#new", as: :new_session
-    post "/users/sign_in", to: "users/sessions#create", as: :session
   end
 
   get "check" => "application#check"
