@@ -6,6 +6,7 @@ class CourseYear < ApplicationRecord
 
   has_one :core_induction_programme_one, class_name: "CoreInductionProgramme", foreign_key: :course_year_one_id
   has_one :core_induction_programme_two, class_name: "CoreInductionProgramme", foreign_key: :course_year_two_id
+  belongs_to :core_induction_programme
   has_many :course_modules, dependent: :delete_all
   has_many :mentor_materials
 
@@ -39,10 +40,6 @@ class CourseYear < ApplicationRecord
     lessons_with_progresses = get_user_lessons_and_progresses(ect_profile, course_lessons)
 
     compute_user_course_module_progress(lessons_with_progresses, modules_in_order)
-  end
-
-  def core_induction_programme
-    core_induction_programme_one || core_induction_programme_two
   end
 
   def title_for(user)

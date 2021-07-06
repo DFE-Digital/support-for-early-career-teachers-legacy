@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Core Induction Programme Year", type: :request do
   let(:course_year) { FactoryBot.create(:course_year, :with_cip) }
   let(:course_year_path) { "/#{cip.to_param}/#{course_year.to_param}" }
-  let(:cip) { course_year.core_induction_programme_one }
+  let(:cip) { course_year.core_induction_programme }
 
   describe "when an admin user is logged in" do
     before do
@@ -27,7 +27,7 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
     end
 
-    xdescribe "POST /years" do
+    describe "POST /years" do
       it "creates a new year, redirecting to the year" do
         create_course_year
         expect(response.location).to match("/year-\d+$")
@@ -72,7 +72,7 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
     end
 
-    xdescribe "POST /years" do
+    describe "POST /years" do
       it "raises an error when trying to post a new year" do
         expect { create_course_year }.to raise_error Pundit::NotAuthorizedError
       end
@@ -93,7 +93,7 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
     end
 
-    xdescribe "POST /years" do
+    describe "POST /years" do
       it "raises an error when trying to post a new year" do
         expect(create_course_year).to redirect_to("/users/sign_in")
       end

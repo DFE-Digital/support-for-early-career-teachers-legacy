@@ -9,7 +9,7 @@ FactoryBot.define do
       after(:create) do |year|
         cip = FactoryBot.create(:core_induction_programme,
                                 course_year_one: year)
-        year.core_induction_programme_one = cip
+        year.core_induction_programme = cip
       end
     end
   end

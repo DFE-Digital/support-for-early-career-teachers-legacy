@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Core Induction Programme Lesson", type: :request do
   let(:cip) { create(:core_induction_programme) }
-  let(:course_year) { FactoryBot.create(:course_year, core_induction_programme_one: cip) }
+  let(:course_year) { FactoryBot.create(:course_year, core_induction_programme: cip) }
   let(:course_module) { FactoryBot.create(:course_module, course_year: course_year) }
   let(:course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
   let(:course_lesson_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}" }

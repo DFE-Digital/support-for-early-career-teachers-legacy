@@ -7,7 +7,7 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
   let(:course_lesson) { course_lesson_part.course_lesson }
   let(:course_module) { course_lesson.course_module }
   let(:course_year) { course_module.course_year }
-  let(:cip) { course_year.core_induction_programme_one }
+  let(:cip) { course_year.core_induction_programme }
   let(:course_lesson_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}" }
   let(:course_lesson_part_path) { "#{course_lesson_path}/#{course_lesson_part.to_param}" }
 

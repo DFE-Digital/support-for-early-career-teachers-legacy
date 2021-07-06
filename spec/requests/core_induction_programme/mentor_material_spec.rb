@@ -8,7 +8,7 @@ RSpec.describe "Mentor materials", type: :request do
   let(:course_lesson) { mentor_material.course_lesson }
   let(:course_module) { course_lesson.course_module }
   let(:course_year) { course_module.course_year }
-  let!(:cip) { course_year.core_induction_programme_one }
+  let!(:cip) { course_year.core_induction_programme }
 
   let(:course_lesson_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}" }
   let(:mentor_material_path) { "#{course_lesson_path}/mentoring/#{mentor_material.to_param}" }
