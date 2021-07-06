@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/DFE-Digital/ecf-govspeak.git
-  revision: 5d76bd2a5a2ed28a0c395075ff825138fa19018e
-  ref: 5d76bd2a5a2ed28a0c395075ff825138fa19018e
+  revision: ce3642caece8f1fb6fdc83dde3efab9bf011938c
+  ref: ce3642caece8f1fb6fdc83dde3efab9bf011938c
   specs:
     govspeak (6.6.0)
       actionview (>= 5.0, < 7)
