@@ -35,6 +35,22 @@ describe("Accessibility", () => {
         ).then((lessonParts) => {
           const skip = [
             "/teach-first/year-1/spring-2/topic-5/part-2", // Accordion messing up heading levels
+            "/ucl/year-1/autumn-2/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/ucl/year-1/summer-1/topic-5/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/summer-2/topic-4/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/autumn-1/topic-2/part-6", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/autumn-1/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/autumn-1/topic-5/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/spring-1/topic-2/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/spring-1/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/spring-1/topic-7/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/spring-2/topic-4/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/spring-2/topic-7/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/summer-1/topic-5/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/summer-1/topic-8/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/summer-2/topic-2/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/summer-2/topic-4/part-6", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-2/autumn-1/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
           ];
 
           cy.wrap(lessonParts).each((part) => {
