@@ -1,11 +1,4 @@
 <%= f.govuk_error_summary %>
-<%= f.govuk_collection_select(
-      :core_induction_programme_id,
-      @core_induction_programmes,
-      :id,
-      :name,
-      label: { text: "Which core induction programme would you like to assign the mentor material to?" , class: "govuk-heading-m" }
-    ) %>
 <% if @course_lessons %>
   <%= f.govuk_collection_select(
         :course_lesson_id,

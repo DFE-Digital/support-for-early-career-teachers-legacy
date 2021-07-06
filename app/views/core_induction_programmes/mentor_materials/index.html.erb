@@ -11,10 +11,7 @@
       <% if cip.mentor_materials.any? %>
       <% cip.mentor_materials.each do |mentor_material| %>
         <p><%= govuk_link_to mentor_material.title, mentor_material_path(mentor_material) %></p>
-        <% if mentor_material.course_lesson %>
-          <p>Corresponding lesson: <%= govuk_link_to mentor_material.course_lesson.title, lesson_path(mentor_material.course_lesson) %></p>
-          <% else %> <p>No corresponding lesson found</p>
-       <%end %>
+        <p>Corresponding lesson: <%= govuk_link_to mentor_material.course_lesson.title, lesson_path(mentor_material.course_lesson) %></p>
       <% end %>
       <% else %>
       <p>No mentor materials were found!</p>

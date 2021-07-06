@@ -5,7 +5,6 @@ class CoreInductionProgramme < ApplicationRecord
   belongs_to :course_year_two, class_name: "CourseYear", optional: true
   has_many :early_career_teacher_profiles
   has_many :early_career_teachers, through: :early_career_teacher_profiles, source: :user
-  has_many :mentor_materials
 
   validates :slug, presence: true
 
@@ -19,6 +18,10 @@ class CoreInductionProgramme < ApplicationRecord
 
   def course_lessons
     CourseLesson.where(course_module: course_modules)
+  end
+
+  def mentor_materials
+    MentorMaterial.where(course_lesson: course_lessons)
   end
 
   def to_param
