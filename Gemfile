@@ -67,7 +67,7 @@ platform :mswin, :mingw, :x64_mingw do
   gem "wdm", ">= 0.1.0"
 end
 
-gem "govspeak", git: "https://github.com/DFE-Digital/ecf-govspeak.git", ref: "ce3642caece8f1fb6fdc83dde3efab9bf011938c"
+gem "govspeak", git: "https://github.com/DFE-Digital/ecf-govspeak.git", ref: "81a088c64a6f8633805e26f15814467ed19fb1f1"
 
 gem "acts_as_list"
 
