@@ -7,6 +7,7 @@ RSpec.describe MentorMaterial, type: :model do
     it { is_expected.to belong_to(:course_lesson) }
     it { is_expected.to have_one(:course_module) }
     it { is_expected.to have_one(:course_year) }
+    it { is_expected.to delegate_method(:core_induction_programme).to(:course_year) }
   end
 
   describe "validations" do
