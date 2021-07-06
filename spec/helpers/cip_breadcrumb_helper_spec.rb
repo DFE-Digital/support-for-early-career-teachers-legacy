@@ -6,7 +6,7 @@ describe CipBreadcrumbHelper, type: :helper do
   let(:early_career_teacher) { FactoryBot.build(:user, :early_career_teacher) }
   let(:mentor) { FactoryBot.build(:user, :mentor) }
   let(:admin) { FactoryBot.build(:user, :admin) }
-  let(:course_year) { FactoryBot.create(:course_year, :with_cip, mentor_title: "Mentor title") }
+  let(:course_year) { FactoryBot.create(:course_year, mentor_title: "Mentor title") }
   let(:core_induction_programme) { course_year.core_induction_programme }
   let(:course_module) { create(:course_module, course_year: course_year) }
   let(:course_lesson) { create(:course_lesson, course_module: course_module) }

@@ -3,9 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Core Induction Programme Module", type: :request do
-  let(:core_induction_programme) { FactoryBot.create(:core_induction_programme, :with_course_year) }
-  let(:course_module) { FactoryBot.create(:course_module, course_year: core_induction_programme.course_year_one) }
-  let(:course_module_path) { "/#{core_induction_programme.to_param}/#{course_module.course_year.to_param}/#{course_module.to_param}" }
+  let!(:course_year) { FactoryBot.create(:course_year) }
+  let!(:core_induction_programme) { course_year.core_induction_programme }
+  let(:course_module) { FactoryBot.create(:course_module, course_year: course_year) }
+  let(:course_module_path) { "/#{course_year.core_induction_programme.to_param}/#{course_year.to_param}/#{course_module.to_param}" }
   let(:second_course_module) { FactoryBot.create(:course_module, title: "Second module title", previous_module: course_module) }
 
   describe "when an admin user is logged in" do

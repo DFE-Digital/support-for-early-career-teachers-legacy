@@ -6,7 +6,7 @@ RSpec.describe CourseModulePolicy, type: :policy do
   subject { described_class.new(user, course_module) }
   let(:course_module) { create(:course_module, course_year: course_year) }
   let(:course_year) { create(:course_year) }
-  let(:cip_for_module) { create(:core_induction_programme, course_year_two: course_year) }
+  let(:cip_for_module) { course_year.core_induction_programme }
 
   context "admin user" do
     let(:user) { create(:user, :admin) }
