@@ -5,9 +5,8 @@ require "rails_helper"
 RSpec.describe MentorMaterial, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:course_lesson) }
-    it { is_expected.to belong_to(:course_module).optional }
-    it { is_expected.to belong_to(:course_year).optional }
-    it { is_expected.to belong_to(:core_induction_programme).optional }
+    it { is_expected.to have_one(:course_module) }
+    it { is_expected.to have_one(:course_year) }
   end
 
   describe "validations" do

@@ -3,13 +3,12 @@
 class MentorMaterial < ApplicationRecord
   include OrderHelper
 
-  # TODO: hopefully remove some of those
-  belongs_to :core_induction_programme, optional: true
-  belongs_to :course_year, optional: true
-  belongs_to :course_module, optional: true
   belongs_to :course_lesson
+  has_one :course_module, through: :course_lesson
+  has_one :course_year, through: :course_module
+  delegate :core_induction_programme, to: :course_year
 
-  has_many :mentor_material_parts
+  has_many :mentor_material_parts, dependent: :destroy
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
 

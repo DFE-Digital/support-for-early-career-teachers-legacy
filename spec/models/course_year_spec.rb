@@ -13,7 +13,6 @@ RSpec.describe CourseYear, type: :model do
   end
 
   describe "associations" do
-    it { is_expected.to have_many(:mentor_materials) }
     it { is_expected.to have_many(:course_modules) }
     it { is_expected.to have_one(:core_induction_programme_one) }
     it { is_expected.to have_one(:core_induction_programme_two) }
