@@ -3,7 +3,6 @@
     <% if current_user&.admin? && @core_induction_programmes.any? %>
       <div class="govuk-button-group">
         <%= govuk_link_to "Download export", download_export_path, button: true%>
-        <%= govuk_link_to "Create CIP Year", new_cip_year_path(@core_induction_programmes.first), button: true %>
       </div>
     <% end %>
     <h1 class="govuk-heading-xl">What is the early career framework?</h1>

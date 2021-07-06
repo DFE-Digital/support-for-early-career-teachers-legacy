@@ -7,6 +7,7 @@ class CourseYear < ApplicationRecord
   has_one :core_induction_programme_one, class_name: "CoreInductionProgramme", foreign_key: :course_year_one_id
   has_one :core_induction_programme_two, class_name: "CoreInductionProgramme", foreign_key: :course_year_two_id
   belongs_to :core_induction_programme
+  acts_as_list scope: :core_induction_programme
   has_many :course_modules, dependent: :delete_all
   has_many :mentor_materials
 
@@ -49,7 +50,7 @@ class CourseYear < ApplicationRecord
   end
 
   def to_param
-    "year-#{self == core_induction_programme.course_year_one ? '1' : '2'}"
+    "year-#{position}"
   end
 
 private
