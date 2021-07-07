@@ -8,7 +8,7 @@
       <%= render SubnavComponent.new do |component| %>
         <% @cip.course_years.each do |course_year| %>
           <%= component.nav_item(path: year_path(course_year)) do %>
-            Year <% course_year.position %>
+            Year <%= course_year.position %>
           <% end %>
         <% end %>
       <% end %>
