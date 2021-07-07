@@ -2,6 +2,8 @@
 
 class CoreInductionProgrammeExporter
   def run
+    return if Rails.env.test?
+
     SeedDump.dump(
       CoreInductionProgramme,
       file: "db/seeds/cip_seed_dump.rb",

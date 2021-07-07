@@ -4,6 +4,10 @@
 class Rack::Attack
   throttle("General requests by ip", limit: 300, period: 5.minutes, &:ip)
 
+  throttle("CSP requests by ip", limit: 5, period: 1.minute) do |req|
+    req.ip if req.path == "/csp_reports"
+  end
+
   throttle("Login attempts by ip", limit: 5, period: 20.seconds) do |request|
     if request.path == "/users/sign_in" && request.post?
       request.ip
