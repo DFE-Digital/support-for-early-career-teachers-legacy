@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe "Core Induction Programme Year", type: :request do
-  let(:course_year) { FactoryBot.create(:course_year, :with_cip) }
+  let(:course_year) { FactoryBot.create(:course_year) }
   let(:course_year_path) { "/#{cip.to_param}/#{course_year.to_param}" }
-  let(:cip) { course_year.core_induction_programme_one }
+  let!(:cip) { course_year.core_induction_programme }
 
   describe "when an admin user is logged in" do
     before do
@@ -20,17 +20,17 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
     end
 
-    describe "GET /years/new" do
+    describe "GET /:cip_id/create-year" do
       it "renders the cip new years page" do
-        get "/#{cip.to_param}/new"
+        get "/#{cip.to_param}/create-year"
         expect(response).to render_template(:new)
       end
     end
 
-    xdescribe "POST /years" do
-      it "creates a new year, redirecting to the year" do
+    describe "POST /:cip_id/create-year" do
+      it "creates a new year, redirecting to the cip page" do
         create_course_year
-        expect(response.location).to match("/year-\d+$")
+        expect(response.location).to match("/test-cip-")
       end
     end
 
@@ -51,7 +51,6 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
 
       it "redirects to the year page and updates content when saving changes" do
-        create_cip
         put course_year_path, params: { commit: "Save changes", course_year: { content: "Adding new content" } }
         expect(response).to redirect_to("/#{cip.to_param}/#{course_year.to_param}")
         expect(course_year.reload.content).to include("Adding new content")
@@ -66,13 +65,13 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       sign_in user
     end
 
-    describe "GET /years/new" do
+    describe "GET /:cip_id/create-year" do
       it "raises an error when trying to create a new year page" do
-        expect { get "/#{cip.to_param}/new" }.to raise_error Pundit::NotAuthorizedError
+        expect { get "/#{cip.to_param}/create-year" }.to raise_error Pundit::NotAuthorizedError
       end
     end
 
-    xdescribe "POST /years" do
+    describe "POST /years" do
       it "raises an error when trying to post a new year" do
         expect { create_course_year }.to raise_error Pundit::NotAuthorizedError
       end
@@ -93,7 +92,7 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
     end
 
-    xdescribe "POST /years" do
+    describe "POST /:cip_id/create-year" do
       it "raises an error when trying to post a new year" do
         expect(create_course_year).to redirect_to("/users/sign_in")
       end
@@ -113,17 +112,13 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
     end
   end
-end
 
 private
 
-def create_course_year
-  post "/#{cip.to_param}", params: { course_year: {
-    title: "Additional year title",
-    content: "Additional year content",
-  } }
-end
-
-def create_cip
-  FactoryBot.create(:core_induction_programme, course_year_one: course_year)
+  def create_course_year
+    post "/#{cip.to_param}/create-year", params: { course_year: {
+      title: "Additional year title",
+      content: "Additional year content",
+    } }
+  end
 end

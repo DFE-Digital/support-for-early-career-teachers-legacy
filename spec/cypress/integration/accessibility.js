@@ -24,7 +24,7 @@ describe("Accessibility", () => {
         cy.login("admin");
         cy.appEval(
           `CourseLessonPart
-            .includes(course_lesson: { course_module: { course_year: [:core_induction_programme_one] }}).all
+            .includes(course_lesson: { course_module: { course_year: [:core_induction_programme] }}).all
             .map { |part| {
               part: part.to_param,
               lesson: part.course_lesson.to_param,
@@ -71,7 +71,7 @@ describe("Accessibility", () => {
         cy.login("admin");
         cy.appEval(
           `MentorMaterialPart
-            .includes(mentor_material: { course_lesson: { course_module: { course_year: [:core_induction_programme_one] }}}).all
+            .includes(mentor_material: { course_lesson: { course_module: { course_year: [:core_induction_programme] }}}).all
             .map { |part| {
               part: part.to_param,
               material: part.mentor_material.to_param,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_102557) do
+ActiveRecord::Schema.define(version: 2021_07_06_133706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -106,6 +106,9 @@ ActiveRecord::Schema.define(version: 2021_07_06_102557) do
     t.string "title", null: false
     t.text "content"
     t.string "mentor_title"
+    t.uuid "core_induction_programme_id", null: false
+    t.integer "position", default: 0
+    t.index ["core_induction_programme_id"], name: "index_course_years_on_core_induction_programme_id"
   end
 
   create_table "delayed_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -216,6 +219,7 @@ ActiveRecord::Schema.define(version: 2021_07_06_102557) do
   add_foreign_key "course_lessons", "course_modules"
   add_foreign_key "course_modules", "course_modules", column: "previous_module_id"
   add_foreign_key "course_modules", "course_years"
+  add_foreign_key "course_years", "core_induction_programmes"
   add_foreign_key "early_career_teacher_profiles", "cohorts"
   add_foreign_key "early_career_teacher_profiles", "core_induction_programmes"
   add_foreign_key "early_career_teacher_profiles", "users"

@@ -42,7 +42,10 @@ Rails.application.routes.draw do
     get "create-lesson", to: "lessons#new"
     post "create-lesson", to: "lessons#create"
 
-    resources :years, only: %i[show new create edit update], path: "/", constraints: { id: /year-1|year-2/ } do
+    get "create-year", to: "years#new"
+    post "create-year", to: "years#create"
+
+    resources :years, only: %i[show edit update], path: "/", constraints: { id: /year-1|year-2/ } do
       resources :modules, only: %i[show edit update], path: "/", constraints: { id: /(autumn|spring|summer)-\d+/ } do
         resources :lessons, only: %i[show edit update], path: "/", constraints: { id: /topic-\d+/ } do
           resources :lesson_parts, only: %i[show edit update destroy], path: "/", constraints: { id: /part-\d+/ } do

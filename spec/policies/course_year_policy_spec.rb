@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe CourseYearPolicy, type: :policy do
   subject { described_class.new(user, course_year) }
   let(:course_year) { create(:course_year) }
-  let(:cip_for_year) { create(:core_induction_programme, course_year_one: course_year) }
+  let(:cip_for_year) { course_year.core_induction_programme }
 
   context "admin user" do
     let(:user) { create(:user, :admin) }

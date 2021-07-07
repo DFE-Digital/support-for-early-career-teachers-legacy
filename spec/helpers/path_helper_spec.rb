@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PathHelper, type: :helper do
   let(:course_year) { FactoryBot.create(:course_year, mentor_title: "Mentor title") }
-  let!(:core_induction_programme) { create(:core_induction_programme, course_year_one: course_year) }
+  let!(:core_induction_programme) { course_year.core_induction_programme }
   let(:course_module) { create(:course_module, course_year: course_year) }
   let(:course_lesson) { create(:course_lesson, :with_lesson_part, course_module: course_module) }
   let(:course_lesson_part) { course_lesson.course_lesson_parts[0] }
@@ -18,12 +18,6 @@ RSpec.describe PathHelper, type: :helper do
   let(:expected_lesson_part_path) { "#{expected_lesson_path}/#{course_lesson_part.to_param}" }
   let(:expected_mentor_material_path) { "#{expected_lesson_path}/mentoring/#{mentor_material.to_param}" }
   let(:expected_mentor_material_part_path) { "#{expected_mentor_material_path}/#{mentor_material_part.to_param}" }
-
-  describe "#years_path" do
-    it "returns correct path" do
-      expect(years_path(cip_id: core_induction_programme.to_param)).to eq(expected_cip_path)
-    end
-  end
 
   describe "#edit_year_path" do
     it "returns correct path" do

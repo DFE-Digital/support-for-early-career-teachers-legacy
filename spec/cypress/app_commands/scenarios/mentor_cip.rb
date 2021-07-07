@@ -6,4 +6,4 @@ FactoryBot.create(:course_lesson, :with_lesson_part, course_module: course_modul
 
 # You have to create this user in your spec before running this scenario
 mentor = User.find("53960d7f-1308-4de1-a56d-de03ea8e1d9c")
-mentor.core_induction_programme.update!(course_year_one_id: year.id, course_year_two_id: year.id)
+year.update!(core_induction_programme: mentor.core_induction_programme)

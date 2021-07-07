@@ -4,19 +4,19 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= @course_year.title_for(current_user) %></h1>
 
-    <% if @cip.course_year_two_id %>
+    <% if @cip.course_years.count > 1 %>
       <%= render SubnavComponent.new do |component| %>
-        <%= component.nav_item(path: year_path(@cip.course_year_one)) do %>
-          Year 1
-        <% end %>
-        <%= component.nav_item(path: year_path(@cip.course_year_two)) do %>
-          Year 2
+        <% @cip.course_years.each do |course_year| %>
+          <%= component.nav_item(path: year_path(course_year)) do %>
+            Year <%= course_year.position %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
 
     <% if current_user&.admin? %>
       <div class="govuk-button-group">
+        <%= govuk_link_to "Create CIP Year", cip_create_year_path(@cip), button: true %>
         <%= govuk_link_to "Create CIP Module", cip_create_module_path(@cip), button: true %>
         <%= govuk_link_to "Create CIP Lesson", cip_create_lesson_path(@cip), button: true %>
         <%= govuk_link_to "Edit year content", edit_year_path(@course_year), button: true %>

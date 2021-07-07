@@ -11,10 +11,6 @@
 # That's just for module paths, which are three levels deep - mentor material
 # parts are six levels deep, so as you can image get pretty messy!
 module PathHelper
-  def years_path(*args)
-    cip_years_path(*args)
-  end
-
   models = {
     cip: "core_induction_programme",
     year: "course_year",

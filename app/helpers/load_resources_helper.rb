@@ -18,15 +18,10 @@ module LoadResourcesHelper
 
     load_core_induction_programme_from_params
 
-    id = params[:year_id] || params[:id]
+    match = (params[:year_id] || params[:id]).match(/year-(\d+)/)
+    @course_year = @core_induction_programme.course_years[match[1].to_i - 1]
 
-    if id == "year-1"
-      @course_year = @core_induction_programme.course_year_one
-    elsif id == "year-2"
-      @course_year = @core_induction_programme.course_year_two
-    else
-      raise ActionController::RoutingError, "Year not found"
-    end
+    raise ActionController::RoutingError, "Year not found" unless @course_year
 
     @course_year
   end
@@ -65,8 +60,7 @@ module LoadResourcesHelper
     load_course_lesson_from_params
 
     match = (params[:lesson_part_id] || params[:id]).match(/part-(\d+)/)
-    id = match[1].to_i - 1
-    @course_lesson_part = @course_lesson.course_lesson_parts_in_order[id]
+    @course_lesson_part = @course_lesson.course_lesson_parts_in_order[match[1].to_i - 1]
 
     raise ActionController::RoutingError, "lesson part not found" unless @course_lesson_part
 

@@ -14,20 +14,21 @@ class CoreInductionProgrammes::YearsController < ApplicationController
   end
 
   def new
+    load_core_induction_programme_from_params
     authorize CourseYear
-    @core_induction_programmes = CoreInductionProgramme.all
     @course_year = CourseYear.new
   end
 
   def create
+    load_core_induction_programme_from_params
     authorize CourseYear
     @course_year = CourseYear.new(course_year_params)
 
+    @course_year.core_induction_programme = @core_induction_programme
     if @course_year.valid?
       @course_year.save!
-      redirect_to year_path(@course_year)
+      redirect_to cip_path(@core_induction_programme)
     else
-      @core_induction_programmes = CoreInductionProgramme.all
       render action: "new"
     end
   end
@@ -55,7 +56,7 @@ private
   end
 
   def course_year_params
-    params.fetch(:course_year, {}).permit(:title, :mentor_title, :content)
+    params.fetch(:course_year, {}).permit(:title, :mentor_title, :content, :core_induction_programme_id)
   end
 
   def fill_data_layer
