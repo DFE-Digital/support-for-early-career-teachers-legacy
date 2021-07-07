@@ -11,6 +11,7 @@ gem "rails", "~> 6.1.3.2"
 gem "devise", ">= 4.7.3"
 gem "kaminari", ">= 1.2.1"
 gem "pundit"
+gem "secure_headers"
 
 # Error and performance monitoring
 gem "sentry-delayed_job", ">= 4.5.1"

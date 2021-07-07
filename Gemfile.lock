@@ -355,6 +355,7 @@ GEM
       sass (~> 3.5, >= 3.5.5)
     scss_lint-govuk (0.2.0)
       scss_lint
+    secure_headers (6.3.2)
     seed_dump (3.3.1)
       activerecord (>= 4)
       activesupport (>= 4)
@@ -473,6 +474,7 @@ DEPENDENCIES
   rspec-rails (~> 4.0.2)
   rubocop-govuk (>= 3.17.2)
   scss_lint-govuk
+  secure_headers
   seed_dump (>= 3.3.1)
   sentry-delayed_job (>= 4.5.1)
   sentry-rails (>= 4.5.1)

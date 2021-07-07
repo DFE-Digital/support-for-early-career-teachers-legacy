@@ -2,6 +2,8 @@
 
 class CoreInductionProgrammeExporter
   def run
+    return if Rails.env.test?
+
     core_induction_programmes = CoreInductionProgramme.order(:name)
     SeedDump.dump(
       core_induction_programmes,
