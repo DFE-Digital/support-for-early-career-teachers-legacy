@@ -4,8 +4,6 @@ class CourseYear < ApplicationRecord
   include CourseLessonProgressHelper
   include OrderHelper
 
-  has_one :core_induction_programme_one, class_name: "CoreInductionProgramme", foreign_key: :course_year_one_id
-  has_one :core_induction_programme_two, class_name: "CoreInductionProgramme", foreign_key: :course_year_two_id
   belongs_to :core_induction_programme
   acts_as_list scope: :core_induction_programme
   has_many :course_modules, dependent: :delete_all

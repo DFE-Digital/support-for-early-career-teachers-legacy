@@ -4,14 +4,15 @@ class CoreInductionProgrammeExporter
   def run
     return if Rails.env.test?
 
+    core_induction_programmes = CoreInductionProgramme.order(:name)
     SeedDump.dump(
-      CoreInductionProgramme,
+      core_induction_programmes,
       file: "db/seeds/cip_seed_dump.rb",
       exclude: %i[created_at updated_at],
       import: true,
     )
 
-    years = CourseYear.order(:title)
+    years = core_induction_programmes.map(&:course_years).flatten
     SeedDump.dump(
       years,
       file: "db/seeds/cip_seed_dump.rb",

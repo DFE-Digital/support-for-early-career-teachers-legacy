@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_133706) do
+ActiveRecord::Schema.define(version: 2021_07_07_104314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -40,11 +40,7 @@ ActiveRecord::Schema.define(version: 2021_07_06_133706) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "course_year_one_id"
-    t.uuid "course_year_two_id"
     t.string "slug"
-    t.index ["course_year_one_id"], name: "index_core_induction_programmes_on_course_year_one_id"
-    t.index ["course_year_two_id"], name: "index_core_induction_programmes_on_course_year_two_id"
   end
 
   create_table "course_lesson_parts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -209,8 +205,6 @@ ActiveRecord::Schema.define(version: 2021_07_06_133706) do
   end
 
   add_foreign_key "admin_profiles", "users"
-  add_foreign_key "core_induction_programmes", "course_years", column: "course_year_one_id"
-  add_foreign_key "core_induction_programmes", "course_years", column: "course_year_two_id"
   add_foreign_key "course_lesson_parts", "course_lesson_parts", column: "previous_lesson_part_id"
   add_foreign_key "course_lesson_parts", "course_lessons"
   add_foreign_key "course_lesson_progresses", "course_lessons"
