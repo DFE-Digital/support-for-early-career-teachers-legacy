@@ -3,7 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "Core Induction Programme", type: :request do
-  let!(:core_induction_programme) { create(:core_induction_programme, :with_course_year) }
+  let!(:course_year) { create(:course_year) }
+  let(:core_induction_programme) { course_year.core_induction_programme }
 
   describe "when an admin user is logged in" do
     before do
@@ -21,7 +22,7 @@ RSpec.describe "Core Induction Programme", type: :request do
     describe "GET /:id" do
       it "redirects to year page" do
         get "/#{core_induction_programme.to_param}"
-        expect(response).to redirect_to("/#{core_induction_programme.to_param}/#{core_induction_programme.course_year_one.to_param}")
+        expect(response).to redirect_to("/#{core_induction_programme.to_param}/#{core_induction_programme.course_years[0].to_param}")
       end
     end
   end
@@ -42,7 +43,7 @@ RSpec.describe "Core Induction Programme", type: :request do
     describe "GET /:id" do
       it "redirects to year page" do
         get "/#{core_induction_programme.to_param}"
-        expect(response).to redirect_to("/#{core_induction_programme.to_param}/#{core_induction_programme.course_year_one.to_param}")
+        expect(response).to redirect_to("/#{core_induction_programme.to_param}/#{core_induction_programme.course_years[0].to_param}")
       end
 
       it "raises an error when an ECT tries to access a cip they are not enrolled on" do

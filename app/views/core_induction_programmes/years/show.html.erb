@@ -4,13 +4,12 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= @course_year.title_for(current_user) %></h1>
 
-    <% if @cip.course_year_two_id %>
+    <% if @cip.course_years.count > 1 %>
       <%= render SubnavComponent.new do |component| %>
-        <%= component.nav_item(path: year_path(@cip.course_year_one)) do %>
-          Year 1
-        <% end %>
-        <%= component.nav_item(path: year_path(@cip.course_year_two)) do %>
-          Year 2
+        <% @cip.course_years.each do |course_year| %>
+          <%= component.nav_item(path: year_path(course_year)) do %>
+            Year <% course_year.position %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

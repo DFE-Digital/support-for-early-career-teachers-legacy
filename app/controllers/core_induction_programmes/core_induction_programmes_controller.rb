@@ -15,7 +15,7 @@ class CoreInductionProgrammes::CoreInductionProgrammesController < ApplicationCo
   def show
     data_layer.add_cip_info(@core_induction_programme)
     authorize @core_induction_programme
-    redirect_to cip_year_path(@core_induction_programme, @core_induction_programme.course_year_one)
+    redirect_to cip_year_path(@core_induction_programme, @core_induction_programme.course_years.first)
   end
 
   def download_export

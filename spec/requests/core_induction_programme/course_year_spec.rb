@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Core Induction Programme Year", type: :request do
   let(:course_year) { FactoryBot.create(:course_year) }
   let(:course_year_path) { "/#{cip.to_param}/#{course_year.to_param}" }
-  let(:cip) { course_year.core_induction_programme }
+  let!(:cip) { course_year.core_induction_programme }
 
   describe "when an admin user is logged in" do
     before do
@@ -51,7 +51,6 @@ RSpec.describe "Core Induction Programme Year", type: :request do
       end
 
       it "redirects to the year page and updates content when saving changes" do
-        create_cip
         put course_year_path, params: { commit: "Save changes", course_year: { content: "Adding new content" } }
         expect(response).to redirect_to("/#{cip.to_param}/#{course_year.to_param}")
         expect(course_year.reload.content).to include("Adding new content")
@@ -121,9 +120,5 @@ private
       title: "Additional year title",
       content: "Additional year content",
     } }
-  end
-
-  def create_cip
-    FactoryBot.create(:core_induction_programme, course_year_one: course_year)
   end
 end
