@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/DFE-Digital/ecf-govspeak.git
-  revision: 81a088c64a6f8633805e26f15814467ed19fb1f1
-  ref: 81a088c64a6f8633805e26f15814467ed19fb1f1
+  revision: b0202cdc4939b4ea29fbb5db3e11fa0a674663ec
+  ref: b0202cdc4939b4ea29fbb5db3e11fa0a674663ec
   specs:
     govspeak (6.6.0)
       actionview (>= 5.0, < 7)
@@ -154,7 +154,7 @@ GEM
       actionview (~> 6.1.0, >= 6.1)
       activemodel (~> 6.1.0, >= 6.1)
       activesupport (~> 6.1.0, >= 6.1)
-    govuk_publishing_components (24.18.1)
+    govuk_publishing_components (24.18.4)
       govuk_app_config
       kramdown
       plek
