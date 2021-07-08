@@ -55,7 +55,7 @@ gem "activerecord-import", ">= 1.0.7"
 gem "govuk-components", ">= 1.0.2"
 gem "govuk_design_system_formbuilder", "~> 2.1", ">= 2.1.6"
 gem "httpclient"
-gem "json_api_client"
+gem "json_api_client", ">= 0.9.6"
 gem "rack-attack", ">=6.5.0"
 gem "seed_dump", ">= 3.3.1"
 
@@ -110,5 +110,5 @@ group :test do
   gem "shoulda-matchers", "~> 4.4"
   gem "simplecov"
   gem "webdrivers", "~> 4.4", ">= 4.4.2"
-  gem "webmock"
+  gem "webmock", ">= 3.10.0"
 end
