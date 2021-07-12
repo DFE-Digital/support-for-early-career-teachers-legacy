@@ -15,7 +15,7 @@ class CourseLesson < ApplicationRecord
   belongs_to :previous_lesson, class_name: "CourseLesson", inverse_of: :next_lesson, optional: true
 
   has_many :course_lesson_parts
-  has_many :mentor_materials
+  has_many :mentor_materials, -> { order(position: :asc) }
 
   validates :title, presence: { message: "Enter a title" }, length: { maximum: 255 }
   validates :mentor_title, length: { maximum: 255 }
