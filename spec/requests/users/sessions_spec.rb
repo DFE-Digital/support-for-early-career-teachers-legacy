@@ -57,6 +57,25 @@ RSpec.describe "Users::Sessions", type: :request do
         end
       end
 
+      context "when a user isn't registered but has accessed the service prior to public beta" do
+        it "redirects to dashboard" do
+          ect.early_career_teacher_profile.update!(registration_completed: false)
+          InviteEmailEct.create!(user: ect, sent_at: Time.zone.now)
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to redirect_to(dashboard_path)
+          expect(ect.reload.last_sign_in_at).not_to be_nil
+        end
+      end
+
+      context "when a user isn't registered and has not accessed the service prior to public beta" do
+        it "redirects to dashboard" do
+          ect.early_career_teacher_profile.update!(registration_completed: false)
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to render_template(:new)
+          expect(ect.reload.last_sign_in_at).to be_nil
+        end
+      end
+
       context "when a user's induction programme choice is a full induction programme" do
         it "renders sign_in page" do
           ect.early_career_teacher_profile.full_induction_programme!
@@ -122,6 +141,25 @@ RSpec.describe "Users::Sessions", type: :request do
           post "/users/sign_in", params: { user: { email: mentor.email } }
           expect(response).to redirect_to(dashboard_path)
           expect(mentor.reload.last_sign_in_at).not_to be_nil
+        end
+      end
+
+      context "when a user isn't registered but has accessed the service prior to public beta" do
+        it "redirects to dashboard" do
+          mentor.mentor_profile.update!(registration_completed: false)
+          InviteEmailEct.create!(user: mentor, sent_at: Time.zone.now)
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to redirect_to(dashboard_path)
+          expect(mentor.reload.last_sign_in_at).not_to be_nil
+        end
+      end
+
+      context "when a user isn't registered and has not accessed the service prior to public beta" do
+        it "redirects to dashboard" do
+          mentor.mentor_profile.update!(registration_completed: false)
+          post "/users/sign_in", params: { user: { email: mentor.email } }
+          expect(response).to render_template(:new)
+          expect(mentor.reload.last_sign_in_at).to be_nil
         end
       end
 

@@ -122,11 +122,18 @@ private
       user.errors.add :induction_programme_choice, "Your school has not selected a core induction programme for you, contact your school induction coordinator"
     end
 
-    early_user = InviteEmailMentor.find_by(user: user.id) || InviteEmailEct.find_by(user: user.id)
-    unless user.registered_early_career_teacher? || user.registered_mentor? || early_user.sent_at.present?
+    return user if user_accessed_service_before_cutoff?(user)
+
+    unless user.registered_early_career_teacher? || user.registered_mentor?
       user.errors.add :email, "Please complete your registration on R&P"
     end
 
     user
+  end
+
+  def user_accessed_service_before_cutoff?(user)
+    cutoff_date = user.mentor? ? InviteEmailMentor::INVITES_SENT_FROM : InviteEmailEct::INVITES_SENT_FROM
+    InviteEmailMentor.where("sent_at < ?", cutoff_date).find_by(user: user.id).present? ||
+      InviteEmailEct.where("sent_at < ?", cutoff_date).find_by(user: user.id).present?
   end
 end
