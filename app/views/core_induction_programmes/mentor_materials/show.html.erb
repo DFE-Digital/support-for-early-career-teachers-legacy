@@ -1,8 +1,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <% if policy(@mentor_material).edit? %>
-      <%= govuk_link_to "Edit mentor material", edit_mentor_material_path(@mentor_material), button: true %>
+      <div class="govuk-button-group">
+        <%= govuk_link_to "Edit mentor material", edit_mentor_material_path(@mentor_material), button: true %>
+      </div>
+
+      <p>Developer data:</p>
+      <p>Mentor material ID: <%= @mentor_material.id %></p>
     <% end %>
+
     <h1 class="govuk-heading-xl"><%= @mentor_material.title %></h1>
 
     <p>These mentor materials have no content!</p>
