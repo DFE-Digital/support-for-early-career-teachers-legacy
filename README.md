@@ -126,6 +126,20 @@ click "See preview". Voila!
 
 Check out the [specific docs](/documentation/updating_images_in_cip_content.md).
 
+### Getting url from a uid
+Sometimes you want to edit some content in staging, and you know the id of the object, but not the pretty path. This is how you get that path.
+
+For a course lesson part:
+
+```
+rails c
+> include PathHelper
+> include Rails.application.routes.url_helpers
+> lesson_part_path(CourseLessonPart.find("0961d48a-ed6c-4e2f-ac0e-960a5ebcb6f7"))
+```
+
+It should be reasonably easy to generalise that for mentor materials part.
+
 ### Sending user invites
 
 Run the job `invites[email_1@example.com email_2@example.com]`. Emails need to match users. 
