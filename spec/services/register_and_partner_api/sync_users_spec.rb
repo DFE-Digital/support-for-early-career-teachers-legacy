@@ -11,14 +11,14 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
     it "imports all users returned" do
       expect {
         described_class.perform
-      }.to change(User, :count).by(4)
+      }.to change(User, :count).by(5)
     end
 
     it "does not create the users again" do
       expect {
         described_class.perform
         described_class.perform
-      }.to change(User, :count).by(4)
+      }.to change(User, :count).by(5)
     end
 
     it "does not create a user when given a user type of other" do
@@ -26,7 +26,7 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
 
       record = User.find_by(email: "user_type_other@example.com")
       expect(record.nil?).to be true
-      expect(User.count).to eql(4)
+      expect(User.count).to eql(5)
     end
 
     it "creates users with correct attributes" do
@@ -50,7 +50,7 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
       described_class.perform
 
       record = User.find_by(register_and_partner_id: "65abf54c-c7c2-490b-9bcd-bbb4e0aab934")
-      expect(User.count).to eql(4)
+      expect(User.count).to eql(5)
       expect(record.email).to eql("mentor@example.com")
     end
 
