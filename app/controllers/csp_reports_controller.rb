@@ -19,8 +19,8 @@ class CspReportsController < ApplicationController
   def create
     json = JSON.parse(request.body.read)
     report = (json["csp-report"] || {})
-               .slice(*CSP_KEYS)
-               .transform_values { |v| v.truncate(MAX_ENTRY_LENGTH) }
+                 .slice(*CSP_KEYS)
+                 .transform_values { |v| v.truncate(MAX_ENTRY_LENGTH) }
 
     trace_csp_violation(report) unless report.empty?
 
@@ -30,6 +30,6 @@ class CspReportsController < ApplicationController
 private
 
   def trace_csp_violation(report)
-    ActiveSupport::Notifications.instrument("tta.csp_violation", report)
+    Rails.logger.error({ "csp-report" => report })
   end
 end
