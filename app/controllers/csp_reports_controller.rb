@@ -33,10 +33,3 @@ private
     ActiveSupport::Notifications.instrument("tta.csp_violation", report)
   end
 end
-
-ActiveSupport::Notifications.subscribe "tta.csp_violation" do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  report = event.payload.transform_keys(&:dasherize)
-
-  Rails.logger.error({ "csp-report" => report })
-end
