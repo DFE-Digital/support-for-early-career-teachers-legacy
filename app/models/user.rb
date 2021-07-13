@@ -34,6 +34,10 @@ class User < ApplicationRecord
     participant_profile.present?
   end
 
+  def registered_participant?
+    participant_profile&.registration_completed?
+  end
+
   def participant_profile
     early_career_teacher_profile || mentor_profile
   end

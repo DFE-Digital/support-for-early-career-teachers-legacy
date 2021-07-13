@@ -102,4 +102,32 @@ RSpec.describe User, type: :model do
       expect(user.participant?).to be false
     end
   end
+
+  describe "#registered_partcipant" do
+    it "is expected to be true when the user has registered on the service as an ect" do
+      user = create(:user, :early_career_teacher)
+
+      expect(user.registered_participant?).to be true
+    end
+
+    it "is expected to be true when the user is an ect but has not completed the registration" do
+      user = create(:user, :early_career_teacher)
+      user.early_career_teacher_profile.update!(registration_completed: false)
+
+      expect(user.registered_participant?).to be false
+    end
+
+    it "is expected to be true when the user has registered on the service as an mentor" do
+      user = create(:user, :mentor)
+
+      expect(user.registered_participant?).to be true
+    end
+
+    it "is expected to be true when the user is a mentor but has not completed the registration" do
+      user = create(:user, :mentor)
+      user.mentor_profile.update!(registration_completed: false)
+
+      expect(user.registered_participant?).to be false
+    end
+  end
 end

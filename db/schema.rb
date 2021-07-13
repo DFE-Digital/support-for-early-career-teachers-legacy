@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_154859) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "induction_programme_choice", default: "not_yet_known"
+    t.boolean "registration_completed", default: false
     t.index ["cohort_id"], name: "index_early_career_teacher_profiles_on_cohort_id"
     t.index ["core_induction_programme_id"], name: "index_ect_profiles_on_core_induction_programme_id"
     t.index ["user_id"], name: "index_early_career_teacher_profiles_on_user_id"
@@ -169,6 +170,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_154859) do
     t.uuid "core_induction_programme_id"
     t.uuid "cohort_id"
     t.string "induction_programme_choice", default: "not_yet_known"
+    t.boolean "registration_completed", default: false
     t.index ["cohort_id"], name: "index_mentor_profiles_on_cohort_id"
     t.index ["core_induction_programme_id"], name: "index_mentor_profiles_on_core_induction_programme_id"
     t.index ["user_id"], name: "index_mentor_profiles_on_user_id"

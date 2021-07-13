@@ -8,7 +8,8 @@
         "full_name": "Lead Provider",
         "user_type": "mentor",
         "core_induction_programme": "ucl",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true
       }
     },
     {
@@ -19,7 +20,8 @@
         "full_name": "Induction Tutor",
         "user_type": "mentor",
         "core_induction_programme": "none",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true
       }
     },
     {
@@ -30,7 +32,8 @@
         "full_name": "Joe Bloggs",
         "user_type": "early_career_teacher",
         "core_induction_programme": "ucl",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true
       }
     },
     {
@@ -41,7 +44,8 @@
         "full_name": "Jane Doe",
         "user_type": "other",
         "core_induction_programme": "ucl",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": false
       }
     },
     {
@@ -52,7 +56,20 @@
         "full_name": "Steve Austin",
         "user_type": "early_career_teacher",
         "core_induction_programme": "edt",
-        "induction_programme_choice": "full_induction_programme"
+        "induction_programme_choice": "full_induction_programme",
+        "registration_completed": true
+      }
+    },
+      {
+      "id": "d97fbf35-845g-3g62-q256-bde676314m35",
+      "type": "user",
+      "attributes": {
+        "email": "unverified_user@example.com",
+        "full_name": "Dwayne Johnson",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "teach_first",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": false
       }
     }
   ]
