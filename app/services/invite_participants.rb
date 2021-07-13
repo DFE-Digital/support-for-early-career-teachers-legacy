@@ -15,9 +15,9 @@ class InviteParticipants
   end
 
   def self.create_invite_email_for_user(user)
-    if user.registered_mentor?
+    if user.registered_participant? && user.mentor?
       InviteEmailMentor.find_or_create_by!(user: user, sent_at: nil)
-    elsif user.registered_early_career_teacher?
+    elsif user.registered_participant? && user.early_career_teacher?
       InviteEmailEct.find_or_create_by!(user: user, sent_at: nil)
     end
   end

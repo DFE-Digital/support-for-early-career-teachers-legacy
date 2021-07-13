@@ -30,16 +30,12 @@ class User < ApplicationRecord
     mentor_profile.present?
   end
 
-  def registered_mentor?
-    mentor_profile&.registration_completed?
-  end
-
-  def registered_early_career_teacher?
-    early_career_teacher_profile&.registration_completed?
-  end
-
   def participant?
     participant_profile.present?
+  end
+
+  def registered_participant?
+    participant_profile&.registration_completed?
   end
 
   def participant_profile
