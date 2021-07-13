@@ -49,6 +49,12 @@ RSpec.describe TrackedEmail, type: :model do
         invite_email_ect.send!(force_send: true)
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
+
+      it "does not send the email to a cip ect user if they have not completed registration, even if forced" do
+        ect.early_career_teacher_profile.update!(registration_completed: false)
+        invite_email_ect.send!(force_send: true)
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
     end
 
     context "on cutoff date" do
@@ -100,6 +106,12 @@ RSpec.describe TrackedEmail, type: :model do
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
 
+      it "does not send the email to a cip ect user if they have not completed registration" do
+        ect.early_career_teacher_profile.update!(registration_completed: false)
+        invite_email_ect.send!
+        expect(invite_email_ect.reload.sent?).to be_falsey
+      end
+
       it "sends only one email" do
         invite_email_ect.send!
         time = invite_email_ect.sent_at
@@ -146,6 +158,12 @@ RSpec.describe TrackedEmail, type: :model do
         invite_email_mentor.send!(force_send: true)
         expect(invite_email_mentor.reload.sent?).to be_falsey
       end
+
+      it "does not send the email to a cip mentor if they have not completed registration, even if forced" do
+        mentor.mentor_profile.update!(registration_completed: false)
+        invite_email_mentor.send!(force_send: true)
+        expect(invite_email_mentor.reload.sent?).to be_falsey
+      end
     end
 
     context "on cutoff date" do
@@ -180,6 +198,12 @@ RSpec.describe TrackedEmail, type: :model do
 
       it "does not send the email to mentor if induction programme is not yet known" do
         mentor.mentor_profile.not_yet_known!
+        invite_email_mentor.send!
+        expect(invite_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to a cip mentor if they have not completed registration" do
+        mentor.mentor_profile.update!(registration_completed: false)
         invite_email_mentor.send!
         expect(invite_email_mentor.reload.sent?).to be_falsey
       end

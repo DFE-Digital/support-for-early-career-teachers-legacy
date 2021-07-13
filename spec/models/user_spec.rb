@@ -103,7 +103,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#registered_early_career_teacher" do
+  describe "#registered_partcipant" do
     it "is expected to be true when the user has registered on the service as an ect" do
       user = create(:user, :early_career_teacher)
 
@@ -116,9 +116,7 @@ RSpec.describe User, type: :model do
 
       expect(user.registered_participant?).to be false
     end
-  end
 
-  describe "#registered_mentor" do
     it "is expected to be true when the user has registered on the service as an mentor" do
       user = create(:user, :mentor)
 
