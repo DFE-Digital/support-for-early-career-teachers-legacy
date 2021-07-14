@@ -50,10 +50,10 @@ RSpec.describe TrackedEmail, type: :model do
         expect(invite_email_ect.reload.sent?).to be_falsey
       end
 
-      it "does not send the email to a cip ect user if they have not completed registration, even if forced" do
+      it "sends the email to a cip ect user if they have not completed registration, if forced" do
         ect.early_career_teacher_profile.update!(registration_completed: false)
         invite_email_ect.send!(force_send: true)
-        expect(invite_email_ect.reload.sent?).to be_falsey
+        expect(invite_email_ect.reload.sent?).to be_truthy
       end
     end
 
@@ -159,10 +159,10 @@ RSpec.describe TrackedEmail, type: :model do
         expect(invite_email_mentor.reload.sent?).to be_falsey
       end
 
-      it "does not send the email to a cip mentor if they have not completed registration, even if forced" do
+      it "sends the email to a cip mentor if they have not completed registration, if forced" do
         mentor.mentor_profile.update!(registration_completed: false)
         invite_email_mentor.send!(force_send: true)
-        expect(invite_email_mentor.reload.sent?).to be_falsey
+        expect(invite_email_mentor.reload.sent?).to be_truthy
       end
     end
 
