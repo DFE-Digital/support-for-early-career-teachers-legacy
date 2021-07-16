@@ -40,7 +40,7 @@ class AnalyticsDataLayer
 
   def add_year_info(year)
     add_cip_info(year.core_induction_programme) if year
-    @analytics_data[:cipYear] = year.title if year
+    @analytics_data[:cipYear] = "Year #{year.position}" if year
   end
 
   def add_module_info(course_module)
