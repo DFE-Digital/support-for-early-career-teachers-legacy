@@ -15,10 +15,16 @@ RSpec.describe AnalyticsDataLayer, type: :model do
 
   describe "#add_user_info" do
     let(:user) { create(:user) }
+    let(:course_year) { create(:course_year) }
 
     it "adds the user type to the analytics data" do
       data_layer.add_user_info(user)
       expect(data_layer.analytics_data[:userType]).to eq(user.user_description)
+    end
+
+    it "adds the correct year to the analytics data" do
+      data_layer.add_year_info(course_year)
+      expect(data_layer.analytics_data[:cipYear]).to eq("Year #{course_year.position}")
     end
 
     context "when the supplied user is nil" do
