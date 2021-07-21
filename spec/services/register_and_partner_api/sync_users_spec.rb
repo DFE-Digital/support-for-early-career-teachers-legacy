@@ -54,12 +54,12 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
       expect(record.email).to eql("mentor@example.com")
     end
 
-    it "creates an invite email for new mentors and early career teachers" do
+    it "creates an invite email for new mentors and early career teachers, but only if they are on core induction programme" do
       allow(InviteParticipants).to receive(:run)
       described_class.perform
 
       expect(InviteParticipants).to have_received(:run).with(["mentor@example.com"])
-      expect(InviteParticipants).to have_received(:run).with(["school-leader@example.com"])
+      expect(InviteParticipants).not_to have_received(:run).with(["school-leader@example.com"])
       expect(InviteParticipants).to have_received(:run).with(["rp-ect-ambition@example.com"])
     end
 
