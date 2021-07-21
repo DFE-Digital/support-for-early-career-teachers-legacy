@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class InviteEmailEct < TrackedEmail
-  INVITES_SENT_FROM = Date.new(2021, 8, 20).beginning_of_day
+  INVITES_SENT_FROM = Date.new(2021, 8, 31).beginning_of_day
 
   def mail_to_send
     UserMailer.ect_welcome_email(user)

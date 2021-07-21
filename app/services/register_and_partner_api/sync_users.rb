@@ -84,7 +84,7 @@ module RegisterAndPartnerApi
       needs_inviting = !user.persisted?
       save_user(attributes, user, profile_class)
 
-      if needs_inviting
+      if needs_inviting && user.is_on_core_induction_programme?
         InviteParticipants.run([user.email])
       end
     end

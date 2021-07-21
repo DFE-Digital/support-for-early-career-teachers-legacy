@@ -15,6 +15,8 @@ class InviteParticipants
   end
 
   def self.create_invite_email_for_user(user)
+    return unless user.is_on_core_induction_programme?
+
     if user.mentor?
       InviteEmailMentor.find_or_create_by!(user: user, sent_at: nil)
     elsif user.early_career_teacher?
