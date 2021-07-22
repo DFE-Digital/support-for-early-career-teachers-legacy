@@ -29,37 +29,6 @@ RSpec.describe CourseLesson, type: :model do
     it { is_expected.to validate_numericality_of(:completion_time_in_minutes).is_greater_than(0).with_message("Enter a number greater than 0") }
   end
 
-  describe ".duration_in_minutes_in_words" do
-    before :each do
-      @course_lesson = FactoryBot.create(:course_lesson)
-    end
-
-    it "returns an integer < 60 converted to words showing just minutes" do
-      @course_lesson.completion_time_in_minutes = 55
-      expect(@course_lesson.duration_in_minutes_in_words).to eql("55 minutes")
-    end
-
-    it "returns an integer > 59 & < 120 converted to words showing the singular of hour and minute" do
-      @course_lesson.completion_time_in_minutes = 61
-      expect(@course_lesson.duration_in_minutes_in_words).to eql("1 hour 1 minute")
-    end
-
-    it "returns hours and minutes pluralized" do
-      @course_lesson.completion_time_in_minutes = 122
-      expect(@course_lesson.duration_in_minutes_in_words).to eql("2 hours 2 minutes")
-    end
-
-    it "returns only the hour when there is 0 minutes" do
-      @course_lesson.completion_time_in_minutes = 60
-      expect(@course_lesson.duration_in_minutes_in_words).to eql("1 hour")
-    end
-
-    it "returns hours pluralized and only the hours when there is 0 minutes" do
-      @course_lesson.completion_time_in_minutes = 120
-      expect(@course_lesson.duration_in_minutes_in_words).to eql("2 hours")
-    end
-  end
-
   describe "#title_for" do
     subject { FactoryBot.create(:course_lesson, title: "Normal title", mentor_title: "Mentor title") }
 

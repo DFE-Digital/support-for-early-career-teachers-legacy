@@ -10,6 +10,11 @@
     <% end %>
 
     <h1 class="govuk-heading-xl"><%= @mentor_material.title %></h1>
+    <% if @mentor_material.completion_time_in_minutes %>
+      <h2 class="govuk-caption-m govuk-!-margin-bottom-8">
+        Duration: <%= @mentor_material.duration_in_minutes_in_words %>
+      </h2>
+    <% end %>
 
     <p>These mentor materials have no content!</p>
   </div>
