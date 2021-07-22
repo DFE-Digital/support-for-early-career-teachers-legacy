@@ -34,26 +34,19 @@ describe("Accessibility", () => {
            }}`
         ).then((lessonParts) => {
           const skip = [
-            "/teach-first/year-1/spring-2/topic-5/part-2", // Accordion messing up heading levels
-            "/ucl/year-1/autumn-2/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/ucl/year-1/summer-1/topic-5/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/summer-2/topic-4/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/autumn-1/topic-2/part-6", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/autumn-1/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/autumn-1/topic-5/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/spring-1/topic-2/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/spring-1/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/spring-1/topic-7/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/spring-2/topic-4/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/spring-2/topic-7/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/summer-1/topic-5/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/summer-1/topic-8/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/summer-2/topic-2/part-3", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-1/summer-2/topic-4/part-6", // Duplicate titles in sections causing duplicate IDs
-            "/edt/year-2/autumn-1/topic-3/part-3", // Duplicate titles in sections causing duplicate IDs
+            "/edt/year-1/summer-1/topic-5/part-3", // $I messing up header ids
+            "/edt/year-2/autumn-1/topic-3/part-3", // $CTA messing up header ids
+            "/teach-first/year-1/spring-2/topic-4/part-2", // $I messing up header ids
           ];
 
+          let index = 0;
+
           cy.wrap(lessonParts).each((part) => {
+            index += 1;
+            if (index < 0) {
+              return;
+            }
+
             const url = `/${part.cip}/${part.year}/${part.module}/${part.lesson}/${part.part}`;
 
             if (skip.includes(url)) {
@@ -81,16 +74,8 @@ describe("Accessibility", () => {
               cip: part.mentor_material.course_lesson.course_module.course_year.core_induction_programme.to_param
            }}`
         ).then((ids) => {
-          const skip = [
-            "/edt/year-1/autumn-1/topic-5/mentoring/1/part-2", // Sections messing up heading IDs - duplicates
-          ];
-
           cy.wrap(ids).each((part) => {
             const url = `/${part.cip}/${part.year}/${part.module}/${part.lesson}/mentoring/${part.material}/${part.part}`;
-
-            if (skip.includes(url)) {
-              return;
-            }
 
             cy.visit(url);
             cy.checkA11y();
