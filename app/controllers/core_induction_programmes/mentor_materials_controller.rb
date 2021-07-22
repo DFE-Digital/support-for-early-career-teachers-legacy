@@ -55,7 +55,7 @@ private
   end
 
   def mentor_material_params
-    params.require(:mentor_material).permit(:title, :course_lesson_id)
+    params.require(:mentor_material).permit(:title, :course_lesson_id, :completion_time_in_minutes)
   end
 
   def fill_data_layer
