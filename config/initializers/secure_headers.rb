@@ -10,6 +10,7 @@ SecureHeaders::Configuration.default do |config|
   config.referrer_policy = %w[origin-when-cross-origin strict-origin-when-cross-origin]
 
   google_analytics = %w[www.google-analytics.com ssl.google-analytics.com *.googletagmanager.com tagmanager.google.com *.googleusercontent.com *.gstatic.com]
+  youtube = %w[youtube.com www.youtube.com]
 
   config.csp = SecureHeaders::OPT_OUT
 
@@ -18,16 +19,16 @@ SecureHeaders::Configuration.default do |config|
     base_uri: %w['self'],
     block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
     child_src: %w['self'],
-    connect_src: %W['self' *.ingest.sentry.io] + google_analytics,
+    connect_src: %W['self' *.ingest.sentry.io] + google_analytics + youtube,
     font_src: %w['self' *.gov.uk fonts.gstatic.com],
     form_action: %w['self'],
     frame_ancestors: %w['self'],
-    frame_src: %w['self'] + google_analytics,
-    img_src: %W['self' data: *.gov.uk] + google_analytics,
+    frame_src: %w['self'] + google_analytics + youtube,
+    img_src: %W['self' data: *.gov.uk] + google_analytics + youtube,
     manifest_src: %w['self'],
     media_src: %w['self'],
-    script_src: %W['self' 'unsafe-inline' 'unsafe-eval' *.gov.uk] + google_analytics,
-    style_src: %w['self' 'unsafe-inline' *.gov.uk fonts.googleapis.com] + google_analytics,
+    script_src: %W['self' 'unsafe-inline' 'unsafe-eval' *.gov.uk] + google_analytics + youtube,
+    style_src: %w['self' 'unsafe-inline' *.gov.uk fonts.googleapis.com] + google_analytics + youtube,
     worker_src: %w['self'],
     # upgrade_insecure_requests: !Rails.env.development?, # see https://www.w3.org/TR/upgrade-insecure-requests/
     report_uri: %w[/csp_reports],
