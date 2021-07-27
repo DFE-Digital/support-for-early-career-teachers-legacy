@@ -3,7 +3,7 @@
 module RegisterAndPartnerApi
   class User < RegisterAndPartnerApi::Resource
     def self.path(_params = nil)
-      "users"
+      "ecf-users"
     end
 
     def self.table_name
