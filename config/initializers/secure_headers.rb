@@ -11,6 +11,7 @@ SecureHeaders::Configuration.default do |config|
 
   google_analytics = %w[www.google-analytics.com ssl.google-analytics.com *.googletagmanager.com tagmanager.google.com *.googleusercontent.com *.gstatic.com]
   youtube = %w[youtube.com www.youtube.com]
+  amazon = %w[paas-s3-broker-prod-lon-ac28a7a5-2bc2-4d3b-8d16-a88eaef65526.s3.amazonaws.com]
 
   config.csp = SecureHeaders::OPT_OUT
 
@@ -24,7 +25,7 @@ SecureHeaders::Configuration.default do |config|
     form_action: %w['self'],
     frame_ancestors: %w['self'],
     frame_src: %w['self'] + google_analytics + youtube,
-    img_src: %W['self' data: *.gov.uk] + google_analytics + youtube,
+    img_src: %W['self' data: *.gov.uk] + google_analytics + youtube + amazon,
     manifest_src: %w['self'],
     media_src: %w['self'],
     script_src: %W['self' 'unsafe-inline' 'unsafe-eval' *.gov.uk] + google_analytics + youtube,
