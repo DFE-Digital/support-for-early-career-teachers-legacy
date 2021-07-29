@@ -95,8 +95,8 @@ describe("Accessibility", () => {
             ];
 
             if (skipMentorParts.includes(url)) {
-                      return;
-                    }
+              return;
+            }
 
             cy.visit(url);
             cy.checkA11y();
