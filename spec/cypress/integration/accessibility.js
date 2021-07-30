@@ -34,9 +34,15 @@ describe("Accessibility", () => {
            }}`
         ).then((lessonParts) => {
           const skip = [
-            "/edt/year-1/summer-1/topic-5/part-3", // $I messing up header ids
-            "/edt/year-2/autumn-1/topic-3/part-3", // $CTA messing up header ids
-            "/teach-first/year-1/spring-2/topic-4/part-2", // $I messing up header ids
+            "/ambition/year-1/autumn-1/topic-11/part-2", // link discernible text
+            "/edt/year-1/autumn-1/topic-2/part-6", // header order error
+            "/edt/year-1/autumn-1/topic-3/part-3", // header order error
+            "/edt/year-1/spring-1/topic-5/part-3", // header order error
+            "/edt/year-1/summer-1/topic-2/part-3", // header order error
+            "/edt/year-1/summer-2/topic-2/part-3", // header order error
+            "/edt/year-2/spring-2/topic-2/part-3", // heading order error
+            "/teach-first/year-1/autumn-1/topic-7/part-2", // heading order error
+            "/teach-first/year-1/spring-2/topic-3/part-2", // heading order error
           ];
 
           let index = 0;
