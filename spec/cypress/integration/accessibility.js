@@ -34,21 +34,15 @@ describe("Accessibility", () => {
            }}`
         ).then((lessonParts) => {
           const skip = [
-            "/edt/year-1/autumn-1/topic-7/part-1", // header order error
-            "/edt/year-1/autumn-1/topic-8/part-3", // header order error
-            "/edt/year-1/spring-1/topic-7/part-3", // header order error
-            "/edt/year-1/spring-2/topic-7/part-3", // header order error
-            "/edt/year-1/summer-1/topic-5/part-3", // header order error
-            "/edt/year-1/summer-1/topic-8/part-3", // header order error
-            "/edt/year-2/autumn-1/topic-3/part-3", // header order error
-            "/edt/year-1/spring-1/topic-2/part-3", // header order error
-            "/edt/year-1/autumn-1/topic-5/part-3", // header order error
-            "/edt/year-1/autumn-2/topic-2/part-3", // header order error
-            "/teach-first/year-1/spring-2/topic-4/part-2", // header order error
-            "/teach-first/year-1/spring-1/topic-3/part-2", // header order error
-            "/teach-first/year-1/summer-1/topic-3/part-2", // header order error
-            "/ucl/year-1/spring-2/topic-2/part-3", // header order error
-            "/ucl/year-1/summer-1/topic-2/part-3", // header order error
+            "/ambition/year-1/autumn-1/topic-11/part-2", // link discernible text
+            "/edt/year-1/autumn-1/topic-2/part-6", // header order error
+            "/edt/year-1/autumn-1/topic-3/part-3", // header order error
+            "/edt/year-1/spring-1/topic-5/part-3", // header order error
+            "/edt/year-1/summer-1/topic-2/part-3", // header order error
+            "/edt/year-1/summer-2/topic-2/part-3", // header order error
+            "/edt/year-2/spring-2/topic-2/part-3", // heading order error
+            "/teach-first/year-1/autumn-1/topic-7/part-2", // heading order error
+            "/teach-first/year-1/spring-2/topic-3/part-2", // heading order error
           ];
 
           let index = 0;
@@ -88,15 +82,6 @@ describe("Accessibility", () => {
         ).then((ids) => {
           cy.wrap(ids).each((part) => {
             const url = `/${part.cip}/${part.year}/${part.module}/${part.lesson}/mentoring/${part.material}/${part.part}`;
-
-            const skipMentorParts = [
-              "/ucl/year-1/autumn-2/topic-3/mentoring/1/part-3", // header order error
-              "/ucl/year-1/autumn-2/topic-6/mentoring/1/part-4", // header order error
-            ];
-
-            if (skipMentorParts.includes(url)) {
-              return;
-            }
 
             cy.visit(url);
             cy.checkA11y();
