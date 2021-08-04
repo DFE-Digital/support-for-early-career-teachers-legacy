@@ -13,6 +13,8 @@ class CoreInductionProgrammes::CoreInductionProgrammesController < ApplicationCo
   end
 
   def show
+    redirect_to guidance_question_path and return if current_user&.participant_profile&.show_guidance_speedbump?
+
     data_layer.add_cip_info(@core_induction_programme)
     authorize @core_induction_programme
     redirect_to cip_year_path(@core_induction_programme, @core_induction_programme.course_years.first)

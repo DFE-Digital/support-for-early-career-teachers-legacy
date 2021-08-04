@@ -6,5 +6,6 @@ FactoryBot.define do
     core_induction_programme
     induction_programme_choice { "core_induction_programme" }
     registration_completed { true }
+    show_guidance_speedbump { false }
   end
 end

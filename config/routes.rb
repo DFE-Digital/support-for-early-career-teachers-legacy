@@ -75,4 +75,6 @@ Rails.application.routes.draw do
   root to: "start#index"
 
   get "training-and-support" => "training_and_support#show"
+  post "guidance-question" => "training_and_support#update"
+  get "guidance-question" => "training_and_support#guidance_question"
 end
