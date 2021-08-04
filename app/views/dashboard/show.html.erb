@@ -46,7 +46,7 @@
           <h2 class="govuk-heading-l govuk-!-margin-top-2">How this programme works</h2>
           <p>
             <% if current_user.mentor? %>
-              Read <%= govuk_link_to "this guidance", training_and_support_path %> to see what early career teachers will be learning and how you can help them put it into practice.
+              Read <%= govuk_link_to "this summary", training_and_support_path %> to see what early career teachers will be learning and how you can help them put it into practice.
             <% else %>
               Read this <%= govuk_link_to "brief guide", training_and_support_path %> to see how the programme is structured across your 2-year induction.
             <% end %>
