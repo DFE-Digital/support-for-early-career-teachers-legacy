@@ -77,7 +77,7 @@ describe CipBreadcrumbHelper, type: :helper do
 
       it "returns a url for the end crumb when the action_name is edit" do
         allow(helper).to receive(:action_name) { "edit" }
-        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb,  expected_module_crumb])
+        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
       end
 
       it "returns just the title for the end crumb when the action_name is show" do
