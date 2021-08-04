@@ -26,12 +26,12 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:year_breadcrumbs) { helper.course_year_breadcrumbs(early_career_teacher, course_year) }
 
       it "returns an array for the course year breadcrumb" do
-        expect(year_breadcrumbs).to eq([["Home", "/dashboard"], expected_year_crumb])
+        expect(year_breadcrumbs).to eq([["Home", "/dashboard"]])
       end
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(year_breadcrumbs).to eql([["Home", "/dashboard"], expected_year_crumb[0]])
+        expect(year_breadcrumbs).to eql([["Home", "/dashboard"]])
       end
     end
 
@@ -39,12 +39,12 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:year_breadcrumbs) { helper.course_year_breadcrumbs(mentor, course_year) }
 
       it "returns an array for the course year breadcrumb" do
-        expect(year_breadcrumbs).to eq([["Home", "/dashboard"], expected_mentor_year_crumb])
+        expect(year_breadcrumbs).to eq([["Home", "/dashboard"]])
       end
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(year_breadcrumbs).to eql([["Home", "/dashboard"], expected_mentor_year_crumb[0]])
+        expect(year_breadcrumbs).to eql([["Home", "/dashboard"]])
       end
     end
 
@@ -52,7 +52,7 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:year_breadcrumbs) { helper.course_year_breadcrumbs(admin, course_year) }
 
       it "returns an array for the course year breadcrumb" do
-        expect(year_breadcrumbs).to eq([["Home", "/dashboard"], expected_year_crumb])
+        expect(year_breadcrumbs).to eq([["Home", "/dashboard"]])
       end
 
       it "returns a url for the end crumb when the action_name is edit" do
@@ -62,7 +62,7 @@ describe CipBreadcrumbHelper, type: :helper do
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(year_breadcrumbs).to eql([["Home", "/dashboard"], expected_year_crumb[0]])
+        expect(year_breadcrumbs).to eql([["Home", "/dashboard"]])
       end
     end
   end
@@ -72,17 +72,17 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:course_module_breadcrumb) { helper.course_module_breadcrumbs(early_career_teacher, course_module) }
 
       it "returns an array for the course module breadcrumb" do
-        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
+        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb])
       end
 
       it "returns a url for the end crumb when the action_name is edit" do
         allow(helper).to receive(:action_name) { "edit" }
-        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
+        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb,  expected_module_crumb])
       end
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(course_module_breadcrumb).to eql([["Home", "/dashboard"], expected_year_crumb, course_module.term_and_title])
+        expect(course_module_breadcrumb).to eql([["Home", "/dashboard"], expected_year_crumb])
       end
     end
 
@@ -90,12 +90,12 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:course_module_breadcrumb) { helper.course_module_breadcrumbs(mentor, course_module) }
 
       it "returns an array for the course module breadcrumb" do
-        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_mentor_year_crumb, expected_module_crumb])
+        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_mentor_year_crumb])
       end
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(course_module_breadcrumb).to eql([["Home", "/dashboard"], expected_mentor_year_crumb, course_module.term_and_title])
+        expect(course_module_breadcrumb).to eql([["Home", "/dashboard"], expected_mentor_year_crumb])
       end
     end
 
@@ -103,7 +103,7 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:course_module_breadcrumb) { helper.course_module_breadcrumbs(admin, course_module) }
 
       it "returns an array for the course module breadcrumb" do
-        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
+        expect(course_module_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb])
       end
 
       it "returns a url for the end crumb when the action_name is edit" do
@@ -113,7 +113,7 @@ describe CipBreadcrumbHelper, type: :helper do
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(course_module_breadcrumb).to eql([["Home", "/dashboard"], expected_year_crumb, course_module.term_and_title])
+        expect(course_module_breadcrumb).to eql([["Home", "/dashboard"], expected_year_crumb])
       end
     end
   end
@@ -123,12 +123,12 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:course_lesson_breadcrumb) { helper.course_lesson_breadcrumbs(early_career_teacher, course_lesson) }
 
       it "returns an array for the course lesson breadcrumb" do
-        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb, expected_lesson_crumb])
+        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
       end
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb, course_lesson.title])
+        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
       end
     end
 
@@ -136,12 +136,12 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:course_lesson_breadcrumb) { helper.course_lesson_breadcrumbs(mentor, course_lesson) }
 
       it "returns an array for the course lesson breadcrumb" do
-        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_mentor_year_crumb, expected_module_crumb, expected_lesson_crumb])
+        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_mentor_year_crumb, expected_module_crumb])
       end
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(course_lesson_breadcrumb).to eql([["Home", "/dashboard"], expected_mentor_year_crumb, expected_module_crumb, course_lesson.title])
+        expect(course_lesson_breadcrumb).to eql([["Home", "/dashboard"], expected_mentor_year_crumb, expected_module_crumb])
       end
     end
 
@@ -149,7 +149,7 @@ describe CipBreadcrumbHelper, type: :helper do
       let(:course_lesson_breadcrumb) { helper.course_lesson_breadcrumbs(admin, course_lesson) }
 
       it "returns an array for the course lesson breadcrumb" do
-        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb, expected_lesson_crumb])
+        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
       end
 
       it "returns the url for the end crumb when the action_name is edit" do
@@ -159,7 +159,7 @@ describe CipBreadcrumbHelper, type: :helper do
 
       it "returns just the title for the end crumb when the action_name is show" do
         allow(helper).to receive(:action_name) { "show" }
-        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb, course_lesson.title])
+        expect(course_lesson_breadcrumb).to eq([["Home", "/dashboard"], expected_year_crumb, expected_module_crumb])
       end
     end
   end
