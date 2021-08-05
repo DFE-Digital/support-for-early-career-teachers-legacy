@@ -29,6 +29,8 @@ Feature: Core Induction Programme years
     And scenario "ect_cip" has been ran
 
     When I click on "link" containing "Start now"
+    And I click on "skip guidance radio"
+    And I click on "continue button"
     Then I should be on "core induction programme year" page
     And "page body" should contain "Test Course year"
     And "page body" should not contain "Mentor title"
@@ -40,6 +42,8 @@ Feature: Core Induction Programme years
     And I am on "dashboard" page
 
     When I click on "start now button"
+    And I click on "skip guidance radio"
+    And I click on "continue button"
     Then I should be on "core induction programme year" page
     And "page body" should contain "Mentor title"
     And "page body" should not contain "Test Course year"

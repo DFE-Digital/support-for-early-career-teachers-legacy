@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_082231) do
+ActiveRecord::Schema.define(version: 2021_08_05_092703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_082231) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "induction_programme_choice", default: "not_yet_known"
     t.boolean "registration_completed", default: false
+    t.boolean "guidance_seen", default: false
     t.index ["cohort_id"], name: "index_early_career_teacher_profiles_on_cohort_id"
     t.index ["core_induction_programme_id"], name: "index_ect_profiles_on_core_induction_programme_id"
     t.index ["user_id"], name: "index_early_career_teacher_profiles_on_user_id"
@@ -172,6 +173,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_082231) do
     t.uuid "cohort_id"
     t.string "induction_programme_choice", default: "not_yet_known"
     t.boolean "registration_completed", default: false
+    t.boolean "guidance_seen", default: false
     t.index ["cohort_id"], name: "index_mentor_profiles_on_cohort_id"
     t.index ["core_induction_programme_id"], name: "index_mentor_profiles_on_core_induction_programme_id"
     t.index ["user_id"], name: "index_mentor_profiles_on_user_id"
