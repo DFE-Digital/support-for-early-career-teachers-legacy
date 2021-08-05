@@ -17,14 +17,11 @@ class TrainingAndSupportController < ApplicationController
   def update
     @guidance_speedbump_form = GuidanceSpeedbumpForm.new(guidance_question_params)
 
-    if @guidance_speedbump_form.view_guidance_option.blank?
-      @guidance_speedbump_form.errors.add :view_guidance_option, "Select if you would like a brief summary of the programme"
-      render :guidance_question and return
-    end
+    render :guidance_question and return unless @guidance_speedbump_form.valid?
 
     current_user.participant_profile.update!(guidance_seen: true)
 
-    if view_guidance?(@guidance_speedbump_form)
+    if @guidance_speedbump_form.view_guidance?
       redirect_to training_and_support_path
     else
       redirect_to cip_path(current_user.core_induction_programme)
@@ -36,10 +33,6 @@ class TrainingAndSupportController < ApplicationController
   end
 
 private
-
-  def view_guidance?(guidance_speedbump_form)
-    guidance_speedbump_form.view_guidance_option == "view_guidance"
-  end
 
   def guidance_question_params
     params.fetch(:guidance_speedbump_form, {}).permit(:view_guidance_option)
