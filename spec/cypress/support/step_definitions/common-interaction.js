@@ -16,8 +16,8 @@ const inputs = {
   "mentor summary input": '[name*="mentor_summary"]',
   "time input": '[name*="time"]',
   "cookie consent radio": '[name="cookies_form[analytics_consent]"]',
-  "view guidance radio": '[value="view guidance"]',
-  "skip guidance radio": '[value="skip guidance"]',
+  "view guidance radio": '[value="view_guidance"]',
+  "skip guidance radio": '[value="skip_guidance"]',
   "continue button": '[name="commit"]',
 };
 

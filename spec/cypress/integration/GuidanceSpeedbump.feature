@@ -64,6 +64,24 @@ Feature: Guidance Speedbump
     And I click on "start now button"
     Then I should be on "ambition year 1 show" page
 
+  Scenario: ECT does not hit speedbump if they have already read the guidance
+    Given I am logged in as existing user with email "ambition-institute-early-career-teacher@example.com"
+    And I am on "dashboard" page
+    Then I click on "link" containing "brief guide"
+    Then I click on "service name in navigation"
+    And I am on "dashboard" page
+    When I click on "start now button"
+    Then I should be on "ambition year 1 show" page
+
+  Scenario: Mentor does not hit speedbump if they have already read the guidance
+    Given I am logged in as existing user with email "ambition-institute-mentor@example.com"
+    And I am on "dashboard" page
+    Then I click on "link" containing "this summary"
+    Then I click on "service name in navigation"
+    And I am on "dashboard" page
+    When I click on "start now button"
+    Then I should be on "ambition year 1 show" page
+
 
 
 

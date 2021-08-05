@@ -8,7 +8,6 @@ RSpec.describe "TrainingAndSupports", type: :request do
       cip = create(:core_induction_programme, name: "UCL")
       early_career_teacher = create(:user, :early_career_teacher)
       early_career_teacher.early_career_teacher_profile.core_induction_programme = cip
-      early_career_teacher.early_career_teacher_profile.update!(show_guidance_speedbump: false)
       sign_in early_career_teacher
     end
 
@@ -25,8 +24,8 @@ RSpec.describe "TrainingAndSupports", type: :request do
     it "redirects to the guidance show page" do
       post "/guidance-question", params: {
         commit: "Continue",
-        early_career_teacher_profile: {
-          show_guidance_speedbump: "view guidance",
+        guidance_speedbump_form: {
+          view_guidance_option: "view_guidance",
         },
       }
       expect(response).to redirect_to("/training-and-support")
