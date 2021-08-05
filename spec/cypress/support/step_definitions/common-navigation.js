@@ -7,6 +7,7 @@ const pagePaths = {
   cookie: "/cookies",
   start: "/",
   "guidance speedbump": "/guidance-question",
+  accessibility: "/accessibility-statement",
   dashboard: "/dashboard",
   "edit preferred name": "/preferred-name/edit",
   "sign in": "/users/sign_in",

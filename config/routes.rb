@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resource :csp_reports, only: %i[create]
   resource :cookies, only: %i[show update]
   resource :privacy_policy, only: %i[show], path: "privacy-policy"
+  resource :accessibility_statement, only: %i[show], path: "accessibility-statement"
   resource :dashboard, controller: :dashboard, only: :show
   resource :preferred_name, path: "preferred-name", controller: :preferred_name, only: %i[edit update]
 
