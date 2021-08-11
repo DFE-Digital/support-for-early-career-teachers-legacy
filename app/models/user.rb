@@ -46,6 +46,11 @@ class User < ApplicationRecord
     participant_profile&.core_induction_programme
   end
 
+  def cohort
+    return early_career_teacher_profile.cohort if early_career_teacher?
+    return mentor_profile.cohort if mentor?
+  end
+
   def is_on_core_induction_programme?
     is_cip_participant? && core_induction_programme.present?
   end

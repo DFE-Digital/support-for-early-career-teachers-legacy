@@ -9,7 +9,8 @@
         "user_type": "mentor",
         "core_induction_programme": "ucl",
         "induction_programme_choice": "core_induction_programme",
-        "registration_completed": true
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
     {
@@ -21,7 +22,8 @@
         "user_type": "mentor",
         "core_induction_programme": "none",
         "induction_programme_choice": "core_induction_programme",
-        "registration_completed": true
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
     {
@@ -33,7 +35,8 @@
         "user_type": "early_career_teacher",
         "core_induction_programme": "ucl",
         "induction_programme_choice": "core_induction_programme",
-        "registration_completed": true
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
     {
@@ -45,7 +48,8 @@
         "user_type": "other",
         "core_induction_programme": "ucl",
         "induction_programme_choice": "core_induction_programme",
-        "registration_completed": false
+        "registration_completed": false,
+        "cohort": 2021
       }
     },
     {
@@ -57,7 +61,8 @@
         "user_type": "early_career_teacher",
         "core_induction_programme": "edt",
         "induction_programme_choice": "full_induction_programme",
-        "registration_completed": true
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
       {
@@ -69,7 +74,21 @@
         "user_type": "early_career_teacher",
         "core_induction_programme": "teach_first",
         "induction_programme_choice": "core_induction_programme",
-        "registration_completed": false
+        "registration_completed": false,
+        "cohort": 2021
+      }
+    },
+    {
+      "id": "d97erf90-845g43g32-q256-bde6763123g76",
+      "type": "user",
+      "attributes": {
+        "email": "nqt_plus_1_user@example.com",
+        "full_name": "Bob Belcher",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "ucl",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true,
+        "cohort": 2020
       }
     }
   ]
