@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-unless Cohort.first
-  Cohort.create!(start_year: 2020)
-  Cohort.create!(start_year: 2021)
-  Cohort.create!(start_year: 2022)
-end
-
 unless Rails.env.production?
   user = User.find_or_create_by!(email: "admin@example.com") do |u|
     u.full_name = "Admin User"
