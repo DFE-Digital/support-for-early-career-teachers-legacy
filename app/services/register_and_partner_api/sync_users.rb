@@ -76,6 +76,7 @@ module RegisterAndPartnerApi
         cip: user_from_api.attributes[:attributes][:core_induction_programme],
         induction_programme_choice: user_from_api.attributes[:attributes][:induction_programme_choice],
         registration_completed: user_from_api.attributes[:attributes][:registration_completed],
+        cohort: user_from_api.attributes[:attributes][:cohort],
       }
     end
 
@@ -97,6 +98,7 @@ module RegisterAndPartnerApi
       profile.core_induction_programme = get_core_induction_programme(attributes)
       profile.induction_programme_choice = attributes[:induction_programme_choice]
       profile.registration_completed = attributes[:registration_completed]
+      profile.cohort = get_cohort(attributes)
       profile.save!
     end
 
@@ -114,6 +116,10 @@ module RegisterAndPartnerApi
       CoreInductionProgramme.find_by(name: name)
     end
 
-    private_class_method :sync_users, :user_attributes_from, :find_or_create_user, :save_user, :get_core_induction_programme
+    def self.get_cohort(attributes)
+      Cohort.find_by(start_year: attributes[:cohort])
+    end
+
+    private_class_method :sync_users, :user_attributes_from, :find_or_create_user, :save_user, :get_core_induction_programme, :get_cohort
   end
 end
