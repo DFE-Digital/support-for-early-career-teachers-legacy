@@ -32,6 +32,7 @@ class AnalyticsDataLayer
     @analytics_data[:userType] = user.user_description if user
     @analytics_data[:userRegisterAndPartnerId] = user.register_and_partner_id if user
     @analytics_data[:userCoreInductionProgramme] = user.core_induction_programme if user
+    @analytics_data[:cohort] = user.cohort if user
   end
 
   def add_cip_info(cip)

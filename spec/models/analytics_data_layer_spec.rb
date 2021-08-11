@@ -14,7 +14,7 @@ RSpec.describe AnalyticsDataLayer, type: :model do
   end
 
   describe "#add_user_info" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :early_career_teacher) }
     let(:course_year) { create(:course_year) }
 
     it "adds the user type to the analytics data" do
@@ -25,6 +25,12 @@ RSpec.describe AnalyticsDataLayer, type: :model do
     it "adds the correct year to the analytics data" do
       data_layer.add_year_info(course_year)
       expect(data_layer.analytics_data[:cipYear]).to eq("Year #{course_year.position}")
+    end
+
+    it "should add the correct cohort year to the analytics data" do
+      user.early_career_teacher_profile.update!(cohort: create(:cohort, start_year: 2020))
+      data_layer.add_user_info(user)
+      expect(data_layer.analytics_data[:cohort]).to eq(user.cohort)
     end
 
     context "when the supplied user is nil" do
