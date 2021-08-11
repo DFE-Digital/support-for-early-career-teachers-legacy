@@ -30,7 +30,7 @@ RSpec.describe AnalyticsDataLayer, type: :model do
     it "should add the correct cohort year to the analytics data" do
       user.early_career_teacher_profile.update!(cohort: create(:cohort, start_year: 2020))
       data_layer.add_user_info(user)
-      expect(data_layer.analytics_data[:cohort]).to eq(user.cohort)
+      expect(data_layer.analytics_data[:cohortStartYear]).to eq(user.cohort.start_year)
     end
 
     context "when the supplied user is nil" do
