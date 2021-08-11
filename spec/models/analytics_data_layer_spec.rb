@@ -27,6 +27,11 @@ RSpec.describe AnalyticsDataLayer, type: :model do
       expect(data_layer.analytics_data[:cipYear]).to eq("Year #{course_year.position}")
     end
 
+    it "adds the correct core induction programme name to the analytics data" do
+      data_layer.add_user_info(user)
+      expect(data_layer.analytics_data[:userCoreInductionProgramme]).to eq(user.core_induction_programme.name)
+    end
+
     it "should add the correct cohort year to the analytics data" do
       user.early_career_teacher_profile.update!(cohort: create(:cohort, start_year: 2020))
       data_layer.add_user_info(user)
