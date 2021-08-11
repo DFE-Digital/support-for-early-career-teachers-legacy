@@ -16,6 +16,7 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  config.active_job.queue_adapter = :delayed_job
   config.domain = ENV["DOMAIN"]
   config.gias_api_root = ENV["GIAS_API_ROOT"]
   # Don't care if the mailer can't send.
