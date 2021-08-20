@@ -11,3 +11,4 @@ REGISTER_AND_PARTNER_URL: "https://ecf-staging.london.cloudapps.digital"
 DOMAIN: staging-support-ects.education.gov.uk
 GOVUK_WEBSITE_ROOT: staging-support-ects.education.gov.uk
 GOVUK_APP_DOMAIN: staging-support-ects.education.gov.uk
+EMAIL_SENDING_ENABLED: true
