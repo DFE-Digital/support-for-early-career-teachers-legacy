@@ -56,9 +56,9 @@ module RegisterAndPartnerApi
 
         case attributes[:user_type]
         when USER_TYPES[:ect]
-          find_or_create_user(attributes, ::EarlyCareerTeacherProfile)
+          create_or_update_user(attributes, ::EarlyCareerTeacherProfile)
         when USER_TYPES[:mentor]
-          find_or_create_user(attributes, ::MentorProfile)
+          create_or_update_user(attributes, ::MentorProfile)
         end
 
       rescue StandardError
