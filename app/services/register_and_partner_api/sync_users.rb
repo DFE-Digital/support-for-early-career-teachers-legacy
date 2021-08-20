@@ -80,26 +80,29 @@ module RegisterAndPartnerApi
       }
     end
 
-    def self.find_or_create_user(attributes, profile_class)
+    def self.create_or_update_user(attributes, profile_class)
       user = ::User.find_or_initialize_by(register_and_partner_id: attributes[:register_and_partner_id])
-      needs_inviting = !user.persisted?
-      save_user(attributes, user, profile_class)
+      profile = profile_class.find_or_initialize_by(user: user)
+
+      assign_user_attributes(attributes, user, profile)
+
+      needs_inviting = profile.registration_completed_changed? && profile.registration_completed?
+
+      user.save!
+      profile.save!
 
       if needs_inviting && user.is_on_core_induction_programme?
         InviteParticipants.run([user.email])
       end
     end
 
-    def self.save_user(attributes, user, profile_class)
-      profile = profile_class.find_or_initialize_by(user: user)
+    def self.assign_user_attributes(attributes, user, profile)
       user.email = attributes[:email]
       user.full_name = attributes[:full_name]
-      user.save!
       profile.core_induction_programme = get_core_induction_programme(attributes)
       profile.induction_programme_choice = attributes[:induction_programme_choice]
       profile.registration_completed = attributes[:registration_completed]
       profile.cohort = get_cohort(attributes)
-      profile.save!
     end
 
     def self.get_core_induction_programme(attributes)
@@ -120,6 +123,6 @@ module RegisterAndPartnerApi
       Cohort.find_by(start_year: attributes[:cohort])
     end
 
-    private_class_method :sync_users, :user_attributes_from, :find_or_create_user, :save_user, :get_core_induction_programme, :get_cohort
+    private_class_method :sync_users, :user_attributes_from, :create_or_update_user, :assign_user_attributes, :get_core_induction_programme, :get_cohort
   end
 end

@@ -79,7 +79,7 @@
       }
     },
     {
-      "id": "d97erf90-845g43g32-q256-bde6763123g76",
+      "id": "ea9f8ad1-9b54-4806-a78e-5bd92cb3fd6c",
       "type": "user",
       "attributes": {
         "email": "nqt_plus_1_user@example.com",
@@ -89,6 +89,19 @@
         "induction_programme_choice": "core_induction_programme",
         "registration_completed": true,
         "cohort": 2020
+      }
+    },
+    {
+      "id": "d97fbf35-845g-3g62-q256-bde676314m35",
+      "type": "user",
+      "attributes": {
+        "email": "non_registrated_user@example.com",
+        "full_name": "John Doe",
+        "user_type": "mentor",
+        "core_induction_programme": "teach_first",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": false,
+        "cohort": 2021
       }
     }
   ]
