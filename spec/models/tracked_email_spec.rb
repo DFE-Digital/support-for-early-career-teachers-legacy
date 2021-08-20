@@ -105,7 +105,7 @@ RSpec.describe TrackedEmail, type: :model do
 
         travel_to(1.hour.from_now) do
           invite_email_ect.send!
-          expect(invite_email_ect.reload.sent_at).to eq(time)
+          expect(invite_email_ect.reload.sent_at).to be_within(1.second).of time
         end
       end
     end
