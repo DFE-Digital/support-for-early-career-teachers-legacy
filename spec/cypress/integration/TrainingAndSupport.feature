@@ -76,3 +76,13 @@ Feature: Training and Support page
     And "page body" should contain "University College London"
     And the page should be accessible
     And percy should be sent snapshot
+
+  Scenario: Information for NQT plus one ECT
+    Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
+    And scenario "nqt_plus_one" has been ran
+
+    When I click on "link" containing "brief guide"
+    Then I should be on "training and support" page
+    And "page body" should contain "Lorem ipsum"
+    And "page body" should contain "nqt+1 year"
+    And the page should be accessible

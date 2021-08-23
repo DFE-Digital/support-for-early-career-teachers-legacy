@@ -5,10 +5,11 @@ class TrainingAndSupportController < ApplicationController
 
   def show
     @provider = current_user.core_induction_programme
-
     if @provider.blank?
       raise Pundit::NotAuthorizedError, "This page is only available to CIP participants"
     end
+
+    @cohort = current_user&.cohort
 
     current_user.participant_profile.update!(guidance_seen: true)
     @provider_name_key = @provider.name.downcase.gsub(/ /, "_")
