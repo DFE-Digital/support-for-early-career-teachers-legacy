@@ -16,6 +16,18 @@ unless Rails.env.production?
   end
   InductionCoordinatorProfile.find_or_create_by!(user: user)
 
+  ur_users = %w[Kim Chloe Kathryn Georgia Mary Maria]
+
+  ur_users.each do |name|
+    nqt_plus_one_ect = User.find_or_create_by!(email: "#{name}@example.com") do |u|
+      u.full_name = name
+    end
+    EarlyCareerTeacherProfile.find_or_create_by!(
+      user: nqt_plus_one_ect, cohort: Cohort.find_by(start_year: 2020), core_induction_programme: CoreInductionProgramme.find_by(name: "Education Development Trust"),
+      induction_programme_choice: "core_induction_programme", registration_completed: true
+    )
+  end
+
   CoreInductionProgramme.all.each do |cip|
     cip_name_for_email = cip.name.gsub(/\s+/, "-").downcase
 
