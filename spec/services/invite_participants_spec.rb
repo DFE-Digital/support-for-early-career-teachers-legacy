@@ -47,11 +47,11 @@ RSpec.describe InviteParticipants do
       end
 
       it "does not create an email for ect" do
-        expect { InviteParticipants.run([ect.email, mentor.email]) }.to change { InviteEmailEct.count }.by(0)
+        expect { InviteParticipants.run([ect.email, mentor.email]) }.not_to(change { InviteEmailMentor.count })
       end
 
       it "does not create an email for mentor" do
-        expect { InviteParticipants.run([ect.email, mentor.email]) }.to change { InviteEmailMentor.count }.by(0)
+        expect { InviteParticipants.run([ect.email, mentor.email]) }.not_to(change { InviteEmailMentor.count })
       end
     end
 
