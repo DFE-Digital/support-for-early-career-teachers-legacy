@@ -59,6 +59,10 @@ class User < ApplicationRecord
     participant_profile&.core_induction_programme?
   end
 
+  def is_an_nqt_plus_one_ect?
+    early_career_teacher_profile&.cohort&.start_year == 2020
+  end
+
   def course_years
     core_induction_programme&.course_years || []
   end
