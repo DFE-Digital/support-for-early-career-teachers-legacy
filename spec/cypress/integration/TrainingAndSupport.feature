@@ -83,6 +83,6 @@ Feature: Training and Support page
 
     When I click on "link" containing "brief guide"
     Then I should be on "training and support" page
-    And "page body" should contain "Lorem ipsum"
-    And "page body" should contain "nqt+1 year"
+    And "page body" should contain "What’s available"
+    And "page body" should contain "Because the pandemic meant you missed out on having a normal induction"
     And the page should be accessible
