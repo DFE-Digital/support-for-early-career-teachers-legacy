@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_101736) do
     t.uuid "user_id", null: false
     t.uuid "original_cip_id", null: false
     t.uuid "new_cip_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["new_cip_id"], name: "index_cip_change_messages_on_new_cip_id"
     t.index ["original_cip_id"], name: "index_cip_change_messages_on_original_cip_id"
     t.index ["user_id"], name: "index_cip_change_messages_on_user_id"

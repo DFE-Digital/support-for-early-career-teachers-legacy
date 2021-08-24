@@ -1,0 +1,32 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Your school has changed materials
+    </h1>
+    <p>
+      Content to be added. Your school has decided to change from <%= original_cip_name %> to <%= new_cip_name %>
+    </p>
+
+    <p>
+      The structure might look different, but the topics are very similar. Unfortunately you will have lost any recorded progress that you have made
+    </p>
+
+    <p>
+      A list if you need it:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>
+        bullet item
+      </li>
+      <li>
+        bullet item
+      </li>
+    </ul>
+
+    <%= form_with :cip_change_alert, url: cip_change_alert_start_path, id: "cip-change-alert-form", method: :post do |form| %>
+      <%= form.govuk_submit "Continue" %>
+    <% end %>
+  </div>
+</div>
+
