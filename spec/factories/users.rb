@@ -13,10 +13,12 @@ FactoryBot.define do
     end
 
     transient do
+      core_induction_programme { false }
       cohort_year { nil }
       registration_completed { nil }
       profile_attributes do
         {}.tap do |attrs|
+          attrs.merge!(core_induction_programme: core_induction_programme) if core_induction_programme
           attrs.merge!(cohort_year: cohort_year) if cohort_year
           attrs.merge!(registration_completed: registration_completed) unless registration_completed.nil?
         end

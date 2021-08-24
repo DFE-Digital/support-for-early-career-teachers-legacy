@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_05_092703) do
+ActiveRecord::Schema.define(version: 2021_08_19_101736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2021_08_05_092703) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "endpoint_name"
     t.datetime "last_called_at"
+  end
+
+  create_table "cip_change_messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "original_cip_id", null: false
+    t.uuid "new_cip_id", null: false
+    t.index ["new_cip_id"], name: "index_cip_change_messages_on_new_cip_id"
+    t.index ["original_cip_id"], name: "index_cip_change_messages_on_original_cip_id"
+    t.index ["user_id"], name: "index_cip_change_messages_on_user_id"
   end
 
   create_table "cohorts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -211,6 +220,8 @@ ActiveRecord::Schema.define(version: 2021_08_05_092703) do
   end
 
   add_foreign_key "admin_profiles", "users"
+  add_foreign_key "cip_change_messages", "core_induction_programmes", column: "new_cip_id"
+  add_foreign_key "cip_change_messages", "core_induction_programmes", column: "original_cip_id"
   add_foreign_key "course_lesson_parts", "course_lesson_parts", column: "previous_lesson_part_id"
   add_foreign_key "course_lesson_parts", "course_lessons"
   add_foreign_key "course_lesson_progresses", "course_lessons"

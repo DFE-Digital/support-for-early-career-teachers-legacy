@@ -65,7 +65,7 @@
         "cohort": 2021
       }
     },
-      {
+    {
       "id": "d97fbf35-845g-3g62-q256-bde676314m35",
       "type": "user",
       "attributes": {
@@ -102,6 +102,16 @@
         "induction_programme_choice": "core_induction_programme",
         "registration_completed": false,
         "cohort": 2021
+    },
+      "id": "f444d97f-ac3a-45f2-a311-6891679f4bd4",
+      "type": "user",
+      "attributes": {
+        "email": "my_cip_is_now_teach_first@example.com",
+        "full_name": "Chris Jericho",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "teach_first",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true
       }
     },
     {
