@@ -8,6 +8,8 @@ Feature: CIP change alert
     And I am on "dashboard" page
     When I click on "start now button"
     Then I should be on "cip change alert start" page
+    And the page should be accessible
+    And percy should be sent snapshot
     And I click on "continue button"
     Then I should be on "ambition year 1 show" page
 
@@ -20,6 +22,8 @@ Feature: CIP change alert
     And I am on "dashboard" page
     When I click on "link" containing "brief guide"
     Then I should be on "cip change alert guidance" page
+    And the page should be accessible
+    And percy should be sent snapshot
     And I click on "continue button"
     Then I should be on "training and support" page
 
