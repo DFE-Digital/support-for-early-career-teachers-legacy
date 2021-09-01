@@ -16,7 +16,7 @@ unless Rails.env.production?
   end
   InductionCoordinatorProfile.find_or_create_by!(user: user)
 
-  ur_users = %w[Kim Chloe Kathryn Georgia Mary Maria]
+  ur_users = %w[Kim Chloe Kathryn Georgia Mary Maria Lauren]
 
   ur_users.each do |name|
     nqt_plus_one_ect = User.find_or_create_by!(email: "#{name}@example.com") do |u|
