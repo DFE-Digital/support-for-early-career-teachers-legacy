@@ -73,8 +73,10 @@ Feature: Core Induction Programme lessons
   Scenario: ECTs shouldn't be able to edit lessons
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
     And scenario "ect_cip" has been ran
+    When I click on "link" containing "Start now"
+    And I click on "skip guidance radio"
+    Then I click on "continue button"
 
-    When I click on "link" containing "Go to your module materials"
     When I click on "link" containing "Test Course module"
     When I click on "link" containing "Work through the self-study material"
     Then I should be on "core induction programme lesson part" page
@@ -84,7 +86,9 @@ Feature: Core Induction Programme lessons
   Scenario: ECTs should be able to view lesson progress
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
     And scenario "ect_cip" has been ran
-    When I click on "link" containing "Go to your module materials"
+    When I click on "link" containing "Start now"
+    And I click on "skip guidance radio"
+    Then I click on "continue button"
 
     When I click on "link" containing "Test Course module"
     Then "tag component" should contain "to do"

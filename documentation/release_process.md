@@ -36,7 +36,10 @@ To get content into production environment, you need to get the seed file deploy
 Once you have it there, do the following:
 
 1. Run `cf login -a api.london.cloud.service.gov.uk -u USERNAME`, `USERNAME` is your personal GOV.UK PaaS account email address
-1. Run `cf run-task ecf-engage-and-learn-dev "cd .. && cd app && ../usr/local/bundle/bin/bundle exec rails db:seed"` to start the task.
+2. Run `cf ssh ecf-engage-and-learn-production`
+3. `cd ..`
+4. `cd /app`
+5. `/usr/local/bin/bundle exec rails db:seed"` to seed the database.
 
 Once it completes, the content should be updated.
 

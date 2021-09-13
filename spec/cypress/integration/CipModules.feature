@@ -41,8 +41,10 @@ Feature: Core Induction Programme modules
   Scenario: ECTs can view but not edit modules
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
     And scenario "ect_cip" has been ran
+    When I click on "link" containing "Start now"
+    And I click on "skip guidance radio"
+    Then I click on "continue button"
 
-    When I click on "link" containing "Go to your module materials"
     And I click on "link" containing "Test Course module"
     Then I should be on "core induction programme module" page
     And "link" containing "Edit module content" should not exist

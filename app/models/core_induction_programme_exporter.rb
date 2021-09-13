@@ -48,16 +48,18 @@ class CoreInductionProgrammeExporter
       append: true,
     )
 
+    mentor_materials = lessons.map(&:mentor_materials).flatten
     SeedDump.dump(
-      MentorMaterial,
+      mentor_materials,
       file: "db/seeds/cip_seed_dump.rb",
       exclude: %i[created_at updated_at],
       import: true,
       append: true,
     )
 
+    mentor_material_parts = mentor_materials.map(&:mentor_material_parts_in_order).flatten
     SeedDump.dump(
-      MentorMaterial.all.map(&:mentor_material_parts_in_order).flatten,
+      mentor_material_parts,
       file: "db/seeds/cip_seed_dump.rb",
       exclude: %i[created_at updated_at],
       import: true,

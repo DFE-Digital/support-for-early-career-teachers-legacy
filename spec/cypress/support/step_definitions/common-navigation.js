@@ -6,6 +6,8 @@ Given("scenario {string} has been ran", (scenario) => cy.appScenario(scenario));
 const pagePaths = {
   cookie: "/cookies",
   start: "/",
+  "guidance speedbump": "/guidance-question",
+  accessibility: "/accessibility-statement",
   dashboard: "/dashboard",
   "edit preferred name": "/preferred-name/edit",
   "sign in": "/users/sign_in",
@@ -29,6 +31,7 @@ const pagePaths = {
     "/test-cip-1/year-1/spring-1/topic-1/mentoring/1/edit",
   "core induction programme mentor material part":
     "/test-cip-1/year-1/spring-1/topic-1/mentoring/1/part-1",
+  "ambition year 1 show": "/ambition/year-1",
   "training and support": "/training-and-support",
   privacy: "/privacy-policy",
 };

@@ -6,19 +6,22 @@ module CipBreadcrumbHelper
   end
 
   def course_year_breadcrumbs(user, year)
-    [
-      home_crumb(user),
-      end_crumb(course_year_crumb(year, user)),
-    ]
+    array = []
+
+    array << home_crumb(user)
+    array << course_year_crumb(year, user) if editing_content?
+
+    array
   end
 
   def course_module_breadcrumbs(user, course_module)
-    module_crumb = course_module_crumb(course_module)
-    [
-      home_crumb(user),
-      course_year_crumb(course_module.course_year, user),
-      end_crumb(module_crumb),
-    ]
+    array = []
+
+    array << home_crumb(user)
+    array << course_year_crumb(course_module.course_year, user)
+    array << course_module_crumb(course_module) if editing_content?
+
+    array
   end
 
   def course_lesson_breadcrumbs(user, course_lesson)
@@ -27,7 +30,7 @@ module CipBreadcrumbHelper
     array << home_crumb(user)
     array << course_year_crumb(course_lesson.course_module.course_year, user) if course_lesson.course_module
     array << course_module_crumb(course_lesson.course_module) if course_lesson.course_module
-    array << end_crumb(course_lesson_crumb(course_lesson))
+    array << course_lesson_crumb(course_lesson) if editing_content?
 
     array
   end
@@ -40,7 +43,7 @@ module CipBreadcrumbHelper
     array << home_crumb(user)
     array << course_year_crumb(lesson.course_module.course_year, user) if lesson.course_module
     array << course_module_crumb(lesson.course_module) if lesson.course_module
-    array << end_crumb(mentor_material_crumb(mentor_material))
+    array << mentor_material_crumb(mentor_material) if editing_content?
 
     array
   end
@@ -75,7 +78,7 @@ private
     end
   end
 
-  def end_crumb(crumb)
-    action_name == "show" ? crumb[0] : crumb
+  def editing_content?
+    action_name == "edit"
   end
 end

@@ -11,3 +11,5 @@ REGISTER_AND_PARTNER_URL: "https://manage-training-for-early-career-teachers.edu
 DOMAIN: support-for-early-career-teachers.education.gov.uk
 GOVUK_WEBSITE_ROOT: support-for-early-career-teachers.education.gov.uk
 GOVUK_APP_DOMAIN: support-for-early-career-teachers.education.gov.uk
+EMAIL_SENDING_ENABLED: true
+

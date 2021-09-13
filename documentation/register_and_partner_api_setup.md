@@ -19,4 +19,14 @@ We use an api on R&P that's hidden behind authentication. If you need to work on
 ### Generating new R&P token
 
 Follow the steps in R&P repo - most likely it will involve using a rails console. Tokens in there are called `EngageAndLearnApiToken`.
-Make sure you note the unhashed token - it won't be available after you generate it. 
+Make sure you note the unhashed token - it won't be available after you generate it.
+
+### Setting up background jobs
+
+There are background jobs that sync users from R&P on a cron schedule.
+To get this running you will need to start the jobs worker and run an
+initial rake task to schedule the first jobs (subsequent job runs
+schedule the next one to run based on the cron schedule)
+
+1. run `bundle exec rake jobs:work`
+2. run `bundle exec rake cron:schedule`

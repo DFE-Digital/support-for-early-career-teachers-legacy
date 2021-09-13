@@ -7,7 +7,6 @@ class CourseModule < ApplicationRecord
 
   belongs_to :course_year
   has_many :course_lessons, -> { order(position: :asc) }, dependent: :delete_all
-  has_many :mentor_materials
 
   # We use previous_module_id to store the connections between modules
   # The id telling us which module is next lives on the next module, where it is called 'previous_module_id'

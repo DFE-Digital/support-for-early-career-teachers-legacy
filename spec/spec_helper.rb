@@ -97,7 +97,7 @@ RSpec.configure do |config|
 
   # Stub Register and Partner users api
   config.before(:each) do
-    stub_request(:get, /https:\/\/api\.example\.com\/api\/v1\/users\.json.*/)
+    stub_request(:get, /https:\/\/api\.example\.com\/api\/v1\/ecf-users\.json.*/)
         .with(
           headers: {
             "Accept" => "application/json,*/*",

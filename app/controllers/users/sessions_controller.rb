@@ -122,6 +122,17 @@ private
       user.errors.add :induction_programme_choice, "Your school has not selected a core induction programme for you, contact your school induction coordinator"
     end
 
+    return user if user_already_accessed_the_service?(user)
+
+    unless user.registered_participant?
+      user.errors.add :email, "Please complete your registration"
+    end
+
     user
+  end
+
+  def user_already_accessed_the_service?(user)
+    InviteEmailMentor.where.not(sent_at: nil).find_by(user: user.id).present? ||
+      InviteEmailEct.where.not(sent_at: nil).find_by(user: user.id).present?
   end
 end

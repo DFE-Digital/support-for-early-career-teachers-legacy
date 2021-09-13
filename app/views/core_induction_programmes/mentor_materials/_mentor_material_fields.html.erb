@@ -9,4 +9,11 @@
       ) %>
 <% end %>
 <%= f.govuk_text_field :title, label: { text: "Mentor material title" }, value: @mentor_material.title %>
+
+<%= f.govuk_number_field(
+      :completion_time_in_minutes,
+      label: { text: "Time in minutes"},
+      width: 4, hint: { text: " For example, 90"},
+      value: @mentor_material.completion_time_in_minutes) %>
+
 <%= f.govuk_submit "Save" %>

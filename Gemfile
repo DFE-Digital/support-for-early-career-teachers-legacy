@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.3.2"
+gem "rails", "~> 6.1.4.1"
 
 gem "devise", ">= 4.7.3"
 gem "kaminari", ">= 1.2.1"
@@ -55,7 +55,7 @@ gem "activerecord-import", ">= 1.0.7"
 gem "govuk-components", ">= 1.0.2"
 gem "govuk_design_system_formbuilder", "~> 2.1", ">= 2.1.6"
 gem "httpclient"
-gem "json_api_client"
+gem "json_api_client", ">= 0.9.6"
 gem "rack-attack", ">=6.5.0"
 gem "seed_dump", ">= 3.3.1"
 
@@ -68,7 +68,7 @@ platform :mswin, :mingw, :x64_mingw do
   gem "wdm", ">= 0.1.0"
 end
 
-gem "govspeak", git: "https://github.com/DFE-Digital/ecf-govspeak.git", ref: "81a088c64a6f8633805e26f15814467ed19fb1f1"
+gem "govspeak", git: "https://github.com/DFE-Digital/ecf-govspeak.git", ref: "bef0a28f803794bd0cbd3f712ace1c9ce68cbe91"
 
 gem "acts_as_list"
 
@@ -110,5 +110,5 @@ group :test do
   gem "shoulda-matchers", "~> 4.4"
   gem "simplecov"
   gem "webdrivers", "~> 4.4", ">= 4.4.2"
-  gem "webmock"
+  gem "webmock", ">= 3.10.0"
 end

@@ -8,7 +8,9 @@
         "full_name": "Lead Provider",
         "user_type": "mentor",
         "core_induction_programme": "ucl",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
     {
@@ -19,7 +21,9 @@
         "full_name": "Induction Tutor",
         "user_type": "mentor",
         "core_induction_programme": "none",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
     {
@@ -30,7 +34,9 @@
         "full_name": "Joe Bloggs",
         "user_type": "early_career_teacher",
         "core_induction_programme": "ucl",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
     {
@@ -41,7 +47,9 @@
         "full_name": "Jane Doe",
         "user_type": "other",
         "core_induction_programme": "ucl",
-        "induction_programme_choice": "core_induction_programme"
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": false,
+        "cohort": 2021
       }
     },
     {
@@ -52,7 +60,48 @@
         "full_name": "Steve Austin",
         "user_type": "early_career_teacher",
         "core_induction_programme": "edt",
-        "induction_programme_choice": "full_induction_programme"
+        "induction_programme_choice": "full_induction_programme",
+        "registration_completed": true,
+        "cohort": 2021
+      }
+    },
+      {
+      "id": "d97fbf35-845g-3g62-q256-bde676314m35",
+      "type": "user",
+      "attributes": {
+        "email": "unverified_user@example.com",
+        "full_name": "Dwayne Johnson",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "teach_first",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": false,
+        "cohort": 2021
+      }
+    },
+    {
+      "id": "ea9f8ad1-9b54-4806-a78e-5bd92cb3fd6c",
+      "type": "user",
+      "attributes": {
+        "email": "nqt_plus_1_user@example.com",
+        "full_name": "Bob Belcher",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "ucl",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": true,
+        "cohort": 2020
+      }
+    },
+    {
+      "id": "d97fbf35-845g-3g62-q256-bde676314m35",
+      "type": "user",
+      "attributes": {
+        "email": "non_registrated_user@example.com",
+        "full_name": "John Doe",
+        "user_type": "mentor",
+        "core_induction_programme": "teach_first",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": false,
+        "cohort": 2021
       }
     }
   ]

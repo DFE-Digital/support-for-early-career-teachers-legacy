@@ -34,12 +34,21 @@ class User < ApplicationRecord
     participant_profile.present?
   end
 
+  def registered_participant?
+    participant_profile&.registration_completed?
+  end
+
   def participant_profile
     early_career_teacher_profile || mentor_profile
   end
 
   def core_induction_programme
     participant_profile&.core_induction_programme
+  end
+
+  def cohort
+    return early_career_teacher_profile.cohort if early_career_teacher?
+    return mentor_profile.cohort if mentor?
   end
 
   def is_on_core_induction_programme?

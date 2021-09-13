@@ -2,7 +2,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <% if policy(@course_lesson).edit? %>
-      <%= govuk_link_to "Edit lesson", edit_lesson_path(@course_lesson), button: true %>
+      <div class="govuk-button-group">
+        <%= govuk_link_to "Edit lesson", edit_lesson_path(@course_lesson), button: true %>
+      </div>
+
+      <p>Developer data:</p>
+      <p>Course lesson ID: <%= @course_lesson.id %></p>
     <% end %>
 
     <% if @course_lesson.completion_time_in_minutes %>

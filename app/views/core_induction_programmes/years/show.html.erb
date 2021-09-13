@@ -16,7 +16,9 @@
 
     <% if current_user&.admin? %>
       <div class="govuk-button-group">
-        <%= govuk_link_to "Create CIP Year", cip_create_year_path(@cip), button: true %>
+        <% if show_create_year?(@cip) %>
+          <%= govuk_link_to "Create CIP Year", cip_create_year_path(@cip), button: true %>
+        <% end %>
         <%= govuk_link_to "Create CIP Module", cip_create_module_path(@cip), button: true %>
         <%= govuk_link_to "Create CIP Lesson", cip_create_lesson_path(@cip), button: true %>
         <%= govuk_link_to "Edit year content", edit_year_path(@course_year), button: true %>

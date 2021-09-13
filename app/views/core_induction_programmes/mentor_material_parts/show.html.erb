@@ -9,9 +9,17 @@
         <%= govuk_link_to "Split mentor material part", mentor_material_part_split_path(@mentor_material_part), button: true %>
         <%= govuk_link_to "Delete mentor material part", mentor_material_part_show_delete_path(@mentor_material_part), button: true, class: "govuk-button--secondary" %>
       </div>
+
+      <p>Developer data:</p>
+      <p>Mentor material ID: <%= @mentor_material_part.mentor_material.id %></p>
     <% end %>
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-4"><%= @mentor_material_part.mentor_material.title %></h1>
+    <% if @mentor_material_part.mentor_material.completion_time_in_minutes %>
+      <h2 class="govuk-caption-m govuk-!-margin-bottom-8">
+        Duration: <%= @mentor_material_part.mentor_material.duration_in_minutes_in_words %>
+      </h2>
+    <% end %>
 
     <p class="govuk-body govuk-!-font-size-19 govuk-!-margin-bottom-2">Contents</p>
     <ul class="govuk-list govuk-list--bullet">

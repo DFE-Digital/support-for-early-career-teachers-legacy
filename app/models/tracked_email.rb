@@ -23,4 +23,8 @@ class TrackedEmail < ApplicationRecord
     self.sent_at = Time.zone.now
     save!
   end
+
+  def email_sending_enabled?
+    ENV["EMAIL_SENDING_ENABLED"] == "true"
+  end
 end

@@ -31,7 +31,7 @@
           <hr class="govuk-section-break govuk-section-break--visible" />
           <div class="app-task-list__section">
             <div class="app-task-list__flex">
-              <span><%= course_module.self_study_lessons.count %> self-study <%= "session".pluralize(course_module.course_lessons.count) %></span>
+              <span><%= pluralize(course_module.self_study_lessons.count, "self-study session") %></span>
 
               <%= render ProgressLabelComponent.new progress: course_module.progress %>
             </div>

@@ -29,7 +29,7 @@ Feature: Login
     And I am on "sign in" page
     When I type "ect@example.com" into "email input"
     And I click the submit button
-    Then "page heading" should contain "Welcome Demo User"
+    Then "page body" should contain "Welcome Demo User"
 
   Scenario: Mentor login
     Given user was created as "mentor" with email "mentor@example.com" and full_name "Demo Mentor User" and account_created "false"
