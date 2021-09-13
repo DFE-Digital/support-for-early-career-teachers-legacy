@@ -125,11 +125,20 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
     end
 
     it "retrieves and updates the last sync time" do
+      time = Time.zone.now
+      RegisterAndPartnerApi::SyncUsersTimer.set_last_sync(time)
+
+      stub = stub_request(:get, /https:\/\/api\.example\.com\/api\/v1\/ecf-users\.json.*/)
+        .with(query: hash_including({ "filter" => { "updated_since" => time.iso8601 } }))
+        .to_return(
+          { status: 200, body: file_fixture("api/users_empty.json").read, headers: { content_type: "application/json" } },
+        )
       allow(RegisterAndPartnerApi::SyncUsersTimer).to receive(:set_last_sync)
-      allow(RegisterAndPartnerApi::SyncUsersTimer).to receive(:last_sync)
+      allow(RegisterAndPartnerApi::SyncUsersTimer).to receive(:last_sync).and_call_original
       described_class.perform
       expect(RegisterAndPartnerApi::SyncUsersTimer).to have_received(:set_last_sync)
       expect(RegisterAndPartnerApi::SyncUsersTimer).to have_received(:last_sync)
+      expect(stub).to have_been_requested
     end
   end
 end
