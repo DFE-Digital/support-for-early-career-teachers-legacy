@@ -34,7 +34,7 @@ RSpec.describe MentorMaterialPolicy, type: :policy do
     let(:user) { create(:user, :mentor) }
 
     before do
-      user.mentor_profile.update!(core_induction_programme: mentor_material.get_core_induction_programme)
+      user.mentor_profile.update!(core_induction_programme: mentor_material.core_induction_programme)
     end
 
     it { is_expected.to permit_action(:show) }

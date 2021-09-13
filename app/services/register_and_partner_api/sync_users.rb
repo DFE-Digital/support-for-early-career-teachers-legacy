@@ -18,7 +18,7 @@ module RegisterAndPartnerApi
     def self.perform(all: false)
       new_sync_time = Time.zone.now - 1.minute
       last_sync = SyncUsersTimer.last_sync
-      base_query = all ? {} : { filter: { updated_since: last_sync } }
+      base_query = all ? {} : { filter: { updated_since: last_sync&.iso8601 } }
 
       perform_pagination(base_query)
 
@@ -56,9 +56,9 @@ module RegisterAndPartnerApi
 
         case attributes[:user_type]
         when USER_TYPES[:ect]
-          find_or_create_user(attributes, ::EarlyCareerTeacherProfile)
+          create_or_update_user(attributes, ::EarlyCareerTeacherProfile)
         when USER_TYPES[:mentor]
-          find_or_create_user(attributes, ::MentorProfile)
+          create_or_update_user(attributes, ::MentorProfile)
         end
 
       rescue StandardError
@@ -75,27 +75,34 @@ module RegisterAndPartnerApi
         user_type: user_from_api.attributes[:attributes][:user_type],
         cip: user_from_api.attributes[:attributes][:core_induction_programme],
         induction_programme_choice: user_from_api.attributes[:attributes][:induction_programme_choice],
+        registration_completed: user_from_api.attributes[:attributes][:registration_completed],
+        cohort: user_from_api.attributes[:attributes][:cohort],
       }
     end
 
-    def self.find_or_create_user(attributes, profile_class)
+    def self.create_or_update_user(attributes, profile_class)
       user = ::User.find_or_initialize_by(register_and_partner_id: attributes[:register_and_partner_id])
-      needs_inviting = !user.persisted?
-      save_user(attributes, user, profile_class)
+      profile = profile_class.find_or_initialize_by(user: user)
 
-      if needs_inviting
+      assign_user_attributes(attributes, user, profile)
+
+      needs_inviting = profile.registration_completed_changed? && profile.registration_completed?
+
+      user.save!
+      profile.save!
+
+      if needs_inviting && user.is_on_core_induction_programme?
         InviteParticipants.run([user.email])
       end
     end
 
-    def self.save_user(attributes, user, profile_class)
-      profile = profile_class.find_or_initialize_by(user: user)
+    def self.assign_user_attributes(attributes, user, profile)
       user.email = attributes[:email]
       user.full_name = attributes[:full_name]
-      user.save!
       profile.core_induction_programme = get_core_induction_programme(attributes)
       profile.induction_programme_choice = attributes[:induction_programme_choice]
-      profile.save!
+      profile.registration_completed = attributes[:registration_completed]
+      profile.cohort = get_cohort(attributes)
     end
 
     def self.get_core_induction_programme(attributes)
@@ -112,6 +119,10 @@ module RegisterAndPartnerApi
       CoreInductionProgramme.find_by(name: name)
     end
 
-    private_class_method :sync_users, :user_attributes_from, :find_or_create_user, :save_user, :get_core_induction_programme
+    def self.get_cohort(attributes)
+      Cohort.find_by(start_year: attributes[:cohort])
+    end
+
+    private_class_method :sync_users, :user_attributes_from, :create_or_update_user, :assign_user_attributes, :get_core_induction_programme, :get_cohort
   end
 end

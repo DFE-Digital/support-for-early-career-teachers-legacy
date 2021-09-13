@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_192046) do
+ActiveRecord::Schema.define(version: 2021_08_05_092703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -40,10 +40,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "course_year_one_id"
-    t.uuid "course_year_two_id"
-    t.index ["course_year_one_id"], name: "index_core_induction_programmes_on_course_year_one_id"
-    t.index ["course_year_two_id"], name: "index_core_induction_programmes_on_course_year_two_id"
+    t.string "slug"
   end
 
   create_table "course_lesson_parts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -74,7 +71,6 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
     t.string "title", null: false
     t.uuid "previous_lesson_id"
     t.uuid "course_module_id", null: false
-    t.integer "version", default: 1, null: false
     t.integer "completion_time_in_minutes"
     t.text "ect_summary"
     t.text "mentor_summary"
@@ -93,7 +89,6 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
     t.text "ect_summary", null: false
     t.uuid "previous_module_id"
     t.uuid "course_year_id", null: false
-    t.integer "version", default: 1, null: false
     t.string "term", default: "spring"
     t.text "mentor_summary"
     t.string "page_header"
@@ -106,8 +101,10 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "title", null: false
     t.text "content"
-    t.integer "version", default: 1, null: false
     t.string "mentor_title"
+    t.uuid "core_induction_programme_id", null: false
+    t.integer "position", default: 0
+    t.index ["core_induction_programme_id"], name: "index_course_years_on_core_induction_programme_id"
   end
 
   create_table "delayed_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -133,6 +130,8 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "induction_programme_choice", default: "not_yet_known"
+    t.boolean "registration_completed", default: false
+    t.boolean "guidance_seen", default: false
     t.index ["cohort_id"], name: "index_early_career_teacher_profiles_on_cohort_id"
     t.index ["core_induction_programme_id"], name: "index_ect_profiles_on_core_induction_programme_id"
     t.index ["user_id"], name: "index_early_career_teacher_profiles_on_user_id"
@@ -160,14 +159,10 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
     t.string "title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "core_induction_programme_id"
-    t.uuid "course_year_id"
-    t.uuid "course_module_id"
-    t.uuid "course_lesson_id"
-    t.index ["core_induction_programme_id"], name: "index_mentor_materials_on_core_induction_programme_id"
+    t.uuid "course_lesson_id", null: false
+    t.integer "position", default: 1
+    t.integer "completion_time_in_minutes"
     t.index ["course_lesson_id"], name: "index_mentor_materials_on_course_lesson_id"
-    t.index ["course_module_id"], name: "index_mentor_materials_on_course_module_id"
-    t.index ["course_year_id"], name: "index_mentor_materials_on_course_year_id"
   end
 
   create_table "mentor_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -177,6 +172,8 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
     t.uuid "core_induction_programme_id"
     t.uuid "cohort_id"
     t.string "induction_programme_choice", default: "not_yet_known"
+    t.boolean "registration_completed", default: false
+    t.boolean "guidance_seen", default: false
     t.index ["cohort_id"], name: "index_mentor_profiles_on_cohort_id"
     t.index ["core_induction_programme_id"], name: "index_mentor_profiles_on_core_induction_programme_id"
     t.index ["user_id"], name: "index_mentor_profiles_on_user_id"
@@ -214,8 +211,6 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
   end
 
   add_foreign_key "admin_profiles", "users"
-  add_foreign_key "core_induction_programmes", "course_years", column: "course_year_one_id"
-  add_foreign_key "core_induction_programmes", "course_years", column: "course_year_two_id"
   add_foreign_key "course_lesson_parts", "course_lesson_parts", column: "previous_lesson_part_id"
   add_foreign_key "course_lesson_parts", "course_lessons"
   add_foreign_key "course_lesson_progresses", "course_lessons"
@@ -224,16 +219,14 @@ ActiveRecord::Schema.define(version: 2021_06_23_192046) do
   add_foreign_key "course_lessons", "course_modules"
   add_foreign_key "course_modules", "course_modules", column: "previous_module_id"
   add_foreign_key "course_modules", "course_years"
+  add_foreign_key "course_years", "core_induction_programmes"
   add_foreign_key "early_career_teacher_profiles", "cohorts"
   add_foreign_key "early_career_teacher_profiles", "core_induction_programmes"
   add_foreign_key "early_career_teacher_profiles", "users"
   add_foreign_key "induction_coordinator_profiles", "users"
   add_foreign_key "mentor_material_parts", "mentor_material_parts", column: "previous_mentor_material_part_id"
   add_foreign_key "mentor_material_parts", "mentor_materials"
-  add_foreign_key "mentor_materials", "core_induction_programmes"
   add_foreign_key "mentor_materials", "course_lessons"
-  add_foreign_key "mentor_materials", "course_modules"
-  add_foreign_key "mentor_materials", "course_years"
   add_foreign_key "mentor_profiles", "cohorts"
   add_foreign_key "mentor_profiles", "core_induction_programmes"
   add_foreign_key "mentor_profiles", "users"

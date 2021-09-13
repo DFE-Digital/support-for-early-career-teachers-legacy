@@ -17,9 +17,10 @@
 1. Run `bundle install` to install the gem dependencies
 2. Run `yarn` to install node dependencies
 3. Create `.env` file - copy `.env.template`. Set your database password and user in the `.env` file
-4. Run `bin/rails db:setup` to set up the database development and test schemas, and seed with test data
-5. Run `bundle exec rails server` to launch the app on http://localhost:3000
-6. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
+4. Run `mkdir log && touch log/mail.log`
+5. Run `bin/rails db:setup` to set up the database development and test schemas, and seed with test data
+6. Run `bundle exec rails server` to launch the app on http://localhost:3000
+7. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
 ### With docker
 
@@ -89,6 +90,10 @@ yarn cypress:open
 
 ## Dev ops
 
+### Release process
+
+Check out the [specific docs](/documentation/.md).
+
 ### Review apps
 
 Review apps are automatically created when a PR is opened. A link to the app will be posted on the review.
@@ -110,7 +115,7 @@ Check out the [specific docs](/documentation/credentials.md).
 ### CIP content
 
 We have a lot of content in database. Its format is markdown, we display it using govspeak gem. 
-If you need to change it permanently, check out the [specific docs](/documentation/dealing_with_cip_content.md).
+If you need to change it permanently, check out the [specific docs](/documentation/release_process.md).
 
 ### Test displaying markdown with govspeak
 
@@ -120,6 +125,20 @@ click "See preview". Voila!
 ### Updating CIP images
 
 Check out the [specific docs](/documentation/updating_images_in_cip_content.md).
+
+### Getting url from a uid
+Sometimes you want to edit some content in staging, and you know the id of the object, but not the pretty path. This is how you get that path.
+
+For a course lesson part:
+
+```
+rails c
+> include PathHelper
+> include Rails.application.routes.url_helpers
+> lesson_part_path(CourseLessonPart.find("0961d48a-ed6c-4e2f-ac0e-960a5ebcb6f7"))
+```
+
+It should be reasonably easy to generalise that for mentor materials part.
 
 ### Sending user invites
 

@@ -16,9 +16,15 @@ class TrackedEmail < ApplicationRecord
   end
 
   def send!(*)
+    return if sent?
+
     self.notify_id = mail_to_send.deliver_now.delivery_method.response.id
     self.sent_to = user.email
     self.sent_at = Time.zone.now
     save!
+  end
+
+  def email_sending_enabled?
+    ENV["EMAIL_SENDING_ENABLED"] == "true"
   end
 end

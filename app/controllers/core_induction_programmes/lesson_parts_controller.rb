@@ -6,7 +6,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
 
   after_action :verify_authorized
   before_action :authenticate_user!
-  before_action :load_course_lesson_part, except: :update_progress
+  before_action :load_course_lesson_part
   before_action :fill_data_layer, except: :update_progress
 
   def show; end
@@ -40,7 +40,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
         )
         @course_lesson_part.update!(title: @split_lesson_part_form.title, content: @split_lesson_part_form.content)
       end
-      redirect_to lesson_part_path(id: params[:lesson_part_id])
+      redirect_to lesson_part_path(@course_lesson_part)
     else
       render action: "show_split"
     end
@@ -51,18 +51,17 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
   def show_delete; end
 
   def destroy
-    @course_lesson_part = CourseLessonPart.find(params[:id])
     lesson = @course_lesson_part.course_lesson
+    previous_part = @course_lesson_part.previous_lesson_part
+    next_part = @course_lesson_part.next_lesson_part
     @course_lesson_part.destroy!
+    next_part&.update!(previous_lesson_part: previous_part)
     redirect_to lesson_path(lesson)
   end
 
   def update_progress
     redirect_to :show and return unless current_user&.early_career_teacher?
 
-    @course_lesson_part = CourseLessonPart.find(params[:lesson_part_id])
-    authorize @course_lesson_part.course_lesson
-    load_progress
     if @lesson_progress.update(lesson_progress_params)
       redirect_to module_path(@course_lesson_part.course_lesson.course_module)
     else
@@ -73,7 +72,8 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
 private
 
   def load_course_lesson_part
-    @course_lesson_part = CourseLessonPart.find(params[:id] || params[:lesson_part_id])
+    @course_lesson_part = load_course_lesson_part_from_params
+
     authorize @course_lesson_part
     @course_lesson_part.assign_attributes(course_lesson_part_params)
     if current_user&.early_career_teacher?

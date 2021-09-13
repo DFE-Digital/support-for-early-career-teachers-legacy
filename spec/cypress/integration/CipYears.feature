@@ -2,9 +2,9 @@ Feature: Core Induction Programme years
   Users should be able to view and sometimes edit cip years.
 
   Scenario: Admins can edit years
-    Given core_induction_programme was created as "with_course_year" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    Given course_year was created
     And I am logged in as "admin"
-    And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And I am on "core induction programme show" page
 
     When I click on "link" containing "Edit year content"
     Then I should be on "core induction programme year edit" page
@@ -24,11 +24,27 @@ Feature: Core Induction Programme years
     Then "page body" should contain "New test title"
     And the page should be accessible
 
+  Scenario: Admins can create years, but not more than two
+    Given course_year was created
+    And I am logged in as "admin"
+    And I am on "core induction programme show" page
+
+    When I click on "link" containing "Create CIP Year"
+    And I type "Year 2" into "year title input"
+    And I type "Learn better stuff than year 1" into "content input"
+    And I click on "button" containing "Create"
+
+    Then I should be on "core induction programme year" page
+    And "page body" should contain "Year 2"
+    And "page body" should not contain "Create CIP Year"
+
   Scenario: ECTs can view but not edit years
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
     And scenario "ect_cip" has been ran
 
-    When I click on "link" containing "Go to your module materials"
+    When I click on "link" containing "Start now"
+    And I click on "skip guidance radio"
+    And I click on "continue button"
     Then I should be on "core induction programme year" page
     And "page body" should contain "Test Course year"
     And "page body" should not contain "Mentor title"
@@ -40,6 +56,8 @@ Feature: Core Induction Programme years
     And I am on "dashboard" page
 
     When I click on "start now button"
+    And I click on "skip guidance radio"
+    And I click on "continue button"
     Then I should be on "core induction programme year" page
     And "page body" should contain "Mentor title"
     And "page body" should not contain "Test Course year"

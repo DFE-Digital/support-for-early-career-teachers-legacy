@@ -1,6 +1,7 @@
 import { Given } from "cypress-cucumber-preprocessor/steps";
 
-const parseArgs = (argsString) => {
+// eslint-disable-next-line import/prefer-default-export
+export const parseArgs = (argsString) => {
   const args = {};
   argsString.split(/ and |, /).forEach((argString) => {
     const [, key, value] = /([^ ]+) "([^"]+)"/.exec(argString);
@@ -22,12 +23,12 @@ Given("{word} was created", (factory) => {
   cy.appFactories([["create", factory]]);
 });
 
-Given("{word} was created with {}", (factory, args) => {
-  cy.appFactories([["create", factory, parseArgs(args)]]);
-});
-
 Given("{word} was created as {string}", (factory, traits) => {
   cy.appFactories([["create", factory, ...traits.split(", ")]]);
+});
+
+Given("{word} was created with {}", (factory, args) => {
+  cy.appFactories([["create", factory, parseArgs(args)]]);
 });
 
 Given("{word} was created as {string} with {}", (factory, traits, args) => {

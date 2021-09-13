@@ -33,7 +33,7 @@
     <% gtm_id = Rails.env.production? ? "G-MVYXYK5Z9Y" : "G-ZZT9RT0XPZ" %>
 
     <% if cookies[:cookie_consent_1] == "on" %>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gtm_id %> %>"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gtm_id %>"></script>
     <% else %>
       <script>
         // For adding the script once the user has given permission
@@ -80,7 +80,7 @@
         <div class="govuk-header__content">
           <%= govuk_link_to(
             "Support for early career teachers",
-            user_signed_in? && current_user.account_created ? dashboard_path : "/",
+            current_user ? dashboard_path : "/",
             class: "govuk-header__link govuk-header__link--service-name",
             "data-test": "service-name") %>
 
@@ -95,7 +95,13 @@
       <div class="govuk-phase-banner app-phase-banner--no-border govuk-!-display-none-print">
         <p class="govuk-phase-banner__content">
           <strong class="govuk-tag govuk-phase-banner__content__tag ">
-            Development
+            <% if Rails.env.production?  %>
+              Beta
+            <% elsif Rails.env.staging? %>
+              Staging
+            <% else %>
+              Development
+            <% end %>
           </strong>
           <span class="govuk-phase-banner__text">
             This is a new service – your <%= render MailToSupportComponent.new("feedback") %> will help us to improve it.

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NavigationPreviousComponent < ViewComponent::Base
+class NavigationPreviousComponent < BaseComponent
   def initialize(url:, text:)
     @url = url
     @text = text

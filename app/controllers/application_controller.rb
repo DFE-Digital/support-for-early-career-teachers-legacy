@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  http_basic_authenticate_with name: Rails.application.config.demo_password, password: Rails.application.config.demo_password, except: :check if Rails.env.staging?
   include ApplicationHelper
+  include PathHelper
+  include LoadResourcesHelper
+
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
 
   before_action :configure_permitted_parameters, if: :devise_controller?

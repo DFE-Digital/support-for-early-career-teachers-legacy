@@ -13,6 +13,14 @@ variable paas_app_docker_image {
   default = ""
 }
 
+variable docker_username {
+  default = null
+}
+
+variable docker_password {
+  default = null
+}
+
 variable paas_app_start_timeout {
   default = 300
 }

@@ -6,7 +6,6 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
   after_action :verify_authorized
   before_action :authenticate_user!, except: :show
   before_action :load_mentor_material, only: %i[show edit update]
-  before_action :load_core_induction_materials, only: %i[edit update new create]
   before_action :fill_data_layer, only: %i[show edit update]
 
   def index
@@ -49,18 +48,14 @@ class CoreInductionProgrammes::MentorMaterialsController < ApplicationController
 
 private
 
-  def load_core_induction_materials
-    @core_induction_programmes = CoreInductionProgramme.all
-  end
-
   def load_mentor_material
-    @mentor_material = MentorMaterial.find(params[:id])
+    @mentor_material = load_mentor_material_from_params
     @course_lessons = @mentor_material.core_induction_programme&.course_lessons
     authorize @mentor_material
   end
 
   def mentor_material_params
-    params.require(:mentor_material).permit(:title, :core_induction_programme_id, :course_lesson_id)
+    params.require(:mentor_material).permit(:title, :course_lesson_id, :completion_time_in_minutes)
   end
 
   def fill_data_layer

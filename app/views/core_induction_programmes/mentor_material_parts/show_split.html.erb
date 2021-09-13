@@ -11,7 +11,7 @@
         <% if part == @mentor_material_part %>
           <span><%= part.title %></span>
         <% else %>
-          <%= govuk_link_to part.title, mentor_material_part_split_path(mentor_material_part_id: part.id) %>
+          <%= govuk_link_to part.title, mentor_material_part_split_path(part) %>
         <% end %>
       </li>
     <% end %>

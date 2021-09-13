@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe "Core Induction Programme Lesson", type: :request do
   let(:cip) { create(:core_induction_programme) }
-  let(:course_year) { FactoryBot.create(:course_year, core_induction_programme_one: cip) }
+  let(:course_year) { FactoryBot.create(:course_year, core_induction_programme: cip) }
   let(:course_module) { FactoryBot.create(:course_module, course_year: course_year) }
   let(:course_lesson) { FactoryBot.create(:course_lesson, course_module: course_module) }
-  let(:course_lesson_path) { "/lessons/#{course_lesson.id}" }
+  let(:course_lesson_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}" }
 
   describe "when an admin user is logged in" do
     before do
@@ -25,7 +25,7 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
         part_one = CourseLessonPart.create!(course_lesson: course_lesson, content: "Content One", title: "Title One")
         CourseLessonPart.create!(course_lesson: course_lesson, content: "Content Two", title: "Title Two")
         get course_lesson_path
-        expect(response).to redirect_to("/lesson_parts/#{part_one.id}")
+        expect(response).to redirect_to("#{course_lesson_path}/#{part_one.to_param}")
       end
 
       it "does not track progress" do
@@ -61,7 +61,7 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
       end
 
       it "allows a course lesson to be reassigned to a different course module" do
-        second_course_module = FactoryBot.create(:course_module)
+        second_course_module = FactoryBot.create(:course_module, course_year: course_year)
         put course_lesson_path, params: { course_lesson: { commit: "Save changes", course_module_id: second_course_module[:id] } }
         course_lesson.reload
         expect(course_lesson[:course_module_id]).to eq(second_course_module[:id])
@@ -111,7 +111,8 @@ RSpec.describe "Core Induction Programme Lesson", type: :request do
           },
         }
 
-        expect(response).to redirect_to(lesson_path(CourseLesson.last))
+        new_lesson = CourseLesson.last
+        expect(response).to redirect_to("/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{new_lesson.to_param}")
       end
 
       context "when invalid data provided" do

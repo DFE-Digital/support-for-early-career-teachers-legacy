@@ -15,5 +15,20 @@ RSpec.describe "TrainingAndSupports", type: :request do
       get "/training-and-support"
       expect(response).to render_template(:show)
     end
+
+    it "returns http success" do
+      get "/guidance-question"
+      expect(response).to render_template(:guidance_question)
+    end
+
+    it "redirects to the guidance show page" do
+      post "/guidance-question", params: {
+        commit: "Continue",
+        guidance_speedbump_form: {
+          view_guidance_option: "view_guidance",
+        },
+      }
+      expect(response).to redirect_to("/training-and-support")
+    end
   end
 end

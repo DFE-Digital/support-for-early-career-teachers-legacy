@@ -3,18 +3,22 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :redirect_to_dashboard, only: %i[sign_in_with_token redirect_from_magic_link]
   before_action :ensure_login_token_valid, only: %i[sign_in_with_token redirect_from_magic_link]
+  TEST_USERS = %w[admin@example.com].freeze
 
   def create
     self.resource = validate_email
+
     if resource.errors.any?
-      render :new
+      render :new and return
+    end
+
+    if user_requires_magic_link(resource)
+      send_magic_link(resource)
+      render :login_email_sent
     else
-      self.resource = warden.authenticate!(auth_options)
       sign_in(resource_name, resource)
       respond_with resource, location: after_sign_in_path_for(resource)
     end
-  rescue Devise::Strategies::PasswordlessAuthenticatable::Error
-    render :login_email_sent
   end
 
   def sign_in_with_token
@@ -49,6 +53,34 @@ private
     return true if @user.login_token_valid_until.nil?
 
     Time.zone.now > @user.login_token_valid_until
+  end
+
+  def user_requires_magic_link(user)
+    return false unless user&.admin?
+
+    environment_allows_test_users = Rails.env.development? || Rails.env.deployed_development? || Rails.env.staging?
+    user_is_test_user = TEST_USERS.include?(user.email)
+    return false if environment_allows_test_users && user_is_test_user
+
+    true
+  end
+
+  def send_magic_link(user)
+    token_expiry = 60.minutes.from_now
+    result = user&.update(
+      login_token: SecureRandom.hex(10),
+      login_token_valid_until: token_expiry,
+    )
+
+    if result
+      url = Rails.application.routes.url_helpers.users_confirm_sign_in_url(
+        login_token: user.login_token,
+        host: Rails.application.config.domain,
+        **UtmService.email(:sign_in),
+      )
+
+      UserMailer.sign_in_email(user: user, url: url, token_expiry: token_expiry.localtime.to_s(:time)).deliver_now
+    end
   end
 
   def validate_email
@@ -90,6 +122,17 @@ private
       user.errors.add :induction_programme_choice, "Your school has not selected a core induction programme for you, contact your school induction coordinator"
     end
 
+    return user if user_already_accessed_the_service?(user)
+
+    unless user.registered_participant?
+      user.errors.add :email, "Please complete your registration"
+    end
+
     user
+  end
+
+  def user_already_accessed_the_service?(user)
+    InviteEmailMentor.where.not(sent_at: nil).find_by(user: user.id).present? ||
+      InviteEmailEct.where.not(sent_at: nil).find_by(user: user.id).present?
   end
 end

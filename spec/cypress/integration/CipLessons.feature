@@ -3,8 +3,8 @@ Feature: Core Induction Programme lessons
 
   Scenario: Admins can edit lessons
     Given I am logged in as "admin"
-    And course_lesson was created as "with_lesson_part" with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme lesson" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And course_lesson was created as "with_lesson_part"
+    And I am on "core induction programme lesson" page
 
     When I click on "link" containing "Edit lesson"
     Then I should be on "core induction programme lesson edit" page
@@ -38,8 +38,8 @@ Feature: Core Induction Programme lessons
 
   Scenario: Admins can create content-less lessons
     Given I am logged in as "admin"
-    And scenario "cip_year_module" has been ran
-    And I am on "core induction programme show" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And course_module was created
+    And I am on "core induction programme show" page
 
     When I click on "link" containing "Create CIP Lesson"
     Then I should be on "core induction programme lesson new" page
@@ -59,8 +59,8 @@ Feature: Core Induction Programme lessons
 
   Scenario: Admins can edit lessons without lesson part
     Given I am logged in as "admin"
-    And course_lesson was created with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
-    And I am on "core induction programme lesson" page with id "a4dc302c-ab71-4d7b-a10a-3116a778e8d5"
+    And course_lesson was created
+    And I am on "core induction programme lesson" page
 
     When I click on "link" containing "Spring test course module"
     Then I should be on "core induction programme module" page
@@ -73,8 +73,10 @@ Feature: Core Induction Programme lessons
   Scenario: ECTs shouldn't be able to edit lessons
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
     And scenario "ect_cip" has been ran
+    When I click on "link" containing "Start now"
+    And I click on "skip guidance radio"
+    Then I click on "continue button"
 
-    When I click on "link" containing "Go to your module materials"
     When I click on "link" containing "Test Course module"
     When I click on "link" containing "Work through the self-study material"
     Then I should be on "core induction programme lesson part" page
@@ -84,7 +86,9 @@ Feature: Core Induction Programme lessons
   Scenario: ECTs should be able to view lesson progress
     Given I am logged in as "early_career_teacher" with id "53960d7f-1308-4de1-a56d-de03ea8e1d9c"
     And scenario "ect_cip" has been ran
-    When I click on "link" containing "Go to your module materials"
+    When I click on "link" containing "Start now"
+    And I click on "skip guidance radio"
+    Then I click on "continue button"
 
     When I click on "link" containing "Test Course module"
     Then "tag component" should contain "to do"

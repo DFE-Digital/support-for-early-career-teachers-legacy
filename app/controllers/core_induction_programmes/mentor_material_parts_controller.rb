@@ -6,6 +6,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
   after_action :verify_authorized
   before_action :authenticate_user!
   before_action :load_mentor_material_part
+  before_action :fill_data_layer
 
   def show; end
 
@@ -40,7 +41,7 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
         )
         @mentor_material_part.update!(title: @split_mentor_material_part_form.title, content: @split_mentor_material_part_form.content)
       end
-      redirect_to mentor_material_part_path(id: params[:mentor_material_part_id])
+      redirect_to mentor_material_part_path(@mentor_material_part)
     else
       render action: "show_split"
     end
@@ -52,14 +53,17 @@ class CoreInductionProgrammes::MentorMaterialPartsController < ApplicationContro
 
   def destroy
     mentor_material = @mentor_material_part.mentor_material
+    previous_part = @mentor_material_part.previous_mentor_material_part
+    next_part = @mentor_material_part.next_mentor_material_part
     @mentor_material_part.destroy!
+    next_part&.update!(previous_mentor_material_part: previous_part)
     redirect_to mentor_material_path(mentor_material)
   end
 
 private
 
   def load_mentor_material_part
-    @mentor_material_part = MentorMaterialPart.find(params[:mentor_material_part_id] || params[:id])
+    @mentor_material_part = load_mentor_material_part_from_params
     authorize @mentor_material_part
   end
 
@@ -69,5 +73,9 @@ private
 
   def mentor_material_split_params
     params.require(:split_mentor_material_part_form).permit(:title, :content, :new_title, :new_content)
+  end
+
+  def fill_data_layer
+    data_layer.add_mentor_material_part_info(@mentor_material_part)
   end
 end

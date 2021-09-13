@@ -12,6 +12,6 @@ class CourseYearPolicy < CoreInductionProgrammePolicy
 private
 
   def has_access_to_year?(user, year)
-    has_access_to_cip?(user, year.core_induction_programme_one) || has_access_to_cip?(user, year.core_induction_programme_two)
+    has_access_to_cip?(user, year.core_induction_programme)
   end
 end

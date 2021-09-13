@@ -4,9 +4,15 @@ require "rails_helper"
 
 RSpec.describe "Mentor materials", type: :request do
   let(:mentor_material) { create(:mentor_material, :with_mentor_material_part) }
-  let(:mentor_material_path) { "/mentor-materials/#{mentor_material.id}" }
   let(:first_part) { mentor_material.mentor_material_parts_in_order[0] }
-  let(:mentor_material_part_path) { "/mentor-material-parts/#{first_part.id}" }
+  let(:course_lesson) { mentor_material.course_lesson }
+  let(:course_module) { course_lesson.course_module }
+  let(:course_year) { course_module.course_year }
+  let!(:cip) { course_year.core_induction_programme }
+
+  let(:course_lesson_path) { "/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}/#{course_lesson.to_param}" }
+  let(:mentor_material_path) { "#{course_lesson_path}/mentoring/#{mentor_material.to_param}" }
+  let(:mentor_material_part_path) { "#{mentor_material_path}/#{first_part.to_param}" }
 
   describe "when an admin user is logged in" do
     before do
@@ -23,7 +29,7 @@ RSpec.describe "Mentor materials", type: :request do
 
     describe "GET /mentor-materials/:id" do
       it "redirect to part" do
-        get "/mentor-materials/#{mentor_material.id}"
+        get mentor_material_path
         expect(response).to redirect_to(mentor_material_part_path)
       end
     end
@@ -54,7 +60,7 @@ RSpec.describe "Mentor materials", type: :request do
     describe "POST /mentor-materials" do
       it "creates a mentor material" do
         expect {
-          post mentor_materials_path, params: { mentor_material: { title: "New title" } }
+          post "/mentor-materials", params: { mentor_material: { title: "New title", course_lesson_id: course_lesson.id } }
         }.to(change { MentorMaterial.count }.by(1))
       end
     end
@@ -74,7 +80,7 @@ RSpec.describe "Mentor materials", type: :request do
 
     describe "GET /mentor-materials/:id" do
       it "raises an error" do
-        expect { get "/mentor-materials/#{mentor_material.id}" }.to raise_error Pundit::NotAuthorizedError
+        expect { get mentor_material_path }.to raise_error Pundit::NotAuthorizedError
       end
     end
 

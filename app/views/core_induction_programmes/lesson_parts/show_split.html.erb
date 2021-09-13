@@ -11,7 +11,7 @@
         <% if part == @course_lesson_part %>
           <span><%= part.title %></span>
         <% else %>
-          <%= govuk_link_to part.title, lesson_part_split_path(lesson_part_id: part.id) %>
+          <%= govuk_link_to part.title, lesson_part_split_path(part) %>
         <% end %>
       </li>
     <% end %>

@@ -3,6 +3,7 @@
   <div class="govuk-grid-column-two-thirds">
 
     <% if current_user&.admin? %>
+      <%= govuk_link_to "Create CIP Year", cip_create_year_path(@core_induction_programme), button: true %>
       <%= govuk_link_to "Create CIP Module", cip_create_module_path(@core_induction_programme), button: true %>
       <%= govuk_link_to "Create CIP Lesson", cip_create_lesson_path(@core_induction_programme), button: true %>
     <% end %>
