@@ -108,6 +108,15 @@ RSpec.describe TrackedEmail, type: :model do
           expect(invite_email_ect.reload.sent_at).to be_within(1.second).of time
         end
       end
+
+      context "the user is nqt+1" do
+        let(:ect) { create(:user, :early_career_teacher, cohort_year: 2020) }
+
+        it "sends the ect welcome email" do
+          expect(UserMailer).to receive(:nqt_plus_one_welcome_email).with(ect).and_call_original
+          invite_email_ect.send!
+        end
+      end
     end
   end
 

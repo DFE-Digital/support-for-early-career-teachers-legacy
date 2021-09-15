@@ -12,12 +12,21 @@ FactoryBot.define do
       login_token_valid_until { 1.hour.from_now }
     end
 
+    transient do
+      cohort_year { nil }
+      profile_attributes do
+        {}.tap do |attrs|
+          attrs.merge!(cohort_year: cohort_year) if cohort_year
+        end
+      end
+    end
+
     trait :induction_coordinator do
-      induction_coordinator_profile { build(:induction_coordinator_profile) }
+      induction_coordinator_profile { build(:induction_coordinator_profile, **profile_attributes) }
     end
 
     trait :early_career_teacher do
-      early_career_teacher_profile { build(:early_career_teacher_profile) }
+      early_career_teacher_profile { build(:early_career_teacher_profile, **profile_attributes) }
     end
 
     trait :mentor do
