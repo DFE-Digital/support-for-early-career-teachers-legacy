@@ -1,0 +1,14 @@
+<%= govuk_notification_banner(title: "Important", classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-6" ) do |banner| %>
+  <% banner.slot(:heading) do %>
+    Do not try to do all the modules
+  <% end %>
+
+  <p>You can only use these resources until the end of the 2022 summer term, so we recommend you:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>focus on development areas you feel need a boost</li>
+    <li>dip in and out of the resources rather than following the prescribed week by week structure</li>
+  </ul>
+
+  <p>You should also ignore references to mentor meetings and associated practical exercises featured in the resources.</p>
+<% end %>
