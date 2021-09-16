@@ -14,9 +14,11 @@ FactoryBot.define do
 
     transient do
       cohort_year { nil }
+      registration_completed { nil }
       profile_attributes do
         {}.tap do |attrs|
           attrs.merge!(cohort_year: cohort_year) if cohort_year
+          attrs.merge!(registration_completed: registration_completed) unless registration_completed.nil?
         end
       end
     end
