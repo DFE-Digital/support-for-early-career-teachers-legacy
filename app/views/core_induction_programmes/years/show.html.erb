@@ -2,6 +2,10 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <% if current_user.is_an_nqt_plus_one_ect? %>
+      <%= render "nqt_plus_one_banner" %>
+    <% end %>
+
     <h1 class="govuk-heading-xl"><%= @course_year.title_for(current_user) %></h1>
 
     <% if @cip.course_years.count > 1 %>

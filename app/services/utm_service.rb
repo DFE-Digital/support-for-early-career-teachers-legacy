@@ -4,6 +4,7 @@ class UtmService
   CAMPAIGNS = {
     new_mentor: "new-mentor",
     new_early_career_teacher: "new-early-career-teacher",
+    new_nqt_plus_one: "new-nqt-plus-one",
     sign_in: "sign-in",
   }.freeze
 

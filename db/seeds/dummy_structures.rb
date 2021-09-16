@@ -30,6 +30,12 @@ unless Rails.env.production?
     end
     MentorProfile.find_or_create_by!(user: mentor_user, cohort: Cohort.find_by(start_year: 2021), core_induction_programme: cip,
                                      induction_programme_choice: "core_induction_programme", registration_completed: true)
+
+    ect_user = User.find_or_create_by!(email: "2020-#{cip_name_for_email}-early-career-teacher@example.com") do |u|
+      u.full_name = "#{cip.name} ECT User"
+    end
+    EarlyCareerTeacherProfile.find_or_create_by!(user: ect_user, cohort: Cohort.find_by(start_year: 2020), core_induction_programme: cip,
+                                                 induction_programme_choice: "core_induction_programme", registration_completed: true)
   end
 
   # CIP-less users

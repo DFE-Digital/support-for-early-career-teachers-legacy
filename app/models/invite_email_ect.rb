@@ -2,7 +2,11 @@
 
 class InviteEmailEct < TrackedEmail
   def mail_to_send
-    UserMailer.ect_welcome_email(user)
+    if user.is_an_nqt_plus_one_ect?
+      UserMailer.nqt_plus_one_welcome_email(user)
+    else
+      UserMailer.ect_welcome_email(user)
+    end
   end
 
   def send!(force_send: false)

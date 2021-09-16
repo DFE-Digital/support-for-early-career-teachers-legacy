@@ -32,7 +32,7 @@
           </p>
 
           <% if current_user.core_induction_programme %>
-            <%= render GovukComponent::StartNowButton.new text: "Start now", href:
+            <%= render GovukComponent::StartNowButton.new text: start_button_text(current_user), href:
             current_user.participant_profile.guidance_seen? ? cip_path(current_user.core_induction_programme) : guidance_question_path %>
           <% end %>
         </div>
@@ -44,7 +44,13 @@
     <div class="govuk-width-container">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-          <h2 class="govuk-heading-l govuk-!-margin-top-2">How this programme works</h2>
+          <h2 class="govuk-heading-l govuk-!-margin-top-2">
+            <% if current_user.is_an_nqt_plus_one_ect? %>
+                Find out what’s available
+            <% else %>
+                How this programme works
+            <% end %>
+          </h2>
           <p>
             <% if current_user.mentor? %>
               Read <%= govuk_link_to "this summary", training_and_support_path %> to see what early career teachers will be learning and how you can help them put it into practice.

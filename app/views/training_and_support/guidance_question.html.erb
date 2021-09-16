@@ -10,7 +10,7 @@
         @guidance_speedbump_form.guidance_speedbump_options,
         :id,
         :name,
-        legend: { text: "Before you start, would you like a brief summary of the programme?", tag: "h1", size: "xl" }) %>
+        legend: { text: guidance_question_header(current_user), tag: "h1", size: "xl" }) %>
      <%= form.govuk_submit "Continue" %>
     <% end %>
  </div>
