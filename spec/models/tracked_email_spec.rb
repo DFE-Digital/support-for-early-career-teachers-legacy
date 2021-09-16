@@ -110,11 +110,14 @@ RSpec.describe TrackedEmail, type: :model do
       end
 
       context "the user is nqt+1" do
-        let(:ect) { create(:user, :early_career_teacher, cohort_year: 2020) }
+        let(:ect) { create(:user, :early_career_teacher, cohort_year: 2020, registration_completed: false) }
 
         it "sends the ect welcome email" do
           expect(UserMailer).to receive(:nqt_plus_one_welcome_email).with(ect).and_call_original
           invite_email_ect.send!
+          expect(invite_email_ect.reload.sent?).to be_truthy
+          expect(invite_email_ect.notify_id).to eq("test_id")
+          expect(invite_email_ect.sent_to).to eq(ect.email)
         end
       end
     end
