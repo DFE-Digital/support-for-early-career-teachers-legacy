@@ -86,7 +86,9 @@ module RegisterAndPartnerApi
 
       assign_user_attributes(attributes, user, profile)
 
-      needs_inviting = profile.registration_completed_changed? && profile.registration_completed?
+      registration_changed_to_completed = profile.registration_completed_changed? && profile.registration_completed? && !user.is_an_nqt_plus_one_ect?
+      newly_created_nqt_plus_one_ect = !user.persisted? && user.is_an_nqt_plus_one_ect?
+      needs_inviting = registration_changed_to_completed || newly_created_nqt_plus_one_ect
 
       user.save!
       profile.save!
