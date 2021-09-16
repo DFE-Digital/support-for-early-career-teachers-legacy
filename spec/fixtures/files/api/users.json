@@ -103,6 +103,19 @@
         "registration_completed": false,
         "cohort": 2021
       }
+    },
+    {
+      "id": "4d4e272a-4ff9-459a-9175-2135c744846e",
+      "type": "user",
+      "attributes": {
+        "email": "nqtplusonenotregistered@example.com",
+        "full_name": "John Doe",
+        "user_type": "early_career_teacher",
+        "core_induction_programme": "ucl",
+        "induction_programme_choice": "core_induction_programme",
+        "registration_completed": false,
+        "cohort": 2020
+      }
     }
   ]
 }

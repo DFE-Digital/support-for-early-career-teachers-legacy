@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe RegisterAndPartnerApi::SyncUsers do
   describe "::perform" do
     before do
+      create(:cohort, start_year: 2020)
       create(:cohort, start_year: 2021)
       create(:core_induction_programme, name: "UCL")
     end
@@ -12,14 +13,14 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
     it "imports all users returned" do
       expect {
         described_class.perform
-      }.to change(User, :count).by(7)
+      }.to change(User, :count).by(8)
     end
 
     it "does not create the users again" do
       expect {
         described_class.perform
         described_class.perform
-      }.to change(User, :count).by(7)
+      }.to change(User, :count).by(8)
     end
 
     it "does not create a user when given a user type of other" do
@@ -27,7 +28,7 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
 
       record = User.find_by(email: "user_type_other@example.com")
       expect(record.nil?).to be true
-      expect(User.count).to eql(7)
+      expect(User.count).to eql(8)
     end
 
     it "creates users with correct attributes" do
@@ -60,7 +61,7 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
       described_class.perform
 
       record = User.find_by(register_and_partner_id: "65abf54c-c7c2-490b-9bcd-bbb4e0aab934")
-      expect(User.count).to eql(7)
+      expect(User.count).to eql(8)
       expect(record.email).to eql("mentor@example.com")
     end
 
@@ -83,6 +84,14 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
             allow(InviteParticipants).to receive(:run)
             described_class.perform
             expect(InviteParticipants).not_to have_received(:run).with(["non_registrated_user@example.com"])
+          end
+        end
+
+        context "user is an nqt-plus one ect" do
+          it "should create an invite mail" do
+            allow(InviteParticipants).to receive(:run)
+            described_class.perform
+            expect(InviteParticipants).to have_received(:run).with(["nqtplusonenotregistered@example.com"])
           end
         end
       end
@@ -119,6 +128,17 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
             described_class.perform
 
             expect(InviteParticipants).not_to have_received(:run).with(["unverified_user@example.com"])
+          end
+        end
+
+        context "user is an nqt-plus one ect" do
+          it "should not create an invite" do
+            create(:user, :early_career_teacher, email: "nqtplusonenotregistered@example.com", register_and_partner_id: "4d4e272a-4ff9-459a-9175-2135c744846e")
+
+            allow(InviteParticipants).to receive(:run)
+            described_class.perform
+
+            expect(InviteParticipants).not_to have_received(:run).with(["nqtplusonenotregistered@example.com"])
           end
         end
       end
