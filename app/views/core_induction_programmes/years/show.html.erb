@@ -30,29 +30,17 @@
     <% end %>
 
     <% if @course_year.course_modules.empty? %>
-
-      <% if current_user&.early_career_teacher? %>
         <p>
-          The second year offers you the chance to focus on developing your skills in specific areas within the modules.
+          There are no new materials in Year 2.
         </p>
         <p>
-          It also allows you to catch up on anything you might have missed in the first year.
+          <%= current_user&.early_career_teacher? ? "Use the" : "ECTs should use the" %>
+          second year to revisit any topics from the first year you think need further development.
         </p>
         <p>
-          We’ll give you more details here about how the second year works closer to the time.
+          We recommend you regularly catch up with <%= current_user&.early_career_teacher? ? "your mentor" : "them" %>
+          to reflect on what you’ve learnt, discuss any issues or concerns, and decide what actions to take going forward.
         </p>
-      <% else %>
-        <p>
-          The second year offers the ECT the chance to focus on developing their skills in specific areas within the modules.
-        </p>
-        <p>
-          It also allows them to catch up on anything they might have missed in the first year.
-        </p>
-        <p>
-          We’ll give you more details here about how the second year works closer to the time.
-        </p>
-      <% end %>
-
     <% else %>
 
       <%= render GovspeakComponent.new(content: @course_year.content) %>
