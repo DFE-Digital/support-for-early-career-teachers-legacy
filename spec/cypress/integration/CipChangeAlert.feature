@@ -17,6 +17,19 @@ Feature: CIP change alert
     And I click on "start now button"
     Then I should be on "ambition year 1 show" page
 
+  Scenario: User has changed cip but has not viewed further than the dashboard
+    Given scenario "ect_cip_change" has been ran
+    And I am logged in as existing user with email "cip-change-early-career-teacher@example.com"
+    And I am on "dashboard" page
+    When I click on "start now button"
+    Then I should be on "ambition year 1 show" page
+    And the page should be accessible
+    And percy should be sent snapshot
+
+    When I navigate to "dashboard" page
+    And I click on "start now button"
+    Then I should be on "ambition year 1 show" page
+
   Scenario: User selects to view guidance
     Given I am logged in as existing user with email "cip-change-early-career-teacher@example.com"
     And I am on "dashboard" page
