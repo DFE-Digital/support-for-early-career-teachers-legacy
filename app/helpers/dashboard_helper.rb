@@ -11,7 +11,7 @@ module DashboardHelper
 
   def start_button_path(user)
     if user.cip_change_message.present?
-      cip_change_alert_start_path
+      user.participant_profile.guidance_seen? ? cip_change_alert_start_path : cip_path(user.core_induction_programme)
     else
       user.participant_profile.guidance_seen? ? cip_path(user.core_induction_programme) : guidance_question_path
     end
@@ -24,4 +24,4 @@ module DashboardHelper
       training_and_support_path
     end
   end
- end
+end
