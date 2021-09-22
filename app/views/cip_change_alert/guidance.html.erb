@@ -15,16 +15,7 @@
       A list if you need it:
     </p>
 
-    <ul class="govuk-list govuk-list--bullet">
-      <li>
-        bullet item
-      </li>
-      <li>
-        bullet item
-      </li>
-    </ul>
-
-    <%= form_with :cip_change_alert, url: cip_change_alert_guidance_path, id: "cip-change-alert-form", method: :post do |form| %>
+    <%= form_with model: @cip_change_message, url: cip_change_alert_guidance_path, id: "cip-change-alert-form", method: :post do |form| %>
       <%= form.govuk_submit "Continue" %>
     <% end %>
   </div>

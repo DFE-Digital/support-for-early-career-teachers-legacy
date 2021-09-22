@@ -33,7 +33,7 @@
 
           <% if current_user.core_induction_programme %>
             <%= render GovukComponent::StartNowButton.new text: start_button_text(current_user), href:
-            current_user.participant_profile.guidance_seen? ? cip_path(current_user.core_induction_programme) : guidance_question_path %>
+            start_button_path(current_user) %>
           <% end %>
         </div>
       </div>
