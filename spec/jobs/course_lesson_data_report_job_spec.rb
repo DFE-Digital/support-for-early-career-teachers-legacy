@@ -6,13 +6,14 @@ RSpec.describe CourseLessonDataReportJob do
   describe "#perform" do
     it "persists report record" do
       create(:course_lesson_part)
-      expect {
-        subject.perform_now
-      }.to change(Report, :count).by(1)
 
-      report = Report.find_by(identifier: "course_lesson_data")
+      tempfile = Tempfile.new("course_lesson_data.csv")
 
-      data = CSV.parse(report.data, headers: :first_row).map(&:to_h).map(&:symbolize_keys)
+      described_class.perform_now(tempfile.path)
+
+      raw_data = File.open(tempfile.path).read
+
+      data = CSV.parse(raw_data, headers: :first_row).map(&:to_h).map(&:symbolize_keys)
       expect(data.first).to match({
         core_induction_programmes_id: a_string_matching(UUID_REGEX),
         core_induction_programmes_name: "Test Core induction programme",
@@ -24,15 +25,6 @@ RSpec.describe CourseLessonDataReportJob do
         course_lessons_parts_id: a_string_matching(UUID_REGEX),
         course_lessons_parts_title: "Test Course lesson part",
       })
-    end
-
-    context "when run more that once" do
-      it "only creates one record" do
-        expect {
-          subject.perform_now
-          subject.perform_now
-        }.to change(Report, :count).by(1)
-      end
     end
   end
 end

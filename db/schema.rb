@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_13_134959) do
+ActiveRecord::Schema.define(version: 2021_08_05_092703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -177,13 +177,6 @@ ActiveRecord::Schema.define(version: 2021_09_13_134959) do
     t.index ["cohort_id"], name: "index_mentor_profiles_on_cohort_id"
     t.index ["core_induction_programme_id"], name: "index_mentor_profiles_on_core_induction_programme_id"
     t.index ["user_id"], name: "index_mentor_profiles_on_user_id"
-  end
-
-  create_table "reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "identifier", null: false
-    t.text "data"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tracked_emails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

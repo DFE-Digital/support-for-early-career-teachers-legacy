@@ -3,8 +3,9 @@
 class CourseLessonDataReportJob < ApplicationJob
   queue_as :default
 
-  def perform
-    report = Report.find_or_initialize_by(identifier: "course_lesson_data")
-    report.update!(data: CourseLessonDataReport.new.call)
+  OUTPUT_FILE_PATH = "/tmp/course_lesson_data.csv".freeze
+
+  def perform(output_file_path = OUTPUT_FILE_PATH)
+    File.open(output_file_path, "w") { |f| f.write(CourseLessonDataReport.new.call) }
   end
 end
