@@ -78,4 +78,9 @@ Rails.application.routes.draw do
   get "training-and-support" => "training_and_support#show"
   post "guidance-question" => "training_and_support#update"
   get "guidance-question" => "training_and_support#guidance_question"
+
+  get "cip-change-alert-start" => "cip_change_alert#start"
+  post "cip-change-alert-start" => "cip_change_alert#acknowledge_start"
+  get "cip-change-alert-guidance" => "cip_change_alert#guidance"
+  post "cip-change-alert-guidance" => "cip_change_alert#acknowledge_guidance"
 end

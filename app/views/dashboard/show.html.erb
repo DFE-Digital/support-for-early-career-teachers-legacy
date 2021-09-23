@@ -33,7 +33,7 @@
 
           <% if current_user.core_induction_programme %>
             <%= render GovukComponent::StartNowButton.new text: start_button_text(current_user), href:
-            current_user.participant_profile.guidance_seen? ? cip_path(current_user.core_induction_programme) : guidance_question_path %>
+            start_button_path(current_user) %>
           <% end %>
         </div>
       </div>
@@ -53,9 +53,9 @@
           </h2>
           <p>
             <% if current_user.mentor? %>
-              Read <%= govuk_link_to "this summary", training_and_support_path %> to see what early career teachers will be learning and how you can help them put it into practice.
+              Read <%= govuk_link_to "this summary", how_this_programme_works_path(current_user) %> to see what early career teachers will be learning and how you can help them put it into practice.
             <% else %>
-              Read this <%= govuk_link_to "brief guide", training_and_support_path %> to see how the programme is structured across your 2-year induction.
+              Read this <%= govuk_link_to "brief guide", how_this_programme_works_path(current_user) %> to see how the programme is structured across your 2-year induction.
             <% end %>
           </p>
         </div>

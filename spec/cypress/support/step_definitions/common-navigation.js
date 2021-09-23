@@ -33,6 +33,8 @@ const pagePaths = {
     "/test-cip-1/year-1/spring-1/topic-1/mentoring/1/part-1",
   "ambition year 1 show": "/ambition/year-1",
   "training and support": "/training-and-support",
+  "cip change alert start": "/cip-change-alert-start",
+  "cip change alert guidance": "/cip-change-alert-guidance",
   privacy: "/privacy-policy",
 };
 

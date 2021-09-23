@@ -55,7 +55,8 @@ module PathHelper
     { name: "mentor_material_part", append: "split" },
     { name: "mentor_material_part", append: "show_delete" },
   ].each do |helper|
-    define_method get_name.call(helper[:name], helper) do |resource = nil|
+    name = get_name.call(helper[:name], helper)
+    define_method name do |resource = nil|
       # use instance variable if nothing passed in - mostly done by forms
       resource ||= instance_variable_get("@#{models[helper[:name].to_sym]}")
 

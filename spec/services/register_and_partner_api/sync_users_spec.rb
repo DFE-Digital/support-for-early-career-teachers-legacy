@@ -160,5 +160,88 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
       expect(RegisterAndPartnerApi::SyncUsersTimer).to have_received(:last_sync)
       expect(stub).to have_been_requested
     end
+
+    context "cip change messages" do
+      context "if the user's cip doesn't change" do
+        it "doesn't create a message" do
+          create(:user, register_and_partner_id: "d97fbf35-845g-3g62-q256-bde676314m56", email: "my_cip_is_now_teach_first@example.com")
+          expect { described_class.perform }.to_not(change { CipChangeMessage.count })
+        end
+      end
+
+      context "if the user's cip changes" do
+        context "they don't have existing messages but haven't seen the guidance yet" do
+          it "doesn't create one" do
+            create(:core_induction_programme, name: "Teach First")
+            user = create(
+              :user,
+              :early_career_teacher,
+              register_and_partner_id: "d97fbf35-845g-3g62-q256-bde676314m56",
+              email: "my_cip_is_now_teach_first@example.com",
+              core_induction_programme: CoreInductionProgramme.find_by_name("UCL"),
+            )
+            user.participant_profile.update!(guidance_seen: false)
+
+            expect { described_class.perform }.to_not(change { CipChangeMessage.count })
+          end
+        end
+
+        context "they don't have an existing message and have seen the guidance" do
+          it "it creates one" do
+            create(:core_induction_programme, name: "Teach First")
+            user = create(
+              :user,
+              :early_career_teacher,
+              register_and_partner_id: "f444d97f-ac3a-45f2-a311-6891679f4bd4",
+              email: "my_cip_is_now_teach_first@example.com",
+              core_induction_programme: CoreInductionProgramme.find_by_name("UCL"),
+            )
+            user.participant_profile.update!(guidance_seen: true)
+
+            expect { described_class.perform }.to change { CipChangeMessage.count }.by(1)
+          end
+        end
+
+        context "they have an existing message" do
+          context "and the new cip is different from the original" do
+            it "assigns the new cip to the existing message" do
+              ambition = create(:core_induction_programme, name: "Ambition Institute")
+              teach_first = create(:core_induction_programme, name: "Teach First")
+              ucl = CoreInductionProgramme.find_by_name("UCL")
+              user = create(
+                :user,
+                :early_career_teacher,
+                register_and_partner_id: "f444d97f-ac3a-45f2-a311-6891679f4bd4",
+                email: "my_cip_is_now_teach_first@example.com",
+                core_induction_programme: ucl,
+              )
+              cip_change_message = create(:cip_change_message, user: user, original_cip: ambition, new_cip: ucl)
+              user.participant_profile.update!(guidance_seen: true)
+
+              expect { described_class.perform }.to(change { cip_change_message.reload.new_cip }.to(teach_first)
+                .and(not_change { cip_change_message.reload.original_cip }))
+            end
+          end
+
+          context "and the new cip is the same as the original" do
+            it "deletes the message" do
+              teach_first = create(:core_induction_programme, name: "Teach First")
+              ucl = CoreInductionProgramme.find_by_name("UCL")
+              user = create(
+                :user,
+                :early_career_teacher,
+                register_and_partner_id: "f444d97f-ac3a-45f2-a311-6891679f4bd4",
+                email: "my_cip_is_now_teach_first@example.com",
+                core_induction_programme: ucl,
+              )
+              create(:cip_change_message, user: user, original_cip: teach_first, new_cip: ucl)
+              user.participant_profile.update!(guidance_seen: true)
+
+              expect { described_class.perform }.to change { CipChangeMessage.count }.from(1).to(0)
+            end
+          end
+        end
+      end
+    end
   end
 end

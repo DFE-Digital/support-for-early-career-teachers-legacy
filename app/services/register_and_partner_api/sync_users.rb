@@ -90,6 +90,8 @@ module RegisterAndPartnerApi
       newly_created_nqt_plus_one_ect = !user.persisted? && user.is_an_nqt_plus_one_ect?
       needs_inviting = registration_changed_to_completed || newly_created_nqt_plus_one_ect
 
+      create_or_destroy_cip_change_message(user, attributes)
+
       user.save!
       profile.save!
 
@@ -105,6 +107,25 @@ module RegisterAndPartnerApi
       profile.induction_programme_choice = attributes[:induction_programme_choice]
       profile.registration_completed = attributes[:registration_completed]
       profile.cohort = get_cohort(attributes)
+    end
+
+    def self.create_or_destroy_cip_change_message(user, attributes)
+      return unless user.participant_profile.guidance_seen
+
+      current_cip = user.participant_profile.core_induction_programme
+      new_cip = get_core_induction_programme(attributes)
+      return if new_cip.nil? || current_cip.nil?
+      return unless new_cip != current_cip
+
+      change_message = user.cip_change_message || CipChangeMessage.new(user: user, original_cip: current_cip)
+
+      if new_cip == change_message.original_cip
+        change_message.destroy!
+        return
+      end
+
+      change_message.new_cip = new_cip
+      change_message.save!
     end
 
     def self.get_core_induction_programme(attributes)

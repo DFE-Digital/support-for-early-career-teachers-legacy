@@ -48,4 +48,24 @@ unless Rails.env.production?
     u.full_name = "CIP-less Mentor User"
   end
   MentorProfile.find_or_create_by!(user: mentor_user, cohort: Cohort.find_by(start_year: 2021), core_induction_programme: nil, induction_programme_choice: "core_induction_programme")
+
+  # CIP change alert user
+  original_cip = CoreInductionProgramme.find_by_name("UCL")
+  new_cip = CoreInductionProgramme.find_by_name("Ambition Institute")
+  change_alert_ect = User.find_or_create_by!(email: "cip-change-early-career-teacher@example.com") do |u|
+    u.full_name = "CIP change user"
+  end
+  EarlyCareerTeacherProfile.find_or_create_by!(user: change_alert_ect, cohort: Cohort.find_by(start_year: 2021), core_induction_programme: new_cip,
+                                               induction_programme_choice: "core_induction_programme", registration_completed: true, guidance_seen: true)
+
+  CipChangeMessage.find_or_create_by!(user: change_alert_ect, original_cip: original_cip, new_cip: new_cip)
+
+  change_alert_mentor = User.find_or_create_by!(email: "cip-change-mentor@example.com") do |u|
+    u.full_name = "CIP change mentor"
+  end
+
+  MentorProfile.find_or_create_by!(user: change_alert_mentor, cohort: Cohort.find_by(start_year: 2021), core_induction_programme: new_cip,
+                                   induction_programme_choice: "core_induction_programme", registration_completed: true, guidance_seen: true)
+
+  CipChangeMessage.find_or_create_by!(user: change_alert_mentor, original_cip: original_cip, new_cip: new_cip)
 end
