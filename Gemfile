@@ -64,6 +64,8 @@ gem "daemons"
 gem "delayed_cron_job"
 gem "delayed_job_active_record", ">= 4.1.5"
 
+gem "google-cloud-bigquery"
+
 platform :mswin, :mingw, :x64_mingw do
   gem "wdm", ">= 0.1.0"
 end
