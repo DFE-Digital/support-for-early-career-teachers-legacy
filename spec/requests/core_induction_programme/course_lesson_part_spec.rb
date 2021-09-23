@@ -274,6 +274,11 @@ RSpec.describe "Core Induction Programme Lesson Part", type: :request do
         expect(progress).to eq("complete")
       end
 
+      it "streams the update to bigquery" do
+        expect(StreamBigqueryCourseLessonProgressJob).to receive(:perform_later).with(an_instance_of(CourseLessonProgress))
+        put "#{course_lesson_part_path}/update-progress", params: { course_lesson_progress: { progress: "complete" } }
+      end
+
       it "redirects to module when changing progress" do
         put "#{course_lesson_part_path}/update-progress", params: { course_lesson_progress: { progress: "complete" } }
         expect(response).to redirect_to("/#{cip.to_param}/#{course_year.to_param}/#{course_module.to_param}")
