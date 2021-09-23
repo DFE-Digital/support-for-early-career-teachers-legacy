@@ -31,15 +31,15 @@ private
 
   def headers
     %w[
-      core_induction_programmes.id
-      core_induction_programmes.name
-      course_years.title
-      course_modules.id
-      course_modules.title
-      course_lessons.id
-      course_lessons.title
-      course_lessons_parts.id
-      course_lessons_parts.title
+      core_induction_programmes_id
+      core_induction_programmes_name
+      course_years_title
+      course_modules_id
+      course_modules_title
+      course_lessons_id
+      course_lessons_title
+      course_lessons_parts_id
+      course_lessons_parts_title
     ]
   end
 

@@ -15,10 +15,10 @@ RSpec.describe UserLoginDataReportJob do
       data = CSV.parse(report.data, headers: :first_row).map(&:to_h).map(&:symbolize_keys)
       expect(data.first).to match(
         hash_including(
-          "users.id": user.id,
-          "users.register_and_partner_id": user.register_and_partner_id,
-          "users.last_sign_in_at": user.last_sign_in_at,
-          "users.sign_in_count": user.sign_in_count,
+          users_id: user.id,
+          users_register_and_partner_id: user.register_and_partner_id,
+          users_last_sign_in_at: user.last_sign_in_at,
+          users_sign_in_count: user.sign_in_count.to_s,
         ),
       )
     end
@@ -35,8 +35,8 @@ RSpec.describe UserLoginDataReportJob do
         data = CSV.parse(report.data, headers: :first_row).map(&:to_h).map(&:symbolize_keys)
         expect(data.first).to match(
           hash_including(
-            "early_career_teacher_profiles.id": nil,
-            "mentor_profiles.id": user.mentor_profile.id,
+            early_career_teacher_profiles_id: nil,
+            mentor_profiles_id: user.mentor_profile.id,
           ),
         )
       end
@@ -54,8 +54,8 @@ RSpec.describe UserLoginDataReportJob do
         data = CSV.parse(report.data, headers: :first_row).map(&:to_h).map(&:symbolize_keys)
         expect(data.first).to match(
           hash_including(
-            "early_career_teacher_profiles.id": user.early_career_teacher_profile.id,
-            "mentor_profiles.id": nil,
+            early_career_teacher_profiles_id: user.early_career_teacher_profile.id,
+            mentor_profiles_id: nil,
           ),
         )
       end

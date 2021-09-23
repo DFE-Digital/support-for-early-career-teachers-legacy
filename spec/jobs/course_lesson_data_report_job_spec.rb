@@ -14,15 +14,15 @@ RSpec.describe CourseLessonDataReportJob do
 
       data = CSV.parse(report.data, headers: :first_row).map(&:to_h).map(&:symbolize_keys)
       expect(data.first).to match({
-        "core_induction_programmes.id": a_string_matching(UUID_REGEX),
-        "core_induction_programmes.name": "Test Core induction programme",
-        "course_years.title": "Test Course year",
-        "course_modules.id": a_string_matching(UUID_REGEX),
-        "course_modules.title": "Test Course module",
-        "course_lessons.id": a_string_matching(UUID_REGEX),
-        "course_lessons.title": "Test Course lesson 1",
-        "course_lessons_parts.id": a_string_matching(UUID_REGEX),
-        "course_lessons_parts.title": "Test Course lesson part",
+        core_induction_programmes_id: a_string_matching(UUID_REGEX),
+        core_induction_programmes_name: "Test Core induction programme",
+        course_years_title: "Test Course year",
+        course_modules_id: a_string_matching(UUID_REGEX),
+        course_modules_title: "Test Course module",
+        course_lessons_id: a_string_matching(UUID_REGEX),
+        course_lessons_title: a_string_matching(/Test Course lesson \d+/),
+        course_lessons_parts_id: a_string_matching(UUID_REGEX),
+        course_lessons_parts_title: "Test Course lesson part",
       })
     end
 

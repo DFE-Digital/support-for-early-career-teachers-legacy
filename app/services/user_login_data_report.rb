@@ -24,12 +24,12 @@ private
 
   def headers
     %w[
-      users.id
-      users.register_and_partner_id
-      users.last_sign_in_at
-      users.sign_in_count
-      early_career_teacher_profiles.id
-      mentor_profiles.id
+      users_id
+      users_register_and_partner_id
+      users_last_sign_in_at
+      users_sign_in_count
+      early_career_teacher_profiles_id
+      mentor_profiles_id
     ]
   end
 
