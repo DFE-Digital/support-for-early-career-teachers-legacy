@@ -1,19 +1,32 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
-      Your training and support programme has changed
-    </h1>
-    <p>
-      Your school has changed your training and support programme from <%= original_cip_name %> to <%= new_cip_name %>
-    </p>
-
-    <p>
-      You can no longer access the materials you were previously using
-    </p>
-
-    <p>
-      Speak to your mentor for more information
-    </p>
+    <% if current_user&.mentor? %>
+      <h1 class="govuk-heading-xl">
+        Your school's training and support programme for ECTs has changed
+      </h1>
+      <p>
+        Your school has changed the training and support programme from its ECTs are doing from <%= original_cip_name %> to <%= new_cip_name %>.
+      </p>
+      <p>
+        You can no longer access the materials you were previously using.
+      </p>
+      <p>
+        Speak to your induction lead for more information.
+      </p>
+    <% else %>
+      <h1 class="govuk-heading-xl">
+        Your training and support programme has changed
+      </h1>
+      <p>
+        Your school has changed your training and support programme from <%= original_cip_name %> to <%= new_cip_name %>.
+      </p>
+      <p>
+        You can no longer access the materials you were previously using.
+      </p>
+      <p>
+        Speak to your mentor for more information.
+      </p>
+    <% end %>
 
     <%= form_with model: @cip_change_message, url: cip_change_alert_start_path, id: "cip-change-alert-form", method: :post do |form| %>
       <%= form.govuk_submit "Continue" %>
