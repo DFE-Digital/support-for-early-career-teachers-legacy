@@ -114,6 +114,7 @@ module RegisterAndPartnerApi
 
       current_cip = user.participant_profile.core_induction_programme
       new_cip = get_core_induction_programme(attributes)
+      return if new_cip.nil? || current_cip.nil?
       return unless new_cip != current_cip
 
       change_message = user.cip_change_message || CipChangeMessage.new(user: user, original_cip: current_cip)

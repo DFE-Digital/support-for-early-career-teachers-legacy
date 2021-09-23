@@ -22,13 +22,13 @@ Feature: CIP change alert
     And I am logged in as existing user with email "cip-change-early-career-teacher@example.com"
     And I am on "dashboard" page
     When I click on "start now button"
-    Then I should be on "ambition year 1 show" page
+    Then I should be on "guidance speedbump" page
+    When I click on "view guidance radio"
+    And I click on "continue button"
+    Then I should be on "training and support" page
+    And "page body" should contain "Information about training and support"
     And the page should be accessible
     And percy should be sent snapshot
-
-    When I navigate to "dashboard" page
-    And I click on "start now button"
-    Then I should be on "ambition year 1 show" page
 
   Scenario: User selects to view guidance
     Given I am logged in as existing user with email "cip-change-early-career-teacher@example.com"
