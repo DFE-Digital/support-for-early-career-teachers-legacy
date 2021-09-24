@@ -3,7 +3,7 @@ name: Export course lesson data report to BigQuery
 on: workflow_dispatch
 
 jobs:
-  deploy:
+  export:
     runs-on: ubuntu-20.04
     container: google/cloud-sdk:latest
     steps:
@@ -20,16 +20,12 @@ jobs:
           echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
           apt-get update
           apt-get install cf7-cli
-      - name: Install conduit plugin
-        shell: bash
-        run: |
-          cf install-plugin conduit -f
 
-      - name: Generate dashboard report
+      - name: Generate course lesson data csv
         shell: bash
         env:
           PAAS_ORGANISATION: dfe
-          PAAS_SPACE: early-careers-framework-dev
+          PAAS_SPACE: earlycareers-framework-dev
           ENV_STUB: dev
           APP_NAME: ecf-engage-and-learn
           CF_USERNAME: ${{ secrets.GOVPAAS_DEV_USERNAME }}
