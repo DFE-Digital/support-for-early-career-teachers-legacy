@@ -5,6 +5,7 @@ class UserMailer < ApplicationMailer
   ECT_WELCOME_TEMPLATE = "652fea63-1344-4608-a957-6046dc27120b"
   SIGN_IN_EMAIL_TEMPLATE = "a3219fe5-e320-48ee-a386-7a244785785c"
   NQT_PLUS_ONE_WELCOME_TEMPLATE = "338059be-18d5-4ca6-9351-bb6d45bad2ae"
+  MENTOR_SIGN_IN_REMINDER_EMAIL = "7dce3037-50fc-46ed-b070-a7e10e2f4379"
 
   def mentor_welcome_email(user)
     sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain,
@@ -61,6 +62,21 @@ class UserMailer < ApplicationMailer
         full_name: user.full_name,
         sign_in_url: url,
         token_expiry: token_expiry,
+      },
+    )
+  end
+
+  def mentor_sign_in_reminder_email(user)
+    sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain,
+                                                                            **UtmService.email(:mentor_sign_in_reminder))
+    template_mail(
+      MENTOR_SIGN_IN_REMINDER_EMAIL,
+      to: user.email,
+      rails_mailer: mailer_name,
+      rails_mail_template: action_name,
+      personalisation: {
+        full_name: user.full_name,
+        sign_in_url: sign_in_url,
       },
     )
   end
