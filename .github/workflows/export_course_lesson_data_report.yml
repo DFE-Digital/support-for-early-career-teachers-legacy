@@ -39,4 +39,4 @@ jobs:
       - name: Upload csv to BigQuery
         shell: bash
         run: |
-          bq load --autodetect --replace engage_and_learn.course_lesson_data ~/data.csv
+          bq load --format=csv --replace engage_and_learn.course_lesson_data ~/data.csv
