@@ -6,6 +6,7 @@ class UtmService
     new_early_career_teacher: "new-early-career-teacher",
     new_nqt_plus_one: "new-nqt-plus-one",
     sign_in: "sign-in",
+    mentor_sign_in_reminder: "mentor-sign-in-reminder",
   }.freeze
 
   def self.email(campaign)

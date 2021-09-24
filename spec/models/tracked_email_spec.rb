@@ -226,6 +226,31 @@ RSpec.describe TrackedEmail, type: :model do
         expect(reminder_email_mentor.notify_id).to be_nil
         expect(reminder_email_mentor.sent_to).to be_nil
       end
+
+      it "sends the email if forced" do
+        reminder_email_mentor.send!(force_send: true)
+        expect(reminder_email_mentor.reload.sent?).to be_truthy
+        expect(reminder_email_mentor.notify_id).to eq("test_id")
+        expect(reminder_email_mentor.sent_to).to eq(reminder_email_mentor.user.email)
+      end
+
+      it "does not send the reminder email to a full induction programme mentor user even if forced" do
+        mentor.mentor_profile.full_induction_programme!
+        reminder_email_mentor.send!(force_send: true)
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the reminder email to a cip mentor without cip user even if forced" do
+        mentor.mentor_profile.update!(core_induction_programme: nil)
+        reminder_email_mentor.send!(force_send: true)
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "sends the email to a cip mentor if they have not completed registration, if forced" do
+        mentor.mentor_profile.update!(registration_completed: false)
+        reminder_email_mentor.send!(force_send: true)
+        expect(reminder_email_mentor.reload.sent?).to be_truthy
+      end
     end
 
     context "email sending is enabled" do
@@ -238,6 +263,42 @@ RSpec.describe TrackedEmail, type: :model do
         expect(reminder_email_mentor.reload.sent?).to be_truthy
         expect(reminder_email_mentor.notify_id).to eq("test_id")
         expect(reminder_email_mentor.sent_to).to eq(mentor.email)
+      end
+
+      it "does not send the reminder email to a full induction programme mentor user" do
+        mentor.mentor_profile.full_induction_programme!
+        reminder_email_mentor.send!
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to a mentor if programme has no ects" do
+        mentor.mentor_profile.no_early_career_teachers!
+        reminder_email_mentor.send!
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to a mentor if programme is being designed" do
+        mentor.mentor_profile.design_our_own!
+        reminder_email_mentor.send!
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "does not send the email to a mentor if induction programme is not yet known" do
+        mentor.mentor_profile.not_yet_known!
+        reminder_email_mentor.send!
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
+      end
+
+      it "sends the email, if forced, to a cip mentor if they have not completed registration" do
+        mentor.mentor_profile.update!(registration_completed: false)
+        reminder_email_mentor.send!(force_send: true)
+        expect(reminder_email_mentor.reload.sent?).to be_truthy
+      end
+
+      it "does not send the email to a cip mentor if they have not completed registration" do
+        mentor.mentor_profile.update!(registration_completed: false)
+        reminder_email_mentor.send!
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
       end
     end
   end

@@ -68,7 +68,7 @@ class UserMailer < ApplicationMailer
 
   def mentor_sign_in_reminder_email(user)
     sign_in_url = Rails.application.routes.url_helpers.new_user_session_url(host: Rails.application.config.domain,
-                                                                            **UtmService.email(:new_mentor))
+                                                                            **UtmService.email(:mentor_sign_in_reminder))
     template_mail(
       MENTOR_SIGN_IN_REMINDER_EMAIL,
       to: user.email,
