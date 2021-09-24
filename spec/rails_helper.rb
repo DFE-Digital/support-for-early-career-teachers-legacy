@@ -83,6 +83,8 @@ end
 RSpec::Matchers.define_negated_matcher :not_change, :change
 
 RSpec.configure do |config|
+  UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.freeze
+
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ActiveSupport::Testing::TimeHelpers
   config.include ActiveJob::TestHelper

@@ -55,6 +55,11 @@ RSpec.describe "Users::Sessions", type: :request do
           expect(response).to redirect_to(dashboard_path)
           expect(ect.reload.last_sign_in_at).not_to be_nil
         end
+
+        it "streams the login to bigquery" do
+          expect(StreamBigqueryUserLoginJob).to receive(:perform_later).with(ect)
+          post "/users/sign_in", params: { user: { email: ect.email } }
+        end
       end
 
       context "when a user isn't registered but has accessed the service prior to public beta" do
@@ -141,6 +146,11 @@ RSpec.describe "Users::Sessions", type: :request do
           post "/users/sign_in", params: { user: { email: mentor.email } }
           expect(response).to redirect_to(dashboard_path)
           expect(mentor.reload.last_sign_in_at).not_to be_nil
+        end
+
+        it "streams the login to bigquery" do
+          expect(StreamBigqueryUserLoginJob).to receive(:perform_later).with(mentor)
+          post "/users/sign_in", params: { user: { email: mentor.email } }
         end
       end
 

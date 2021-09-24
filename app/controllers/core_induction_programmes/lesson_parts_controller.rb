@@ -63,6 +63,7 @@ class CoreInductionProgrammes::LessonPartsController < ApplicationController
     redirect_to :show and return unless current_user&.early_career_teacher?
 
     if @lesson_progress.update(lesson_progress_params)
+      stream_update_to_bigquery
       redirect_to module_path(@course_lesson_part.course_lesson.course_module)
     else
       render :show
@@ -103,5 +104,9 @@ private
 
   def fill_data_layer
     data_layer.add_lesson_part_info(@course_lesson_part)
+  end
+
+  def stream_update_to_bigquery
+    StreamBigqueryCourseLessonProgressJob.perform_later(@lesson_progress)
   end
 end

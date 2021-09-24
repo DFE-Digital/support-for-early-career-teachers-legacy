@@ -17,6 +17,7 @@ class Users::SessionsController < Devise::SessionsController
       render :login_email_sent
     else
       sign_in(resource_name, resource)
+      stream_login_to_bigquery(resource)
       respond_with resource, location: after_sign_in_path_for(resource)
     end
   end
@@ -24,6 +25,7 @@ class Users::SessionsController < Devise::SessionsController
   def sign_in_with_token
     @user.update!(login_token: nil, login_token_valid_until: 1.year.ago)
     sign_in(@user, scope: :user)
+    stream_login_to_bigquery(@user)
     redirect_to after_sign_in_path_for(@user)
   end
 
@@ -134,5 +136,9 @@ private
   def user_already_accessed_the_service?(user)
     InviteEmailMentor.where.not(sent_at: nil).find_by(user: user.id).present? ||
       InviteEmailEct.where.not(sent_at: nil).find_by(user: user.id).present?
+  end
+
+  def stream_login_to_bigquery(user)
+    StreamBigqueryUserLoginJob.perform_later(user)
   end
 end
