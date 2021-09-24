@@ -38,7 +38,7 @@ jobs:
           cf api https://api.london.cloud.service.gov.uk
           cf auth
           cf target -o "${{ env.PAAS_ORGANISATION }}" -s "${{ env.PAAS_SPACE }}"
-          cf run-task "${{ env.APP_NAME }}"-"${{ env.ENV_STUB }}" --command "cd /app && /usr/local/bundle/bin/bundle exec rails runner 'CourseLessonDataReportJob.perform_now' && cat /tmp/course_lesson_data.csv" > ~/data.csv
+          cf ssh "${{ env.APP_NAME }}"-"${{ env.ENV_STUB }}" -c "cd /app && /usr/local/bundle/bin/bundle exec rails runner 'CourseLessonDataReportJob.perform_now' > /dev/null 2>&1 && cat /tmp/course_lesson_data.csv" > ~/data.csv
 
       - name: Upload csv to BigQuery
         shell: bash
