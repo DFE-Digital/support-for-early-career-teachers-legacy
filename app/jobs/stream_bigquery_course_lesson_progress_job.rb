@@ -8,11 +8,11 @@ class StreamBigqueryCourseLessonProgressJob < ApplicationJob
 
     rows = [
       {
-        "course_lesson_progresses.early_career_teacher_profile_id" => course_lesson_progress.early_career_teacher_profile_id,
-        "course_lesson_progresses.course_lesson_id" => course_lesson_progress.course_lesson_id,
-        "course_lesson_progresses.created_at" => course_lesson_progress.created_at,
-        "course_lesson_progresses.updated_at" => course_lesson_progress.updated_at,
-        "course_lesson_progresses.progress" => course_lesson_progress.progress,
+        "course_lesson_progresses_early_career_teacher_profile_id" => course_lesson_progress.early_career_teacher_profile_id,
+        "course_lesson_progresses_course_lesson_id" => course_lesson_progress.course_lesson_id,
+        "course_lesson_progresses_created_at" => course_lesson_progress.created_at,
+        "course_lesson_progresses_updated_at" => course_lesson_progress.updated_at,
+        "course_lesson_progresses_progress" => course_lesson_progress.progress,
       },
     ]
 
