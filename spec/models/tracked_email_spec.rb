@@ -210,4 +210,35 @@ RSpec.describe TrackedEmail, type: :model do
       end
     end
   end
+
+  describe "sending mentor reminder" do
+    let(:mentor) { create(:user, :mentor) }
+    let(:reminder_email_mentor) { ReminderEmailMentor.create!(user: mentor) }
+
+    context "email sending is disabled" do
+      before do
+        allow(ENV).to receive(:[]).with("EMAIL_SENDING_ENABLED").and_return("false")
+      end
+
+      it "does not send the email" do
+        reminder_email_mentor.send!
+        expect(reminder_email_mentor.reload.sent?).to be_falsey
+        expect(reminder_email_mentor.notify_id).to be_nil
+        expect(reminder_email_mentor.sent_to).to be_nil
+      end
+    end
+
+    context "email sending is enabled" do
+      before do
+        allow(ENV).to receive(:[]).with("EMAIL_SENDING_ENABLED").and_return("true")
+      end
+
+      it "sends the mentor a reminder to sign in" do
+        reminder_email_mentor.send!
+        expect(reminder_email_mentor.reload.sent?).to be_truthy
+        expect(reminder_email_mentor.notify_id).to eq("test_id")
+        expect(reminder_email_mentor.sent_to).to eq(mentor.email)
+      end
+    end
+  end
 end
