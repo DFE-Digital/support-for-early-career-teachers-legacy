@@ -23,6 +23,7 @@ RSpec.describe StreamBigqueryUserLoginJob do
         "users_id" => user.id,
         "users_register_and_partner_id" => user.register_and_partner_id,
         "users_last_sign_in_at" => user.last_sign_in_at,
+        "users_current_sign_in_at" => user.current_sign_in_at,
         "users_sign_in_count" => user.sign_in_count,
         "early_career_teacher_profiles_id" => user.early_career_teacher_profile&.id,
         "mentor_profiles_id" => user.mentor_profile&.id,
