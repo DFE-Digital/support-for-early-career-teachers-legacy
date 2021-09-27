@@ -25,11 +25,11 @@ jobs:
         shell: bash
         env:
           PAAS_ORGANISATION: dfe
-          PAAS_SPACE: earlycareers-framework-dev
-          ENV_STUB: dev
+          PAAS_SPACE: early-careers-framework-prod
+          ENV_STUB: production
           APP_NAME: ecf-engage-and-learn
-          CF_USERNAME: ${{ secrets.GOVPAAS_DEV_USERNAME }}
-          CF_PASSWORD: ${{ secrets.GOVPAAS_DEV_PASSWORD }}
+          CF_USERNAME: ${{ secrets.GOVPAAS_PROD_USERNAME }}
+          CF_PASSWORD: ${{ secrets.GOVPAAS_PROD_PASSWORD }}
         run: |
           cf api https://api.london.cloud.service.gov.uk
           cf auth
@@ -39,4 +39,4 @@ jobs:
       - name: Upload csv to BigQuery
         shell: bash
         run: |
-          bq load --format=csv --replace engage_and_learn.course_lesson_data ~/data.csv
+          bq load --skip_leading_rows=1 --format=csv --replace engage_and_learn.course_lesson_data ~/data.csv core_induction_programmes_id:string,core_induction_programmes_name:string,course_years_title:string,course_modules_id:string,course_modules_title:string,course_lessons_id:string,course_lessons_title:string,course_lesson_parts_id:string,course_lesson_parts_title:string
