@@ -10,7 +10,7 @@ SecureHeaders::Configuration.default do |config|
   config.referrer_policy = %w[origin-when-cross-origin strict-origin-when-cross-origin]
 
   google_analytics = %w[www.google-analytics.com ssl.google-analytics.com *.googletagmanager.com tagmanager.google.com *.googleusercontent.com *.gstatic.com]
-  youtube = %w[youtube.com www.youtube.com]
+  youtube = %w[youtube.com www.youtube.com i.ytimg.com]
   amazon = %w[paas-s3-broker-prod-lon-ac28a7a5-2bc2-4d3b-8d16-a88eaef65526.s3.amazonaws.com]
 
   config.csp = SecureHeaders::OPT_OUT
