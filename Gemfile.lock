@@ -499,7 +499,7 @@ DEPENDENCIES
   factory_bot_rails (>= 6.1.0)
   faker
   foreman
-  google-cloud-bigquery
+  google-cloud-bigquery (>= 1.36.0)
   govspeak!
   govuk-components (>= 1.0.2)
   govuk_design_system_formbuilder (~> 2.1, >= 2.1.6)
