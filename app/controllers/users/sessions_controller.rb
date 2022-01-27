@@ -126,7 +126,7 @@ private
 
     return user if user_already_accessed_the_service?(user)
 
-    unless user.registered_participant?
+    unless user.registered_participant? || user.is_an_nqt_plus_one_ect?
       user.errors.add :email, "Please complete your registration"
     end
 

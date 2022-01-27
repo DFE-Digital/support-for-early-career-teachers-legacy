@@ -81,6 +81,16 @@ RSpec.describe "Users::Sessions", type: :request do
         end
       end
 
+      context "when a nqt plus one user isn't registered and has not accessed the service prior to public beta" do
+        it "redirects to dashboard" do
+          ect.early_career_teacher_profile.cohort.update!(start_year: 2020)
+          ect.early_career_teacher_profile.update!(registration_completed: false)
+          post "/users/sign_in", params: { user: { email: ect.email } }
+          expect(response).to redirect_to(dashboard_path)
+          expect(ect.reload.last_sign_in_at).not_to be_nil
+        end
+      end
+
       context "when a user's induction programme choice is a full induction programme" do
         it "renders sign_in page" do
           ect.early_career_teacher_profile.full_induction_programme!

@@ -31,6 +31,13 @@ Feature: Login
     And I click the submit button
     Then "page body" should contain "Welcome Demo User"
 
+  Scenario: NQT plus one login
+    Given user was created as "early_career_teacher" with email "nqt_plus_one@example.com" and full_name "Demo User" and account_created "false" and registration_completed "false" and cohort_year "2020"
+    And I am on "sign in" page
+    When I type "nqt_plus_one@example.com" into "email input"
+    And I click the submit button
+    Then "page body" should contain "Welcome Demo User"
+
   Scenario: Mentor login
     Given user was created as "mentor" with email "mentor@example.com" and full_name "Demo Mentor User" and account_created "false"
     And I am on "sign in" page
