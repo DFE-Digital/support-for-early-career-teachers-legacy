@@ -83,12 +83,11 @@ module RegisterAndPartnerApi
     def self.create_or_update_user(attributes, profile_class)
       user = ::User.find_or_initialize_by(register_and_partner_id: attributes[:register_and_partner_id])
       profile = profile_class.find_or_initialize_by(user: user)
-
       assign_user_attributes(attributes, user, profile)
 
       registration_changed_to_completed = profile.registration_completed_changed? && profile.registration_completed? && !user.is_an_nqt_plus_one_ect?
-      newly_created_nqt_plus_one_ect = !user.persisted? && user.is_an_nqt_plus_one_ect?
-      needs_inviting = registration_changed_to_completed || newly_created_nqt_plus_one_ect
+      cohort_changed_to_2020 = profile.cohort_id_changed? && profile.cohort.start_year == 2020
+      needs_inviting = registration_changed_to_completed || cohort_changed_to_2020
 
       create_or_destroy_cip_change_message(user, attributes)
 

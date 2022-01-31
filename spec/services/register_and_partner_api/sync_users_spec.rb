@@ -131,13 +131,22 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
           end
         end
 
-        context "user is an nqt-plus one ect" do
-          it "should not create an invite" do
-            create(:user, :early_career_teacher, email: "nqtplusonenotregistered@example.com", register_and_partner_id: "4d4e272a-4ff9-459a-9175-2135c744846e")
+        context "user changes cohort from 2021 to 2020" do
+          it "should create an invite" do
+            create(:user, :early_career_teacher, email: "nqtplusonenotregistered@example.com", register_and_partner_id: "4d4e272a-4ff9-459a-9175-2135c744846e", cohort_year: 2021)
 
             allow(InviteParticipants).to receive(:run)
             described_class.perform
+            expect(InviteParticipants).to have_received(:run).with(["nqtplusonenotregistered@example.com"])
+          end
+        end
 
+        context "user cohort stays as 2020" do
+          it "should not create an invite" do
+            create(:user, :early_career_teacher, email: "nqtplusonenotregistered@example.com", register_and_partner_id: "4d4e272a-4ff9-459a-9175-2135c744846e", cohort_year: 2020)
+
+            allow(InviteParticipants).to receive(:run)
+            described_class.perform
             expect(InviteParticipants).not_to have_received(:run).with(["nqtplusonenotregistered@example.com"])
           end
         end
@@ -197,7 +206,6 @@ RSpec.describe RegisterAndPartnerApi::SyncUsers do
               core_induction_programme: CoreInductionProgramme.find_by_name("UCL"),
             )
             user.participant_profile.update!(guidance_seen: true)
-
             expect { described_class.perform }.to change { CipChangeMessage.count }.by(1)
           end
         end
