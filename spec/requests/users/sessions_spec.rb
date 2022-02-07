@@ -15,10 +15,22 @@ RSpec.describe "Users::Sessions", type: :request do
     context "when already signed in" do
       before { sign_in user }
 
-      it "redirects to the dashboard" do
-        get "/users/sign_in"
+      context "user is not an external user" do
+        it "redirects to the dashboard" do
+          get "/users/sign_in"
 
-        expect(response).to redirect_to "/dashboard"
+          expect(response).to redirect_to "/dashboard"
+        end
+      end
+
+      context "user is an external user" do
+        let(:user) { create(:user, :external_user) }
+
+        it "redirects to the cip index path" do
+          get "/users/sign_in"
+
+          expect(response).to redirect_to "/providers"
+        end
       end
     end
   end

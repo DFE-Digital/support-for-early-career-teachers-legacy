@@ -14,7 +14,7 @@
       <p>Course lesson ID: <%= @course_lesson_part.course_lesson.id %></p>
     <% end %>
 
-    <% if current_user&.mentor? %>
+    <% if current_user&.mentor? || current_user&.external_user? %>
       <span class="govuk-caption-l">The ECT's self-study materials</span>
     <% end %>
     <% if policy(@course_lesson_part.course_lesson).update_progress? && @course_lesson_part.next_lesson_part.nil? %>

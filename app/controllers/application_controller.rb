@@ -16,7 +16,15 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    stored_location_for(user) || dashboard_path
+    stored_location_for(user) || default_path(user)
+  end
+
+  def default_path(user)
+    if user.external_user?
+      cip_index_path
+    else
+      dashboard_path
+    end
   end
 
   def after_sign_out_path_for(_user)
