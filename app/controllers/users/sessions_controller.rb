@@ -39,10 +39,6 @@ class Users::SessionsController < Devise::SessionsController
 
 private
 
-  def redirect_to_dashboard
-    redirect_to after_sign_in_path_for(current_user) if current_user.present?
-  end
-
   def ensure_login_token_valid
     @user = User.find_by(login_token: params[:login_token])
 
@@ -65,24 +61,6 @@ private
     return false if environment_allows_test_users && user_is_test_user
 
     true
-  end
-
-  def send_magic_link(user)
-    token_expiry = 60.minutes.from_now
-    result = user&.update(
-      login_token: SecureRandom.hex(10),
-      login_token_valid_until: token_expiry,
-    )
-
-    if result
-      url = Rails.application.routes.url_helpers.users_confirm_sign_in_url(
-        login_token: user.login_token,
-        host: Rails.application.config.domain,
-        **UtmService.email(:sign_in),
-      )
-
-      UserMailer.sign_in_email(user: user, url: url, token_expiry: token_expiry.localtime.to_s(:time)).deliver_now
-    end
   end
 
   def validate_email

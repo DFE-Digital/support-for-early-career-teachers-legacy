@@ -14,6 +14,14 @@
     <%= govuk_start_now_button text: "Start now", href: new_user_session_path %>
 
     <h2 class="govuk-heading-m">Before you start</h2>
-    <p class="govuk-body">You will need the email address your school used when they created your account.</p>
+    <div style= "background-color: pink">
+      <h4 class="govuk-heading-s">Early career teachers and mentors</h4>
+      <p class="govuk-body">You will need the email address your school used when they created your account. This will probably be your work email.</p>
+
+      <h4 class="govuk-heading-s">If you are not an early career teacher or mentor</h4>
+      <p class="govuk-body">
+        You will need to <%= govuk_link_to "create an account", users_sign_up_path %> to gain access to the materials
+      </p>
+    </div>
   </div>
 </div>
