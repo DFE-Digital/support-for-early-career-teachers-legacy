@@ -11,8 +11,6 @@
       <li>had started but not yet completed their statutory induction by 1 September 2021</li>
     </ul>
 
-    <%= govuk_start_now_button text: "Start now", href: new_user_session_path %>
-
     <h2 class="govuk-heading-m">Before you start</h2>
     <div style= "background-color: pink">
       <h4 class="govuk-heading-s">Early career teachers and mentors</h4>
@@ -23,5 +21,7 @@
         You will need to <%= govuk_link_to "create an account", users_sign_up_path %> to gain access to the materials
       </p>
     </div>
+
+    <%= govuk_start_now_button text: "Start now", href: new_user_session_path %>
   </div>
 </div>
