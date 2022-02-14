@@ -111,7 +111,8 @@
         "user_type": "early_career_teacher",
         "core_induction_programme": "teach_first",
         "induction_programme_choice": "core_induction_programme",
-        "registration_completed": true
+        "registration_completed": true,
+        "cohort": 2021
       }
     },
     {

@@ -11,6 +11,10 @@ AllCops:
     - 'vendor/**/*'
     - 'db/seeds/cip_*.rb'
 
+Naming/VariableNumber:
+  Exclude:
+    - 'app/services/register_and_partner_api/sync_users.rb'
+
 Style/FrozenStringLiteralComment:
   Enabled: true
 
