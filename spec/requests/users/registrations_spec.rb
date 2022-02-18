@@ -40,7 +40,7 @@ RSpec.describe "Users::Registrations", type: :request do
 
     context "the email is valid and not already used" do
       it "renders a success page and sends an invite email" do
-        expect(UserMailer).to receive(:external_user_welcome_email)
+        expect(UserMailer).to receive(:external_user_welcome_email).and_call_original
         post "/users/sign-up", params: { user: { email: email } }
         expect(response).to render_template(:email_sent)
       end
@@ -74,6 +74,33 @@ RSpec.describe "Users::Registrations", type: :request do
         expect(response).to render_template(:new)
         expect(response.body).to include("Enter a valid email address")
       end
+    end
+  end
+
+  describe "POST /users/confirm-email" do
+    let(:email) { Faker::Internet.email }
+    let(:user) { create(:user, email: email) }
+
+    context "the user exists and has an unexpired token" do
+      let!(:external_user_profile) do
+        create(
+          :external_user_profile,
+          :sent_verification_link,
+          user: user,
+        )
+      end
+
+      it "sets the user as verified, signs them in and renders the email-confirmed page" do
+        get "/users/confirm-email", params: { token: external_user_profile.verification_token }
+        expect(response).to render_template(:email_confirmed)
+        expect(external_user_profile.reload).to be_verified
+      end
+    end
+
+    xcontext "the user doesn't exist for the provided token" do
+    end
+
+    xcontext "the user has an expired token" do
     end
   end
 end

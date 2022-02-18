@@ -1,26 +1,18 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">Support for early career teachers</h1>
-    <p class="govuk-body">Use this service to access Department for Education-accredited training and support materials.</p>
-
-    <p class="govuk-body">This service is for teaching staff at schools in England who:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>are doing the 2-year early career statutory induction programme</li>
-      <li>mentor early career teachers</li>
-      <li>completed their statutory induction in the 2020 to 2021 academic year</li>
-      <li>had started but not yet completed their statutory induction by 1 September 2021</li>
-    </ul>
+    <p class="govuk-body">
+      Use this service to access training and support materials for the Early Career Framework (ECF), accredited by the Department for Education.
+    </p>
 
     <h2 class="govuk-heading-m">Before you start</h2>
-    <div style= "background-color: pink">
-      <h4 class="govuk-heading-s">Early career teachers and mentors</h4>
-      <p class="govuk-body">You’ll need the email address your school registered for you. This will probably be your work email.</p>
+    <h4 class="govuk-heading-s">Early career teachers and mentors</h4>
+    <p class="govuk-body">You’ll need the email address your school registered for you. This will probably be your work email.</p>
 
-      <h4 class="govuk-heading-s">If you are not an early career teacher or mentor</h4>
-      <p class="govuk-body">
-        You'll need to <%= govuk_link_to "create an account", users_sign_up_path %> to access the materials
-      </p>
-    </div>
+    <h4 class="govuk-heading-s">If you're not an early career teacher or mentor</h4>
+    <p class="govuk-body">
+      You'll need to <%= govuk_link_to "create an account", users_sign_up_path %> to access the materials
+    </p>
 
     <%= govuk_start_now_button text: "Start now", href: new_user_session_path %>
   </div>

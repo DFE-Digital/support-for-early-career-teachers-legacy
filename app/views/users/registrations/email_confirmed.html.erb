@@ -1,0 +1,8 @@
+<% content_for :title, "Your account has been created" %>
+<div class="govuk-grid-row" style="background-color: pink">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Your account has been created</h1>
+    <%= govuk_link_to "Continue", home_path(current_user) %>
+  </div>
+</div>
+

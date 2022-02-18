@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get "/users/link-invalid", to: "users/sessions#link_invalid"
     get "/users/sign-up", to: "users/registrations#new"
     post "/users/sign-up", to: "users/registrations#create"
+    get "/users/confirm-email", to: "users/registrations#confirm_email"
   end
 
   get "check" => "application#check"

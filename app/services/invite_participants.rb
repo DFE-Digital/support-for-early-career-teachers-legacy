@@ -16,6 +16,7 @@ class InviteParticipants
 
   def self.create_invite_email_for_user(user)
     if user.external_user?
+      set_token_and_expiry(user)
       return InviteEmailExternalUser.find_or_create_by!(user: user)
     end
 
@@ -26,6 +27,15 @@ class InviteParticipants
     elsif user.early_career_teacher?
       InviteEmailEct.find_or_create_by!(user: user)
     end
+  end
+
+  def self.set_token_and_expiry(user)
+    external_user_profile = user.external_user_profile
+    token_expiry = 60.minutes.from_now
+    external_user_profile.update!(
+      verification_token: SecureRandom.hex(10),
+      verification_expires_at: token_expiry,
+    )
   end
 
   def self.logger
