@@ -57,7 +57,7 @@ class UserMailer < ApplicationMailer
     start_url = Rails.application.routes.url_helpers.users_confirm_email_url(
       host: Rails.application.config.domain,
       token: token,
-      **UtmService.email(:new_external_user)
+      **UtmService.email(:new_external_user),
     )
     template_mail(
       EXTERNAL_USER_WELCOME_TEMPLATE,

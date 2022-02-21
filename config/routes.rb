@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get "check" => "application#check"
   get "healthcheck" => "healthcheck#check"
 
+  get "/home", to: "external_users_home#show", as: :external_users_home
+
   resource :csp_reports, only: %i[create]
   resource :cookies, only: %i[show update]
   resource :privacy_policy, only: %i[show], path: "privacy-policy"

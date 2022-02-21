@@ -13,6 +13,9 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     if user_requires_magic_link(resource)
+      if resource.external_user_profile.present? && !resource.external_user_profile.verified?
+        # TODO
+      end
       send_magic_link(resource)
       render :login_email_sent
     else
@@ -61,6 +64,12 @@ private
     return false if environment_allows_test_users && user_is_test_user
 
     true
+  end
+
+  def user_is_verified(user)
+    return true if user.external_user_profile.blank?
+
+    user.external_user_profile.verified?
   end
 
   def validate_email

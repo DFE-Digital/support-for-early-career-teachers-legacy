@@ -7,7 +7,7 @@ class UtmService
     new_nqt_plus_one: "new-nqt-plus-one",
     sign_in: "sign-in",
     mentor_sign_in_reminder: "mentor-sign-in-reminder",
-    new_external_user: "new-external-user"
+    new_external_user: "new-external-user",
   }.freeze
 
   def self.email(campaign)

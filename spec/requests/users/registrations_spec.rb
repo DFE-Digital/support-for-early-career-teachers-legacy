@@ -26,10 +26,10 @@ RSpec.describe "Users::Registrations", type: :request do
       context "user is an external user" do
         let(:user) { create(:user, :external_user) }
 
-        it "redirects to the cip index path" do
+        it "redirects to the external users home path" do
           get "/users/sign-up"
 
-          expect(response).to redirect_to "/providers"
+          expect(response).to redirect_to "/home"
         end
       end
     end

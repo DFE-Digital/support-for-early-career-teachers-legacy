@@ -80,7 +80,7 @@
         <div class="govuk-header__content">
           <%= govuk_link_to(
             "Support for early career teachers",
-            current_user ? dashboard_path : "/",
+            current_user ? home_path(current_user) : "/",
             class: "govuk-header__link govuk-header__link--service-name",
             "data-test": "service-name") %>
 

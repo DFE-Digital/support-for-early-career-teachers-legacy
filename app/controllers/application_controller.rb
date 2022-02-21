@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def default_path(user)
     if user.external_user?
-      cip_index_path
+      external_users_home_path
     else
       dashboard_path
     end
