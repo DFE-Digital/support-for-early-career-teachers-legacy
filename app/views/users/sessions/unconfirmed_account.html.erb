@@ -11,7 +11,7 @@
   </div>
 </div>
 
-We've sent you a link to confirm your email address.
+<p>We've sent you a link to confirm your email address.</p>
 
 <h3 class="govuk-heading-m">If you did not get an email</h3>
 <p>Check your spam or junk folder.</p>
@@ -24,8 +24,9 @@ You need to request another email with a new link.
   <%=
     f.govuk_text_field :email,
       type: "hidden",
-      value: @user.email
+      value: @user.email,
+      label: { text: "" }
     %>
 
-  <%= f.govuk_submit %>
+  <%= f.govuk_submit "Send new email" %>
 <% end %>

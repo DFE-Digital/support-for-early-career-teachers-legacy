@@ -25,7 +25,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @external_user_profile = ExternalUserProfile.find_by(verification_token: params[:token])
 
     if @external_user_profile.verification_token_expired?
-      # TODO
+      @user = @external_user_profile.user
+      render :link_expired
     else
       set_user_as_verified
       sign_in_user

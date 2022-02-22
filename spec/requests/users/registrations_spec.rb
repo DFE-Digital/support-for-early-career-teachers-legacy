@@ -110,7 +110,19 @@ RSpec.describe "Users::Registrations", type: :request do
       end
     end
 
-    xcontext "the user has an expired token" do
+    context "the user has an expired token" do
+      let!(:external_user_profile) do
+        create(
+          :external_user_profile,
+          :expired_verification_link,
+          user: user,
+        )
+      end
+
+      it "renders the link_expired page" do
+        get "/users/confirm-email", params: { token: external_user_profile.verification_token }
+        expect(response).to render_template(:link_expired)
+      end
     end
   end
 end
