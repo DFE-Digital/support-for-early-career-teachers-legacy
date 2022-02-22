@@ -150,6 +150,28 @@ RSpec.describe "Users::Sessions", type: :request do
       end
     end
 
+    context "when an external user is trying to log in" do
+      let(:external_user) { create(:user, :external_user) }
+
+      context "and they are verified" do
+        before do
+          external_user.external_user_profile.update!(verified: true)
+        end
+
+        it "redirects to the external user home" do
+          post "/users/sign_in", params: { user: { email: external_user.email } }
+          expect(response).to redirect_to "/home"
+        end
+      end
+
+      context "and they are not verified" do
+        it "renders the unconfirmed email template" do
+          post "/users/sign_in", params: { user: { email: external_user.email } }
+          expect(response).to render_template(:unconfirmed_account)
+        end
+      end
+    end
+
     context "when a mentor is trying to log in" do
       let(:mentor) { create(:user, :mentor) }
 

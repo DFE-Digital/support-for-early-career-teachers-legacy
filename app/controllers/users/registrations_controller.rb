@@ -6,15 +6,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    @external_user_profile = ExternalUserProfile.new
-    @user = User.new(email: params.dig(:user, :email))
+    @user = User.find_or_initialize_by(email: params.dig(:user, :email))
+    @external_user_profile = @user.external_user_profile || ExternalUserProfile.new
 
-    if create_user
-      render :email_sent
-    elsif email_taken?
+    if email_taken?
       # TODO
       send_magic_link(existing_user)
       render :email_already_exists
+    elsif create_user
+      render :email_sent
     else
       @external_user_profile.errors.merge!(@user)
       render :new
@@ -34,7 +34,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def email_taken?
-    existing_user.present?
+    existing_user.present? && existing_user.external_user_profile.blank?
   end
 
   def existing_user

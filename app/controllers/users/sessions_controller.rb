@@ -12,10 +12,13 @@ class Users::SessionsController < Devise::SessionsController
       render :new and return
     end
 
+    if resource.external_user_profile.present? && !resource.external_user_profile.verified?
+      render :unconfirmed_account
+      @user = resource
+      return
+    end
+
     if user_requires_magic_link(resource)
-      if resource.external_user_profile.present? && !resource.external_user_profile.verified?
-        # TODO
-      end
       send_magic_link(resource)
       render :login_email_sent
     else
