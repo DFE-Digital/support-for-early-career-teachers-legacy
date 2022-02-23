@@ -35,7 +35,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def email_taken?
-    existing_user.present? && existing_user.external_user_profile.blank?
+    existing_user.present? && !(existing_user.external_user_profile.present? && !existing_user.external_user_profile.verified?)
   end
 
   def existing_user

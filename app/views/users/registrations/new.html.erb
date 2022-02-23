@@ -2,6 +2,8 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Create an account</h1>
     <%= form_for @user, url: users_sign_up_path do |f| %>
+      <%= f.govuk_error_summary %>
+
       <%=
         f.govuk_text_field :email,
           label: -> { tag.h3("Email address", class: "govuk-heading-m") },

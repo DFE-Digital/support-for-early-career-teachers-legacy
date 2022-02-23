@@ -58,10 +58,23 @@ RSpec.describe "Users::Registrations", type: :request do
       end
     end
 
+    context "the email is used by a verified external user" do
+      before do
+        user = create(:user, email: email)
+        create(:external_user_profile, user: user, verified: true)
+      end
+
+      it "renders a message telling the user it is in use and sends a sign in email" do
+        expect(UserMailer).to receive(:sign_in_email).and_call_original
+        post "/users/sign-up", params: { user: { email: email } }
+        expect(response).to render_template(:email_already_exists)
+      end
+    end
+
     context "an unverified account already exists" do
       before do
         user = create(:user, email: email)
-        create(:external_user_profile, user: user)
+        create(:external_user_profile, user: user, verified: false)
       end
 
       it "it resends the link" do
