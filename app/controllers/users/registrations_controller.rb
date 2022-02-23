@@ -10,7 +10,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @external_user_profile = @user.external_user_profile || ExternalUserProfile.new
 
     if email_taken?
-      # TODO
       send_magic_link(existing_user)
       render :email_already_exists
     elsif create_user
