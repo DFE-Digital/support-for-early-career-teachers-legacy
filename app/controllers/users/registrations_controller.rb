@@ -10,8 +10,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @external_user_profile = @user.external_user_profile || ExternalUserProfile.new
 
     if email_taken?
-      send_magic_link(existing_user)
-      render :email_already_exists
+      if account_can_sign_in?
+        send_magic_link(existing_user)
+        render :email_already_exists
+      else
+        self.resource = @user
+        render :"users/sessions/new"
+      end
     elsif create_user
       render :email_sent
     else
@@ -67,5 +72,34 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def stream_login_to_bigquery(user)
     StreamBigqueryUserLoginJob.perform_later(user)
+  end
+
+  def account_can_sign_in?
+    # external user must be verified to get to this point
+    return true if existing_user.external_user_profile.present? || user_already_accessed_the_service?
+
+    validity = true
+
+    unless @user.is_cip_participant?
+      @user.errors.add :induction_programme_choice, "Please go to your provider's system to access your training materials"
+      validity = false
+    end
+
+    unless @user.core_induction_programme
+      @user.errors.add :induction_programme_choice, "Your school has not selected a core induction programme for you, contact your school induction coordinator"
+      validity = false
+    end
+
+    unless @user.registered_participant?
+      @user.errors.add :email, "Please complete your registration"
+      validity = false
+    end
+
+    validity
+  end
+
+  def user_already_accessed_the_service?
+    InviteEmailMentor.where.not(sent_at: nil).find_by(user: @user.id).present? ||
+      InviteEmailEct.where.not(sent_at: nil).find_by(user: @user.id).present?
   end
 end
