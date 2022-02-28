@@ -21,6 +21,11 @@ Style/FrozenStringLiteralComment:
 Layout/EndOfLine:
   EnforcedStyle: lf
 
+Rails/SaveBang:
+  Exclude:
+    - app/controllers/users/registrations_controller.rb
+
+
 Rails/UnknownEnv:
   Environments:
     - production

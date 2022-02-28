@@ -11,7 +11,7 @@ class CoreInductionProgrammePolicy < ApplicationPolicy
   end
 
   def index?
-    admin_only
+    admin_only || external_user
   end
 
   def show?
@@ -29,7 +29,7 @@ class CoreInductionProgrammePolicy < ApplicationPolicy
 private
 
   def has_access_to_cip?(user, cip)
-    return true if admin_only
+    return true if admin_only || external_user
 
     user && (user.core_induction_programme == cip)
   end

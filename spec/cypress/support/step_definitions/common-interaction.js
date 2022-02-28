@@ -62,7 +62,7 @@ When("I click on {string}", (element) => {
 });
 
 When("I click on {string} containing {string}", (element, containing) => {
-  get(element).contains(containing).click();
+  get(element, { timeout: 10000 }).contains(containing).click();
 });
 
 When("I click on {string} label", (text) => {

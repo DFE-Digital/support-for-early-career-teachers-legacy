@@ -1,18 +1,24 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, skip: :registrations, controllers: {
+  devise_for :users, controllers: {
     sessions: "users/sessions",
+    registrations: "users/registrations",
   }
   devise_scope :user do
     get "/users/confirm-sign-in", to: "users/sessions#redirect_from_magic_link"
     post "/users/sign-in-with-token", to: "users/sessions#sign_in_with_token"
     get "/users/signed-out", to: "users/sessions#signed_out"
     get "/users/link-invalid", to: "users/sessions#link_invalid"
+    get "/users/sign-up", to: "users/registrations#new"
+    post "/users/sign-up", to: "users/registrations#create"
+    get "/users/confirm-email", to: "users/registrations#confirm_email"
   end
 
   get "check" => "application#check"
   get "healthcheck" => "healthcheck#check"
+
+  get "/home", to: "external_users_home#show", as: :external_users_home
 
   resource :csp_reports, only: %i[create]
   resource :cookies, only: %i[show update]

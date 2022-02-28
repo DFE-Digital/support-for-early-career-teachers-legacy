@@ -1,0 +1,18 @@
+<% content_for :title, "Check your email" %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Check your email</h1>
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        An account has already been registered with that email address.
+      </strong>
+    </div>
+    <p>We’ve emailed you a link to access that account.</p>
+    <p>
+      If you do not receive the link, check your spam or junk folder.
+      If it’s not there, contact us for help:</br>  <%= render MailToSupportComponent.new %>
+    </p>
+  </div>
+</div>

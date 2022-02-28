@@ -21,7 +21,7 @@
               <p>No ECT summary</p>
             <% end %>
 
-          <% elsif current_user.mentor? %>
+          <% elsif current_user.mentor? || current_user.external_user? %>
             <%= render GovspeakComponent.new(content: course_module.mentor_summary) %>
           <% else %>
             <%= render GovspeakComponent.new(content: course_module.ect_summary) %>

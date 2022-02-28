@@ -9,7 +9,7 @@ class MentorMaterialPolicy < CoreInductionProgrammePolicy
   def show?
     return false unless has_access_to_cip?(@user, @material.core_induction_programme)
 
-    @user&.mentor? || @user&.admin?
+    @user&.mentor? || @user&.admin? || @user&.external_user?
   end
 
   def update?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_101736) do
+ActiveRecord::Schema.define(version: 2022_02_18_105019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -148,6 +148,16 @@ ActiveRecord::Schema.define(version: 2021_08_19_101736) do
     t.index ["user_id"], name: "index_early_career_teacher_profiles_on_user_id"
   end
 
+  create_table "external_user_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "verification_token"
+    t.datetime "verification_expires_at"
+    t.boolean "verified", default: false
+    t.index ["user_id"], name: "index_external_user_profiles_on_user_id"
+  end
+
   create_table "induction_coordinator_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -204,7 +214,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_101736) do
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "full_name", null: false
+    t.string "full_name"
     t.string "email", default: "", null: false
     t.datetime "last_sign_in_at"
     t.datetime "current_sign_in_at"
@@ -236,6 +246,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_101736) do
   add_foreign_key "early_career_teacher_profiles", "cohorts"
   add_foreign_key "early_career_teacher_profiles", "core_induction_programmes"
   add_foreign_key "early_career_teacher_profiles", "users"
+  add_foreign_key "external_user_profiles", "users"
   add_foreign_key "induction_coordinator_profiles", "users"
   add_foreign_key "mentor_material_parts", "mentor_material_parts", column: "previous_mentor_material_part_id"
   add_foreign_key "mentor_material_parts", "mentor_materials"

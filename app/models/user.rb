@@ -11,10 +11,15 @@ class User < ApplicationRecord
 
   has_one :mentor_profile
 
+  has_one :external_user_profile
+
   has_one :cip_change_message
 
-  validates :full_name, presence: { message: "Enter your full name" }
   validates :email, presence: true, uniqueness: true, format: { with: Devise.email_regexp }
+
+  def external_user?
+    external_user_profile.present?
+  end
 
   def admin?
     admin_profile.present?

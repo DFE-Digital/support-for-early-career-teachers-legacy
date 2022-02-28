@@ -1,0 +1,32 @@
+<h1 class="govuk-heading-xl">Check your email</h1>
+
+<div class="govuk-error-summary" tabindex="-1" role="alert" aria-labelledby="error-summary-title">
+  <h2 id="error-summary-title">There’s a problem</h2>
+  <div class="govuk-error-summary__body">
+    <ul class="govuk-list govuk-error-summary__list">
+      <li>
+        You must confirm your email address before continuing
+      </li>
+    </ul>
+  </div>
+</div>
+
+<p>We've sent you a link to confirm your email address.</p>
+
+<h3 class="govuk-heading-m">If you did not get an email</h3>
+<p>Check your spam or junk folder.</p>
+
+<h3 class="govuk-heading-m">If your confirmation link has expired</h3>
+
+You need to request another email with a new link.
+
+<%= form_for @user, url: users_sign_up_path, method: :post do |f| %>
+  <%=
+    f.govuk_text_field :email,
+      type: "hidden",
+      value: @user.email,
+      label: { text: "" }
+    %>
+
+  <%= f.govuk_submit "Send new email" %>
+<% end %>

@@ -36,5 +36,9 @@ FactoryBot.define do
     trait :mentor do
       mentor_profile { build(:mentor_profile) }
     end
+
+    trait :external_user do
+      external_user_profile { build(:external_user_profile) }
+    end
   end
 end

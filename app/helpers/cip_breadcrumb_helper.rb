@@ -51,7 +51,7 @@ module CipBreadcrumbHelper
 private
 
   def home_crumb(user)
-    ["Home", user ? dashboard_path : cip_path]
+    ["Home", home_path(user)]
   end
 
   def course_year_crumb(year, user)

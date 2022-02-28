@@ -1,0 +1,15 @@
+<h1 class="govuk-heading-xl">Error: This link has expired</h1>
+
+<p>You need to request another email with a new link.</p>
+
+<%= form_for @user, url: users_sign_up_path, method: :post do |f| %>
+  <%=
+    f.govuk_text_field :email,
+      type: "hidden",
+      value: @user.email,
+      label: { text: "" }
+    %>
+
+  <%= f.govuk_submit "Send new email" %>
+<% end %>
+

@@ -15,10 +15,22 @@ RSpec.describe "Users::Sessions", type: :request do
     context "when already signed in" do
       before { sign_in user }
 
-      it "redirects to the dashboard" do
-        get "/users/sign_in"
+      context "user is not an external user" do
+        it "redirects to the dashboard" do
+          get "/users/sign_in"
 
-        expect(response).to redirect_to "/dashboard"
+          expect(response).to redirect_to "/dashboard"
+        end
+      end
+
+      context "user is an external user" do
+        let(:user) { create(:user, :external_user) }
+
+        it "redirects to the external users home path" do
+          get "/users/sign_in"
+
+          expect(response).to redirect_to "/home"
+        end
       end
     end
   end
@@ -134,6 +146,28 @@ RSpec.describe "Users::Sessions", type: :request do
           ect.early_career_teacher_profile.not_yet_known!
           post "/users/sign_in", params: { user: { email: ect.email } }
           expect(ect.reload.last_sign_in_at).to be_nil
+        end
+      end
+    end
+
+    context "when an external user is trying to log in" do
+      let(:external_user) { create(:user, :external_user) }
+
+      context "and they are verified" do
+        before do
+          external_user.external_user_profile.update!(verified: true)
+        end
+
+        it "redirects to the external user home" do
+          post "/users/sign_in", params: { user: { email: external_user.email } }
+          expect(response).to redirect_to "/home"
+        end
+      end
+
+      context "and they are not verified" do
+        it "renders the unconfirmed email template" do
+          post "/users/sign_in", params: { user: { email: external_user.email } }
+          expect(response).to render_template(:unconfirmed_account)
         end
       end
     end

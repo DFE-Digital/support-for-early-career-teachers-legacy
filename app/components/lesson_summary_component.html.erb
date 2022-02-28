@@ -25,7 +25,7 @@
   <% if @lesson.mentor_summary %>
     <%= render GovspeakComponent.new(content: @lesson.mentor_summary) %>
   <% end %>
-<% elsif @user.mentor? %>
+<% elsif @user.mentor? || @user.external_user? %>
   <%= render GovspeakComponent.new(content: @lesson.mentor_summary) %>
 <% else %>
   <%= render GovspeakComponent.new(content: @lesson.ect_summary) %>
