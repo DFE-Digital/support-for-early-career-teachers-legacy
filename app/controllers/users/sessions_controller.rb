@@ -100,7 +100,7 @@ private
 
     if user.blank?
       user = User.new
-      user.errors.add :email, "Enter the email address your school used when they registered your account"
+      user.errors.add :email, "Enter the email address your school registered for you"
     end
 
     return user unless user.participant?
