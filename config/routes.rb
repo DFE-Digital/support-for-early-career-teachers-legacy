@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
+class SecondaryDomain
+  def self.matches?(request)
+    request.host.present? && request.host == Rails.application.config.redirect_domain
+  end
+end
+
 Rails.application.routes.draw do
-  unless Rails.application.config.redirect_domain.nil?
+  constraints(SecondaryDomain) do
     match "/(*path)",
         to: redirect { |path_params, request| "https://#{Rails.application.config.domain}/" },
-        status: 301,
-        via: [:get, :post],
-        constraints: { domain: Rails.application.config.redirect_domain }
+        status: 307,
+        via: [:get, :post]
   end
 
   devise_for :users, controllers: {
