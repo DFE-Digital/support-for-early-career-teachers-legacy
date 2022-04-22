@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  if Rails.application.config.redirect_domain
+    get '/(*path)',
+        to: redirect { |path_params, _request| "https://#{Rails.application.config.domain}/#{path_params[:path]}" },
+        status: 307,
+        constraints: {
+          domain: Rails.application.config.redirect_domain,
+        }
+  end
+
   devise_for :users, controllers: {
     sessions: "users/sessions",
     registrations: "users/registrations",
