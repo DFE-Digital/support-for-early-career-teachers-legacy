@@ -9,7 +9,7 @@ end
 Rails.application.routes.draw do
   constraints(SecondaryDomain) do
     match "/(*path)",
-        to: redirect { |path_params, request| "https://#{Rails.application.config.domain}/" },
+        to: redirect { |_path_params, _request| "https://#{Rails.application.config.domain}/" },
         status: 307,
         via: [:get, :post]
   end
