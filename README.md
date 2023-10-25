@@ -1,3 +1,5 @@
+**This application has been superseded by [a static website](https://github.com/DFE-Digital/support-for-early-career-teachers)**
+
 ![Tests](https://github.com/DFE-Digital/ecf-engage-and-learn/workflows/Test/badge.svg)
 
 # Engage and Learn
