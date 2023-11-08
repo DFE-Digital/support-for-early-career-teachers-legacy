@@ -57,6 +57,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :delayed_job
   # config.active_job.queue_name_prefix = "govuk_rails_boilerplate_production"
   config.domain = ENV["DOMAIN"]
+  config.redirect_domain = "www.early-career-framework.education.gov.uk"
   config.gias_api_root = ENV["GIAS_API_ROOT"]
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :notify

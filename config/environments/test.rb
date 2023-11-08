@@ -47,6 +47,7 @@ Rails.application.configure do
     from: "mail@example.com",
   }
   config.domain = "www.example.com"
+  config.redirect_domain = "www.nero.example.com"
   config.gias_api_root = "https://ea-edubase-api-prod.azurewebsites.net"
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
